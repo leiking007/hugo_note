@@ -1,0 +1,56 @@
+html {
+    font-size: $global-font-size;
+    box-sizing: border-box;
+    scroll-padding-top: 60px;
+}
+
+body {
+    font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+a {
+    color: $global-font-color;
+    text-decoration: none;
+}
+
+a:hover {
+    color:#50bfff;
+}
+
+.mt-6{
+    padding-top: 4em!important;
+}
+
+.mt-7{
+    padding-top: 5em!important;
+}
+
+#main{
+    min-height: 80vh;
+}
+
+.fs-7{
+    font-size: 0.8rem!important;
+}
+
+.card:hover{
+    transform: scale(1.01);
+    transition: transform .6s;
+}
+
+::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(160, 160, 160, 0.25);
+    border-radius: 2em;
+}
+
+::-webkit-scrollbar-track {
+    background: 0 0;
+    border-radius: 2em;
+}
+

@@ -1,0 +1,42 @@
+.terms-tags {
+    text-align: center;
+}
+.terms-tags li {
+    display: inline-block;
+    margin: 6px;
+    font-weight: 500;
+}
+
+.terms-tags a {
+    display: block;
+    padding: 3px 10px;
+    background: none;
+    transition: transform 0.5s;
+}
+.terms-tags a:hover {
+    background: none;
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+}
+.terms-tags a:active {
+    background: none;
+    transform: scale(0.96);
+}
+
+
+.dark .terms-tags a {
+    background: none;
+}
+
+.dark .terms-tags a:hover {
+    background: none;
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.3);
+}
+
+
+

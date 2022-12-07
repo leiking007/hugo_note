@@ -1,0 +1,19 @@
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<title>Page Title</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<link rel='stylesheet' type='text/css' href='/lib/bootstrap/bootstrap.min.css'>
+<link rel="stylesheet" type='text/css' href="/lib/bootstrap/bootstrap-icons.css">
+<script src='/lib/bootstrap/bootstrap.bundle.min.js'></script>
+
+
+<!--  main style -->
+{{ $style := resources.Get "sass/main.scss" | toCSS | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
+<!-- End -->
+
+<!-- main js -->
+{{ $jsTemplate := resources.Get "js/main.js" }}
+{{ $secureJS := $jsTemplate | resources.ExecuteAsTemplate "js/main.js" . | fingerprint }}
+<script type="text/javascript" src="{{ $secureJS.RelPermalink }}" integrity="{{ $secureJS.Data.Integrity }}" crossorigin="anonymous"></script>
+<!-- End -->
+

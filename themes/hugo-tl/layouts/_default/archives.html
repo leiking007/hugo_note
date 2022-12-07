@@ -1,0 +1,46 @@
+{{ define "main" }}
+<div class="row p-3 justify-content-center">
+    <div class="col-md-8">
+        <main>
+            <article>
+                <header>
+                    <h1>{{.Title}}</h1>
+                </header>
+                {{.Content}}
+            </article>
+
+            {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+            {{- if .Site.Params.ShowAllPagesInArchive }}
+            {{- $pages = site.RegularPages }}
+            {{- end }}
+
+            {{- range $pages.GroupByPublishDate "2006" }}
+            {{- if ne .Key "0001" }}
+            <div class="card p-2 mt-4 ps-4">
+                <h5 class="card-title">{{- .Key -}}</h5>
+                <div class="card-body border-start">
+                    {{- range .Pages.GroupByDate "01" }}
+                    {{- range .Pages }}
+                    {{- if eq .Kind "page" }}
+                    <article class="p-1">
+                        <time class="d-block">{{.Date.Format (default "January 2, 2006"
+                            .Site.Params.DateFormat)}}</time>
+                        <a href="{{ .Permalink }}" class="fs-3 text-dark">{{- .Title }}</a><span
+                            class="ms-2 fs-6 fw-lighter fst-italic">{{ .ReadingTime }}分钟</span>
+                        <p class="d-flex">
+                            {{- range .Params.tags }}
+                            <a class="fs-6 text-dark border p-1 me-2 rounded-3" href='{{- "tags/" | absURL -}}{{ . | urlize }}'>{{ .}}</a>
+                            {{- end }}
+                        </p>
+                    </article>
+                    {{- end }}
+                    {{- end }}
+                    {{- end }}
+                </div>
+            </div>
+            {{- end }}
+            {{- end }}
+        </main>
+    </div>
+</div>
+{{ end }}

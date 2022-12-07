@@ -1,0 +1,36 @@
+{{ define "main" }}
+
+<div align="center">
+    <h1 class="p-2">页面不见了
+        <i class="bi bi-emoji-neutral-fill"></i>
+        <i class="bi bi-emoji-neutral-fill"></i>
+        <i class="bi bi-emoji-neutral-fill"></i></h1>
+    <div id="catch-the-cat"></div>
+</div>
+<div class="style6" align="center" style="width: 100%;height: 64%;">
+    <p id="time" class="style7">0</p>
+    <div id="loadad"></div>
+</div>
+
+<script src="/lib/catchcat/phaser.min.js"></script>
+<script src="/lib/catchcat/m.js"></script>
+<script src="/lib/catchcat/catch-the-cat.js"></script>
+<script>
+    var myVar = setInterval(myTimer, 1000);
+    var time = 0;
+    function myTimer() {
+        time += 1;
+        document.getElementById("time").innerHTML = time;
+    }
+    window.game = new CatchTheCatGame({
+        w: 11,
+        h: 11,
+        r: 20,
+        backgroundColor: 16777215,
+        parent: "catch-the-cat",
+        statusBarAlign: "center",
+        credit: "圈小猫"
+    })
+</script>
+
+{{ end }}

@@ -1,0 +1,66 @@
+baseURL: http://139.155.239.250/
+title: Note
+theme: hugo-tl
+defaultContentLanguage: zh-cn
+languageCode: zh-cn
+
+copyright: copyright@
+
+enableEmoji: true
+hasCJKLanguage: true
+
+paginate: 3
+
+menu:
+  main:
+  - identifier: archives
+    name: 归档
+    pre: <i class="bi bi-archive"></i>
+    url: /archives/
+    weight: -70
+  - identifier: tags
+    name: 标签
+    pre: <i class="bi bi-tags"></i>
+    url: /tags/
+    weight: -60
+  - identifier: about
+    name: 关于
+    pre: <i class="bi bi-yin-yang"></i>
+    url: /about/
+    weight: -50
+  
+
+params:
+  AuthorName: lei
+  GitHubUser: spf13
+  subtitle: "每天八杯水"
+  dateFormat : 2006-01-02
+  enableCat: true
+
+markup:
+    defaultMarkdownHandler: goldmark
+    # parser:
+    #   attribute:
+    #     block: true
+    #     title: true
+    #   autoHeadingID: true
+    #   autoHeadingIDType: github
+    goldmark:
+        renderer:
+            unsafe: true
+    # https://xyproto.github.io/splash/docs/
+    highlight:
+        anchorLineNos: false
+        codeFences: true
+        guessSyntax: true
+        lineNoStart: 1
+        lineNos: true
+        lineNumbersInTable: false
+        noClasses: true
+        noHl: false
+        style: github
+        # style: native
+        tabWidth: 2
+    tableOfContents:
+        endLevel: 3
+        startLevel: 1

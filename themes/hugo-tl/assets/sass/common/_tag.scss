@@ -1,0 +1,16 @@
+/* 标签云 */
+.tags-cloud{
+    display: flex;  //布局方式
+    flex-direction: row;   //主轴方向
+    flex-wrap: wrap;  //如何换行
+    justify-content: center;  //主轴上元素如何对齐
+    align-items: center;  //次轴上元素如何对齐
+    a {
+        display: inline-block;
+        margin: 20px 10px;
+        word-wrap: break-word;
+        transition-duration: 0.75s;
+        transition-property: transform;
+        transition-timing-function: ease-out;
+    }
+}
