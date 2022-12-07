@@ -1,12 +1,32 @@
 ---
-title: "Linux的一些东西"
-date: 2021-11-01
-lastmod: 2021-11-11 12:12:12
+title: "Linux"
+date: 2022-12-07
+lastmod: 2022-12-07 12:12:12
 draft: false
-tags: ['Linux']
+tags: ['Linux','服务器']
 categories: ["后端"]
 author: "lei"
 ---
+
+# 系统管理
+
+
+
+# 磁盘管理
+
+
+
+# 文本处理
+
+
+
+# 文件与权限
+
+
+
+# 文件管理
+
+
 
 # Centos
 
@@ -148,6 +168,5 @@ ufw reload
 #-L 表示查看当前表的所有规则，默认查看的是 filter 表
 #如果要查看 nat 表，可以加上 -t nat 参数
 iptables -L
-
 ```
 
