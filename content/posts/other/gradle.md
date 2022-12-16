@@ -11,7 +11,7 @@ draft: false
 
 ## 入门
 
-gradle是2012年谷歌推出的基于Groovy语言的全新项目构建工具，集合了Ant和Maven各自优势
+gradle是2012年谷歌推出的基于Groovy语言的全新项目`构建工具`，集合了Ant和Maven各自优势
 
 **优点：**脚本灵活、约定大于配置的项目目录优势、支持多种远程仓库和插件，侧重于大项目的构建
 
@@ -73,4 +73,46 @@ gradle是2012年谷歌推出的基于Groovy语言的全新项目构建工具，�
    OS:           Windows 10 10.0 amd64
    ```
 
-   
+5. 配置gradle本地缓存目录（环境变量）
+
+   ```bash
+   GRADLE_USER_HOME
+   F:\study\soft\apache\.gradle
+   ```
+
+6. 配置镜像源，在安装目录\init.d\ 下创建`init.gradle`
+
+   ```groovy
+   allprojects {
+       repositories {
+           maven {
+               url 'https://maven.aliyun.com/repository/public/'
+           }
+           mavenLocal()
+           mavenCentral()
+       }
+   }
+   ```
+
+## GradleWrapper
+
+Gradle-Wrapper 是简化 Gardle 的安装和部署，出发点是让任意的gradle的项⽬都不需要单独安
+装环境，项⽬会⾃动识别有⽆环境，如果在本地没有找到与 wrapper.properties 版本相同的 Gar
+dle ，IDEA就会帮你下载⼀个 gradle 环境
+
+在项目的 gradle 目录下，可以看到Wrapper文件
+
+```properties
+# distributionBase和distributionPath是配合使⽤，指定gradle解压后的存放位置
+# GRADLE_USER_HOME表示⽤户⽬录，
+# windows系统：c:\window\<user-name>\.gradle\
+# linux是$HOME/.gradle
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+# 指定某个版本gradle下载地址
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.8-bin.zip
+# zipStoreBase和zipStorePath配合使⽤，指定下载gradle.zip存放位置；
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+```
+
