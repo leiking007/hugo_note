@@ -106,7 +106,7 @@ TypeScript 主要有 3 大特点：
 - 如果 ts 文件中包含 ts 特有语法，浏览器执行报错
 - ts 编译为js代码后，let 修饰的变量会变为 var 修饰
 
-## vscode 中自动编译 TS 文件
+## vscode 中自动编译
 
 1. 使用命令生成配置文件`tsconfig.json`
 
@@ -207,3 +207,165 @@ sayHello 函数入参，使用了类型注解，此时如果调用时传入函�
 ```
 
 **总结**：查看编译后的js文件，可以看到看到 TypeScript 里的类只是一个语法糖，本质上还是 JavaScript 函数的实现
+
+# 使用webpack打包TS
+
+## 目录结构
+
+```tex
+-- build
+    -- webpack.config.js
+-- public
+    -- index.html
+-- src
+    -- main.ts
+-- package.json
+-- tsconfig.json
+```
+
+## package.json
+
+```json
+{
+  "name": "webpackts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.ts",
+  "scripts": {
+      // 打包命令
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.js"
+  },
+  "author": "lei",
+  "license": "ISC",
+  "dependencies": {
+      // 清除打包目录的文件
+    "clean-webpack-plugin": "^4.0.0",
+      // 运行跨平台设置和使用环境变量的脚本
+    "cross-env": "^7.0.3",
+      // webpack打包相关插件
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+      // 本地开发服务器，会自动监听变化，自动打包构建，自动更新刷新浏览器
+    "webpack-dev-server": "^4.11.1",
+      // webpack 的 TypeScript 加载器
+    "ts-loader": "^9.4.2",
+      // TS
+    "typescript": "^4.9.4",
+  }
+}
+```
+
+安装依赖
+
+```bash
+npm install
+```
+
+
+
+## webpack.config.js
+
+```js
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
+
+const isProd = process.env.NODE_ENV === 'production' // 是否生产环境
+
+function resolve(dir) {
+    return path.resolve(__dirname, '..', dir)
+}
+
+module.exports = {
+    mode: isProd ? 'production' : 'development',
+    entry: {
+        // 入口文件
+        app: './src/main.ts'
+    },
+
+    output: {
+        // 打包文件的输出位置
+        path: resolve('dist'),
+        // 打包后的js文件名，name + 8位数的hash
+        filename: '[name].[contenthash:8].js'
+    },
+
+    // 需要打包的文件
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                include: [resolve('src')]
+            }
+        ]
+    },
+
+    plugins: [
+        // 打包时自动清楚以前的文件
+        new CleanWebpackPlugin({
+        }),
+
+        // html模板
+        new HtmlWebpackPlugin({
+            template: './public/index.html'
+        })
+    ],
+
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js']
+    },
+
+    devtool: isProd ? 'cheap-module-source-map' : 'cheap-module-eval-source-map',
+
+    // 开发服务器
+    devServer: {
+        host: 'localhost', // 主机名
+        stats: 'errors-only', // 打包日志输出输出错误信息
+        port: 8081,
+        open: true
+    },
+}
+```
+
+## index.html
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>webpack & TS</title>
+</head>
+<body>
+  
+</body>
+</html>
+```
+
+## 测试
+
+运行命令进行打包
+
+```bash
+npm run build
+```
+
+查看dist目录下的打包结束文件
+
+```tex
+app.4ce9c63a.js
+app.4ce9c63a.js.map
+index.html
+```
+
+其中 index.html 中自动引入了打包后的 js 文件，js文件命名方式为：name + 8位hash
+
+# 常用语法
+
+
+
