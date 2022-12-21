@@ -207,3 +207,229 @@ sayHello 函数入参，使用了类型注解，此时如果调用时传入函�
 ```
 
 **总结**：查看编译后的js文件，可以看到看到 TypeScript 里的类只是一个语法糖，本质上还是 JavaScript 函数的实现
+
+# 常用语法
+
+## 数据类型
+
+TypeScript 支持与 JavaScript 几乎相同的数据类型
+
+**布尔值**
+
+最基本的数据类型就是简单的 true/false 值，在JavaScript 和 TypeScript 里叫做 `boolean`
+
+```typescript
+let isDone: boolean = false;
+isDone = true;
+// isDone = 2 // error
+```
+
+**数字**
+
+和 JavaScript 一样，TypeScript 里的所有数字都是浮点数。 这些浮点数的类型是 number。
+
+```typescript
+let a1: number = 10 // 十进制
+let a2: number = 0b1010  // 二进制
+let a3: number = 0o12 // 八进制
+let a4: number = 0xa // 十六进制
+```
+
+**字符串**
+
+ 和 JavaScript 一样，可以使用双引号（`"`）或单引号（`'`）表示字符串
+
+```typescript
+let name:string = 'tom'
+name = 'jack'
+// name = 12 // error
+let age:number = 12
+const info = `My name is ${name}, I am ${age} years old!`
+```
+
+**undefined 和 null**
+
+TypeScript 里，`undefined` 和 `null` 两者各自有自己的类型分别叫做 `undefined` 和 `null`；默认情况下 `null` 和 `undefined` 是所有类型的子类型。 就是说你可以把 `null` 和 `undefined` 赋值给 `number` 类型的变量
+
+```typescript
+let num1: number = 1
+num1 = undefined  // 取消严格模式检测
+let u: undefined = undefined
+let n: null = null
+```
+
+**数组**
+
+TypeScript 像 JavaScript 一样可以操作数组元素。 有两种方式可以定义数组。 第一种，可以在`元素类型后面接上[]`
+
+```typescript
+// 方式一
+let list1: number[] = [1, 2, 3]
+// 方式二
+let list2: Array<number> = [1, 2, 3]
+```
+
+**元组 Tuple**
+
+元组类型允许表示一个已知元素数量和类型的数组，`各元素的类型不必相同`
+
+```typescript
+let t1: [string, number]
+t1 = ['hello', 10] // OK
+t1 = [10, 'hello'] // Error
+```
+
+ **枚举**
+
+enum` 类型是对 JavaScript 标准数据类型的一个补充。 使用枚举类型可以`为一组数值赋予友好的名字
+
+默认情况下，从 `0` 开始为元素编号。 你也可以手动的指定成员的数值
+
+枚举类型提供的一个便利是你可以由枚举的值得到它的名字
+
+```typescript
+enum Color {
+  Red = 1,
+  Green,
+  Blue
+}
+
+// 枚举数值默认从0开始依次递增
+// 根据特定的名称得到对应的枚举数值
+let myColor: Color = Color.Green  // 2
+let colorName: string = Color[2]  // Green
+```
+
+**any**
+
+`any` 类型，类型检查器不进行检查而是直接让它们通过编译阶段的检查
+
+```typescript
+let notSure: any = 4
+notSure = 'maybe a string'
+notSure = false // 也可以是个 boolean
+```
+
+**void**
+
+表示没有任何类型
+
+```typescript
+// 表示没有任何类型, 一般用来说明函数的返回值不能是undefined和null之外的值
+function fn(): void {
+  console.log('fn()')
+  // return undefined
+  // return null
+  // return 1 // error
+}
+
+// 无实际作用，因为你只能赋值 undefined 和 null
+let unusable: void = undefined
+```
+
+ **never**
+
+一个从来不会有返回值的函数（如：如果函数内含有 `while(true) {}`
+
+一个总是会抛出错误的函数（如：`function foo() { throw new Error('Not Implemented') }`，`foo` 的返回类型是 `never`
+
+never 类型变量只能赋值另外一个 never
+
+```typescript
+let bar: never = (() => {
+    throw new Error('Throw my hands in the air like I just dont care');
+})();
+
+
+let b: never = (() => {
+    while (true) { }
+})()
+```
+
+当一个函数返回空值时，它的返回值为 void 类型，但是，当一个函数永不返回时（或者总是抛出错误），它的返回值为 never类型
+
+**object**
+
+`object` 表示非原始类型，也就是除 `number`，`string`，`boolean`之外的类型
+
+```typescript
+function fn2(obj:object):object {
+  console.log('fn2()', obj)
+  return {}
+  // return undefined
+  // return null
+}
+console.log(fn2(new String('abc')))
+// console.log(fn2('abc') // error
+console.log(fn2(String))
+```
+
+**联合类型**
+
+联合类型（Union Types）表示取值可以为多种类型中的一种 ，使用`|`来创建联合类型
+
+```typescript
+/*
+  语法：number | string | boolean
+*/
+
+// 定义一个一个函数得到一个数字或字符串值的字符串形式值
+function toString2(x: number | string) : string {
+  return x.toString()
+}
+
+
+// 返回长度
+function getLength(x: number | string) {
+
+  // return x.length // error 因为可能为number类型
+    
+  return x.toString().length
+}
+```
+
+**类型断言**
+
+通过类型断言这种方式可以告诉编译器，“相信我，我知道自己在干什么”
+
+ 它没有运行时的影响，只是在编译阶段起作用
+
+```typescript
+/* 
+类型断言(Type Assertion): 可以用来手动指定一个值的类型
+语法:
+    方式一: <类型>值
+    方式二: 值 as 类型  tsx中只能用这种方式
+*/
+function getLength(x: number | string) {
+    // 类型断言，表示确定为string类型
+    let size = (x as string).length
+    if (typeof x === 'string') {
+        // typeof 会被编译器推断出，这里 x 为 string 类型
+        return x.length
+    } else {
+        return x.toString().length
+    }
+}
+console.log(getLength('abcd'), getLength(1234))
+```
+
+**类型推断**
+
+类型推断: TS会在没有明确的指定类型的时候推测出一个类型
+
+有下面2种情况: 1. 定义变量时赋值了, 推断为对应的类型. 2. 定义变量时没有赋值, 推断为any类型
+
+```typescript
+/* 定义变量时赋值了, 推断为对应的类型 */
+let b9 = 123 // number
+// b9 = 'abc' // error
+
+/* 定义变量时没有赋值, 推断为any类型 */
+let b10  // any类型
+b10 = 123
+b10 = 'abc'
+```
+
+
+
