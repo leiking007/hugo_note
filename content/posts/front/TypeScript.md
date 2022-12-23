@@ -106,7 +106,7 @@ TypeScript 主要有 3 大特点：
 - 如果 ts 文件中包含 ts 特有语法，浏览器执行报错
 - ts 编译为js代码后，let 修饰的变量会变为 var 修饰
 
-## vscode 中自动编译 TS 文件
+## vscode 中自动编译
 
 1. 使用命令生成配置文件`tsconfig.json`
 
