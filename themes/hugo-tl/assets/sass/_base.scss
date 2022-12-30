@@ -2,6 +2,7 @@ html {
     font-size: $global-font-size;
     box-sizing: border-box;
     scroll-padding-top: 60px;
+    overflow-y: overlay;
 }
 
 body {
@@ -16,36 +17,32 @@ a {
 }
 
 a:hover {
-    color:#50bfff;
+    color: #50bfff;
 }
 
-.mt-6{
-    padding-top: 4em!important;
+.mt-6 {
+    padding-top: 4em !important;
 }
 
-.mt-7{
-    padding-top: 5em!important;
+.mt-7 {
+    padding-top: 5em !important;
 }
 
-#main{
+#main {
     min-height: 80vh;
 }
 
-.fs-7{
-    font-size: 0.8rem!important;
-}
-
-.card:hover{
-    transform: scale(1.01);
-    transition: transform .6s;
+.fs-7 {
+    font-size: 0.8rem !important;
 }
 
 ::-webkit-scrollbar {
     height: 8px;
     width: 8px;
 }
+
 ::-webkit-scrollbar-thumb {
-    background: rgba(160, 160, 160, 0.25);
+    background: rgba(182, 182, 182, 0.575);
     border-radius: 2em;
 }
 
@@ -53,4 +50,3 @@ a:hover {
     background: 0 0;
     border-radius: 2em;
 }
-

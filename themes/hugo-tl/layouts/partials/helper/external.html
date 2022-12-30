@@ -1,0 +1,30 @@
+{{/*  data文件夹下的external文件中的变量  */}}
+{{- $map := index .Context.Site.Data.external .Namespace -}}
+{{- with $map -}}
+    {{- range . -}}
+        {{- if eq .type "script" -}}
+            <script 
+                src="{{ .src }}"
+                {{- with .integrity -}}
+                integrity="{{ . }}"
+                {{- end -}}
+                crossorigin="anonymous"
+                {{ if .defer }}defer{{ end }}
+                >
+            </script>
+        {{- else if eq .type "style" -}}
+            <link 
+                rel="stylesheet" 
+                href="{{ .src }}"
+                {{- with .integrity -}}
+                integrity="{{ . }}"
+                {{- end -}}
+                crossorigin="anonymous"
+            >
+        {{- else -}}
+            {{- errorf "Error: unknown external resource type: %s" .type -}}
+        {{- end -}}
+    {{- end -}}
+{{- else -}}
+    {{- errorf "Error: external resource '%s' is not found" .Namespace -}}
+{{- end -}}

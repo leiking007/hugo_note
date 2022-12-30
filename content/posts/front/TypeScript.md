@@ -1,5 +1,5 @@
 ---
-title: "vue3+TS"
+title: "TypeScript"
 date: 2022-12-19
 lastmod: 2022-12-19 12:12:12
 draft: false

@@ -9,7 +9,7 @@ copyright: copyright@
 enableEmoji: true
 hasCJKLanguage: true
 
-paginate: 3
+paginate: 7
 
 menu:
   main:
@@ -28,14 +28,22 @@ menu:
     pre: <i class="bi bi-yin-yang"></i>
     url: /about/
     weight: -50
-  
+  - identifier: search
+    name: 搜索
+    pre: <i class="bi bi-search"></i>
+    url: /search/
+    weight: -40
+
+build:
+  noJSConfigInAssets: true  
 
 params:
   AuthorName: lei
-  GitHubUser: spf13
   subtitle: "每天八杯水"
   dateFormat : 2006-01-02
   enableCat: true
+  cdnEnable: false  #是否启用cdn加速  data/external.yaml 中配置
+  toc: true
 
 markup:
     defaultMarkdownHandler: goldmark

@@ -1,0 +1,31 @@
+{{ define "head" }}
+    {{- with .OutputFormats.Get "json" -}} 
+        {{/*  preload：缓存该资源  */}}
+        <link rel="preload" href="{{ .Permalink }}" as="fetch" crossorigin="anonymous">
+    {{- end -}}
+{{ end }}
+
+{{ define "main" }}
+<div class="row justify-content-center">
+    <div class="col-md-8 form-floating mb-3">
+        <input class="form-control" id="searchInput" 
+        placeholder=" {{- T `search.placeholder` -}} " 
+        autocomplete="off" {{ with .OutputFormats.Get "json" -}} data-json="{{ .Permalink }}"{{- end }}>
+        {{/*  18n  */}}
+        <label for="searchInput">{{- T "search.title"  -}}</label>
+    </div>
+    <div class="col-md-8" id="search-result">
+        <h3 id="search-result-title"></h3>
+        <div id="search-result-list"></div>
+    </div>
+</div>
+
+<script>
+    window.searchResultTitleTemplate = "{{ T `search.resultTitle` }}"
+</script>
+
+{{- $opts := dict "minify" hugo.IsProduction -}}
+{{- $searchScript := resources.Get "ts/search.ts" | js.Build $opts | resources.Fingerprint "sha256" -}}
+{{/*  defer 页面加载完成后再执行  */}}
+<script type="text/javascript" src="{{ $searchScript.RelPermalink }}" defer></script>
+{{ end }}

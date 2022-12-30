@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md bg-white text-dark fixed-top shadow-sm p-2">
+<nav class="navbar navbar-expand-md bg-light text-dark fixed-top shadow-sm p-2">
   <div class="container">
     <a class="navbar-brand text-dark" href=" /">
       <i class="bi bi-bank"></i>
@@ -9,51 +9,19 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
       <ul class="navbar-nav">
+        {{ $currentPage := . }}
         {{ range .Site.Menus.main }}
+        {{/*  判断当前页面url 和 菜单链接url是否相等，激活菜单  */}}
+        {{ $active := eq (.URL | relLangURL) ($currentPage.RelPermalink | relLangURL) }}
         <li class="nav-item ms-auto">
-          <a class="nav-link text-dark" href="{{ .URL }}">
-             {{- .Pre -}}&nbsp;
-            {{- .Name -}}
+          <a class="nav-link text-dark {{ if $active }}active{{ end }}" href="{{ .URL | relLangURL }}">
+            {{- .Pre -}}&nbsp;
+            {{/*  default DEFAULT input 如果获取的i8in为空，则默认设置.Name  */}}
+            {{ lower .Identifier | printf "widget.%s.title" | T | default .Name }}
           </a>
         </li>
         {{ end }}
-        <li>
-          <a class="nav-link text-dark" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#searchModal">
-            <i class="bi bi-search"></i>&nbsp;搜索
-          </a>
-        </li>
       </ul>
     </div>
   </div>
 </nav>
-<!-- Modal -->
-<div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <label for="searchInput" class="form-label my-auto">Search:&nbsp;</label>
-        <input class="form-control align-middle" autocomplete="off" id="searchInput">
-      </div>
-      <div class="modal-body" id="searchBody">
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 获取文章数量 -->
-{{ $postsCount := len .Site.RegularPages }}
-<!-- 创建空数组 -->
-{{ $arrPosts := slice }}
-<!-- 遍历每一篇文章 -->
-{{ range .Site.RegularPages }}
-<!-- 提取文章信息、标题、发布日期和内容 "TableOfContents" .TableOfContents-->
-{{ $thePost := dict "title" .Title "pubDate" (.PublishDate.Format "2006-01-02") "plain" .Plain "link" .Permalink}}
-<!-- 将文章信息添加到之前创建的数组中 -->
-{{ $arrPosts = $arrPosts | append $thePost }}
-{{ end }}
-
-<!-- 将得到的文章信息保存，以便 js 处理 -->
-<script type="text/javascript">
-  window.postsCount = {{ $postsCount }};
-  window.arrPosts = {{ $arrPosts }};
-</script>

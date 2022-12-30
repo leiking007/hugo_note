@@ -8,16 +8,19 @@
         {{ .Site.Title }}
         {{ end }}</title>
     {{- partial "head.html" . -}}
+    {{- block "head" . -}}{{- end -}}
 </head>
 
 <body>
 
+
+    <img class="fixed-top opacity-25 vw-100 vh-100" src='/images/background-2.jpg' style="z-index: -999;"/>
+
     {{- partial "header.html" . -}}
 
     <div class="container mt-7 p-2" id="main">
-        {{- block "main" . }}{{- end }}
+        {{- block "main" . }}{{- end -}}
     </div>
-
 
     <div class="container-fluid">
         <div class="row">
@@ -25,7 +28,7 @@
         </div>
     </div>
 
-    <a id="return-top" href="javascript:scroll(0,0)">
+    <a id="return-top" href="javascript:void">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
             class="bi bi-chevron-double-up" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
@@ -34,7 +37,6 @@
                 d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
         </svg>
     </a>
-
 </body>
 
 </html>

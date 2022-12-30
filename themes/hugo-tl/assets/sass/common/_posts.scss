@@ -16,6 +16,12 @@
     }
 }
 
+.toc-active{
+    a {
+        color: rgb(189, 3, 142) !important;
+    }
+}
+
 #post-single {
 
 
@@ -111,11 +117,6 @@
             border-bottom: 1px solid #ddd;
         }
 
-        body>h2:first-child {
-            margin-top: 0;
-            padding-top: 0;
-        }
-
         a:first-child h1,
         a:first-child h2,
         a:first-child h3,
@@ -209,12 +210,13 @@
 
         /* 代码块 */
         .highlight {
+            position: relative;
             pre{
-                border:1px solid rgba(220, 101, 247, 0.355);
+                border:1px solid rgba(227, 142, 247, 0.308);
                 padding-top: 0.5em;
                 padding-bottom: 0.5em;
-                max-height: 50vh;
-                overflow-y: auto;
+                max-height: 60vh;
+                overflow-y: overlay;
             }
         }
 

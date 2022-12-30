@@ -11,7 +11,7 @@
 <div class="row p-3 justify-content-center align-self-center">
     <div class="col-md-8">
         <main>
-            <h1>{{ .Title }}</h1>
+            <h1>{{ lower .Title | printf "widget.%s.title" | T | default .Title }}</h1>
             <div class="tags-cloud">
                 {{ range $taxonomyname, $taxonomy := .Site.Taxonomies.tags }}
                 {{ $currentTagCount := len $taxonomy.Pages }}
@@ -20,8 +20,8 @@
                 {{ $weigth := div (sub (math.Log $count) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
                 {{ $currentFontSize := (add $smallestFontSize (mul (sub $largestFontSize $smallestFontSize) $weigth) )
                 }}
-                <a href='{{- "/" | relLangURL -}}tags/{{ $taxonomyname | urlize }}'
-                   style="font-size: {{$currentFontSize}}{{$fontUnit}}">
+                <a href='{{ .Page.RelPermalink }}'
+                    style="font-size: {{$currentFontSize}}{{$fontUnit}}">
                     {{- $taxonomyname -}}<small class="ms-1">{{- .Len -}}</small>
                 </a>
                 {{ end }}

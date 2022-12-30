@@ -1,0 +1,13 @@
+{{ define "main" }}
+<div class="row justify-content-center">
+  <div id="post-single" class="col-md-8">
+    <h1>{{ lower .Title | printf "widget.%s.title"   | T | default .Title }}</h1>
+    <div>
+      <article id="content">
+        {{ .Content }}
+      </article>
+    </div>
+  </div>
+</div>
+
+{{ end }}
