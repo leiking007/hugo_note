@@ -431,5 +431,90 @@ b10 = 123
 b10 = 'abc'
 ```
 
+## 接口
 
+TypeScript 的核心原则之一是对值所具有的结构进行类型检查。我们使用接口（Interfaces）来定义对象的类型。`接口是对象的状态(属性)和行为(方法)的抽象(描述)`
+
+- 接口是一种规范、是一种规则
+- 接口里面可以定义方法和属性，对于属性来说可以是非必须属性和只读属性
+- 除了描述带有属性的普通对象外，接口也可以描述函数类型
+
+**初探**
+
+```typescript
+interface IPerson1{
+    // readonly 表示只读属性，初始化对象后不能再次赋值
+    readonly id:number,
+    name:string,
+    // ? 表示改属性非必须属性
+    sex?:string
+}
+
+// sex为非必需属性，可以不填
+const p1:IPerson1={
+    id:1,
+    name:'唐'
+    // age: 25  // err not assignable to type
+}
+// p1.id=2   // err read-only property
+```
+
+**函数类型**
+
+```typescript
+// 接口可以描述函数类型(参数的类型与返回的类型)
+interface SearchFunc {
+    // 定义函数的参数和返回值
+    (source: string, subString: string): boolean
+}
+
+const mySearch: SearchFunc = function (source, subString): boolean {
+    return source.indexOf(subString) != -1
+}
+```
+
+**类类型**
+
+```typescript
+// 定义接口 IPerson1 ，里面规定了一个 fly 行为
+interface IPerson1 {
+    fly()
+}
+
+// 定义接口 IPerson2 ，里面规定了一个 swim 行为
+interface IPerson2 {
+    swim()
+}
+
+// 定义接口 IPerson3，继承了 IPerson1 和 IPerson2 接口
+interface IPerson3 extends IPerson1, IPerson2 {
+}
+
+// 定义类实现接口 ， 并实现里面的方法
+class Person1 implements IPerson1 {
+    fly() {
+        console.log('飞1')
+    }
+}
+
+// 可以实现多个接口
+class Person2 implements IPerson1, IPerson2 {
+    fly() {
+        console.log('飞2')
+    }
+    swim() {
+        console.log('游泳2')
+    }
+}
+
+// 实现接口 IPerson3，因为接口 IPerson3 继承了两个接口，因此该类也需要实现两个方法
+class Person3 implements IPerson3 {
+    fly() {
+        console.log('飞2')
+    }
+    swim() {
+        console.log('游泳2')
+    }
+}
+```
 
