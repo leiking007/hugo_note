@@ -675,35 +675,34 @@ try {
 }
 ```
 
-# 多线程操作原子性
+# CountDownLatch
 
-## CountDownLatch实现
+## 伪代码
 
-通过 **CountDownLatch**实现
-
-**伪代码**
+**主线程代码**
 
 ```java
-/*
-* 主线程代码
-*/
-
-//监控主线程
+// 监控主线程
 CountDownLatch mainLatch = new CountDownLatch(1);
-//监控子线程
+// 监控子线程
 CountDownLatch threadLatch = new CountDownLatch(size);
-//等待子线程执行
+
+// 等待子线程执行
 threadLatch.await(60, TimeUnit.SECONDS);
+// 关闭主线程Latch，唤醒子线程继续执行
 mainLatch.countDown();
+```
 
+**子线程代码**
 
+```java
 /*
 * 子线程代码
 */
 try{
-    //子线程业务逻辑
+    // 子线程业务逻辑
 }catch(Exception e){
-    //修改共有对象标志为回滚
+    // 修改共有对象标志为回滚
 }finally{
     threadLatch.countDown()
 }
@@ -711,141 +710,150 @@ try{
 try{
     mainLatch.await()
 }catch(Exception e){
-    //中断当前现车给，抛出异常
+    // 修改共有对象标志为回滚
 }
-//根据共有对象回滚标志 决定是否抛出异常
+// 根据共有对象回滚标志 是否进行回滚
 ```
 
-**实例代码**
+## 实例代码
 
-```java
-/**
- * CountDownLatch 演示多线程编程及事务处理
- */
-public class ThreadDemo_3 {
+1. 创建共享对象 ShareData
 
-    public static ThreadPoolExecutor executorPool = new ThreadPoolExecutor(6, 8, 60,
-            TimeUnit.SECONDS, new LinkedBlockingDeque<>(), r -> new Thread(r, "多线程通信线程" + r.hashCode()));
+   ```java
+   @Data
+   public class ShareData {
+       private volatile Boolean rollback;
+       private Object otherData;
+   }
+   ```
 
+2. 子线程需要执行的具体业务逻辑代码；注意该方法应该是具有事务的方法
 
-    public static void main(String[] args) {
-        List<String> stringList = new ArrayList<>();
-        for (int i = 0; i < 1007; i++) {
-            stringList.add("s" + i);
-        }
+   ```java
+   @Override
+   public void doSomeThings(CountDownLatch mainLatch, CountDownLatch threadLatch, ShareData shareData, List<String> taskList) {
+       try {
+           //doSomeThings
+           StaticLog.info(Thread.currentThread().getName()+"线程执行");
+           Person person=new Person();
+           person.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+           save(person);
+       } catch (Exception e) {
+           // 设置回滚标志为 true
+           shareData.setRollback(true);
+           throw new RuntimeException(e.getMessage());
+       } finally {
+           // 关闭当前子线程 Latch
+           threadLatch.countDown();
+       }
+   
+       try {
+           //等待主线程执行结束
+           mainLatch.await();
+       } catch (InterruptedException e) {
+           // 设置回滚标志为 true
+           shareData.setRollback(true);
+           // 中断当前线程，并抛出异常，回滚
+           Thread.currentThread().interrupt();
+           throw new RuntimeException("");
+       }
+       // 抛出异常，回滚
+       if (shareData.getRollback()) {
+           StaticLog.info(Thread.currentThread().getName()+"线程回滚");
+           throw new RuntimeException();
+       }
+       StaticLog.info(Thread.currentThread().getName()+"线程提交");
+   }
+   ```
 
-        //总共任务量
-        final int taskSize=6;
+3. 主线程逻辑代码
 
-        //每个任务执行的大小
-        final int step=(stringList.size() + taskSize - 1) / taskSize;
+   ```java
+   // 创建线程池
+   public static ThreadPoolExecutor executorPool = new ThreadPoolExecutor(6, 8, 60,TimeUnit.SECONDS, new LinkedBlockingDeque<>(), r -> new Thread(r, "多线程通信线程" + r.hashCode()));
+   
+   @Override
+   public void t1() {
+       List<String> stringList = new ArrayList<>();
+       for (int i = 0; i < 1007; i++) {
+           stringList.add("s" + i);
+       }
+       // 最大任务量，应该和线程池的 corePoolSize 一致
+       final int taskSize=6;
+   
+       //每个任务执行的大小
+       final int step=(stringList.size() + taskSize - 1) / taskSize;
+       // list切分
+       List<List<String>> lists = Stream.iterate(0L, n -> n + 1L)   //返回一个无限有序流 0123456.......
+           .limit(taskSize)   //指定最后返回的 list大小，
+           .parallel()  //转换并行流
+           .map(a -> stringList.stream().skip(a * step)
+                .limit(step).parallel()   //转换为并行流并进行归约
+                .collect(Collectors.toList())).collect(Collectors.toList());
+   
+       CountDownLatch theadLatch = new CountDownLatch(taskSize);
+       CountDownLatch mainLatch = new CountDownLatch(1);
+       ShareData shareData=new ShareData();
+       shareData.setRollback(false);   // 默认全部成功
+       for (List<String> list : lists) {
+           executorPool.execute(new DoSomeThings(mainLatch,theadLatch,shareData,list,personService));
+       }
+   
+       try {
+           // 等待子线程执行
+           boolean await = theadLatch.await(10, TimeUnit.SECONDS);
+           if (!await) {
+               shareData.setRollback(true);
+           }
+       }catch (RuntimeException e){
+           shareData.setRollback(true);
+           Thread.currentThread().interrupt();
+           throw new RuntimeException(e.getMessage());
+       }finally {
+           // 子线程执行
+           mainLatch.countDown();
+       }
+       // 如果主线程也具有事务
+       // 应该再次判断 共享变量的回滚标志，进行主线程的回滚或提交
+   }
+   
+   private static class DoSomeThings implements Runnable {
+       /**
+            * 主线程监控
+            */
+       private final CountDownLatch mainLatch;
+       /**
+            * 子线程监控
+            */
+       private final CountDownLatch threadLatch;
+       private final ShareData shareData;
+       private final List<String> taskList;
+       private final IPersonService personService;
+   
+       public DoSomeThings(CountDownLatch mainLatch, CountDownLatch threadLatch, ShareData shareData,
+                           List<String> taskList,IPersonService personService) {
+           this.mainLatch = mainLatch;
+           this.threadLatch = threadLatch;
+           this.shareData = shareData;
+           this.taskList = taskList;
+           this.personService=personService;
+       }
+   
+       @Override
+       public void run() {
+           try {
+               //doSomeThings
+               StaticLog.info(Thread.currentThread().getName()+"线程执行");
+               // 这里的personService.doSomeThings() 方法中进行业务逻辑等处理
+               // 方便事务回滚，doSomeThings() 具有事务
+               personService.doSomeThings(mainLatch,threadLatch,shareData,taskList);
+           } catch (Exception e) {
+               throw new RuntimeException(e.getMessage());
+           }
+   
+       }
+   }
+   ```
 
-        List<List<String>> lists = Stream.iterate(0L, n -> n + 1L)   //返回一个无限有序流 0123456.......
-                .limit(taskSize)   //指定最后返回的 list大小，
-                .parallel()  //转换并行流
-                .map(a -> stringList.stream().skip(a * step)
-                        .limit(step).parallel()   //转换为并行流并进行归约
-                        .collect(Collectors.toList())).collect(Collectors.toList());
-
-        CountDownLatch theadLatch = new CountDownLatch(taskSize);
-        CountDownLatch mainLatch = new CountDownLatch(1);
-        ShareData shareData=new ShareData();
-        List<Exception> exceptions=new ArrayList<>();
-
-        //子任务数最大只能为线程池 maximumPoolSize
-        for (List<String> list : lists) {
-            executorPool.execute(new DoSomeThings(mainLatch,theadLatch,shareData,list,exceptions));
-        }
-
-        try {
-            //等待子线程执行
-            boolean await = theadLatch.await(10, TimeUnit.SECONDS);
-            if (!await) {
-                shareData.setRollback(true);
-            }else {
-                if (!exceptions.isEmpty()) {
-                    /** 有线程执行异常，需要回滚子线程. */
-                    shareData.setRollback(true);
-                }
-            }
-        }catch (InterruptedException e){
-            shareData.setRollback(true);
-            Thread.currentThread().interrupt();
-        }finally {
-            //子线程执行
-            mainLatch.countDown();
-        }
-
-    }
-
-    private static class DoSomeThings implements Runnable {
-        /**
-         * 主线程监控
-         */
-        private final CountDownLatch mainLatch;
-        /**
-         * 子线程监控
-         */
-        private final CountDownLatch threadLatch;
-        private final ShareData shareData;
-        private final List<String> taskList;
-        private final List<Exception> exceptionList;
-
-        public DoSomeThings(CountDownLatch mainLatch, CountDownLatch threadLatch, ShareData shareData,
-                            List<String> taskList, List<Exception> exceptionList) {
-            this.mainLatch = mainLatch;
-            this.threadLatch = threadLatch;
-            this.shareData = shareData;
-            this.taskList = taskList;
-            this.exceptionList = exceptionList;
-        }
-
-        @Override
-        public void run() {
-            try {
-                //doSomeThings
-                taskList.forEach(e -> PrintUtil.println(Thread.currentThread().getName() + "----------->" + e));
-            } catch (Exception e) {
-                exceptionList.add(e);
-                throw new RuntimeException(e.getMessage());
-            } finally {
-                threadLatch.countDown();
-            }
-
-            try {
-                //等带主线程执行结束
-                mainLatch.await();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException("");
-            }
-            if (shareData.getRollback()) {
-                throw new RuntimeException("线程回滚");
-            }
-        }
-
-    }
-
-    private static class ShareData {
-        private volatile Boolean rollback;
-        private Object otherData;
-
-        public Boolean getRollback() {
-            return rollback;
-        }
-
-        public void setRollback(Boolean rollback) {
-            this.rollback = rollback;
-        }
-
-        public Object getOtherData() {
-            return otherData;
-        }
-
-        public void setOtherData(Object otherData) {
-            this.otherData = otherData;
-        }
-    }
-}
-```
+   
 
