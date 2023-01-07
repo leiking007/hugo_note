@@ -677,6 +677,16 @@ try {
 
 # CountDownLatch
 
+## 逻辑
+
+主线程新建 mainLatch和threadLatch，分别对应主线程和子线程；开启子线程传入 mainLatch、threadLatch 、回滚标志；然后等待 threadLatch 
+
+子线程执行业务代码，并关闭 threadLatch；等待主线程 mainLatch
+
+主线程收到 threadLatch 信号  ，继续执行并判断回滚标志，关闭 mainLatch
+
+子线程收到 mainLatch 信号，继续执行，并根据回滚标志是否回滚
+
 ## 伪代码
 
 **主线程代码**
