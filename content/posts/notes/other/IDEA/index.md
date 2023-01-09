@@ -61,4 +61,4 @@ author: "lei"
 1. Easy Javadoc：快捷生成注释，默认快捷键`ctrl+\`
 2. Free MyBatis plugin ：直接从dao定位到对应的mapper，检测dao方法
 3. Vue.js ：支持vue开发
-4. Jrelbel：热部署插件；`http://jrebel.cicoding.cn/1333337d-0999-4f6c-94e0-e1e3971db65b`
+4. Jrelbel：热部署插件；`http://idea.javatiku.cn/1333337d-0999-4f6c-94e0-e1e3971db65b`

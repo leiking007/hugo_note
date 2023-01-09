@@ -62,6 +62,16 @@ kill -TERM 进程id	 #快速关闭，直接杀死
 /usr/local/nginx/sbin/nginx -V	#查看nginx版本号、编译器版本、参数配置
 ```
 
+> 默认目录
+
+- /etc/nginx：Nginx配置文件目录, 所有的Nginx配置文件都在这里
+- /etc/nginx/nginx.conf：Nginx的主配置文件, 可以修改它来改变Nginx的全局配置.
+- /etc/nginx/sites-available：这个目录存储每一个网站的"server blocks", Nginx通常不会使用这些配置, 除非它们被链接到sites-enabled目录. 一般所有的server block配置都在这个目录中设置, 然后软链接到别的目录
+- /etc/nginx/sites-enabled：这个目录存储生效的"server blocks"配置. 通常, 这个配置都是链接到sites-available目录中的配置文件.
+- /etc/nginx/snippets：这个目录主要可以包含在其它Nginx配置文件中的配置片段, 重复的配置都可以重构为配置片段.
+-  /var/log/nginx/access.log：每一个访问请求都会默认记录在这个文件中, 除非你做了其它设置.
+- /var/log/nginx/error.log：任何Nginx的错误信息都会记录到这个文件中.
+
 ## Nginx配置文件
 
 > 基础配置
