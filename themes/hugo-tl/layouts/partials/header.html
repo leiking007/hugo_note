@@ -13,7 +13,7 @@
         {{ range .Site.Menus.main }}
         {{/*  判断当前页面url 和 菜单链接url是否相等，激活菜单  */}}
         {{ $active := eq (.URL | relLangURL) ($currentPage.RelPermalink | relLangURL) }}
-        <li class="nav-item ms-auto">
+        <li class="nav-item ms-2">
           <a class="nav-link text-dark {{ if $active }}active{{ end }}" href="{{ .URL | relLangURL }}">
             {{- .Pre -}}&nbsp;
             {{/*  default DEFAULT input 如果获取的i8in为空，则默认设置.Name  */}}

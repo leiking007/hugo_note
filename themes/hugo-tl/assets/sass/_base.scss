@@ -36,6 +36,13 @@ a:hover {
     font-size: 0.8rem !important;
 }
 
+.navbar-nav{
+    .active{
+        transform:scale(1.2,1.2);
+        font-weight: 700;
+    }
+}
+
 ::-webkit-scrollbar {
     height: 8px;
     width: 8px;

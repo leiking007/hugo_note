@@ -282,7 +282,8 @@ class Search {
 
     public static render(item: pageData) {
         let article = document.createElement('article')
-        article.setAttribute("class","my-2")
+        article.setAttribute("class","my-2 p-4 rounded bg-light ")
+        article.setAttribute("style","--bs-bg-opacity: .75;")
         article.innerHTML = `<a href=${item.permalink}>
                                 <div class="article-details">
                                     <h2 class="fs-3">${item.title}</h2>

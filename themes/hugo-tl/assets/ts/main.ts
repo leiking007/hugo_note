@@ -4,8 +4,14 @@ import { setupScrollspy } from "./toc";
 const  STACK={
 
     init:()=>{
+
         fun_top()
-        setupScrollspy()
+
+        const articleContent = document.querySelector('#content') as HTMLElement;
+        if (articleContent) {
+            setupScrollspy();
+        }
+
     }
 
 }

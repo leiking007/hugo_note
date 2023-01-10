@@ -16,7 +16,7 @@
 
             {{- range $pages.GroupByPublishDate "2006" }}
             {{- if ne .Key "0001" }}
-            <div class="card p-2 mt-4 ps-4" style="--bs-card-bg: rgba(255, 255, 255, 0.264);">
+            <div class="card p-2 mt-4 ps-4" style="--bs-card-bg: rgba(255, 255, 255, 0.586);">
                 <h5 class="card-title">{{- .Key -}}</h5>
                 <div class="card-body border-start">
                     {{- range .Pages.GroupByDate "01" }}
@@ -28,8 +28,8 @@
                         <div class="d-flex align-self-center">
                             <a href="{{ .Permalink }}" class="fs-3 text-dark">{{- .Title }}</a>
                             <div class="d-flex ms-2 align-self-center">
-                                {{- range .Params.tags }}
-                                <a class="fs-7 text-dark border p-1 me-2 rounded-3" href='{{- "tags/" | absURL -}}{{ . | urlize }}'>{{ .}}</a>
+                                {{ range (.GetTerms "tags") }}
+                                <a class="fs-7 text-dark border p-1 me-2 rounded-3" href='{{ .RelPermalink }}'>{{- .LinkTitle -}}</a>
                                 {{- end }}
                             </div>
                         </div>
