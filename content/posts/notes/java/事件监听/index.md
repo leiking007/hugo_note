@@ -117,6 +117,8 @@ public class OrderSuccessEvent extends ApplicationEvent {
 }
 ```
 
+
+
 ## 监听事件
 
 可以指定监听者监听的事件类型，那么就会对未声明的事件不进行监听
