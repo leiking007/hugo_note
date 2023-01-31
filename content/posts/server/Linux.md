@@ -1,10 +1,10 @@
 ---
 title: "Linux"
 date: 2022-12-07
-lastmod: 2022-12-07 12:12:12
+lastmod: 2022-12-07
 draft: false
-tags: ['Linux','服务器']
-categories: ["后端"]
+tags: ['服务器']
+categories: ["笔记"]
 author: "lei"
 ---
 

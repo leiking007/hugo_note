@@ -1,9 +1,9 @@
 ---
 title: "数组相关的算法"
 date: 2022-02-20
-lastmod: 2022-02-20 12:12:12
+lastmod: 2022-02-20
 draft: false
-tags: ['数组','算法']
+tags: ['算法']
 categories: ["笔记"]
 author: "lei"
 ---

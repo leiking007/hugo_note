@@ -1,7 +1,7 @@
 ---
 title: "JavaScript"
 date: 2020-09-09
-lastmod: 2020-09-09 12:12:12
+lastmod: 2020-09-09
 draft: false
 tags: ['js']
 categories: ["前端"]

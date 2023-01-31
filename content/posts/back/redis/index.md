@@ -1,9 +1,9 @@
 ---
 title: "redis"
 date: 2020-11-12
-lastmod: 2020-11-12 12:12:12
+lastmod: 2020-11-12
 draft: false
-tags: ['数据库']
+tags: ['中间件']
 categories: ["后端"]
 author: "lei"
 ---

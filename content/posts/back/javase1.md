@@ -1,7 +1,7 @@
 ---
 title: "javaSE1"
 date: 2020-06-09
-lastmod: 2020-06-09 12:12:12
+lastmod: 2020-06-09
 draft: false
 tags: ['javaSE']
 categories: ["后端"]
@@ -12,112 +12,147 @@ author: "lei"
 
 #  JAVA基础
 
-## 语言特性
+## 名词介绍
 
-​		健壮性：垃圾回收（Garbage Collection，GC）；主要回收堆内存中数据，没有任何引用指向的数据；
-​		可移植性：java虚拟机(JVM，基于c++编写)，屏蔽操作系统差异
-​		完全面向对象
-​		多线程
+**java三个版本**
 
-JDK（可以单独安装，开发工具包）>JRE（可以单独安装，运行时环境）>JVM(不能单独安装)
+- Java SE：Standard Edition ，Java SE 就是标准版，包含标准的 JVM 和标准库
+- Java EE：Enterprise Edition，Java EE是企业版，它只是在Java SE的基础上加上了大量的API和库，以便方便开发Web应用、数据库、消息服务等
+- Java ME：Micro Edition，Java ME就和Java SE不同，它是一个针对嵌入式设备的“瘦身版”，Java SE的标准库无法在Java ME上使用，Java ME的虚拟机也是“瘦身版”
 
-执行过程：.java（源文件编译）->.class（字节码运行）->JVM（虚拟机）
+**JDK JRE区别**
 
-java HelloWorld	1.先启动JVM,2.JVM启动后，JVM会去启动类加载器classloader，3.如果找不到对应字节码文件会报错
+- JDK：Java Development Kit，java开发环境
+- JRE：Java Runtime Environment，java运行环境（相比 JDK 少了编译器，调式器等）
 
-## 环境变量
+**JSR JCP是什么**
 
-**CLASSPATH**环境变量，给类加载器指路（类加载器默认只能在当前目录找类）
-**classpath**配置后，类加载器只会去配置目录下找类
+- JSR规范：Java Specification Request，SUN公司规定的 JSR 规范，凡是想给Java平台加一个功能，比如说访问数据库的功能，要先创建一个JSR规范，定义好接口，这样，各个数据库厂商都按照规范写出Java驱动程序
+- JCP组织：Java Community Process，负责审核 JSR 的组织
 
-```java
-注释：	/* 多行注释 */
-		// 单行注释
-		/**
-		* @version 1.0
-		* #author lei
-		* 可被javadoc自动识别，可提取到帮助文档
-		*/
+## 安装
+
+1. 下载 jdk 压缩包，解压到任意目录
+
+2. 配置环境变量 `JAVA_HOME`指向 JDK 安装目录；然后，把`JAVA_HOME`的`bin`目录附加到系统环境变量`PATH`上
+
+   ```tex
+   新建java_home环境变量
+       JAVA_HOME
+       F:\study\environment\javaDevelopmentKit\graalvm-ee-java11-22.2.0
+   
+   在path环境变量下添加
+       %JAVA_HOME%\bin
+   ```
+
+3. 命令行执行
+
+   ```bash
+   java --version
+   # 输出 java 11.0.16 2022-07-19 LTS 版本号，即安装成功
+   ```
+
+**常用命令解释**
+
+- java：这个可执行程序其实就是JVM，运行Java程序，就是启动JVM，然后让JVM执行指定的编译后的代码；
+- javac：这是Java的编译器，它用于把Java源码文件（以`.java`后缀结尾）编译为Java字节码文件（以`.class`后缀结尾）；
+- jar：用于把一组`.class`文件打包成一个`.jar`文件，便于发布；
+- javadoc：用于从Java源码中自动提取注释并生成文档；
+- jdb：Java调试器，用于开发阶段的运行调试
+
+## Hello World
+
+1. 打开文本编辑器输入以下代码，然后保存为 Hello.java
+
+   ```java
+   public class Hello {
+       public static void main(String[] args) {
+           System.out.println("Hello, world!");
+       }
+   }
+   ```
+
+2. 编译，在保存 Hello.java 的目录下执行下面命令编译，编译成功会在当前目录下会产生一个`Hello.class`文件
+
+   ```bash
+   $ javac Hello.java
+   ```
+
+3. 执行Hello.class ，
+
+   ```bash
+   $ java Hello
+   Hello, world!
+   ```
+
+> 注意：一个Java源码只能定义一个`public`类型的class，并且class名称和文件名要完全一致
+
+**Java程序运行流程**
+
+Java源码本质上是一个文本文件，我们需要先用`javac`把`Hello.java`编译成字节码文件`Hello.class`，然后，用`java`命令执行这个字节码文件：
+
+```ascii
+┌──────────────────┐
+│    Hello.java    │◀── source code
+└──────────────────┘
+          │ compile
+          ▼
+┌──────────────────┐
+│   Hello.class    │◀── byte code
+└──────────────────┘
+          │ execute
+          ▼
+┌──────────────────┐
+│    Run on JVM    │
+└──────────────────┘
 ```
 
-public：public类可以没有，如果有仅有一个，且修饰的类名与源文件名一致
-无论源文件定义多少类，编译后必定生成对应的字节码文件
+## java程序基础结构
 
-# 标识符与关键字
+**结构**
 
-## 标识符
+```java
+/**
+ * 可以用来自动创建文档的注释
+ */
+public class Hello {
+    public static void main(String[] args) {
+        // 向屏幕输出文本:
+        System.out.println("Hello, world!");
+        /* 多行注释开始
+        注释内容
+        注释结束 */
+    }
+} // class定义结束
+```
 
-凡是程序员有能力自己命名的都是标识符
-标识符：规则（法）必须、规范（道德）应该
+**注释**
 
-## 关键字
+```java
+// 这是单行注释...
 
-java定义的特殊含义的单词，全部小写，具有特殊含义，不能作为标识符
 
-# 变量
+/*
+    这是多行注释
+    blablabla...
+    这是多行注释
+*/
 
-## 字面量
 
-java中所有数据都称作字面量
-整型字面量、浮点型字面量、布尔型字面量、字符型字面量、字符串型字面量；
-字符型与字符串型描述现实文字，字符型：‘a’、字符串型：“a”
-
-## 变量三要素
-
-类型：决定空间大小
-名字：方便访问
-值：变量保存的数据
-
-## 变量的分类
-
-局部变量：方法体中申明，方法结束释放内存空间
-成员变量：类中，方法外申明
-
-## 其他
-
-变量就是一个存储数据的盒子
-在同一个域中，变量名不能重复申明（和申明类型无关）
-变量出了大括号，就不认识了
+/**
+ * 可以用来自动创建文档的注释
+ * @auther liaoxuefeng
+ */
+```
 
 # 数据类型
 
-## 计算机存储单位
+**4大类，8小类**
 
-计算机只能识别二进制（最左边符号位，0代表正数，1代表负数）
-1字节（byte）=8比特（8bit）-->1bit就是一个0或1
-1KB=1024byte
-...
-
-## 基本数据类型
-
-4大类，8小种
-整数型：byte、short、int、long
-	最多使用int、整数字面量或数据默认当作int处理、自动类型转换
-	小容量可以直接赋值给大容量(自动类型转换)
-	大容量需要强制转换为小容量(强制类型转换)
-
-```java
-long a=2147836489;	//报错，整数过大
-int a=100L;		//报错，从long转换int可能会有损失
-byte a=100;	//不报错。大变小，字面量没超过小的取值范围，默认转换，方便写代码
-int a=(int)100L;	//不报错，可能损失精度
-```
-
-浮点型：float、double
-	默认浮点型数据，会被当作double类型处理
-布尔型：boolean
-	只有true与false，没有0、1
-字符型：char
-	转义、只能存储单个字符
-	byte、short、char做混合运算先转化为int
-
-```java
-char x=97;	//不报错，x输出为a！当一个整数没有超出char取值范围，可以直接赋值给char类型变量
-byte b=1;
-short a=x+b	//报错,x+b为int类型98，但是没有自动强制转化为short类型，编译器只知道后面的值为int，并不知道其值是多少
-```
-
-
+1. 整数型：byte、short、int、long
+2. 浮点型：float、double；默认浮点型数据，会被当作double类型处理
+3. 布尔型：boolean；只有true与false，没有0、1
+4. 字符型：char；只能存储单个字符，byte、short、char做混合运算先转化为int
 
 |  类型   | 占用字节数量（byte） |        取值范围        |
 | :-----: | :------------------: | :--------------------: |
@@ -130,34 +165,60 @@ short a=x+b	//报错,x+b为int类型98，但是没有自动强制转化为short�
 | boolean |          1           |                        |
 |  char   |          2           |        0~65535         |
 
-## 引用数据类型
+**计算机内存的基本结构**
 
-除了基本数据类型，其他都是
-java.math.BigDecimal：财务软件方面，精度很高
+计算机内存的最小存储单元是字节（byte），一个字节就是一个8位二进制数，即8个bit
 
-## 二进制介绍
+它的二进制表示范围从`00000000`~`11111111`，换算成十进制是0~255，换算成十六进制是`00`~`ff`
 
-对于一个正数来说，二进制原码、补码、反码是同一个
+内存单元从0开始编号，称为内存地址。每个内存单元可以看作一间房间，内存地址就是门牌号
 
-```java
-byte i=1;
-00000001	//原码
-00000001	//反码
-00000001	//补码
-byte i=-1;
-10000001	//原码
-11111110	//反码，符号位不变，其他位取反
-11111111	//补码（反码+1） 计算机永远存储的都是补码形式
+```ascii
+  0   1   2   3   4   5   6  ...
+┌───┬───┬───┬───┬───┬───┬───┐
+│   │   │   │   │   │   │   │...
+└───┴───┴───┴───┴───┴───┴───┘
 ```
 
-## 其他
+一个字节是1byte，1024字节是1K，1024K是1M，1024M是1G，1024G是1T。一个拥有4T内存的计算机的字节数量就是：
 
-```java
-System.out.print();		//输出，不换行
-System.out.println();	//输出并换行
+```ascii
+4T = 4 x 1024G
+   = 4 x 1024 x 1024M
+   = 4 x 1024 x 1024 x 1024K
+   = 4 x 1024 x 1024 x 1024 x 1024
+   = 4398046511104
 ```
 
-基本数据转换的6条规则：
+不同的数据类型占用的字节数不一样。Java基本数据类型占用的字节数：
+
+```ascii
+       ┌───┐
+  byte │   │
+       └───┘
+       ┌───┬───┐
+ short │   │   │
+       └───┴───┘
+       ┌───┬───┬───┬───┐
+   int │   │   │   │   │
+       └───┴───┴───┴───┘
+       ┌───┬───┬───┬───┬───┬───┬───┬───┐
+  long │   │   │   │   │   │   │   │   │
+       └───┴───┴───┴───┴───┴───┴───┴───┘
+       ┌───┬───┬───┬───┐
+ float │   │   │   │   │
+       └───┴───┴───┴───┘
+       ┌───┬───┬───┬───┬───┬───┬───┬───┐
+double │   │   │   │   │   │   │   │   │
+       └───┴───┴───┴───┴───┴───┴───┴───┘
+       ┌───┬───┐
+  char │   │   │
+       └───┴───┘
+```
+
+`byte`恰好就是一个字节，而`long`和`double`需要8个字节
+
+**基本数据转换的6条规则**
 
 1. 只有boolean类型不能转换，其他都可以
 2. 自动类型转换，byte**<**short(char)**<**int**<**long**<**float**<**double
@@ -168,21 +229,21 @@ System.out.println();	//输出并换行
 
 # 运算符
 
-## 算数运算符
+**算数运算符**
 
 +、-、*、/、%（取模）、++（自加）、--（自减）
 
-## 关系运算符
+**关系运算符**
 
 \>、>=、==、<、<=、!=
 
-## 逻辑运算符
+**逻辑运算符**
 
 &(逻辑与)、|（逻辑或）、！（逻辑非）、&&（短路与）、||（短路或）
 true||表达式：表达式不执行，表	true
 false&&表达式：表达式不执行，表	false
 
-## 赋值运算符
+**赋值运算符**
 
 ```java
 byte a=100;
@@ -194,19 +255,19 @@ a+=1;		//不会报错
 扩展赋值运算符：+=、-=、/=、*=、%=
 使用扩展运算符，不会改变数据类型，a+=100相当于a=（a数据类型)(a+1)
 
-## 位运算符
+**位运算符**
 
-## 条件运算符
+**条件运算符**
 
 布尔表达式	**？**	表达式1（true时） **：** 表达式2（false时）
 必须将运算结果处理，不然编译报错，不是语句
 
-## 字符串连接运算符（+）
+**字符串连接运算符（+）**
 
 当表达式含有字符串时，+号作用为字符串拼接，拼接完还是一个字符串
 表达式有多个+号时，从左到右依次执行，有括号除外
 
-## 其他运算符
+**其他运算符**
 
 new：实例化一个对象
 
@@ -673,50 +734,6 @@ class Student
 	}
     public void shuChu(){
 		System.out.println(this.name);
-	}
-}
-```
-
-## 作业
-
-```java
-class  Test07
-{
-	public static void main(String[] args)
-	{
-		Husband h=new Husband("张三",28);
-		Wife w=new Wife("王五",18);
-		h.wife=w;
-		w.husband=h;
-		System.out.println(h.name+"的妻子是"+h.wife.name);
-	}
-}
-
-class Husband
-{
-	String name;
-	int age;
-	Wife wife;
-	//无参构造
-	public Husband(){}
-	//有参构造
-	public Husband(String a,int b){
-		this.name=a;
-		this.age=b;
-	}
-}
-
-class Wife
-{
-	String name;
-	int age;
-	Husband husband;
-	//无参构造
-	public Wife(){}
-	//有参构造
-	public Wife(String a,int b){
-		this.name=a;
-		this.age=b;
 	}
 }
 ```

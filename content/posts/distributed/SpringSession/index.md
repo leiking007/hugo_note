@@ -1,10 +1,10 @@
 ---
 title: "SpringSession"
 date: 2021-05-14
-lastmod: 2021-05-24 12:12:12
+lastmod: 2021-05-24
 draft: false
 tags: ['spring']
-categories: ["分布式"]
+categories: ["框架"]
 author: "lei"
 ---
 

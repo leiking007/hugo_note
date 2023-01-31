@@ -1,9 +1,9 @@
 ---
 title: "java多线程"
 date: 2022-04-11
-lastmod: 2022-04-11 12:12:12
+lastmod: 2022-04-11
 draft: false
-tags: ['javaSE','高并发']
+tags: ['javaSE']
 categories: ["笔记"]
 author: "lei"
 ---

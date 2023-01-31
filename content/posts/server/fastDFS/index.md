@@ -1,10 +1,10 @@
 ---
 title: "fastDFS"
 date: 2021-05-14
-lastmod: 2021-05-24 12:12:12
+lastmod: 2021-05-24
 draft: false
 tags: ['服务器']
-categories: ["后端"]
+categories: ["其他"]
 author: "lei"
 ---
 

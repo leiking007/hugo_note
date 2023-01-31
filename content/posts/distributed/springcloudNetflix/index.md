@@ -4,7 +4,7 @@ date: 2021-11-17
 lastmod: 2021-11-17
 draft: false
 tags: ['spring']
-categories: ["分布式"]
+categories: ["框架"]
 author: "lei"
 ---
 

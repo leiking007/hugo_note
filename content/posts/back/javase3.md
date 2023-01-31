@@ -1,7 +1,7 @@
 ---
 title: "javaSE3"
 date: 2020-06-09
-lastmod: 2020-06-09 12:12:12
+lastmod: 2020-06-09
 draft: false
 tags: ['javaSE']
 categories: ["后端"]

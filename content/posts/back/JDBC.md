@@ -1,7 +1,7 @@
 ---
 title: "JDBC"
 date: 2020-06-09
-lastmod: 2020-06-09 12:12:12
+lastmod: 2020-06-09
 draft: false
 tags: ['javaEE','数据库']
 categories: ["后端"]

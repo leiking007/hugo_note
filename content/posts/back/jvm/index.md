@@ -1,7 +1,7 @@
 ---
 title: "JVM"
 date: 2021-06-09
-lastmod: 2021-06-09 12:12:12
+lastmod: 2021-06-09
 draft: false
 tags: ['javaSE']
 categories: ["后端"]

@@ -1,7 +1,7 @@
 ---
 title: "TypeScript"
 date: 2022-12-19
-lastmod: 2022-12-19 12:12:12
+lastmod: 2022-12-19
 draft: false
 tags: ['js']
 categories: ["前端"]

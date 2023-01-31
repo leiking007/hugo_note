@@ -1,7 +1,7 @@
 ---
 title: "postgresql"
 date: 2022-10-09
-lastmod: 2022-10-09 12:12:12
+lastmod: 2022-10-09
 draft: false
 tags: ['数据库']
 categories: ["后端"]

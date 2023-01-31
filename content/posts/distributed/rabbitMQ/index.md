@@ -3,8 +3,8 @@ title: "RabbitMq"
 date: 2021-10-14
 lastmod: 2021-10-24 12:12:12
 draft: false
-tags: ['中间件','mq']
-categories: ["分布式"]
+tags: ['中间件']
+categories: ["后端"]
 author: "lei"
 ---
 

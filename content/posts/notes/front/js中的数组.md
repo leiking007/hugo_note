@@ -3,7 +3,7 @@ title: "js中的数组"
 date: 2021-11-01
 lastmod: 2021-11-11
 draft: false
-tags: ['js','数组']
+tags: ['js']
 categories: ["前端"]
 author: "lei"
 ---

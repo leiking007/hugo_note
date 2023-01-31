@@ -4,7 +4,7 @@ date: 2020-09-17
 lastmod: 2020-09-17 12:12:12
 draft: false
 tags: ['中间件']
-categories: ["分布式"]
+categories: ["后端"]
 author: "lei"
 ---
 

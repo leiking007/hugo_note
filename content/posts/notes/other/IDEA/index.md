@@ -1,7 +1,7 @@
 ---
 title: "IDEA的一些东西"
 date: 2021-11-01
-lastmod: 2021-11-11 12:12:12
+lastmod: 2021-11-11
 draft: false
 tags: ['配置']
 categories: ["笔记"]

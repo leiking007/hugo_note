@@ -2,9 +2,9 @@
 title: "docker"
 description: ""
 date: 2020-11-07
-lastmod: 2020-11-07 12:12:12
-categories: ["后端"]
-tags: ["虚拟化"]
+lastmod: 2020-11-07
+categories: ["其他"]
+tags: ["服务器"]
 author: "lei"
 draft: false
 ---

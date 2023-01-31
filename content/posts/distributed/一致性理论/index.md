@@ -4,7 +4,7 @@ date: 2021-05-14
 lastmod: 2021-05-24 12:12:12
 draft: false
 tags: ["理论"]
-categories: ["分布式"]
+categories: ["后端"]
 author: "lei"
 ---
 

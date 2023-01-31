@@ -2,9 +2,9 @@
 title: "gradle"
 description: ""
 date: 2022-11-05
-lastmod: 2022-11-05 12:12:12
-categories: ["工具"]
-tags: ["依赖管理"]
+lastmod: 2022-11-05
+categories: ["其他"]
+tags: ["项目管理"]
 author: "lei"
 draft: false
 ---

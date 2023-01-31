@@ -3,8 +3,8 @@ title: "java面试题"
 date: 2020-09-09
 lastmod: 2021-09-09 12:12:12
 draft: false
-tags: ['javaSE']
-categories: ["面试题"]
+tags: ['面试题']
+categories: ["后端"]
 author: "lei"
 ---
 
