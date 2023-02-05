@@ -518,3 +518,454 @@ class Person3 implements IPerson3 {
 }
 ```
 
+## 类
+
+**类定义基础示例**
+
+类是为了可以更好地面向对象编程
+
+```typescript
+// 定义类，关键字 class
+class Person{
+    // 定义类属性 name age
+    name:string
+    age:number
+    // 构造方法，传入参数 name age，指定默认值
+    constructor(name:string='张三',age:number=18){
+        this.name=name
+        this.age=age
+    } 
+    //定义类方法
+    saySomeThings(str:string){
+        console.log(`${this.name}说:${str}`)
+    }
+}
+const p:Person=new Person("李四");
+p.saySomeThings('hello')   // 李四说:hello
+```
+
+**继承和多态**
+
+- 继承关键字 `extends`
+
+- 如果 B 继承了 A，那么 A 被称为父类/基类，B 被称为子类/派生类
+- 子类实例化时，必须调用super方法；子类可以通过 `super` 关键字调用父类的属性和方法
+- 多态指的是子类实例可以用父类类型进行引用
+
+示例：
+
+```typescript
+class Student extends Person {
+    teacher: string
+    // 构造方法，传入参数 name age，指定默认值
+    constructor(name: string = '张三', age: number = 18, teacher: string) {
+        // super 调用父类方法
+        super(name, age)
+        this.teacher = teacher
+    }
+}
+// 多态的体现，这里父类引用，子类实例
+const stu1:Person = new Student("李四",18,"李老师")
+```
+
+**修饰符**
+
+类属性和方法的修饰符，默认为public
+
+- private：被修饰的属性或方法不能在类定义以外的任何地方访问（包括子类的 super 调用）
+- protected：可以在子类中访问，不可以在外部访问
+- public：可以在任何地方访问
+- readonly：被修饰的属性，只能在构造方法或定义时进行赋值操作
+
+> 注意：如果在构造函数的参数上使用修饰符，那么会默认存在该属性
+
+```typescript
+class TuGou{
+    constructor(public name:string){
+        // 这里因为构造方法参数存在修饰符，所以this可以调用到
+        this.name=name
+    }
+}
+```
+
+**存取器（封装）**
+
+`TypeScript` 支持通过 `getters/setters` 来截取对对象成员的访问
+
+示例：
+
+```typescript
+class It民工{
+    private firstName:string
+    private lastName:string
+    // 该类会多一个fullName 属性
+    set fullName(value:string){
+        const  =value.split('-')
+        this.firstName=names[0]
+        this.lastName=names[1]
+    }
+    get fullName () {
+         return this.firstName + '-' + this.lastName
+    }
+}
+const t1:It民工=new It民工()
+t1.fullName
+```
+
+**静态属性**
+
+使用 `static` 关键字修饰属性或方法，然后可以通过类名直接调用而不必实例化
+
+```typescript
+class Teacher{
+    static kinds:string='老师'
+    static say(str:string){
+        console.log(`我是${str}老师`)
+    }
+}
+console.log(Teacher.kinds) // 老师
+Teacher.say('王')  // 我是王老师
+```
+
+**抽象类**
+
+- 使用 `abstract` 关键字定义抽象类
+- 抽象类做为其它派生类的基类使用， 它们不能被实例化
+- 不同于接口，抽象类可以包含成员的实现细节
+
+示例：
+
+```typescript
+/* 
+  抽象类 不能创建实例对象, 只有实现类才能创建实例
+  可以包含未实现的抽象方法
+*/
+
+abstract class Animal {
+	// 抽象方法，子类必须实现该方法
+    abstract cry()
+	// 非抽象方法，子类可以直接调用
+    run() {
+        console.log('run()')
+    }
+}
+
+class Dog extends Animal {
+    cry() {
+        console.log(' Dog cry()')
+    }
+}
+
+const dog = new Dog()
+dog.cry()
+dog.run()
+```
+
+## 函数
+
+函数是 JavaScript 应用程序的基础，它帮助你实现抽象层，模拟类，信息隐藏和模块
+
+在 TypeScript 里，虽然已经支持类，命名空间和模块，但函数仍然是主要的定义行为的地方
+
+TypeScript 为 JavaScript 函数添加了额外的功能，让我们可以更容易地使用
+
+**基本示例**
+
+```typescript
+// 命名函数
+function add(x, y) {
+  return x + y
+}
+
+// 匿名函数
+let myAdd = function(x, y) { 
+  return x + y;
+}
+```
+
+**函数类型**
+
+示例
+
+```typescript
+function add(x: number, y: number): number {
+  return x + y
+}
+
+let myAdd = function(x: number, y: number): number { 
+  return x + y
+}
+```
+
+**可选参数和默认参数**
+
+TypeScript 里的每个函数参数都是必须的，传递给一个函数的参数个数必须与函数期望的参数个数一致
+
+JavaScript 里，每个参数都是可选的，可传可不传。 没传参的时候，它的值就是 `undefined`。 在TypeScript 里我们可以在参数名旁使用 `?` 实现可选参数的功能
+
+```typescript
+// firstName 指定默认参数A，调用时可不传；lastName是可选参数，可不传
+function buildName(firstName: string='A', lastName?: string): string {
+  if (lastName) {
+    return firstName + '-' + lastName
+  } else {
+    return firstName
+  }
+}
+
+console.log(buildName('C', 'D'))
+console.log(buildName('C'))
+console.log(buildName())
+```
+
+**剩余参数**
+
+在 TypeScript 里，可以把所有参数收集到一个变量里：剩余参数会被当做个数不限的可选参数。 可以一个都没有，同样也可以有任意个。 编译器创建参数数组，名字是你在省略号（ `...`）后面给定的名字，你可以在函数体内使用这个数组。 默认参数关键字：`...`
+
+剩余参数必须在参数列表末尾
+
+示例
+
+```typescript
+// args 为默认茶树
+function info(x: string, ...args: string[]) {
+  console.log(x, args)
+}
+info('abc', 'c', 'b', 'a')
+```
+
+**函数重载**
+
+函数重载: 函数名相同, 而形参不同的多个函数
+
+在JS中, 由于弱类型的特点和形参与实参可以不匹配, 是没有函数重载这一说的 但在TS中, 与其它面向对象的语言(如Java)就存在此语法
+
+示例
+
+```typescript
+// 函数重载声明(表示add函数只支持入参同时为number或string)
+function add(a:number,b:number):number
+function add(a:string,b:string):string
+// 函数定义
+function add(a:number|string,b:number|string):number|string{
+    if(typeof a==='string' && typeof b==='string'){
+        return a+b
+    }else if(typeof a==='number' && typeof b==='number'){
+        return a+b
+    }
+}
+```
+
+## 泛型
+
+**基础示例**
+
+指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定具体类型的一种特性
+
+示例：
+
+```typescript
+// 根据指定的数量 count 和数据 value , 创建一个包含 count 个 value 的数组
+// T 为泛型标识符，在调用该函数时传入具体类型
+// 也可以将类型指定为any，这样后续会使用数组中元素时没有提示
+function creatArr<T>(value:T,count:number):T[]{
+    const arr:T[]=[]
+    for(let i=0;i<count;i++){
+        arr.push(value)
+    }
+    return arr
+}
+// 泛型为Number，该函数返回Number数组
+creatArr<Number>(123,10)
+```
+
+**泛型接口**
+
+```typescript
+interface IbaseCRUD <T> {
+  data: T[]
+  add: (t: T) => void
+  getById: (id: number) => T
+}
+
+class User {
+  id?: number; //id主键自增
+  name: string; //姓名
+  age: number; //年龄
+
+  constructor (name, age) {
+    this.name = name
+    this.age = age
+  }
+}
+
+class UserCRUD implements IbaseCRUD <User> {
+  data: User[] = []
+  
+  add(user: User): void {
+    user = {...user, id: Date.now()}
+    this.data.push(user)
+    console.log('保存user', user.id)
+  }
+
+  getById(id: number): User {
+    return this.data.find(item => item.id===id)
+  }
+}
+
+
+const userCRUD = new UserCRUD()
+userCRUD.add(new User('tom', 12))
+userCRUD.add(new User('tom2', 13))
+console.log(userCRUD.data)
+```
+
+**泛型类**
+
+```typescript
+class GenericNumber<T> {
+  zeroValue: T
+  add: (x: T, y: T) => T
+}
+
+let myGenericNumber = new GenericNumber<number>()
+myGenericNumber.zeroValue = 0
+myGenericNumber.add = function(x, y) {
+  return x + y 
+}
+
+let myGenericString = new GenericNumber<string>()
+myGenericString.zeroValue = 'abc'
+myGenericString.add = function(x, y) { 
+  return x + y
+}
+
+console.log(myGenericString.add(myGenericString.zeroValue, 'test'))
+console.log(myGenericNumber.add(myGenericNumber.zeroValue, 12))
+```
+
+ **泛型约束**
+
+```typescript
+interface Lengthwise {
+  length: number;
+}
+
+// 指定泛型约束
+function fn2 <T extends Lengthwise>(x: T): void {
+  console.log(x.length)
+}
+
+fn2('abc')
+// fn2(123) // error  number没有length属性
+```
+
+## 其他
+
+ **声明文件**
+
+当使用第三方库时，我们需要引用它的声明文件，才能获得对应的代码补全、接口提示等功能
+
+什么是声明语句
+
+假如我们想使用第三方库 jQuery，一种常见的方式是在 html 中通过 `<script>` 标签引入 `jQuery`，然后就可以使用全局变量 `$` 或 `jQuery` 了。
+
+但是在 ts 中，编译器并不知道 $ 或 jQuery 是什么东西
+
+```typescript
+/* 
+当使用第三方库时，我们需要引用它的声明文件，才能获得对应的代码补全、接口提示等功能。
+声明语句: 如果需要ts对新的语法进行检查, 需要要加载了对应的类型说明代码
+  declare var jQuery: (selector: string) => any;
+声明文件: 把声明语句放到一个单独的文件（jQuery.d.ts）中, ts会自动解析到项目中所有声明文件
+下载声明文件: npm install @types/jquery --save-dev
+*/
+
+jQuery('#foo');
+// ERROR: Cannot find name 'jQuery'.
+```
+
+这时，我们需要使用 declare var 来定义它的类型
+
+```typescript
+declare var jQuery: (selector: string) => any;
+jQuery('#foo');
+```
+
+declare var 并没有真的定义一个变量，只是定义了全局变量 jQuery 的类型，仅仅会用于编译时的检查，在编译结果中会被删除。它编译结果是：
+
+```typescript
+jQuery('#foo');
+```
+
+一般声明文件都会单独写成一个 `xxx.d.ts` 文件
+
+创建 `01_jQuery.d.ts`, 将声明语句定义其中, TS编译器会扫描并加载项目中所有的TS声明文件
+
+```typescript
+declare var jQuery: (selector: string) => any;
+```
+
+很多的第三方库都定义了对应的声明文件库, 库文件名一般为 `@types/xxx`, 可以在 `https://www.npmjs.com/package/package` 进行搜索
+
+有的第三库在下载时就会自动下载对应的声明文件库(比如: webpack),有的可能需要单独下载(比如jQuery/react)
+
+示例：
+
+1. 安装jquery依赖
+
+   ```bash
+   npm install jquery
+   ```
+
+2. 安装jquery声明文件
+
+   ```bash
+   npm install @types/jquery
+   ```
+
+**内置对象**
+
+JavaScript 中有很多内置对象，它们可以直接在 TypeScript 中当做定义好了的类型。
+
+内置对象是指根据标准在全局作用域（Global）上存在的对象。这里的标准是指 ECMAScript 和其他环境（比如 DOM）的标准。
+
+1. ECMAScript 的内置对象
+
+> Boolean
+> Number
+> String
+> Date
+> RegExp
+> Error
+
+```typescript
+/* 1. ECMAScript 的内置对象 */
+let b: Boolean = new Boolean(1)
+let n: Number = new Number(true)
+let s: String = new String('abc')
+let d: Date = new Date()
+let r: RegExp = /^1/
+let e: Error = new Error('error message')
+b = true
+// let bb: boolean = new Boolean(2)  // error
+```
+
+1. BOM 和 DOM 的内置对象
+
+> Window
+> Document
+> HTMLElement
+> DocumentFragment
+> Event
+> NodeList
+
+```typescript
+const div: HTMLElement = document.getElementById('test')
+const divs: NodeList = document.querySelectorAll('div')
+document.addEventListener('click', (event: MouseEvent) => {
+  console.dir(event.target)
+})
+const fragment: DocumentFragment = document.createDocumentFragment()
+```
+
