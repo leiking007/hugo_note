@@ -3,7 +3,7 @@ title: "css"
 date: 2020-09-09
 lastmod: 2020-09-09
 draft: false
-tags: ['html css']
+tags: ['css']
 categories: ["前端"]
 author: "lei"
 ---
