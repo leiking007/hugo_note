@@ -3,7 +3,7 @@ title: "java中日期"
 date: 2021-11-01
 lastmod: 2021-11-11
 draft: false
-tags: ['javaSE']
+tags: ['javaSE','spring']
 categories: ["笔记"]
 author: "lei"
 ---
@@ -680,59 +680,71 @@ public class NewDateUtil {
 }
 ```
 
-# Spring实体类日期
+# Spring中日期处理
 
 实体类`Date`类型是属于`util`包下
 
 也可以使用jdk1.8 的 `LocalDateTime`  `LocalDate`类型
 
-## 出参格式化(序列化)
+## jackson出参格式化(序列化)
 
-出参格式化指的是，往前端传递参数时，默认为Spring中的jackson使用什么格式和时区对日期进行json格式化
+出参格式化指的是，往前端传递参数时；spring 使用 json 工具将时间转换为怎么样的 json 串
 
-**jackson**
+**格式化配置**
 
-1. 方式一：提供一个自定义的ObjectMapper bean，全局生效
+优先级：@JsonFormat > ObjectMapper > properties配置
 
-   ```java
-   @Bean
-   ObjectMapper objectMapper() {
-       return new Jackson2ObjectMapperBuilder()
-           .findModulesViaServiceLoader(true)
-           //date 序列化格式
-           .dateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
-           .timeZone("GMT+8")
-           //配置给定类型 序列化
-           .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(
-               DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-           //配置给定类型 反序列化
-           .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(
-               DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-           .serializerByType(LocalTime.class, new LocalTimeSerializer(
-               DateTimeFormatter.ofPattern("HH:mm:ss")))
-           .deserializerByType(LocalTime.class, new LocalTimeDeserializer(
-               DateTimeFormatter.ofPattern("HH:mm:ss")))
-           .build();
-   }
-   ```
+- 提供一个自定义的ObjectMapper bean，全局生效
 
-2. 方式二：字段添加注解
+  ```java
+  @Bean
+  ObjectMapper objectMapper() {
+      return new Jackson2ObjectMapperBuilder()
+          .findModulesViaServiceLoader(true)
+          //date 序列化格式
+          .dateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
+          .timeZone("GMT+8")
+          //配置给定类型 序列化
+          .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(
+              DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+          //配置给定类型 反序列化
+          .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(
+              DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+          .serializerByType(LocalTime.class, new LocalTimeSerializer(
+              DateTimeFormatter.ofPattern("HH:mm:ss")))
+          .deserializerByType(LocalTime.class, new LocalTimeDeserializer(
+              DateTimeFormatter.ofPattern("HH:mm:ss")))
+          .build();
+  }
+  ```
 
-   ```java
-   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-   private LocalDateTime createTime;
-   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-   private Date ontDate;
-   ```
+- 字段添加注解
 
-3. 方式三：配置文件配置，注意 不会针对`LocalDateTime`不会生效
+  ```java
+  @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+  private LocalDateTime createTime;
+  @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+  private Date ontDate;
+  ```
 
-   ```properties
-   spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
-   spring.jackson.time-zone=GMT+8
-   ```
+- 配置文件配置，注意 不会针对`LocalDateTime`不会生效
 
+  ```properties
+  spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
+  spring.jackson.time-zone=GMT+8
+  ```
 
+**Date**
+
+默认格式化为：`yyyy-MM-dd'T'HH:mm:ss.SSSXXX`
+
+**LocalDate系列**
+
+默认格式化：
+
+- LocalDateTime：`yyyy-MM-dd'T'HH:mm:ss.SSSXXX`
+- LocalDate：`yyyy-MM-dd`
+- LocalTime：`HH:mm:ss.SSSXXX`
 
 ## 入参格式化
 
