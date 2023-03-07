@@ -746,6 +746,34 @@ public class NewDateUtil {
 - LocalDate：`yyyy-MM-dd`
 - LocalTime：`HH:mm:ss.SSSXXX`
 
+## Fastjson出参格式化(序列化)
+
+**格式化配置**
+
+- 全局配置
+
+  ```java
+  fastJsonConfig.setDateFormat("yyy-MM-dd HH:ss");
+  ```
+
+- 字段添加注解
+
+  ```java
+  // 字段注解两个都可以
+  @JsonFormat(pattern = "yyyy-MM-dd HH")
+  @JSONField(format = "yyyy-MM-dd HH")
+  ```
+
+**Date**
+
+默认格式为：`yyyy-MM-dd HH:mm:ss`
+
+**LocalDate系列**
+
+- LocalDateTime：`yyyy-MM-dd HH:mm:ss`
+- LocalDate：`yyyy-MM-dd HH:mm:ss ` 时间为00:00:00
+- LocalTime：`yyyy-MM-dd HH:mm:ss `年为：1970-01-01
+
 ## 入参格式化
 
 > 注意：`param`传递接收时间参数时：使用`@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")` 匹配前端传参可能匹配更多，但不能匹配更少，否则会报404；
