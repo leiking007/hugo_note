@@ -10,7 +10,58 @@ author: "lei"
 
 
 
-# Node安装后必要配置
+# Node
+
+## nvm安装
+
+nvm是一个node版本管理工具
+
+1. https://github.com/coreybutler/nvm-windows  下载nvm，这里下载的是非安装版（nvm-noinstall.zip）
+
+2. 解压到指定目录
+
+3. 新建环境变量 NVM_HOME、NVM_SYMLINK
+
+   ```bash
+   NVM_HOME
+   F:\study\environment\node\nvm1.1.11 (nvm安装目录)
+   
+   NVM_SYMLINK
+   F:\study\environment\node\nodejs (nodejs使用目录，链接)
+   ```
+
+4. 将环境变量 NVM_HOME、NVM_SYMLINK 加入到`PATH`
+
+   ```bash
+   PATH
+       %NVM_SYMLINK%
+       %NVM_HOME%
+   ```
+
+5. 配置 nvm 安装目录下的`settings.txt`文件
+
+   ```properties
+   root: F:\study\environment\node\nvm1.1.11
+   path: F:\study\environment\node\nodejs
+   node_mirror: https://npm.taobao.org/mirrors/node/
+   npm_mirror: https://npm.taobao.org/mirrors/npm/
+   ```
+
+6. 命令行测试
+
+   ```bash
+   nvm version   # 查看nvm版本
+   
+   nvm list available   # 查看可安装的 node 版本
+   
+   nvm list  # 查看已经安装的node版本
+   
+   nvm install 18.16.0  # 安装指定版本的node
+   
+   nvm use 18.16.0  # 切换/使用指定版本的node
+   ```
+
+   
 
 ## npm配置
 

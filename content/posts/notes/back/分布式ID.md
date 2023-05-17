@@ -28,6 +28,7 @@ Snowflake 是 Twitter 开源的分布式 ID 生成算法。Snowflake 由 64 bit 
 ```java
 /**
  * twitter的snowflake算法 -- java实现
+ * 下面代码每秒理论上可生成id数为：2048000
  *
  * @author 总共 64bit位 最大为 9,223,372,036,854,775,807（2^63 -1）
  */
@@ -41,7 +42,7 @@ public class SnowFlake {
     // 预留1 bit 符号位（默认为0）
 
     /**
-     * 序列号占用的位数 最大1024 每毫秒可生成2048个序列号
+     * 序列号占用的位数 每毫秒可生成2048个序列号
      */
     private static final long SEQUENCE_BIT = 11;
     /**
@@ -68,7 +69,7 @@ public class SnowFlake {
     private static final long MAX_DATACENTER = ~(-1L << DATACENTER_BIT);
 
     /**
-     * 序列最大为 1024
+     * 序列最大大小
      */
     private static final long MAX_SEQUENCE = ~(-1L << SEQUENCE_BIT);
 
@@ -116,7 +117,7 @@ public class SnowFlake {
      *
      * @return long
      */
-    public synchronized String nextId() {
+    public synchronized long nextId() {
         long currTimestamp = getNewTimestamp();
         if (currTimestamp < lastTimestamp) {
             throw new AppException("Clock moved backwards.  Refusing to generate id");
@@ -134,11 +135,10 @@ public class SnowFlake {
         }
         lastTimestamp = currTimestamp;
         // 这里隐藏了首位 0L
-        long l = (currTimestamp - START_TIMESTAMP) << TIMESTAMP_LEFT //时间戳部分
+        return (currTimestamp - START_TIMESTAMP) << TIMESTAMP_LEFT //时间戳部分
                 | datacenterId << DATACENTER_LEFT       //数据中心部分
                 | machineId << MACHINE_LEFT             //机器标识部分
                 | sequence; //序列号部分
-        return String.format("%020d", l);
     }
 
     private long getNextMill() {
@@ -156,16 +156,31 @@ public class SnowFlake {
 
     public static final SnowFlake SNOW_FLAKE = new SnowFlake(1L, 1L);
 
-    public static String getSeq() {
+    public static long getSeq() {
         return SNOW_FLAKE.nextId();
     }
 
     public static void main(String[] args) {
-        List<String> arr = new ArrayList<>(10000000);
-        for (int i = 0; i < 1000000; i++) {
-            arr.add(getSeq());
+        long start = System.currentTimeMillis();
+        List<Long> arr = Collections.synchronizedList(new ArrayList<>(100000));
+        new Thread(() -> {
+            while (System.currentTimeMillis() - start < 1000) {
+                arr.add(getSeq());
+            }
+        }).start();
+        new Thread(() -> {
+            while (System.currentTimeMillis() - start < 1000) {
+                arr.add(getSeq());
+            }
+        }).start();
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        System.out.println("-------------");
+        System.out.println(String.format("耗时：%sms,生成id数量：%s", System.currentTimeMillis() - start, arr.size()));
+
+
     }
 }
 ```
