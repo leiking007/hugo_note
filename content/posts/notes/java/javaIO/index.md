@@ -1393,3 +1393,219 @@ public static void main(String[] args) throws Exception {
 - 服务端：可以监测用户上线、离线，并实现消息转发功能
 - 客户端：通过 Channel 可以无阻塞发送消息给其他所有客户端用户，同时可以接受其他客户端用户通过服务端转发来的消息
 
+## 服务端代码
+
+```java
+public class Server {
+    private final ServerSocketChannel serverSocketChannel;
+    private final Selector selector;
+    private final static int PORT = 9999;
+
+    {
+        try {
+            // 打开通道
+            serverSocketChannel = ServerSocketChannel.open();
+            // 绑定端口
+            serverSocketChannel.bind(new InetSocketAddress(PORT));
+            // 设置非阻塞模式
+            serverSocketChannel.configureBlocking(false);
+            // 获取选择器
+            selector = Selector.open();
+            // 将服务器通道注册到选择器上，并绑定“接收事件”
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        Server server = new Server();
+        server.listen();
+    }
+
+    /**
+     * 监听处理事件
+     */
+    private void listen() {
+        try {
+            // 阻塞监听，当选择器有事件时进入
+            while (selector.select() > 0) {
+                // 获取已准备就绪的事件的迭代器
+                Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
+                while (iterator.hasNext()) {
+                    SelectionKey selectionKey = iterator.next();
+                    // 根据不同类型处理事件
+                    if (selectionKey.isAcceptable()) {
+                        // 客户端接入通道
+                        SocketChannel socketChannel = serverSocketChannel.accept();
+                        socketChannel.configureBlocking(false);
+                        // 注册到选择器 监听读数据的事件
+                        socketChannel.register(selector, SelectionKey.OP_READ);
+                    } else if (selectionKey.isReadable()) {
+                        // 处理客户端的消息，实现转发逻辑
+                        readClientData(selectionKey);
+                    }
+                    // 移除已经处理的事件
+                    iterator.remove();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readClientData(SelectionKey selectionKey) {
+        SocketChannel socketChannel = null;
+        try {
+            // 获取客户端通道
+            socketChannel = (SocketChannel) selectionKey.channel();
+            // 创建缓冲区
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            int count = socketChannel.read(buffer);
+            if (count > 0) {
+                buffer.flip();
+                String msg = new String(buffer.array(), 0, buffer.remaining());
+                System.out.println("服务端接收到：" + msg);
+                sendMsgToAllClient(msg, socketChannel);
+            }
+
+        } catch (Exception e) {
+            // 这里如果出异常为，读取数据是通道离线
+            try {
+                System.out.println("有人离线了：" + socketChannel.getRemoteAddress());
+                //当前客户端离线
+                selectionKey.cancel();//取消注册
+                socketChannel.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+        }
+    }
+
+    /**
+     * 将消息发送给所有人，除了自己
+     */
+    private void sendMsgToAllClient(String msg, SocketChannel channel) throws IOException {
+        for (SelectionKey key : selector.keys()) {
+            SelectableChannel curSelectChannel = key.channel();
+            // 不发消息给自己
+            if (curSelectChannel instanceof SocketChannel && curSelectChannel != channel) {
+                SocketChannel curChannel = (SocketChannel) curSelectChannel;
+                ByteBuffer buffer = ByteBuffer.wrap(msg.getBytes(StandardCharsets.UTF_8));
+                curChannel.write(buffer);
+            }
+        }
+    }
+}
+```
+
+## 客户端代码
+
+```java
+public class Client {
+    // 定义客户端相关属性
+    private final Selector selector;
+    private static final int PORT = 9999;
+    private final SocketChannel socketChannel;
+    // 初始化客户端信息
+    {
+        try {
+            // 创建选择器
+            selector = Selector.open();
+            // 连接服务器
+            socketChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1",PORT));
+            // 设置非阻塞模式
+            socketChannel.configureBlocking(false);
+            // 注册到选择器
+            socketChannel.register(selector, SelectionKey.OP_READ);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void main(String[] args) {
+        Client client = new Client();
+        // 定义一个线程，专门负责监听服务端发送过来的读消息事件
+        new Thread(() -> {
+            try {
+                client.readInfo();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }).start();
+        // 发消息
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNextLine()){
+            System.out.println("------------------");
+            String s = sc.nextLine();
+            client.sendToServer(s);
+        }
+    }
+    private void sendToServer(String s) {
+        try {
+            socketChannel.write(ByteBuffer.wrap(("波仔说：" + s).getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //
+    private void readInfo() throws IOException {
+        while(selector.select() > 0){
+            Iterator<SelectionKey> iterator =
+                    selector.selectedKeys().iterator();
+            while (iterator.hasNext()){
+                SelectionKey key = iterator.next();
+                if(key.isReadable()){
+                    SocketChannel sc = (SocketChannel) key.channel();
+                    ByteBuffer buffer = ByteBuffer.allocate(1024);
+                    sc.read(buffer);
+                    System.out.println(new String(buffer.array()).trim());
+                    System.out.println("-dsd------------------------");
+                }
+                iterator.remove();
+            }
+        }
+    }
+}
+```
+
+# AIO 理解
+
+## AIO 编程
+
+- Java AIO(NIO.2)：异步非阻塞，服务器实现模式为一个有效请求一个线程，客户端的I/O请求都是 由OS先完成了再通知服务器应用去启动线程进行处理。
+
+
+-  AIO 是异步非阻塞，基于 NIO，可以称之为 NIO2.0
+
+| BIO          | NIO                 | AIO                             |
+| ------------ | ------------------- | ------------------------------- |
+| Socket       | SocketChannel       | AsynchronousSocketChannel       |
+| sERVERsOCKET | ServerSocketChannel | AsynchronousServerSocketChannel |
+
+与 NIO 不同，当进行读写操作时，只须直接调用 API 的 read 或 write 方法即可，这两种方法均为异步的， 对于读操作而言，当有流可读时，操作系统会将可读的流传入 read 方法的缓冲区，对于写操作而言，当 操作系统将 write 方法传递的流写入完毕时，操作系统主动通知应用程序 。 
+
+即可以理解为，read/write 方法都是异步的，完成后会主动调用回调函数。在 JDK1.7 中，这部分内容被 称作  NIO.2，主要在 java.nio.channel包下增加了下面四个异步通道：
+
+-  AsynchronousSocketChannel
+- AsynchronousServerSocketChannel
+- AsynchronousFileChannel
+- AsynchronousDatagramChannel 
+
+# BIO、NIO、AIO总结
+
+ BIO、NIO、AIO：
+
+-  Java BlO：同步并阻塞，服务器实现模式为一个连接一个线程，即客户端有连接请求时服务器端就 需要启动 一个线程进行处理，如果这个连接不做任何事情会造成不必要的线程开销，当然可以通过 线程池机制改善。
+-  Java NIO：同步非阻塞，服务器实现模式为一个请求一个线程，即客户端发送的连接请求都会注册 到多路复用器上，多路复用器轮询到连接有 I/O 请求时才启动一个线程进行处理。 
+- Java AIO(N 10.2)：异步非阻塞，服务器实现模式为一个有效请求一个线程，客户端的 I/O 请求都是 由 OS先完成了再通知服务器应用去启动线程进行处理。 
+
+BIO、NIO、AIO适用场景分析： 
+
+- BlO 方式适用于连接数目比较小且固定的架构，这种方式对服务器资源要求比较高，并发局限于应 用中， JDK1.4 以前的唯一选择，但程序直观简单易理解。 
+
+- NIO 方式适用于连接数目多且连接比较短（轻操作）的架构，比如聊天服务器，并发局限于应用 中，编程比较 复杂，JDK1 .4 开始支持。
+
+- AlO 方式使用于连接数目多且连接比较长（重操作）的架构，比如相册服务器，充分调用 OS 参与并 发操作，编 程比较复杂，JDK7 开始支持
