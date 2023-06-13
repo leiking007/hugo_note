@@ -92,66 +92,62 @@ UserService
 
 ## HelloSpring
 
-> 编写Hello类
+**编写HelloService类**
 
 ```java
-public class Hello {
+public class HelloService {
     private String name;
-    private int age;
-    public String getName() {}
-    public void setName(String name) {}
-    public int getAge() {}
-    public void setAge(int age) {}
-    @Override
-    public String toString() {
-        return "Hello{" +"name='" + name + '\'' +", age=" + age +'}';
+
+    public void say() {
+        System.out.println("我的名字是：" + name);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
 ```
 
-> 编写Bean配置文件，用以创建对象
+**在 classpath 下编写 bean 配置文件  spring-beans.xml **
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd        http://dubbo.apache.org/schema/dubbo        http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
- 
-    <!-- 提供方应用信息，用于计算依赖关系 -->
-    <dubbo:application name="hello-world-app"  />
- 
-    <!-- 使用multicast广播注册中心暴露服务地址 -->
-    <dubbo:registry address="multicast://224.5.6.7:1234" />
- 
-    <!-- 用dubbo协议在20880端口暴露服务 -->
-    <dubbo:protocol name="dubbo" port="20880" />
- 
-    <!-- 声明需要暴露的服务接口 -->
-    <dubbo:service interface="org.apache.dubbo.demo.DemoService" ref="demoService" />
- 
-    <!-- 和本地bean一样实现服务 -->
-    <bean id="demoService" class="org.apache.dubbo.demo.provider.DemoServiceImpl" />
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--  声明 bean，默认 scope 为 singleton 单例 -->
+    <bean id="helloService" class="org.lei.ch01.service.HelloService">
+        <!--   通过 set 方法设置属性值   -->
+        <property name="name" value="小唐"/>
+    </bean>
+
 </beans>
 ```
 
-> 编写测试类
+**Main 方法**
 
 ```java
-public class TestHello {
+public class Main {
     public static void main(String[] args) {
-        //加载配置文件，获取spring上下文
-        ApplicationContext context=new ClassPathXmlApplicationContext("beans");
-        //通过spring上下文获取对象
-        Hello hello= (Hello) context.getBean("hello");
-        System.out.println(hello.toString());
+        // 在 classpath 下加载 spring-beans.xml bean 配置文件
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-beans.xml");
+        // 通过 class 获取实例（也可通过名字获取实例）
+        HelloService helloService = context.getBean(HelloService.class);
+        // 调用实例方法
+        helloService.say();
     }
 }
 ```
 
-**Hello对象由Spring创建，开发者不创建，这个叫做控制反转**
-
-**IOC 即 对象由spring创建、管理、装配**
+> Hello对象由Spring创建，开发者不创建，这个叫做控制反转
+>
+> IOC 即 对象由spring创建、管理、装配
 
 ## IOC创建对象的方法
 
@@ -159,7 +155,7 @@ public class TestHello {
 
    ```java
     <bean id="hello" class="com.lei.Hello">
-        <property name="name" value="唐磊"></property>
+        <property name="name" value="小唐"></property>
    </bean>
    ```
 
@@ -169,7 +165,7 @@ public class TestHello {
 
       ```xml
       <bean id="hello" class="com.lei.Hello">
-          <constructor-arg index="0" value="唐磊"/>
+          <constructor-arg index="0" value="小唐"/>
           <constructor-arg index="1" value="21"/>
       </bean>
       ```
@@ -180,7 +176,7 @@ public class TestHello {
 
       ```xml
       <bean id="hello" class="com.lei.Hello">
-          <constructor-arg type="java.lang.String" value="唐磊"/>
+          <constructor-arg type="java.lang.String" value="小唐"/>
           <constructor-arg type="int" value="21"/>
       </bean>
       ```
@@ -191,7 +187,7 @@ public class TestHello {
 
       ```xml
       <bean id="hello" class="com.lei.Hello">
-          <constructor-arg name="name" value="唐磊" />
+          <constructor-arg name="name" value="小唐" />
           <constructor-arg name="age" value="18" />
       </bean>
       ```
@@ -206,7 +202,7 @@ public class TestHello {
 
 ```xml
 <bean id="hello" class="com.lei.Hello">
-    <constructor-arg name="name" value="唐磊" />
+    <constructor-arg name="name" value="小唐" />
     <constructor-arg name="student" ref="student" />
 </bean>
 ```
@@ -223,7 +219,7 @@ public class TestHello {
 <!-- 以下为一个bean中的属性常用的注入方式 -->
 <bean id="user" class="com.lei.beans.User">
     <!-- 普通注入 -->
-    <property name="name" value="唐磊"/>
+    <property name="name" value="小唐"/>
     <property name="age" value="23"/>
     <!-- bean 注入 -->
     <property name="address" ref="address"/>
@@ -278,7 +274,7 @@ public class TestHello {
 
    ```xml
    	<!--  p 命名空间，属性注入-->
-       <bean id="student" class="com.lei.beans.Student" p:name="唐磊" p:age="18"/>
+       <bean id="student" class="com.lei.beans.Student" p:name="小唐" p:age="18"/>
    	<!--  c 命名空间，构造器注入-->
        <bean id="student1" class="com.lei.beans.Student" c:name="小明" c:age="21"/>
    ```
@@ -298,10 +294,10 @@ public class TestHello {
 
 ```xml
 <!-- 单例模式，默认机制 -->
-<bean id="student" class="com.lei.beans.Student" p:name="唐磊" scope="singleton"/>
+<bean id="student" class="com.lei.beans.Student" p:name="小唐" scope="singleton"/>
 
 <!-- 原型模式 -->
-<bean id="student" class="com.lei.beans.Student" p:name="唐磊" scope="prototype"/>
+<bean id="student" class="com.lei.beans.Student" p:name="小唐" scope="prototype"/>
 ```
 
 ## Bean的自动装配
