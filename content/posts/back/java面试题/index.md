@@ -1017,9 +1017,19 @@ public class Main {
 
 ![image-20230612140918417](images.assets/image-20230612140918417.png)
 
-**三级缓存**
+## Spring 几种作用域
 
+Spring 容器中的 bean 可分为五个范围
 
+**prototype（原型作用域）：**为每一个 bean 请求提供一个实例
+
+**singleton（单例作用域）：**默认，每个容器中只有一个 bean 的实例，单例模式由 BeanFactory 自身来维护
+
+**request（请求作用域）：**为每一个网络请求创建一个实例，在请求完成以后，bean 会失效，并被垃圾回收器回收
+
+**session（会话作用域）：**与 request 范围类似，确保每个 session 中有一个 bean 的实例，在 session 过期后，bean 会随之失效并被回收
+
+**global session（全局作用域）：**类似于标准的HTTP Session作用域，不过它仅仅在基于portlet的web应用中才有意义。Portlet规范定义了全局Session的概念，它被所有构成某个portlet web应用的各种不同的portlet所共享。在global session作用域中定义的bean被限定于全局portlet Session的生命周期范围内
 
 # JVM
 
