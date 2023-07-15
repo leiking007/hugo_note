@@ -2538,3 +2538,41 @@ Read View 中比较重要的字段有4个
 
 解决方案2：在程序中尽量使用相同的顺序来访问索引记录和表
 
+## MySQL架构
+
+![image-20230625230803063](./images.assets/image-20230625230803063.png)
+
+## MySQL Log 分类
+
+**undo log**
+
+`原子性` 底层就是通过 `undo log` 实现的。`undo log`主要记录了数据的逻辑变化，比如一条 `INSERT` 语句，对应一条`DELETE` 的 `undo log` ，对于每个 `UPDATE` 语句，对应一条相反的 `UPDATE` 的 `undo log` ，这样在发生错误时，就能回滚到事务之前的数据状态。同时， `undo log` 也是 `MVCC`(多版本并发控制)实现的关键
+
+**redo log**
+
+因为 InnoDB 不是每次修改数据页后都会刷新到磁盘，防止 MySQL 宕机了数据丢失，因此需要使用 redo log 来记录事务对哪些数据页做了哪些操作
+
+`redo log` 就是记录事务对数据页做了哪些修改，这样
+
+`redo log` 包括两部分：一个是内存中的日志缓冲( `redo log buffer` )，另一个是磁盘上的日志文件( `redo logfile`)。`mysql` 每执行一条 `DML` 语句，先将记录写入 `redo log buffer`，后续某个时间点再一次性将多个操作记录写到 `redo log file`。这种 **先写日志，再写磁盘** 的技术就是 `MySQL` 里经常说到的 `WAL(Write-Ahead Logging)` 技术
+
+`redo log` 实际上记录数据页的变更，而这种变更记录是没必要全部保存，因此 `redo log`实现上采用了大小固定，循环写入的方式，当写到结尾时，会回到开头循环写日志
+
+**bin log**
+
+- binlog 用于记录数据库执行的`写入性操作`（不包括查询）信息，以二进制形式保存在磁盘中
+- binlog 是 MySQL 的`逻辑日志`，并由 `Server` 层进行记录，使用任何存储引擎 MySQL 都会记录 binlog 日志
+- binlog 是通过`追加的方式进行写入`的，可以通过`max_binlog_size` 参数设置每个 `binlog`文件的大小，当文件大小达到给定值之后，会生成新的文件来保存日志
+
+binlog 刷盘时机，对于 InnoDB 存储引擎而言，只有在事务提交时才会记录 binlog，此时记录还在内存中，那么 binlog 是什么时候刷新到磁盘中呢？MySQL 通过 `sync_binlog` 参数控制 `biglog` 的刷盘时机，取值范围是 `0-N`：
+
+- 0：不去强制要求，由系统自行判断何时写入磁盘
+- 1：每次 `commit` 的时候都要将 `binlog` 写入磁盘
+- N：每N个事务，才会将 `binlog` 写入磁盘
+
+binlog 常用于`主从复制、数据恢复`
+
+> 逻辑日志和物理日志
+>
+> - 逻辑日志：可以简单理解为记录的就是sql语句
+> - 物理日志：MySQL 数据最终是保存在数据页中的，物理日志记录的就是数据页的变更

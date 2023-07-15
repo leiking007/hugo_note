@@ -25,8 +25,7 @@ function scrollToTocElement(tocElement: HTMLElement, scrollableNavigation: HTMLE
     if (scrollTop < 0) {
         scrollTop = 0;
     }
-    // 平滑滚动
-    scrollableNavigation.scrollTo({ top: scrollTop, behavior: "smooth" });
+    scrollableNavigation.scrollTo({ top: scrollTop, behavior: "auto" });
 }
 
 type IdToElementMap = { [key: string]: HTMLElement };

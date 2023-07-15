@@ -12,7 +12,7 @@
         placeholder=" {{- T `search.placeholder` -}} " 
         autocomplete="off" {{ with .OutputFormats.Get "json" -}} data-json="{{ .Permalink }}"{{- end }}>
         {{/*  18n  */}}
-        <label for="searchInput">{{- T "search.title"  -}}</label>
+        <label for="searchInput" style="left:0.5rem">{{- T "search.title"  -}}</label>
     </div>
     <div class="col-md-8" id="search-result">
         <h3 id="search-result-title"></h3>

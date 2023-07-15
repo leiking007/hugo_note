@@ -10,9 +10,9 @@
 {{ if .Site.Params.cdnEnable }}
     {{- partial "helper/external" (dict "Context" . "Namespace" "Bootstrap") -}}
 {{ else }}
-    <link rel='stylesheet' type='text/css' href='/lib/bootstrap-5.2.3/bootstrap.min.css'>
-    <link rel="stylesheet" type='text/css' href="/lib/bootstrap-5.2.3/bootstrap-icons.css">
-    <script src='/lib/bootstrap-5.2.3/bootstrap.bundle.min.js'></script>
+    <link rel='stylesheet' type='text/css' href='/lib/bootstrap-5.3/bootstrap.min.css'>
+    <link rel="stylesheet" type='text/css' href="/lib/bootstrap-5.3/bootstrap-icons.css">
+    <script src='/lib/bootstrap-5.3/bootstrap.bundle.min.js'></script>
 {{ end }}
 
 
