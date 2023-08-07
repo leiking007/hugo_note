@@ -1,14 +1,11 @@
 /* 目录样式 */
-#TableOfContents>ul>li>a {
-    font-size: 1.1em;
-    color: black;
-}
-
 #TableOfContents ul {
     list-style: none;
+
     ul {
         list-style: none;
         padding-inline-start: 10px;
+
         li {
             list-style-type: none;
             margin: 0.2em;
@@ -16,14 +13,13 @@
     }
 }
 
-.toc-active{
+.current{
     a {
         color: rgb(189, 3, 142) !important;
     }
 }
 
 #post-single {
-
 
     /* 文章标签样式 */
     a:hover {
@@ -211,8 +207,9 @@
         /* 代码块 */
         .highlight {
             position: relative;
-            pre{
-                border:1px solid rgba(227, 142, 247, 0.308);
+
+            pre {
+                border: 1px solid rgba(227, 142, 247, 0.308);
                 padding-top: 0.5em;
                 padding-bottom: 0.5em;
                 max-height: 70vh;

@@ -1,17 +1,12 @@
 import {fun_top} from "./base";
-import { setupScrollspy } from "./toc";
+import initToc from "./initToc";
 
 const  STACK={
 
     init:()=>{
 
         fun_top()
-
-        const articleContent = document.querySelector('#content') as HTMLElement;
-        if (articleContent) {
-            setupScrollspy();
-        }
-
+        initToc()
     }
 
 }
