@@ -14,12 +14,12 @@
 <body>
 
 
-    <img class="fixed-top opacity-25 vw-100 vh-100" src='/images/background-2.jpg' style="z-index: -999;"/>
+    <img class="fixed-top opacity-25 vw-100 vh-100" src='/images/background-2.jpg' style="z-index: -999;" alt=""/>
 
     {{- partial "header.html" . -}}
 
     <div class="container mt-7 p-2" id="main">
-        {{- block "main" . }}{{- end -}}
+        {{- block "main" . }}{{-  end -}}
     </div>
 
     <div class="container-fluid">

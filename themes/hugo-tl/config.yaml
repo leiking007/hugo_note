@@ -65,7 +65,6 @@ markup:
         lineNoStart: 1
         lineNos: true
         lineNumbersInTable: false
-        noClasses: true
         noHl: false
         style: friendly
         # style: native

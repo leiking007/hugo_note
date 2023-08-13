@@ -8,6 +8,7 @@ function createTocObserver() {
         if (allActive.length === 0) {
             return
         } else {
+            // let r=a?.b 等同于 let r=a && a.b
             document.querySelector(`#TableOfContents .current`)?.classList.remove('current');
             document.querySelectorAll(`#TableOfContents .active`)[0]?.classList.add('current')
         }

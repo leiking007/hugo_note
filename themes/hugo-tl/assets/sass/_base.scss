@@ -2,7 +2,7 @@ html {
     font-size: $global-font-size;
     box-sizing: border-box;
     scroll-padding-top: 60px;
-    overflow-y: overlay;
+    overflow-y: auto;
 }
 
 body {
