@@ -27,7 +27,7 @@ function fun_copy(): void {
             if (codeEle instanceof HTMLElement){
                 let text = ''
                 for (let child of codeEle.children) {
-                    text+=child.lastElementChild.innerHTML
+                    text+=child.lastElementChild.textContent
                 }
                 console.log(text)
             }
