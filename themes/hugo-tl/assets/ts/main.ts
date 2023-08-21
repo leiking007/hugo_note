@@ -1,4 +1,4 @@
-import {fun_top,fun_copy} from "./base";
+import {fun_top,fun_copy,fun_collapse_code} from "./base";
 import initToc from "./initToc";
 
 const  STACK={
@@ -7,6 +7,7 @@ const  STACK={
         fun_top()
         initToc()
         fun_copy()
+        fun_collapse_code()
     }
 
 }

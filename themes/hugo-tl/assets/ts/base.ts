@@ -29,10 +29,31 @@ function fun_copy(): void {
                 for (let child of codeEle.children) {
                     text+=child.lastElementChild.textContent
                 }
-                console.log(text)
+                const clipboardObj = navigator.clipboard;
+                if (clipboardObj){
+                    Promise.all([navigator.clipboard.writeText(text)])
+                        .then(()=>{
+                            alert("复制成功")
+                        })
+                }
             }
         })
     })
 }
 
-export {fun_top,fun_copy}
+function fun_collapse_code():void{
+    let collapseBtnList:NodeList = document.querySelectorAll("[data-type=\"collapse-btn\"]")
+    collapseBtnList.forEach(collapseBtn=>{
+        collapseBtn.addEventListener("click",(e)=>{
+            let highlightEle=collapseBtn.parentElement.nextElementSibling
+            if (highlightEle.classList.contains("hide")){
+                highlightEle.classList.remove("hide")
+            }else {
+                highlightEle.classList.add("hide")
+            }
+            console.log("-------")
+        })
+    })
+}
+
+export {fun_top,fun_copy,fun_collapse_code}
