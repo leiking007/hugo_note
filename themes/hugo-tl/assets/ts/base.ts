@@ -34,7 +34,9 @@ function fun_copy(): void {
                     Promise.all([navigator.clipboard.writeText(text)])
                         .then(()=>{
                             alert("复制成功")
-                        })
+                        }).catch(()=>{
+                        alert("暂不支持复制")
+                    })
                 }
             }
         })
@@ -51,7 +53,6 @@ function fun_collapse_code():void{
             }else {
                 highlightEle.classList.add("hide")
             }
-            console.log("-------")
         })
     })
 }
