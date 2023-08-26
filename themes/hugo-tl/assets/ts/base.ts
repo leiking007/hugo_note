@@ -1,4 +1,6 @@
 // scorll 返回顶部
+import message from "./components/Message";
+
 function fun_top(): void {
     let a: HTMLElement = document.getElementById("return-top")
     window.addEventListener("scroll", () => {
@@ -31,9 +33,11 @@ function fun_copy(): void {
                 }
                 const clipboardObj = navigator.clipboard;
                 if (clipboardObj){
+
                     Promise.all([navigator.clipboard.writeText(text)])
                         .then(()=>{
-                            alert("复制成功")
+                            message.success("复制成功")
+                            // alert("复制成功")
                         }).catch(()=>{
                         alert("暂不支持复制")
                     })
