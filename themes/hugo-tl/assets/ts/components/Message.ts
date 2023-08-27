@@ -1,4 +1,4 @@
-import {appName} from "../common/Constant";
+import {appName, messageOpacity} from "../common/Constant";
 
 let rootEle:HTMLElement=document.getElementById(appName)
 
@@ -19,9 +19,18 @@ class Index{
         domStyle.padding = "0.5em 1em"
         domStyle.width = "fit-content"
         domStyle.transform = "translate(-20%, -50%);"
-        domStyle.backgroundColor = "rgba(127,114,246,0.55)"
         switch (type){
             case "success":
+                domStyle.backgroundColor = `rgba(25,135,84,${messageOpacity})`
+                break
+            case "info":
+                domStyle.backgroundColor = `rgba(13,202,240,${messageOpacity})`
+                break
+            case "warn":
+                domStyle.backgroundColor = `rgba(255,193,7,${messageOpacity})`
+                break
+            case "error":
+                domStyle.backgroundColor = `rgba(220,53,69,${messageOpacity})`
                 break
         }
     }
@@ -36,12 +45,16 @@ export default {
         let Message=new Index({type:'success',message})
         removeDom(Message.domEle)
     },
+    info: (message: string)=> {
+        let Message=new Index({type:'info',message})
+        removeDom(Message.domEle)
+    },
     warn:(message: String)=>{
-        let Message=new Index({type:'success',message})
+        let Message=new Index({type:'warn',message})
         removeDom(Message.domEle)
     },
     error:(message: String)=>{
-        let Message=new Index({type:'success',message})
+        let Message=new Index({type:'error',message})
         removeDom(Message.domEle)
     }
 }
