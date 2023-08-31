@@ -39,10 +39,6 @@ function createTocObserver() {
     })
 }
 
-function scrollToTocElement(tocElement: HTMLElement) {
-    tocElement.scrollTo({ top: 100, behavior: "auto" });
-}
-
 const initToc = () => {
     const tocContainer = document.getElementById('postTocOuter');
     if (tocContainer !== null) {
