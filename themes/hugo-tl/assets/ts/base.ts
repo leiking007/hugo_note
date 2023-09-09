@@ -35,7 +35,7 @@ function fun_copy(): void {
                 if (clipboardObj) {
                     Promise.all([navigator.clipboard.writeText(text)])
                         .then(() => {
-                            message.info("复制成功")
+                            message.success("复制成功")
                         }).catch(() => {
                             message.warn("暂不支持复制")
                     })
