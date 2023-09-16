@@ -5,8 +5,10 @@
     bg-opacity-50 bg-primary-subtle top-0
     d-flex justify-content-between align-items-center">
         <span class="p-2">{{ .Type }}</span>
-        <span data-type="copy-btn" class="copy-btn"><i class="bi bi-clipboard2-minus"></i></span>
-        <span data-type="collapse-btn" class="collapse-code-btn me-2"><i class="bi bi-code"></i></span>
+        <span class="mx-2">
+            <i data-type="copy-btn" class="bi bi-clipboard mx-2"></i>
+            <i data-type="collapse-btn" class="bi bi-code-slash mx-2"></i>
+        </span>
     </div>
 
     {{ transform.Highlight .Inner .Type "noClasses=true"}}
