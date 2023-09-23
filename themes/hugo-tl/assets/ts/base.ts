@@ -31,20 +31,22 @@ function fun_copy(): void {
                 for (let child of codeEle.children) {
                     text += child.lastElementChild.textContent
                 }
-                Promise.all([navigator.clipboard.writeText(text)])
-                    .then(() => {
-                        if (copyBtn instanceof HTMLElement) {
-                            copyBtn.classList.add('bi-clipboard-check')
-                            copyBtn.classList.remove('bi-clipboard')
-                            setTimeout(() => {
-                                copyBtn.classList.add('bi-clipboard')
-                                copyBtn.classList.remove('bi-clipboard-check')
-                            }, 1000)
-                        }
-                        message.success("复制成功")
-                    }).catch(() => {
+                try{
+                    Promise.all([navigator.clipboard.writeText(text)])
+                        .then(() => {
+                            if (copyBtn instanceof HTMLElement) {
+                                copyBtn.classList.add('bi-clipboard-check')
+                                copyBtn.classList.remove('bi-clipboard')
+                                setTimeout(() => {
+                                    copyBtn.classList.add('bi-clipboard')
+                                    copyBtn.classList.remove('bi-clipboard-check')
+                                }, 1000)
+                            }
+                            message.success("复制成功")
+                        })
+                }catch (e){
                     message.warn("暂不支持复制")
-                })
+                }
             }
         })
     })
