@@ -24,30 +24,27 @@ function fun_copy(): void {
     let copyBtnList: NodeList = document.querySelectorAll("[data-type=\"copy-btn\"]")
     copyBtnList.forEach(copyBtn => {
         copyBtn.addEventListener("click", (e) => {
-            let highlightEle = getTargetEle(copyBtn,'highlight')
+            let highlightEle = getTargetEle(copyBtn, 'highlight')
             let codeEle = highlightEle.firstChild?.firstChild
             if (codeEle instanceof HTMLElement) {
                 let text = ''
                 for (let child of codeEle.children) {
                     text += child.lastElementChild.textContent
                 }
-                const clipboardObj = navigator.clipboard;
-                if (clipboardObj) {
-                    Promise.all([navigator.clipboard.writeText(text)])
-                        .then(() => {
-                            if (copyBtn instanceof HTMLElement){
-                                copyBtn.classList.add('bi-clipboard-check')
-                                copyBtn.classList.remove('bi-clipboard')
-                                setTimeout(()=>{
-                                    copyBtn.classList.add('bi-clipboard')
-                                    copyBtn.classList.remove('bi-clipboard-check')
-                                },1000)
-                            }
-                            message.success("复制成功")
-                        }).catch(() => {
-                            message.warn("暂不支持复制")
-                    })
-                }
+                Promise.all([navigator.clipboard.writeText(text)])
+                    .then(() => {
+                        if (copyBtn instanceof HTMLElement) {
+                            copyBtn.classList.add('bi-clipboard-check')
+                            copyBtn.classList.remove('bi-clipboard')
+                            setTimeout(() => {
+                                copyBtn.classList.add('bi-clipboard')
+                                copyBtn.classList.remove('bi-clipboard-check')
+                            }, 1000)
+                        }
+                        message.success("复制成功")
+                    }).catch(() => {
+                    message.warn("暂不支持复制")
+                })
             }
         })
     })
@@ -58,24 +55,24 @@ function fun_copy(): void {
  * @param curEle
  * @param clasName
  */
-function getTargetEle(curEle:Node,clasName:string):HTMLElement{
-    let parEle= curEle.parentElement
-    if (!parEle){
+function getTargetEle(curEle: Node, clasName: string): HTMLElement {
+    let parEle = curEle.parentElement
+    if (!parEle) {
         return null
     }
     for (let child of parEle.children) {
-        if (child instanceof HTMLElement && child.classList.contains(clasName)){
+        if (child instanceof HTMLElement && child.classList.contains(clasName)) {
             return child
         }
     }
-    return getTargetEle(parEle,clasName)
+    return getTargetEle(parEle, clasName)
 }
 
 function fun_collapse_code(): void {
     let collapseBtnList: NodeList = document.querySelectorAll("[data-type=\"collapse-btn\"]")
     collapseBtnList.forEach(collapseBtn => {
         collapseBtn.addEventListener("click", (e) => {
-            let highlightEle = getTargetEle(collapseBtn,'highlight')
+            let highlightEle = getTargetEle(collapseBtn, 'highlight')
             if (highlightEle.classList.contains("hide")) {
                 highlightEle.classList.remove("hide")
             } else {
