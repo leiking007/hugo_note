@@ -1,5 +1,5 @@
 // scorll 返回顶部
-import message from "./components/Message";
+import message from "./components/message";
 
 function fun_top(): void {
     let a: HTMLElement = document.getElementById("return-top")
@@ -45,7 +45,7 @@ function fun_copy(): void {
                             message.success("复制成功")
                         })
                 }catch (e){
-                    message.warn("暂不支持复制")
+                    message.warning("暂不支持复制")
                 }
             }
         })
