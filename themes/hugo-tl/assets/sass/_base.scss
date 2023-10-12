@@ -1,13 +1,19 @@
-html {
-    font-size: $global-font-size;
+:root{
     box-sizing: border-box;
-    scroll-padding-top: 60px;
-    overflow-y: auto;
+    font-size: calc( 0.8em + 0.2vw );
+}
+
+*,
+::after,
+::before{
+    box-sizing:inherit;
 }
 
 body {
     font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: rgb(51, 51, 51);
+    //color: var(--bs-body-color);
+    //background-color: var(--bs-body-bg);
     line-height: 1.6;
 }
 

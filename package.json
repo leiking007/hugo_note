@@ -7,7 +7,7 @@
   "devDependencies": {
   },
   "scripts": {
-    "server": "hugo server",
+    "server": "hugo server --disableFastRender --noBuildLock --verbose --debug",
     "build": "hugo"
   },
   "repository": {
