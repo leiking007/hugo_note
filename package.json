@@ -1,0 +1,26 @@
+{
+  "name": "note",
+  "version": "1.0.0",
+  "description": "Note",
+  "main": "",
+  "dependencies": {},
+  "devDependencies": {
+  },
+  "scripts": {
+    "server": "hugo server",
+    "build": "hugo"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "hugo"
+  ],
+  "author": "lei",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": ""
+}
