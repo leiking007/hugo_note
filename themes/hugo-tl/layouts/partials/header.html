@@ -1,27 +1,21 @@
-<nav class="navbar navbar-expand-md bg-light text-dark fixed-top shadow-sm p-2">
-  <div class="container">
-    <a class="navbar-brand text-dark" href='{{ relURL "" }}'>
-      <i class="bi bi-bank"></i>
-      {{ .Site.Title }}
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-      <i class="bi bi-justify fs-3"></i>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        {{ $currentPage := . }}
-        {{ range .Site.Menus.main }}
-        {{/*  判断当前页面url 和 菜单链接url是否相等，激活菜单  */}}
-        {{ $active := eq (.URL | relLangURL) ($currentPage.RelPermalink | relLangURL) }}
-        <li class="nav-item ms-2">
-          <a class="nav-link text-dark {{ if $active }}active{{ end }}" href="{{ .URL | relLangURL }}">
-            {{- .Pre -}}&nbsp;
-            {{/*  default DEFAULT input 如果获取的i8in为空，则默认设置.Name  */}}
-            {{ lower .Identifier | printf "widget.%s.title" | T | default .Name }}
-          </a>
-        </li>
-        {{ end }}
-      </ul>
+<header>
+  <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+    <div class="flex lg:flex-1">
+      <a href="{{.Site.BaseURL}}" class="-m-1.5 p-1.5">
+        <span class="h-8 w-auto text-2xl">Note</span>
+      </a>
     </div>
-  </div>
-</nav>
+    <div class="hidden lg:flex lg:gap-x-12">
+      {{ $currentPage := . }}
+      {{ range .Site.Menus.main }}
+      {{/*  判断当前页面url 和 菜单链接url是否相等，激活菜单  */}}
+      {{ $active := eq (.URL | relLangURL) ($currentPage.RelPermalink | relLangURL) }}
+      <a class="leading-6 text-gray-900 {{ if $active }} font-semibold {{ end }} hover:font-semibold"  href="{{ .URL | relLangURL }}">
+        {{- .Pre -}}&nbsp;
+        {{/*  default DEFAULT input 如果获取的i8in为空，则默认设置.Name  */}}
+        {{ lower .Identifier | printf "widget.%s.title" | T | default .Name }}
+      </a>
+      {{ end }}
+    </div>
+  </nav>
+</header>

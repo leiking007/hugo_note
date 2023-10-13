@@ -5,3 +5,5 @@
 resources/
 .git
 /public/**
+node_modules/
+themes/hugo-tl/assets/css/style.css
