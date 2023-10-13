@@ -6,15 +6,15 @@
 {{ end }}
 
 {{ define "main" }}
-<div class="row justify-content-center">
-    <div class="col-md-8 form-floating mb-3">
+<div>
+    <div class="form-floating mb-3">
         <input class="form-control" id="searchInput" 
         placeholder=" {{- T `search.placeholder` -}} " 
         autocomplete="off" {{ with .OutputFormats.Get "json" -}} data-json="{{ .Permalink }}"{{- end }}>
         {{/*  18n  */}}
         <label for="searchInput" style="left:0.5rem">{{- T "search.title"  -}}</label>
     </div>
-    <div class="col-md-8" id="search-result">
+    <div id="search-result">
         <h3 id="search-result-title"></h3>
         <div id="search-result-list"></div>
     </div>

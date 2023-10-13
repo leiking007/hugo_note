@@ -1,42 +1,38 @@
 {{ define "main" }}
-<div class="row p-3 justify-content-center">
-  <div class="col-md-8">
-    <main aria-role="main">
-      <header class="my-5  rounded">
-        <h1>{{.Title}}</h1>
-        {{ with .Site.Params.subtitle }}
-        <p class="subtitle">{{.}}</p>
-        {{ end }}
-      </header>
-      {{/*  获取常规页面  */}}
-      {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
-      {{/*  获取所有页面，并且 hidden != true  */}}
-      {{ $notHidden := where .Site.RegularPages "Params.hidden" "!=" true }}
-      {{/*  两数组公共部分  */}}
-      {{ $filtered := ($pages | intersect $notHidden) }}
-      {{/*  分页  */}}
-      {{ $pag := .Paginate ($filtered) }}
-      <div class="homepage-content">
-        {{.Content}}
-      </div>
-      <div>
-        <div>
-          {{ range $index, $element := $pag.Pages }}
-          <div class="shadow my-4 p-4 bg-light bg-opacity-75 border-bottom rounded-start rounded-5">
-            <div>
-              <p class="fs-3">{{ .Title }}
-                <small class="text-muted fs-6 ms-2">{{- T "article.lastUpdatedOn"  -}}: {{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) -}}</small>
-              </p>
-              <p class="fs-6">{{ .Summary }}</p>
-              <a href="{{ .Permalink }}" class="btn bg-info text-dark bg-opacity-50"> {{- T "article.readMore" -}} </a>
-            </div>
-          </div>
-          {{ end }}
-        </div>
-        {{- partial "partials/pagination.html" . -}}
-
-      </div>
-    </main>
+<main>
+  <header class="my-5  rounded">
+    <h1>{{.Title}}</h1>
+    {{ with .Site.Params.subtitle }}
+    <p class="subtitle">{{.}}</p>
+    {{ end }}
+  </header>
+  {{/*  获取常规页面  */}}
+  {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+  {{/*  获取所有页面，并且 hidden != true  */}}
+  {{ $notHidden := where .Site.RegularPages "Params.hidden" "!=" true }}
+  {{/*  两数组公共部分  */}}
+  {{ $filtered := ($pages | intersect $notHidden) }}
+  {{/*  分页  */}}
+  {{ $pag := .Paginate ($filtered) }}
+  <div class="homepage-content">
+    {{.Content}}
   </div>
-</div>
+  <div>
+    <div>
+      {{ range $index, $element := $pag.Pages }}
+      <div class="shadow my-4 p-4 bg-light bg-opacity-75 border-bottom rounded-start rounded-5">
+        <div>
+          <p class="fs-3">{{ .Title }}
+            <small class="text-muted fs-6 ms-2">{{- T "article.lastUpdatedOn"  -}}: {{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) -}}</small>
+          </p>
+          <p class="fs-6">{{ .Summary }}</p>
+          <a href="{{ .Permalink }}" class="btn bg-info text-dark bg-opacity-50"> {{- T "article.readMore" -}} </a>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{- partial "partials/pagination.html" . -}}
+
+  </div>
+</main>
 {{ end }}

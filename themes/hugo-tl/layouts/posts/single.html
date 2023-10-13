@@ -1,17 +1,16 @@
 {{ define "main" }}
-<div class="row justify-content-center">
-  <div id="post-single" class="col-md-8">
+  <div id="post-single">
     <div>
       <h1 id="title">{{ .Title }}
         {{ if .Params.tags }}
           {{ range (.GetTerms "tags") }}
-          <small class="fs-7 shadow-sm mx-2 p-2 bg-light rounded-pill">
+          <small>
             <a  href='{{ .RelPermalink }}'>{{- .LinkTitle -}}</a>
           </small>
           {{ end }}
         {{ end }}
-    </div>
     </h1>
+    </div>
     <section class="d-flex fs-6">
       <span class="mx-2"><i class="bi bi-calendar2-event me-1"></i>{{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) }}</span>
       <span class="mx-2"><i class="bi bi-brush-fill me-1"></i>{{- T "article.wordCount" .WordCount -}}</span>
@@ -22,35 +21,34 @@
         {{ .Content }}
       </article>
     </div>
+    <aside id="meta">
+      <div class="d-flex justify-content-around mt-5 mb-2">
+        {{ with .PrevInSection }}
+        <div><a href="{{.Permalink}}"><i class="bi bi-chevron-double-left"></i> {{.Title}}</a></div>
+        {{ end }}
+        {{ with .NextInSection }}
+        <div><a href="{{.Permalink}}"> {{.Title}}<i class="bi bi-chevron-double-right"></i></a></div>
+        {{ end }}
+      </div>
+    </aside>
   </div>
-</div>
-
-<aside id="meta">
-  <div class="d-flex justify-content-around mt-5 mb-2">
-    {{ with .PrevInSection }}
-    <div><a href="{{.Permalink}}"><i class="bi bi-chevron-double-left"></i> {{.Title}}</a></div>
-    {{ end }}
-    {{ with .NextInSection }}
-    <div><a href="{{.Permalink}}"> {{.Title}}<i class="bi bi-chevron-double-right"></i></a></div>
-    {{ end }}
-  </div>
-</aside>
-{{/*  默认启用菜单  */}}
-{{/*  配置参数，设置为true 或 未设置 ，结果为true   */}}
-{{- $TOCManuallyEnable := eq (eq $.Site.Params.toc false) false -}}
-
-{{/*  文章配置的toc，设置为true 或 未设置 ，结果为true  */}}
-{{- $pageTocEnable := eq (eq .Params.toc false) false -}}
-
-{{/*  判断目录长度 长度大于50 结果为true  */}}
-{{- $hasTOC := ge (len .TableOfContents) 100 -}}
-
-{{  if and (and $hasTOC $pageTocEnable) $TOCManuallyEnable }}
-<div id="postTocOuter" class="border-start mt-7 position-fixed top-0 end-0 d-none d-md-block"
-  style="max-height: 84vh;max-width: 24%;min-width: 16%;overflow-x:hidden;overflow-y: auto;margin-right: -1rem;padding: 0.5rem 1rem 0.5rem;">
-  <h4>{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
-  {{ .TableOfContents }}
-</div>
 {{ end }}
 
+{{ define "right" }}
+  {{/*  默认启用菜单  */}}
+  {{/*  配置参数，设置为true 或 未设置 ，结果为true   */}}
+  {{- $TOCManuallyEnable := eq (eq $.Site.Params.toc false) false -}}
+
+  {{/*  文章配置的toc，设置为true 或 未设置 ，结果为true  */}}
+  {{- $pageTocEnable := eq (eq .Params.toc false) false -}}
+
+  {{/*  判断目录长度 长度大于50 结果为true  */}}
+  {{- $hasTOC := ge (len .TableOfContents) 100 -}}
+
+  {{  if and (and $hasTOC $pageTocEnable) $TOCManuallyEnable }}
+  <div id="postTocOuter" class="position-sticky top-0 qw-toc">
+    <h4>{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
+    {{ .TableOfContents }}
+  </div>
+  {{ end }}
 {{ end }}

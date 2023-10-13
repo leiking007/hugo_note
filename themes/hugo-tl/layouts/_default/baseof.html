@@ -11,23 +11,23 @@
     {{- block "head" . -}}{{- end -}}
 </head>
 
-<body>
-<div id = "app">
-    <img class="fixed-top opacity-25 vw-100 vh-100" src='{{ relURL "images/background-2.jpg" }}' style="z-index: -999;" alt=""/>
-
+<body class="font-sans text-base">
+<div id = "app" class="bg-gray-50">
     {{- partial "header.html" . -}}
-
-    <div class="container mt-7 p-2" id="main">
-        {{- block "main" . }}{{-  end -}}
-    </div>
-
-    <div class="container-fluid">
-        <div class="row">
-            {{- partialCached "footer.html" . -}}
+    <div class="container mx-auto min-h-screen">
+        <div class="row pt-2 min-vh-100">
+            <div class="col-md-6 p-2">
+                {{- block "main" . }}{{-  end -}}
+            </div>
+            <div class="col-md-3">
+                {{- block "right" . }}{{-  end -}}
+            </div>
         </div>
     </div>
-
-    <a id="return-top" href="javascript:void">
+    <div>
+        {{- partialCached "footer.html" . -}}
+    </div>
+    <span id="return-top" class="position-sticky end-0 bottom-0">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
             class="bi bi-chevron-double-up" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
@@ -35,7 +35,7 @@
             <path fill-rule="evenodd"
                 d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
         </svg>
-    </a>
+    </span>
 </div>
 </body>
 

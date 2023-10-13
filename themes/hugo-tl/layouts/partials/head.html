@@ -7,17 +7,17 @@
 
 
 
-{{ if .Site.Params.cdnEnable }}
-    {{- partial "helper/external" (dict "Context" . "Namespace" "Bootstrap") -}}
-{{ else }}
-    <link rel='stylesheet' type='text/css' href='{{ relURL "lib/bootstrap-5.3/bootstrap.min.css" }}'>
-    <link rel="stylesheet" type='text/css' href='{{ relURL "lib/bootstrap-5.3/bootstrap-icons.css" }}'>
-    <script src='{{ relURL "lib/bootstrap-5.3/bootstrap.bundle.min.js" }}'></script>
-{{ end }}
+<!--{{ if .Site.Params.cdnEnable }}-->
+<!--    {{- partial "helper/external" (dict "Context" . "Namespace" "Bootstrap") -}}-->
+<!--{{ else }}-->
+<!--    <link rel='stylesheet' type='text/css' href='{{ relURL "lib/bootstrap-5.3/bootstrap.min.css" }}'>-->
+<!--    <link rel="stylesheet" type='text/css' href='{{ relURL "lib/bootstrap-5.3/bootstrap-icons.css" }}'>-->
+<!--    <script src='{{ relURL "lib/bootstrap-5.3/bootstrap.bundle.min.js" }}'></script>-->
+<!--{{ end }}-->
 
 
 <!-- style -->
-{{ $style := resources.Get "sass/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint "sha256" }}
+{{ $style := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint "sha256" }}
 <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
 <!-- End -->
 
