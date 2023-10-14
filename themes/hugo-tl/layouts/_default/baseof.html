@@ -28,15 +28,9 @@
     <div>
         {{- partialCached "footer.html" . -}}
     </div>
-    <span id="return-top" class="position-sticky end-0 bottom-0">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-            class="bi bi-chevron-double-up" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
-            <path fill-rule="evenodd"
-                d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-        </svg>
-    </span>
+    <svg id="return-top" class="w-8 h-8 hidden absolute bottom-12 right-12 hover:stroke-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
+    </svg>
 </div>
 </body>
 

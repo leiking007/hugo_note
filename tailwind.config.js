@@ -24,9 +24,6 @@ module.exports = {
         fontWeight: '700',
       }],
     },
-    maxHeight:{
-      '128':'32rem'
-    },
     extend: {
       typography: {
         DEFAULT: {
