@@ -11,17 +11,18 @@
     {{- block "head" . -}}{{- end -}}
 </head>
 
-<body class="font-sans text-base">
-<div id = "app" class="bg-gray-50">
-    {{- partial "header.html" . -}}
-    <div class="container mx-auto min-h-screen">
-        <div class="row pt-2 min-vh-100">
-            <div class="col-md-6 p-2">
-                {{- block "main" . }}{{-  end -}}
-            </div>
-            <div class="col-md-3">
-                {{- block "right" . }}{{-  end -}}
-            </div>
+<body class="font-sans text-base bg-gray-50">
+<div id = "app">
+    <div class="grid grid-cols-12 grid-rows-1 gap-x-4">
+        <div class="col-span-3 px-10 pt-6">
+            {{- partial "header.html" . -}}
+            {{- block "left" . }}{{-  end -}}
+        </div>
+        <div class="col-span-6">
+            {{- block "main" . }}{{-  end -}}
+        </div>
+        <div class="col-span-3 px-8 pt-6">
+            {{- block "right" . }}{{-  end -}}
         </div>
     </div>
     <div>

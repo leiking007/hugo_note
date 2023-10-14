@@ -1,32 +1,27 @@
 {{/*  页码数量大于 1  */}}
 {{- if gt .Paginator.TotalPages 1 -}}
-  <!-- 分页导航栏 -->
-  <nav aria-label="Page navigation">
-  <ul class="pagination justify-content-center" style="--bs-pagination-bg: rgba(255, 255, 255, 0.599);">
-    {{- .Scratch.Set "paginator.ellipsed" false -}}
-    {{- range $.Paginator.Pagers -}}
-      {{- $right := sub .TotalPages .PageNumber -}}
-      {{- $showNumber := or (le .PageNumber 1) (eq $right 0) -}}
-      {{- $showNumber := or $showNumber (and (gt .PageNumber (sub $.Paginator.PageNumber 3)) (lt .PageNumber (add $.Paginator.PageNumber 3))) -}}
-      {{- if $showNumber -}}
+<div class="flex items-center justify-between border-gray-200 px-4 py-3 sm:px-6">
+  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center border-t">
+      <nav class="isolate inline-flex -space-x-px rounded-md ">
+        {{- .Scratch.Set "paginator.ellipsed" false -}}
+        {{- range $.Paginator.Pagers -}}
+        {{- $right := sub .TotalPages .PageNumber -}}
+        {{- $showNumber := or (le .PageNumber 1) (eq $right 0) -}}
+        {{- $showNumber := or $showNumber (and (gt .PageNumber (sub $.Paginator.PageNumber 3)) (lt .PageNumber (add $.Paginator.PageNumber 3))) -}}
+        {{- if $showNumber -}}
         {{- $.Scratch.Set "paginator.ellipsed" false -}}
         {{- $.Scratch.Set "paginator.shouldEllipse" false -}}
-      {{- else -}}
+        {{- else -}}
         {{- $.Scratch.Set "paginator.shouldEllipse" (not ($.Scratch.Get "paginator.ellipsed") ) -}}
         {{- $.Scratch.Set "paginator.ellipsed" true -}}
-      {{- end -}}
-      {{- if $showNumber -}}
-      <li class="page-item {{ if eq . $.Paginator }}active{{ end }}">
-                            <a class="page-link" href="{{ .URL }}">
-                                {{- .PageNumber -}}
-                            </a>
-      </li>
-      {{- else if ($.Scratch.Get "paginator.shouldEllipse") -}}
-      <li class="page-item ">
-        <a class="page-link" aria-hidden="true">&hellip;</a>
-      </li>
-      {{- end -}}
-    {{- end -}}
-  </ul>
-  </nav>
+        {{- end -}}
+        {{- if $showNumber -}}
+        <a href="{{ .URL }}" class="relative block items-center px-4 py-2 text-gray-900 hover:border-t-2 {{ if eq . $.Paginator }} border-t-2 border-t-blue-600 {{ end }}">{{- .PageNumber -}}</a>
+        {{- else if ($.Scratch.Get "paginator.shouldEllipse") -}}
+        <span class="relative block items-center px-4 py-2 text-gray-900 hover:border-t-2">...</span>
+        {{- end -}}
+        {{- end -}}
+      </nav>
+  </div>
+</div>
 {{- end -}}
