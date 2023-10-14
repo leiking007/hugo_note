@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <div id="post-single" class="prose max-w-full">
+  <div id="post-single" class="prose  max-w-none">
     <div>
       <h1 id="title">{{ .Title }}
         {{ if .Params.tags }}
@@ -46,9 +46,11 @@
   {{- $hasTOC := ge (len .TableOfContents) 100 -}}
 
   {{  if and (and $hasTOC $pageTocEnable) $TOCManuallyEnable }}
-  <div id="postTocOuter" class="max-h-128 overflow-y-auto sticky top-1 bg-white rounded-lg shadow-sm p-6 ">
-    <h4>{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
-    {{ .TableOfContents }}
+  <div id="postTocOuter" class="max-w-full max-h-[32rem] overflow-y-auto overflow-x-clip sticky top-1 bg-white rounded-lg shadow-sm p-6 ">
+    <h4 class="text-2xl">{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
+    <div class="prose prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0">
+      {{ .TableOfContents }}
+    </div>
   </div>
   {{ end }}
 {{ end }}

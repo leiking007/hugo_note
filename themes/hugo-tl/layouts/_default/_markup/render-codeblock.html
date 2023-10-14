@@ -1,15 +1,14 @@
 {{/*  {{ transform.Highlight .Inner .Type "style=monokai, lineNos=false" }}  */}}
 {{/*  不加配置，默认使用yaml中配置  */}}
-<div class="code-container position-relative shadow p-0 m-0">
-    <div class="code-header position-sticky
-    bg-opacity-50 bg-primary-subtle top-0
-    d-flex justify-content-between align-items-center">
+<div class="font-mono text-sm not-prose ">
+    <div class="bg-emerald-50 py-2">
         <span class="p-2">{{ .Type }}</span>
         <span class="mx-2">
             <i data-type="copy-btn" class="bi bi-clipboard mx-2"></i>
             <i data-type="collapse-btn" class="bi bi-code-slash mx-2"></i>
         </span>
     </div>
-
-    {{ transform.Highlight .Inner .Type "noClasses=false"}}
+    <div class="overflow-auto max-h-[48rem] border-2">
+        {{ transform.Highlight .Inner .Type "noClasses=false"}}
+    </div>
 </div>

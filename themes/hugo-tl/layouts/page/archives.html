@@ -23,9 +23,9 @@
                     <div class="flex min-w-0 gap-x-4">
                         <div class="min-w-0 flex-auto">
                             <a href="{{ .RelPermalink }}"><p class=" leading-6 text-gray-900">{{- .Title }}</p></a>
-                            <p class="mt-1 truncate text-xs leading-5 text-gray-500">
+                            <p class="mt-1 truncate text-xs leading-5 text-gray-500 flex">
                                 {{ range (.GetTerms "tags") }}
-                                    <a class="text-sm text-slate-950 rounded-lg shadow-2xl bg-gray-300 px-2 py-2 hover:bg-gray-600 hover:text-slate-100" href='{{ .RelPermalink }}'>{{- .LinkTitle -}}</a>
+                                    <a class="text-sm text-slate-950 rounded-xl shadow-2xl bg-gray-300 mx-1 px-2 block py-2 hover:bg-gray-600 hover:text-slate-100" href='{{ .RelPermalink }}'>{{- .LinkTitle -}}</a>
                                 {{- end }}
                             </p>
                         </div>
