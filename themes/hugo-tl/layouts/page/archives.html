@@ -2,42 +2,46 @@
 <main>
     <article>
         <header>
-            <h1>{{ lower .Title | printf "widget.%s.title" | T | default .Title }}</h1>
+            <h1 class="text-3xl">{{ lower .Title | printf "widget.%s.title" | T | default .Title }}</h1>
         </header>
         {{.Content}}
     </article>
-
-    {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-    {{- if .Site.Params.ShowAllPagesInArchive }}
-    {{- $pages = site.RegularPages }}
-    {{- end }}
-
-    {{- range $pages.GroupByPublishDate "2006" }}
-    {{- if ne .Key "0001" }}
-    <div class="card p-2 mt-4 ps-4" style="--bs-card-bg: rgba(255, 255, 255, 0.586);">
-        <h5 class="card-title">{{- .Key -}}</h5>
-        <div class="card-body border-start">
-            {{- range .Pages.GroupByDate "01" }}
-            {{- range .Pages }}
-            {{- if eq .Kind "page" }}
-            <article class="p-1">
-                <time class="d-block">{{.Date.Format (default "January 2, 2006"
-                    .Site.Params.DateFormat)}}</time>
-                <div class="d-flex align-self-center">
-                    <a href="{{ .Permalink }}" class="fs-3 text-dark">{{- .Title }}</a>
-                    <div class="d-flex ms-2 align-self-center">
-                        {{ range (.GetTerms "tags") }}
-                        <a class="fs-7 text-dark border p-1 me-2 rounded-3" href='{{ .RelPermalink }}'>{{- .LinkTitle -}}</a>
-                        {{- end }}
+    <div>
+        {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+        {{- if .Site.Params.ShowAllPagesInArchive }}
+        {{- $pages = site.RegularPages }}
+        {{- end }}
+        {{- range $pages.GroupByPublishDate "2006" }}
+        {{- if ne .Key "0001" }}
+        <div class="bg-white rounded-lg shadow-sm px-6 py-3 my-3">
+            <h5 class="text-2xl">{{- .Key -}}</h5>
+            <div class="border-s-2 ps-4">
+                {{- range .Pages.GroupByDate "01" }}
+                {{- range .Pages }}
+                {{- if eq .Kind "page" }}
+                <li class="flex justify-between gap-x-6 py-3">
+                    <div class="flex min-w-0 gap-x-4">
+                        <div class="min-w-0 flex-auto">
+                            <a href="{{ .RelPermalink }}"><p class=" leading-6 text-gray-900">{{- .Title }}</p></a>
+                            <p class="mt-1 truncate text-xs leading-5 text-gray-500">
+                                {{ range (.GetTerms "tags") }}
+                                    <a class="text-sm text-slate-950 rounded-lg shadow-2xl bg-gray-300 px-2 py-2 hover:bg-gray-600 hover:text-slate-100" href='{{ .RelPermalink }}'>{{- .LinkTitle -}}</a>
+                                {{- end }}
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </article>
-            {{- end }}
-            {{- end }}
-            {{- end }}
+                    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                        <p class="text-sm leading-6 text-gray-900">lei</p>
+                        <p class="mt-1 text-xs leading-5 text-gray-500">日期 <time>{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}}</time></p>
+                    </div>
+                </li>
+                {{- end }}
+                {{- end }}
+                {{- end }}
+            </div>
         </div>
+        {{- end }}
+        {{- end }}
     </div>
-    {{- end }}
-    {{- end }}
 </main>
 {{ end }}
