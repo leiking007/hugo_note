@@ -22,12 +22,12 @@
       </article>
     </div>
     <aside id="meta">
-      <div class="d-flex justify-content-around mt-5 mb-2">
+      <div class="flex justify-between py-6 my-4">
         {{ with .PrevInSection }}
-        <div><a href="{{.Permalink}}"><i class="bi bi-chevron-double-left"></i> {{.Title}}</a></div>
+        <div><span class="cursor-default mr-1">{{- T "article.previousArticle" | default "上一篇" -}}: </span><a href="{{.Permalink}}"><i class="bi bi-chevron-double-left"></i> {{.Title}}</a></div>
         {{ end }}
         {{ with .NextInSection }}
-        <div><a href="{{.Permalink}}"> {{.Title}}<i class="bi bi-chevron-double-right"></i></a></div>
+        <div><span class="cursor-default mr-1">{{- T "article.nextArticle" | default "下一篇" -}}:</span> <a href="{{.Permalink}}"> {{.Title}}<i class="bi bi-chevron-double-right"></i></a></div>
         {{ end }}
       </div>
     </aside>

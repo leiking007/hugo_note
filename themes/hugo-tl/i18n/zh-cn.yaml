@@ -26,6 +26,12 @@ article:
     readMore:
         other: "更多..."
 
+    previousArticle:
+        other: "上一篇"
+
+    nextArticle:
+        other: "下一篇"
+
 notFound:
     title:
         other: 404 错误

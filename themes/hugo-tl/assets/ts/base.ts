@@ -24,8 +24,8 @@ function fun_copy(): void {
     let copyBtnList: NodeList = document.querySelectorAll("[data-type=\"copy-btn\"]")
     copyBtnList.forEach(copyBtn => {
         copyBtn.addEventListener("click", (e) => {
-            let highlightEle = getTargetEle(copyBtn, 'highlight')
-            let codeEle = highlightEle.firstChild?.firstChild
+            let codeBlock = getTargetEle(copyBtn, 'code-block')
+            let codeEle = codeBlock.firstElementChild?.firstElementChild?.firstElementChild
             if (codeEle instanceof HTMLElement) {
                 let text = ''
                 for (let child of codeEle.children) {
@@ -55,26 +55,26 @@ function fun_copy(): void {
 /**
  * 从兄弟节点，父节点，父节点的兄弟节点，返回第一个满足条件的元素
  * @param curEle
- * @param clasName
+ * @param dataType
  */
-function getTargetEle(curEle: Node, clasName: string): HTMLElement {
+function getTargetEle(curEle: Node, dataType: string): HTMLElement {
     let parEle = curEle.parentElement
     if (!parEle) {
         return null
     }
     for (let child of parEle.children) {
-        if (child instanceof HTMLElement && child.classList.contains(clasName)) {
+        if (child instanceof HTMLElement && child.getAttribute("data-type") ===dataType) {
             return child
         }
     }
-    return getTargetEle(parEle, clasName)
+    return getTargetEle(parEle, dataType)
 }
 
 function fun_collapse_code(): void {
     let collapseBtnList: NodeList = document.querySelectorAll("[data-type=\"collapse-btn\"]")
     collapseBtnList.forEach(collapseBtn => {
         collapseBtn.addEventListener("click", (e) => {
-            let highlightEle = getTargetEle(collapseBtn, 'highlight')
+            let highlightEle = getTargetEle(collapseBtn, 'code-block')
             if (highlightEle.classList.contains("hide")) {
                 highlightEle.classList.remove("hide")
             } else {
