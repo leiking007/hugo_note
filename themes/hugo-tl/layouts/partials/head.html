@@ -2,19 +2,7 @@
 <title>Page Title</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-<meta http-equiv="Page-Enter" content="progid:DXImageTransform.Microsoft.Blinds(Duration=2)" /> 
-<meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Blinds(Duration=2)" />
-
-
-
-<!--{{ if .Site.Params.cdnEnable }}-->
-<!--    {{- partial "helper/external" (dict "Context" . "Namespace" "Bootstrap") -}}-->
-<!--{{ else }}-->
-<!--    <link rel='stylesheet' type='text/css' href='{{ relURL "lib/bootstrap-5.3/bootstrap.min.css" }}'>-->
-<!--    <link rel="stylesheet" type='text/css' href='{{ relURL "lib/bootstrap-5.3/bootstrap-icons.css" }}'>-->
-<!--    <script src='{{ relURL "lib/bootstrap-5.3/bootstrap.bundle.min.js" }}'></script>-->
-<!--{{ end }}-->
-
+<link rel='stylesheet' type='text/css' href='{{ relURL "lib/front/iconfont.css" }}'>
 
 <!-- style -->
 {{ $style := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint "sha256" }}

@@ -37,7 +37,9 @@ class Message{
         }
         const icon:HTMLElement = document.createElement("i")
         let iconStyle:any={
-            marginRight:'0.4em'
+            marginRight:'0.4em',
+            lineHeight:'1.5',
+            fontSize:'1.25rem'
         }
         switch (config.type){
             case "info":
@@ -50,7 +52,7 @@ class Message{
                     ...iconStyle,
                     color:'#588ce9'
                 }
-                icon.setAttribute("class",config.icon || "bi bi-info-circle")
+                icon.setAttribute("class",config.icon || "iconfont icon-info-circle")
                 break
             case "warning":
                 style={
@@ -62,7 +64,7 @@ class Message{
                     ...iconStyle,
                     color:'#ffa600'
                 }
-                icon.setAttribute("class",config.icon ||"bi bi-exclamation-circle")
+                icon.setAttribute("class",config.icon ||"iconfont icon-warn")
                 break
             case "success":
                 style={
@@ -74,7 +76,7 @@ class Message{
                     ...iconStyle,
                     color:'#18b681'
                 }
-                icon.setAttribute("class",config.icon ||"bi bi-check-circle")
+                icon.setAttribute("class",config.icon ||"iconfont icon-success")
                 break
             case "error":
                 style={
@@ -86,13 +88,13 @@ class Message{
                     ...iconStyle,
                     color:'#ff5735'
                 }
-                icon.setAttribute("class",config.icon || "bi bi-x-circle")
+                icon.setAttribute("class",config.icon || "iconfont icon-error")
                 break
         }
 
         // 关闭按钮
         const close = document.createElement("i")
-        close.setAttribute('class','bi bi-x')
+        close.setAttribute('class','iconfont icon-guanbi')
         let closeStyle={
             color:'#999',
             fontSize: '1.25rem',
