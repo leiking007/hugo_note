@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./content/**/*.md","./themes/hugo-tl/layouts/**/*.{html,js}"],
+  content: ["./content/**/*.md","./themes/hugo-tl/layouts/**/*.{html,js,ts}"],
   theme: {
     fontSize: {
       'sm':['0.8rem',{

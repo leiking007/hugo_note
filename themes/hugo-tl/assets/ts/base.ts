@@ -71,14 +71,25 @@ function getTargetEle(curEle: Node, dataType: string): HTMLElement {
 }
 
 function fun_collapse_code(): void {
-    let collapseBtnList: NodeList = document.querySelectorAll("[data-type=\"collapse-btn\"]")
+    let collapseBtnList: NodeList = document.querySelectorAll("[data-type=\"collapse-btn-hidde\"]")
     collapseBtnList.forEach(collapseBtn => {
         collapseBtn.addEventListener("click", (e) => {
-            let highlightEle = getTargetEle(collapseBtn, 'code-block')
-            if (highlightEle.classList.contains("hide")) {
-                highlightEle.classList.remove("hide")
-            } else {
-                highlightEle.classList.add("hide")
+            if (collapseBtn instanceof HTMLElement){
+                let highlightEle:HTMLElement = getTargetEle(collapseBtn, 'code-block')
+                highlightEle.classList.add("hidden")
+                collapseBtn.classList.add("hidden")
+                collapseBtn.nextElementSibling.classList.remove("hidden")
+            }
+        })
+    })
+    collapseBtnList = document.querySelectorAll("[data-type=\"collapse-btn-open\"]")
+    collapseBtnList.forEach(collapseBtn => {
+        collapseBtn.addEventListener("click", (e) => {
+            if (collapseBtn instanceof HTMLElement){
+                let highlightEle:HTMLElement = getTargetEle(collapseBtn, 'code-block')
+                highlightEle.classList.remove("hidden")
+                collapseBtn.classList.add("hidden")
+                collapseBtn.previousElementSibling.classList.remove("hidden")
             }
         })
     })

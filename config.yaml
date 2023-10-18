@@ -15,22 +15,22 @@ menu:
   main:
   - identifier: archives
     name: 归档
-    pre: <i class="bi bi-archive"></i>
+    pre: icon-guidang
     url: /archives/
     weight: -70
   - identifier: tags
     name: 标签
-    pre: <i class="bi bi-tags"></i>
+    pre: icon-24gl-tags2
     url: /tags/
     weight: -60
   - identifier: about
     name: 关于
-    pre: <i class="bi bi-yin-yang"></i>
+    pre: icon-shouye
     url: /about/
     weight: -50
   - identifier: search
     name: 搜索
-    pre: <i class="bi bi-search"></i>
+    pre: icon-sousuo
     url: /search/
     weight: -40
 

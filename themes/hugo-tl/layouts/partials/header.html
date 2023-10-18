@@ -11,7 +11,9 @@
       {{/*  判断当前页面url 和 菜单链接url是否相等，激活菜单  */}}
       {{ $active := eq (.URL | relLangURL) ($currentPage.RelPermalink | relLangURL) }}
       <a class="leading-10 text-gray-900 {{ if $active }} font-bold {{ end }} hover:font-semibold"  href="{{ .URL | relLangURL }}">
-        {{- .Pre -}}&nbsp;
+        {{ with .Pre }}
+            <i class="iconfont mr-3 {{.}}"></i>
+        {{ end }}
         {{/*  default DEFAULT input 如果获取的i8in为空，则默认设置.Name  */}}
         {{ lower .Identifier | printf "widget.%s.title" | T | default .Name }}
       </a>

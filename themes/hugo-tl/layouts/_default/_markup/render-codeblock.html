@@ -1,13 +1,19 @@
 {{/*  {{ transform.Highlight .Inner .Type "style=monokai, lineNos=false" }}  */}}
 {{/*  不加配置，默认使用yaml中配置  */}}
-<div class="font-mono text-sm not-prose ">
-    <div class="bg-emerald-50 py-2 flex justify-between items-center">
+<div class="font-mono text-sm not-prose my-2">
+    <div class="py-2 flex justify-between items-center bg-gray-300">
         <span class="cursor-default ml-2">{{ .Type }}</span>
-        <span data-type="copy-btn" class="cursor-copy mr-2 inline-block w-6 h-6">
-            <span class="span-svg">{{- partial "helper/svg.html" "copy" -}}</span>
+        <span class="flex">
+            <span data-type="copy-btn" class="cursor-copy mr-2 inline-block">
+                <i class="iconfont icon-fuzhi"></i>
+            </span>
+            <span class="cursor-pointer mr-2 inline-block">
+                <i data-type="collapse-btn-hidde" class="iconfont icon-xuanzeqizhankai_o"></i>
+                <i data-type="collapse-btn-open" class="iconfont icon-zhankaicaidan hidden"></i>
+            </span>
         </span>
     </div>
-    <div data-type="code-block" class="overflow-auto max-h-[48rem] border-1 bg-white">
+    <div data-type="code-block" class="overflow-auto max-h-[48rem] border-1 bg-white py-2">
         {{ transform.Highlight .Inner .Type "noClasses=false"}}
     </div>
 </div>
