@@ -1,6 +1,5 @@
 {{ define "main" }}
 <div id="post-single">
-  <h1>{{ lower .Title | printf "widget.%s.title"   | T | default .Title }}</h1>
   <div>
     <article id="content">
       {{ .Content }}

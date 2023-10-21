@@ -1,9 +1,6 @@
 {{ define "main" }}
 <main>
     <article>
-        <header>
-            <h1 class="text-3xl">{{ lower .Title | printf "widget.%s.title" | T | default .Title }}</h1>
-        </header>
         {{.Content}}
     </article>
     <div>

@@ -1,23 +1,22 @@
-<header class="bg-white rounded-lg shadow-sm sticky top-1">
-  <nav class="mx-auto flex items-center flex-col justify-between p-6 lg:px-8">
-    <div class="flex lg:flex-1">
-      <a href="{{.Site.BaseURL}}" class="-m-1.5 p-1.5">
-        <span class="h-8 w-auto text-2xl">Note</span>
-      </a>
-    </div>
-    <div class="flex flex-col gap-x-12">
-      {{ $currentPage := . }}
-      {{ range .Site.Menus.main }}
-      {{/*  判断当前页面url 和 菜单链接url是否相等，激活菜单  */}}
-      {{ $active := eq (.URL | relLangURL) ($currentPage.RelPermalink | relLangURL) }}
-      <a class="leading-10 text-gray-900 {{ if $active }} font-bold {{ end }} hover:font-semibold"  href="{{ .URL | relLangURL }}">
-        {{ with .Pre }}
-            <i class="iconfont mr-3 {{.}}"></i>
-        {{ end }}
-        {{/*  default DEFAULT input 如果获取的i8in为空，则默认设置.Name  */}}
-        {{ lower .Identifier | printf "widget.%s.title" | T | default .Name }}
-      </a>
+<nav class="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8">
+  <div class="flex lg:flex-1">
+    <a href="{{.Site.BaseURL}}" class="-m-1.5 p-1.5">
+      <span class="sr-only">Note</span>
+      <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+    </a>
+  </div>
+  <div class="flex gap-x-12">
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main }}
+    {{/*  判断当前页面url 和 菜单链接url是否相等，激活菜单  */}}
+    {{ $active := eq (.URL | relLangURL) ($currentPage.RelPermalink | relLangURL) }}
+    <a href="{{ .URL | relLangURL }}" class="leading-10 text-gray-900 {{ if $active }} font-bold {{ end }} hover:font-semibold">
+      {{ with .Pre }}
+      <i class="iconfont mr-3 {{.}}"></i>
       {{ end }}
-    </div>
-  </nav>
-</header>
+      {{/*  default DEFAULT input 如果获取的i8in为空，则默认设置.Name  */}}
+      {{ lower .Identifier | printf "widget.%s.title" | T | default .Name }}
+    </a>
+    {{ end }}
+  </div>
+</nav>

@@ -1,15 +1,10 @@
 {{ define "main" }}
-<div class="row justify-content-center">
-  <div class="col-md-8">
-    <main>
-        <h1>{{ printf "widget.%s.title" .Title  | T | default .Title }}</h1>
-        {{ range .Pages }}
-        <div class="m-2">
-          <a href="{{.Permalink}}">{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}} |
+<main>
+    {{ range .Pages }}
+    <div class="m-2">
+        <a href="{{.Permalink}}">{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}} |
             {{.Title}}</a><br>
-        </div>
-        {{ end }}
-    </main>
-  </div>
-</div>
+    </div>
+    {{ end }}
+</main>
 {{ end }}
