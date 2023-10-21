@@ -1,21 +1,21 @@
 {{ define "main" }}
-  <div id="post-single" class="prose  max-w-none">
-    <div>
-      <h1 id="title">{{ .Title }}
+  <div id="post-single" class="prose max-w-none prose-h1:my-4 prose-h2:my-3 prose-h3:my-2">
+    <div class="my-3">
+      <h1 class="mb-1" id="title">{{ .Title }}
         {{ if .Params.tags }}
           {{ range (.GetTerms "tags") }}
           <small>
-            <a  href='{{ .RelPermalink }}'>{{- .LinkTitle -}}</a>
+            <a class="text-sm" href='{{ .RelPermalink }}'>{{- .LinkTitle -}}</a>
           </small>
           {{ end }}
         {{ end }}
     </h1>
+      <section class="d-flex">
+        <span class="mx-2"><i class="iconfont icon-riqi2 mr-1"></i>{{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) }}</span>
+        <span class="mx-2"><i class="iconfont icon-yongyan mr-1"></i>{{- T "article.wordCount" .WordCount -}}</span>
+        <span class="mx-2"><i class="iconfont icon-time mr-1"></i>{{- T "article.readingTime" .ReadingTime -}}</span>
+      </section>
     </div>
-    <section class="d-flex fs-6">
-      <span class="mx-2"><i class="iconfont icon-riqi2 mr-1"></i>{{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) }}</span>
-      <span class="mx-2"><i class="iconfont icon-yongyan mr-1"></i>{{- T "article.wordCount" .WordCount -}}</span>
-      <span class="mx-2"><i class="iconfont icon-time mr-1"></i>{{- T "article.readingTime" .ReadingTime -}}</span>
-    </section>
     <div>
       <article id="content" >
         {{ .Content }}

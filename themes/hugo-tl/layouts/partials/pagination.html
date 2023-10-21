@@ -2,6 +2,9 @@
 {{- if gt .Paginator.TotalPages 1 -}}
 <div class="flex items-center justify-between border-gray-200 px-4 py-3 sm:px-6">
   <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center border-t">
+    {{ if $.Paginator.HasPrev }}
+        <a class="float-left ml-1" href="{{- $.Paginator.Prev.URL -}}">上一页</a>
+    {{ end }}
       <nav class="isolate inline-flex -space-x-px rounded-md ">
         {{- .Scratch.Set "paginator.ellipsed" false -}}
         {{- range $.Paginator.Pagers -}}
@@ -22,6 +25,9 @@
         {{- end -}}
         {{- end -}}
       </nav>
+    {{ if $.Paginator.HasNext }}
+    <a class="float-right" href="{{- $.Paginator.Next.URL -}}">下一页</a>
+    {{ end }}
   </div>
 </div>
 {{- end -}}
