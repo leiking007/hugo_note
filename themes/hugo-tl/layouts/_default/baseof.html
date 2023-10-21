@@ -17,11 +17,12 @@
         {{- partial "header.html" . -}}
     </header>
     <div class="container mx-auto my-3">
-        <div class="grid grid-rows-1 gap-x-4 sm:grid-cols-1 lg:grid-cols-12 min-h-screen">
+        <div class="grid grid-rows-1 gap-x-8 sm:grid-cols-1 lg:grid-cols-12 min-h-screen">
             <div class="sm:col-span-1 lg:col-span-8">
                 {{- block "main" . }}{{-  end -}}
             </div>
-            <div class="hidden lg:block lg:col-span-4 px-8 pt-6">
+            <div class="hidden lg:block lg:col-span-4">
+                {{- partial "right.html" . -}}
                 {{- block "right" . }}{{-  end -}}
             </div>
         </div>

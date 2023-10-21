@@ -20,10 +20,10 @@
   <div>
     <div>
       {{ range $index, $element := $pag.Pages }}
-      <div class="shadow my-4 p-4 bg-light bg-opacity-75 border-bottom rounded-start rounded-5">
+      <div class="shadow my-4 p-4 card rounded-e-full">
         <div>
-          <p class="fs-3">{{ .Title }}
-            <small class="text-muted fs-6 ms-2">{{- T "article.lastUpdatedOn"  -}}: {{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) -}}</small>
+          <p class="text-2xl">{{ .Title }}
+            <small class="text-sm">{{- T "article.lastUpdatedOn"  -}}: {{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) -}}</small>
           </p>
           <p class="fs-6">{{ .Summary }}</p>
           <a href="{{ .Permalink }}" class="btn bg-info text-dark bg-opacity-50"> {{- T "article.readMore" -}} </a>
@@ -32,7 +32,6 @@
       {{ end }}
     </div>
     {{- partial "partials/pagination.html" . -}}
-
   </div>
 </main>
 {{ end }}
