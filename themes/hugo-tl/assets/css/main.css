@@ -3,13 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-    .span-svg{
-        display: inline-block;
-        width: 1.25rem;
-        height: 1.25rem;
-        cursor: default;
-        align-items: center;
+@layer components {
+    .card {
+        @apply bg-white rounded-lg shadow-sm p-4
+    }
+    .card-dark {
+        @apply card bg-amber-900
     }
 }
 
