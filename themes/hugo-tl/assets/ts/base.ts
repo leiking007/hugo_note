@@ -3,8 +3,8 @@ import message from "./components/message";
 
 function fun_top(): void {
     let a: HTMLElement = document.getElementById("return-top")
-    const app = document.getElementById("app")
-    app.addEventListener("scroll", () => {
+    const app = document.body
+    window.addEventListener("scroll", () => {
         if (document.documentElement.scrollTop + app.scrollTop > 150) {
             a.style.display = "block";
         } else {
@@ -12,8 +12,8 @@ function fun_top(): void {
         }
     })
     a.addEventListener("click", () => {
-        app.scroll({top: 0, behavior: "smooth"})
-        let toc = document.querySelector("#postTocOuter") as HTMLElement | undefined;
+        window.scroll({top: 0, behavior: "smooth"})
+        let toc = document.querySelector("#postTocOuter") as HTMLElement
         if (!toc) {
             return;
         }

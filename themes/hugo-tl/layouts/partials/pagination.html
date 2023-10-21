@@ -2,9 +2,9 @@
 {{- if gt .Paginator.TotalPages 1 -}}
 <div class="flex items-center justify-between border-gray-200 px-4 py-3 sm:px-6">
   <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center border-t">
-    {{ if $.Paginator.HasPrev }}
-        <a class="float-left ml-1" href="{{- $.Paginator.Prev.URL -}}">上一页</a>
-    {{ end }}
+      {{ if $.Paginator.HasPrev }}
+      <a class="relative block items-center px-4 py-2 text-gray-900  mr-6 border-t-2 border-transparent hover:border-inherit hover:border-t-blue-600" href="{{- $.Paginator.Prev.URL -}}">上一页</a>
+      {{ end }}
       <nav class="isolate inline-flex -space-x-px rounded-md ">
         {{- .Scratch.Set "paginator.ellipsed" false -}}
         {{- range $.Paginator.Pagers -}}
@@ -19,15 +19,15 @@
         {{- $.Scratch.Set "paginator.ellipsed" true -}}
         {{- end -}}
         {{- if $showNumber -}}
-        <a href="{{ .URL }}" class="relative block items-center px-4 py-2 text-gray-900 hover:border-t-2 {{ if eq . $.Paginator }} border-t-2 border-t-blue-600 {{ end }}">{{- .PageNumber -}}</a>
+        <a href="{{ .URL }}" class="relative block items-center px-4 py-2 text-gray-900 border-t-2 border-transparent hover:border-inherit hover:border-t-blue-600 {{ if eq . $.Paginator }} border-t-blue-600 {{ end }}">{{- .PageNumber -}}</a>
         {{- else if ($.Scratch.Get "paginator.shouldEllipse") -}}
-        <span class="relative block items-center px-4 py-2 text-gray-900 hover:border-t-2">...</span>
+        <span class="relative block items-center px-4 py-2 text-gray-900 border-transparent hover:border-inherit">...</span>
         {{- end -}}
         {{- end -}}
       </nav>
-    {{ if $.Paginator.HasNext }}
-    <a class="float-right" href="{{- $.Paginator.Next.URL -}}">下一页</a>
-    {{ end }}
+      {{ if $.Paginator.HasNext }}
+      <a class="relative block items-center ml-6 px-4 py-2 text-gray-900 border-t-2 border-transparent hover:border-inherit hover:border-t-blue-600" href="{{- $.Paginator.Next.URL -}}">下一页</a>
+      {{ end }}
   </div>
 </div>
 {{- end -}}
