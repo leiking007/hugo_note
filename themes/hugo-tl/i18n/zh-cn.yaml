@@ -65,7 +65,7 @@ search:
         other: 搜索
 
     placeholder:
-        other: 输入关键词...
+        other: 输入关键词搜索...
 
     resultTitle:
         other: "#PAGES_COUNT 个结果 （用时 #TIME_SECONDS 秒）"
