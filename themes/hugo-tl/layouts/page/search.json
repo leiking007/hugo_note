@@ -1,12 +1,8 @@
-{{- $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections -}}
-{{- $notHidden := where .Site.RegularPages "Params.hidden" "!=" true -}}
-{{- $filtered := ($pages | intersect $notHidden) -}}
-
-{{- $result := slice -}}
-
-{{- range $filtered -}}
-    {{- $data := dict "title" .Title "date" .Date "permalink" .Permalink "content" (.Plain) -}}
-    {{- $result = $result | append $data -}}
+{{- $.Scratch.Add "index" slice -}}
+{{/* 常规页面合集 */}}
+{{- range site.RegularPages -}}
+{{- if (not .Params.searchHidden) }}
+{{- $.Scratch.Add "index" (dict "title" .Title "date" .Date "content" .Plain "permalink" .Permalink "summary" .Summary) -}}
+{{- end }}
 {{- end -}}
-
-{{ jsonify $result }}
+{{- $.Scratch.Get "index" | jsonify -}}
