@@ -200,6 +200,7 @@ class Search {
             const jsonURL = this.input.dataset.json;
 
             this.data = await fetch(jsonURL).then(res => res.json());
+            console.log(this.data)
             const parser = new DOMParser();
 
             for (const item of this.data) {
@@ -250,8 +251,7 @@ class Search {
     }
 
     private handleQueryString() {
-        const pageURL = new URL(window.location.toString());
-        const keywords = pageURL.searchParams.get('keyword');
+        const keywords = new URLSearchParams(window.location.search).get("keyword");
         this.input.value = keywords;
         if (keywords) {
             this.doSearch(keywords.split(' '));
