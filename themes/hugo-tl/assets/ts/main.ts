@@ -1,5 +1,6 @@
 import {fun_top,fun_copy,fun_collapse_code} from "./base";
 import initToc from "./initToc";
+import {search} from "./search";
 
 const  STACK={
 
@@ -8,6 +9,7 @@ const  STACK={
         initToc()
         fun_copy()
         fun_collapse_code()
+        search()
     }
 
 }

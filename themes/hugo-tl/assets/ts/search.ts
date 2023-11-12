@@ -39,14 +39,17 @@ class Search {
         this.resultTitle = resultTitle;
         this.resultTitleTemplate = resultTitleTemplate;
 
-        // 根据当前url后关键字进行搜索，并将关键字绑定到输入框
-        this.handleQueryString();
+        // 初始化数据
+        this.initData().then(r => {
+            // 根据当前url后关键字进行搜索，并将关键字绑定到输入框
+            this.handleQueryString();
 
-        // 绑定页面前进后退时，进行搜索
-        this.bindQueryStringChange();
+            // 绑定页面前进后退时，进行搜索
+            this.bindQueryStringChange();
 
-        // 绑定input输入框输入时 进行搜索
-        this.bindSearchForm();
+            // 绑定input输入框输入时 进行搜索
+            this.bindSearchForm();
+        })
     }
 
     private static processMatches(str: string, matches: match[], ellipsis: boolean = true, charLimit = 140, offset = 20): string {
@@ -193,6 +196,15 @@ class Search {
         return this.resultTitleTemplate.replace("#PAGES_COUNT", resultLen).replace("#TIME_SECONDS", time);
     }
 
+    private async initData() {
+        const jsonURL = this.input.dataset.json;
+        this.data = await fetch(jsonURL).then(res => res.json());
+        const parser = new DOMParser();
+        for (const item of this.data) {
+            item.content = parser.parseFromString(item.content, 'text/html').body.innerText;
+        }
+    }
+
     // 获取搜索的json文件
     public async getData() {
         if (!this.data) {
@@ -200,7 +212,6 @@ class Search {
             const jsonURL = this.input.dataset.json;
 
             this.data = await fetch(jsonURL).then(res => res.json());
-            console.log(this.data)
             const parser = new DOMParser();
 
             for (const item of this.data) {
@@ -266,8 +277,7 @@ class Search {
 
         if (keywords === '') {
             pageURL.searchParams.delete('keyword')
-        }
-        else {
+        } else {
             pageURL.searchParams.set('keyword', keywords);
         }
         if (replaceState) {
@@ -282,12 +292,11 @@ class Search {
 
     public static render(item: pageData) {
         let article = document.createElement('article')
-        article.setAttribute("class","my-2 p-4 rounded bg-light ")
-        article.setAttribute("style","--bs-bg-opacity: .75;")
+        article.setAttribute("class","my-2 p-3")
         article.innerHTML = `<a href=${item.permalink}>
                                 <div class="article-details">
-                                    <h2 class="fs-3">${item.title}</h2>
-                                    <section class="fs-6">${item.preview}</section>
+                                    <h2 class="text-2xl ">${item.title}</h2>
+                                    <section class="text-xl">${item.preview}</section>
                                 </div>
                             </a>`
         return article
@@ -300,19 +309,19 @@ declare global {
     }
 }
 
-window.addEventListener('load', () => {
-    setTimeout(function () {
-        const searchInput = document.querySelector('#searchInput') as HTMLInputElement
-        const searchResultList = document.querySelector('#search-result-list') as HTMLDivElement
-        const searchResultTitle = document.querySelector('#search-result-title') as HTMLHeadingElement
-
-        new Search({
-            input: searchInput,
-            list: searchResultList,
-            resultTitle: searchResultTitle,
-            resultTitleTemplate: window.searchResultTitleTemplate
-        });
-    }, 0);
-})
-
-export default Search;
+export const search = () => {
+    const searchInput = document.querySelector('#searchInput') as HTMLInputElement
+    const searchResultList = document.querySelector('#search-result-list') as HTMLDivElement
+    const searchResultTitle = document.querySelector('#search-result-title') as HTMLHeadingElement
+    if (searchInput && searchResultList && searchResultTitle){
+        // setTimeout(fn,0)的含义是，指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行
+        setTimeout(function () {
+            new Search({
+                input: searchInput,
+                list: searchResultList,
+                resultTitle: searchResultTitle,
+                resultTitleTemplate: window.searchResultTitleTemplate
+            });
+        }, 0);
+    }
+}

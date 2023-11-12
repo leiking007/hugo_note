@@ -23,9 +23,4 @@
 <script>
     window.searchResultTitleTemplate = "{{ T `search.resultTitle` }}"
 </script>
-
-{{- $opts := dict "minify" hugo.IsProduction -}}
-{{- $searchScript := resources.Get "ts/search.ts" | js.Build $opts | resources.Fingerprint "sha256" -}}
-{{/*  defer 页面加载完成后再执行  */}}
-<script type="text/javascript" src="{{ $searchScript.RelPermalink }}" defer></script>
 {{ end }}
