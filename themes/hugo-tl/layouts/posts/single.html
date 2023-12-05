@@ -21,7 +21,7 @@
         {{ .Content }}
       </article>
     </div>
-    <aside id="meta">
+    <aside class="hidden lg:block" id="meta">
       <div class="flex justify-between py-6 my-4">
         {{ with .PrevInSection }}
         <div><span class="cursor-default mr-1">{{- T "article.previousArticle" | default "上一篇" -}}: </span><a href="{{.Permalink}}"><i class="bi bi-chevron-double-left"></i> {{.Title}}</a></div>
