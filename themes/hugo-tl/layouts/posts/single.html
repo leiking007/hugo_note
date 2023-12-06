@@ -17,6 +17,12 @@
       </section>
     </div>
     <div>
+      <div class="lg:hidden">
+        <h4 class="text-2xl">{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
+        <div class="prose prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0">
+          {{ .TableOfContents }}
+        </div>
+      </div>
       <article id="content" data-pagefind-body >
         {{ .Content }}
       </article>
