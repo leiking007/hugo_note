@@ -14,10 +14,10 @@ function fun_top(): void {
     a.addEventListener("click", () => {
         window.scroll({top: 0, behavior: "smooth"})
         let toc = document.querySelector("#postTocOuter") as HTMLElement
-        if (!toc) {
-            return;
+        console.log()
+        if (toc && toc.offsetParent) {
+            toc.scrollTo({top: 0, behavior: "smooth"})
         }
-        toc.scrollTo({top: 0, behavior: "smooth"})
     })
 }
 
