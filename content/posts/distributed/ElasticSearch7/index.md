@@ -473,9 +473,44 @@ public class CH04ESTestOne {
 //            searchDocById(esClient);
 //            searchDocA(esClient);
 //            searchDocB(esClient);
+//            searchDocC(esClient);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+     /**
+     * 聚合操作
+     * 根据查询条件求出平均价格
+     */
+    private static void searchDocC(ElasticsearchClient esClient) throws IOException {
+        SearchResponse<Void> searchResponse = esClient.search(new SearchRequest.Builder()
+                        .index("shopping")
+                        .query(new Query.Builder()
+                                .match(new MatchQuery.Builder()
+                                        .field("title")
+                                        .query("华为手机")
+                                        .build()
+                                ).build())
+                        .aggregations("price_group", new Aggregation.Builder()
+                                .avg(new AverageAggregation.Builder()
+                                        .field("price")
+                                        .build()
+                                ).build())
+                        .size(0)
+                        .build()
+                , Void.class);
+        TotalHits total = searchResponse.hits().total();
+        boolean isExactResult = Objects.equals(total.relation(), TotalHitsRelation.Eq);
+
+        if (isExactResult) {
+            logger.info("There are " + total.value() + " results");
+        } else {
+            logger.info("There are more than " + total.value() + " results");
+        }
+
+        System.out.println(searchResponse.aggregations());
+        logger.info("操作成功");
     }
 
      /**
