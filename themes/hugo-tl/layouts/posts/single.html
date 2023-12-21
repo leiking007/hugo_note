@@ -2,6 +2,7 @@
   <div id="post-single" class="prose max-w-none prose-h1:my-4 prose-h2:my-3 prose-h3:my-2">
     <div class="my-3">
       <h1 class="mb-1" id="title">{{ .Title }}
+        <button class="hidden lg:inline-block text-sm p-1 border-2 border-cyan-100" onclick="window.print()">打印</button>
         {{ if .Params.tags }}
           {{ range (.GetTerms "tags") }}
           <small>
