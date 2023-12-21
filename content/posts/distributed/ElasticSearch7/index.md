@@ -620,3 +620,171 @@ public class CH04ESTestOne {
 
 ```
 
+# 利用 docker 搭建 ES 集群
+
+1. 修改系统配置 ，进入文件`/etc/sysctl.conf`，添加以下内容
+
+   ```ini
+   # 系统虚拟内存默认最大映射数为65530，无法满足ES系统要求，需要调整为262144以上
+   vm.max_map_count = 262144
+   ```
+
+   应用配置
+
+   ```bash
+   sysctl -p
+   ```
+
+2. 创建 docker 网络
+
+   ```bash
+   docker network create --driver bridge --subnet 192.168.77.0/24 --gateway 192.168.77.1 mynet
+   ```
+
+3. 创建以下目录结构，作为创建 es 容器时的挂载卷
+
+   ```ascii
+   es
+   ├── node1		# 节点1
+   │   ├── config		# 配置文件存放目录
+   │   └── data		#数据存放目录
+   │       └── nodes
+   └── node2
+       ├── config
+       └── data
+           └── nodes
+   ```
+
+   配置文件权限
+
+   ```bash
+   chmod -R 777 es/**
+   ```
+
+4. 拉取镜像
+
+   ```bash
+   docker pull elasticsearch:7.17.7
+   ```
+
+5. 先启动一个 ES 容器，将配置文件结构拷贝出来
+
+   ```bash
+   # 启动 es 
+   docker run -d --name elasticsearch --net mynet -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.17.7
+   
+   # 将 es 容器中的 /usr/share/elasticsearch/config 拷贝到 es/node1/下
+   # docker cp 容器id:容器文件路径 主机路径，将容器中文件拷贝到主机
+   docker cp 97a4205f7844:/usr/share/elasticsearch/config es/node1/
+   docker cp 97a4205f7844:/usr/share/elasticsearch/config es/node2/
+   
+   # 删除 es 容器
+   docker rm -f elasticsearch
+   ```
+
+6. 编写配置文件
+
+   es/node1/config/elasticsearch.yml
+
+   ```yaml
+   # 集群名称
+   cluster.name: "docker-cluster"
+   # 允许链接地址
+   network.host: 0.0.0.0
+   # 当前节点名称
+   node.name: es1
+   # 初始化的主节点
+   cluster.initial_master_nodes: ["es1"]
+   # 集群节点的 host
+   discovery.seed_hosts: ["192.168.77.101", "192.168.77.102"]
+   #跨域
+   http.cors.enabled: true
+   http.cors.allow-origin: "*"
+   ```
+
+   es/node2/config/elasticsearch.yml
+
+   ```yaml
+   cluster.name: "docker-cluster"
+   network.host: 0.0.0.0
+   node.name: es2
+   cluster.initial_master_nodes: ["es1"]
+   discovery.seed_hosts: ["192.168.77.101", "192.168.77.102"]
+   http.cors.enabled: true
+   http.cors.allow-origin: "*"
+   ```
+
+7. 创建并启动容器 es1、es2
+
+   ```bash
+   # --name 容器名称
+   # --net mynet 指定容器网络
+   # -d 后台运行
+   # -v 卷挂载  宿主机:容器
+   # --ip 指定容器 ip 地址
+   # --privileged=true 容器中 root 拥有真正的 root 权限
+   
+   # es1 创建并启动
+   docker run -d --name es1 
+   --net mynet 
+   -p 15101:9200 -p 15111:9300 
+   -v /root/es/node1/config:/usr/share/elasticsearch/config -v /root/es/node1/data:/usr/share/elasticsearch/data 
+   --ip 192.168.77.101 --privileged=true 
+   elasticsearch:7.17.7
+   
+   
+   #es2 创建并启动
+   docker run -d --name es2 
+   --net mynet 
+   -p 15102:9200 -p 15112:9300 
+   -v /root/es/node2/config:/usr/share/elasticsearch/config -v /root/es/node2/data:/usr/share/elasticsearch/data 
+   --ip 192.168.77.102 --privileged=true 
+   elasticsearch:7.17.7
+   ```
+
+8. 测试集群是否启动成功
+
+   1. 查看 es 健康状态：`GET /_cat/health`
+
+      ```json
+      1702218386 14:26:26 docker-cluster green 2 2 4 2 0 0 0 0 - 100.0%
+      ```
+
+   2. 查看集群主节点：`GET /_cat/master`
+
+      ```json
+      cF4Wgu_fRuqh8ntHfrdN5A 192.168.77.101 192.168.77.101 es1
+      ```
+
+   3. 查看集群节点：`GET /_cat/nodes`
+
+      ```json
+      192.168.77.101  5 98 0 0.22 0.14 0.15 cdfhilmrstw * es1
+      192.168.77.102 18 98 0 0.22 0.14 0.15 cdfhilmrstw - es2
+      ```
+
+   4. 查看集群健康状况：`GET /_cluster/health`
+
+      ```json
+      {
+      	"cluster_name": "docker-cluster",
+      	"status": "green",
+      	"timed_out": false,
+      	"number_of_nodes": 2,
+      	"number_of_data_nodes": 2,
+      	"active_primary_shards": 2,
+      	"active_shards": 4,
+      	"relocating_shards": 0,
+      	"initializing_shards": 0,
+      	"unassigned_shards": 0,
+      	"delayed_unassigned_shards": 0,
+      	"number_of_pending_tasks": 0,
+      	"number_of_in_flight_fetch": 0,
+      	"task_max_waiting_in_queue_millis": 0,
+      	"active_shards_percent_as_number": 100
+      }
+      ```
+
+   5. 查看集群状态：`GET /_cluster/stats`
+
+   6. 查看集群节点状态：`GET /_nodes/process`
