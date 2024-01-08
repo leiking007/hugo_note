@@ -2,6 +2,7 @@
 .idea
 .env.build
 .hugo_build.lock
+.package-lock.json
 resources/
 .git
 /public/**
