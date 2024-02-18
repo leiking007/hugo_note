@@ -886,11 +886,129 @@ db.testcollection.insertMany([
 sh.status()
 ```
 
+# mongoDB java
 
+## 搭建
 
-   
+启动 mongoDB 副本集
 
+```bash
+# 启动命令
+mongod --bind_ip_all --port "30001" --dbpath "/root/mongodb/replSet/rs1" -logpath "/root/mongodb/replSet/rs1.log" --replSet "replSet" --fork
+mongod --bind_ip_all --port "30002" --dbpath "/root/mongodb/replSet/rs2" -logpath "/root/mongodb/replSet/rs2.log" --replSet "replSet" --fork
+mongod --bind_ip_all --port "30003" --dbpath "/root/mongodb/replSet/rs3" -logpath "/root/mongodb/replSet/rs3.log" --replSet "replSet" --fork
+```
 
+初始化副本集
+
+```js
+// 连接任意节点初始化副本集
+// arbiterOnly 仲裁节点，不参与数据的复制，仅选举 master 节点
+rs.initiate({
+	"_id":"replSet",
+	"members":[
+		{"_id" : 0, "host" : "192.168.56.101:30001"},
+		{"_id" : 1, "host" : "192.168.56.101:30002"},
+		{"_id" : 2, "host" : "192.168.56.101:30003","arbiterOnly":true}
+	]
+})
+
+// 切换数据库
+use myDB
+
+// 插入测试数据
+db.testCollection.insertMany([
+	{name:'张三',title:'测试1',age:22},
+	{name:'李四',title:'测试2',age:24},
+	{name:'王五',title:'测试3',age:29}
+])
+
+// 查询数据
+db.testCollection.find({})
+```
+
+## java 中基本操作
+
+```java
+public class CH05MongoDBDemo {
+    public static void main(String[] args) {
+        ConnectionString connectionString=new ConnectionString("mongodb://192.168.56.101:30001,192.168.56.101:30002/?replicaSet=replSet");
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("myDB");
+            MongoCollection<Document> collection = database.getCollection("testCollection");
+
+            // 插入数据
+//            insertMethod(collection);
+
+            // 查询数据
+//            findMethod(collection);
+
+            // 更新数据
+//            updateMethod(collection);
+
+            // 删除数据
+//            deleteMethod(collection);
+
+            // 分页查询
+            pageMethod(collection);
+
+        }
+
+    }
+
+    private static void pageMethod(MongoCollection<Document> collection) {
+        final int pageSize=2;
+        final int pageIndex=2;
+        FindIterable<Document> documentFindIterable = collection.find();
+
+        // 通过 age 升序排序
+        documentFindIterable.sort(Document.parse("{age:-1}"));
+
+        documentFindIterable.limit(pageSize);
+        documentFindIterable.skip(pageIndex*(pageSize-1));
+
+        MongoCursor<Document> iterator = documentFindIterable.iterator();
+        while (iterator.hasNext()){
+            System.out.println(iterator.next().toJson());
+        }
+    }
+
+    private static void deleteMethod(MongoCollection<Document> collection) {
+        Document query = Document.parse("{name:'张三'}");
+        DeleteResult deleteResult = collection.deleteOne(query);
+        System.out.println(deleteResult.wasAcknowledged());
+    }
+
+    private static void updateMethod(MongoCollection<Document> collection) {
+        Document query = Document.parse("{name:'张三'}");
+        Bson bson = Updates.combine(
+                Updates.set("age", 66)
+        );
+
+        UpdateResult updateResult = collection.updateOne(query, bson);
+
+        System.out.println(updateResult.wasAcknowledged());
+    }
+
+    private static void findMethod(MongoCollection<Document> collection) {
+        FindIterable<Document> documentFindIterable = collection.find();
+        MongoCursor<Document> iterator = documentFindIterable.iterator();
+        while (iterator.hasNext()){
+            System.out.println(iterator.next().toJson());
+        }
+
+    }
+
+    private static void insertMethod(MongoCollection<Document> collection) {
+        List<Document> documentList=new ArrayList<>();
+        documentList.add(Document.parse("{name:'张三',title:'测试1',age:22}"));
+        documentList.add(Document.parse("{name:'李四',title:'测试2',age:24}"));
+        documentList.add(Document.parse("{name:'王五',title:'测试3',age:29}"));
+        InsertManyResult result = collection.insertMany(documentList);
+        System.out.println(result.wasAcknowledged());
+    }
+}
+```
 
 
 
