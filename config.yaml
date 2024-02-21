@@ -9,14 +9,14 @@ copyright: copyright@
 enableEmoji: true
 hasCJKLanguage: true
 
-paginate: 7
+paginate: 9
 
 menu:
   main:
-  - identifier: archives
-    name: 归档
+  - identifier: categories
+    name: 分类
     pre: icon-guidang
-    url: /archives/
+    url: /categories/
     weight: -70
   - identifier: tags
     name: 标签

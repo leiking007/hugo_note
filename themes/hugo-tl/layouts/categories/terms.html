@@ -1,9 +1,9 @@
 {{ define "main" }}
 <main>
-  <div>
     {{ range .Pages }}
-    <a href="{{.Permalink}}">{{.Date.Format "2006-01-02"}} | {{.Title}}</a>
+    <div class="p-2">
+        <a class="text-xl" href="{{.Permalink}}">{{.Title}}</a>
+    </div>
     {{ end }}
-  </div>
 </main>
 {{ end }}
