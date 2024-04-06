@@ -1,5 +1,5 @@
 ---
-title: "springboot案例"
+title: "SpringBoot案例"
 date: 2020-07-04
 lastmod: 2020-07-04
 draft: false
@@ -8,11 +8,13 @@ categories: ["框架"]
 author: "lei"
 ---
 
-# 集成
+# SpringBoot案例
 
-## 整合jsp
+## 集成
 
-- 声明springboot内嵌tomcat对jsp支持依赖
+### 整合jsp
+
+- 声明SpringBoot内嵌tomcat对jsp支持依赖
 
   ```xml
   <dependency>
@@ -23,7 +25,7 @@ author: "lei"
 
 - 在main目录下创建webapp，并在包设置设定该目录为web资源目录
 
-- springboot默认支持view不是jsp，需要手动指定jsp文件编译后位置，springboot规定位置为 META-INF/resources
+- SpringBoot默认支持view不是jsp，需要手动指定jsp文件编译后位置，SpringBoot规定位置为 META-INF/resources
 
   ```xml
   <resource>
@@ -42,9 +44,9 @@ author: "lei"
   spring.mvc.view.suffix=.jsp
   ```
 
-## 集成mybatis（逆向工程）
+### 集成mybatis（逆向工程）
 
-- 声明相关依赖，mysql驱动依赖、mybatis整合springboot的起步依赖
+- 声明相关依赖，mysql驱动依赖、mybatis整合SpringBoot的起步依赖
 
   ```xml
   <dependency>
@@ -133,13 +135,13 @@ author: "lei"
 
 - 使用maven的逆向工程插件，生成对应的mapper、domain
 
-> mybatis和springboot整合
+> mybatis和SpringBoot整合
 
 1. 在mapper接口上使用注解 @Mapper 注解，将其注入到spring容器
 
 2. 或者使用 @MapperScan("com.lei.mapper")注解，将其注解到主配置文件上，指定需要扫描的mapper包
 
-3. 在 springboot 核心配置文件中配置 数据库链接信息
+3. 在 SpringBoot 核心配置文件中配置 数据库链接信息
 
    ```properties
    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
@@ -158,7 +160,7 @@ author: "lei"
 
   - 在资源目录下创建mapper文件夹，将mapper.xml文件放进去
 
-  - 在springboot核心配置文件中指定mapper所在位置
+  - 在SpringBoot核心配置文件中指定mapper所在位置
 
     ```properties
     mybatis.mapper-locations=classpath:mapper/*.xml
@@ -168,9 +170,9 @@ author: "lei"
 
 
 
-## 集成redis
+### 集成redis
 
-springboot2.x之后，原来使用的jedis被替换成了 lettuce
+SpringBoot2.x之后，原来使用的jedis被替换成了 lettuce
 
 区别：
 
@@ -180,7 +182,7 @@ springboot2.x之后，原来使用的jedis被替换成了 lettuce
 1. 添加依赖
 
    ```xml
-   <!-- springboot集成redis起步依赖 -->
+   <!-- SpringBoot集成redis起步依赖 -->
    <dependency>
        <groupId>org.springframework.boot</groupId>
        <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -189,7 +191,7 @@ springboot2.x之后，原来使用的jedis被替换成了 lettuce
 
    
 
-2. 在springboot核心配置文件中添加redis配置
+2. 在SpringBoot核心配置文件中添加redis配置
 
    ```properties
    spring.redis.host=192.168.10.129
@@ -259,7 +261,7 @@ springboot2.x之后，原来使用的jedis被替换成了 lettuce
 
    
 
-## 集成Dubbo分布式框架
+### 集成Dubbo分布式框架
 
 > dubbo简介
 
@@ -273,14 +275,14 @@ springboot2.x之后，原来使用的jedis被替换成了 lettuce
 
 > 集成步骤
 
-1. 创建接口工程（maven项目）、创建服务提供者（springboot项目）、创建服务消费者（springboot项目）
+1. 创建接口工程（maven项目）、创建服务提供者（SpringBoot项目）、创建服务消费者（SpringBoot项目）
 
 2. 服务提供者
 
    - 添加依赖
 
      ```xml
-     <!--dubbo集成springboot起步依赖-->
+     <!--dubbo集成SpringBoot起步依赖-->
      dubbo-spring-boot-starter
      <!--注册中心依赖-->
      zkclient
@@ -307,7 +309,7 @@ springboot2.x之后，原来使用的jedis被替换成了 lettuce
    - 添加依赖
 
      ```xml
-     <!--dubbo集成springboot起步依赖-->
+     <!--dubbo集成SpringBoot起步依赖-->
      dubbo-spring-boot-starter
      <!--注册中心依赖-->
      zkclient
@@ -329,13 +331,13 @@ springboot2.x之后，原来使用的jedis被替换成了 lettuce
      spring.dubbo.registry=zookeeper://ip:2181
      ```
 
-## 集成logback日志
+### 集成logback日志
 
-springboot默认集成了logback日志框架（log4j 原意 log for java）
+SpringBoot默认集成了logback日志框架（log4j 原意 log for java）
 
-springboot核心配置文件可以配置日志，当springboot核心配置文件不够使用时，也可以引入自己扩展的日志配置文件 `logback-spring.xml`
+SpringBoot核心配置文件可以配置日志，当SpringBoot核心配置文件不够使用时，也可以引入自己扩展的日志配置文件 `logback-spring.xml`
 
-springboot核心配置文件与logback相关配置
+SpringBoot核心配置文件与logback相关配置
 
 ```yaml
 logging:
@@ -436,7 +438,7 @@ logging:
 
 
 
-## 使用swagger和lombok
+### 使用swagger和lombok
 
 OAS规范，Linux基金会的一个项目，试图定义一种用来描述API格式或API定义语言，来规范RESTFUL服务开发过程
 
@@ -501,7 +503,7 @@ Swagger是目前最受欢迎的 OAS 规范开发工具框架；随着项目自�
 3. 编写控制类，并使用相关注解说明，以便生成接口文档
 
    ```java
-   @Api(tags = "springboot使用swagger测试")
+   @Api(tags = "SpringBoot使用swagger测试")
    @RestController
    public class UserController {
        @ApiOperation(value = "获取用户信息",notes = "根据id获取用户信息")
@@ -560,7 +562,7 @@ Swagger是目前最受欢迎的 OAS 规范开发工具框架；随着项目自�
    1. 3.0访问地址：http://localhost:8080/swagger-ui/index.html#/
    2. 2.x访问地址：http://localhost:8080/swagger-ui.html
 
-6. springboot核心配置文件关闭swagger-ui访问
+6. SpringBoot核心配置文件关闭swagger-ui访问
 
    ```properties
    springfox.documentation.swagger-ui.enabled=false
@@ -568,7 +570,7 @@ Swagger是目前最受欢迎的 OAS 规范开发工具框架；随着项目自�
 
 
 
-## 使用jasypt加密敏感信息
+### 使用jasypt加密敏感信息
 
 1. 导入依赖
 
@@ -580,7 +582,7 @@ Swagger是目前最受欢迎的 OAS 规范开发工具框架；随着项目自�
    </dependency>
    ```
 
-2. springboot核心配置文件配置加密解密的 key
+2. SpringBoot核心配置文件配置加密解密的 key
 
    ```properties
    jasypt.encryptor.password=sdjhauidasdw
@@ -618,7 +620,7 @@ Swagger是目前最受欢迎的 OAS 规范开发工具框架；随着项目自�
    */
    ```
 
-4. 在springboot核心配置文件配置；EVC(密文) 为默认识别密文的格式，可以通过配置文件修改
+4. 在SpringBoot核心配置文件配置；EVC(密文) 为默认识别密文的格式，可以通过配置文件修改
 
    ```properties
    jasypt.encryptor.password=sdjhauidasdw
@@ -631,7 +633,7 @@ Swagger是目前最受欢迎的 OAS 规范开发工具框架；随着项目自�
 
 
 
-## 使用fastjson替换默认jackson
+### 使用fastjson替换默认jackson
 
 1. 导入依赖
 
@@ -684,7 +686,7 @@ Swagger是目前最受欢迎的 OAS 规范开发工具框架；随着项目自�
    ```
 
 
-## 集成Thymeleaf
+### 集成Thymeleaf
 
 1. Thymeleaf 是一个流行的 java 模板引擎，以 html 为载体
 2. Thymeleaf模板引擎页面访问，必须经过中央调度器（不能直接访问，类似于页面放在 WEB-INF 目录下）
@@ -717,7 +719,7 @@ Swagger是目前最受欢迎的 OAS 规范开发工具框架；随着项目自�
    </html>
    ```
 
-3. springboot核心配置文件配置关闭缓存，方便开发，启动类需要设置动态更新资源
+3. SpringBoot核心配置文件配置关闭缓存，方便开发，启动类需要设置动态更新资源
 
    ```properties
    spring.thymeleaf.cache=false
@@ -830,9 +832,9 @@ msg：hello
 
 
 
-# 配置
+## 配置
 
-## 多数据源
+### 多数据源
 
 核心配置，指定`mapper接口扫描位置和sqlsession/sqlfactory的映射关系`、`mapper 和 sqlsession/sqlfactory 的对应关系`
 
@@ -968,7 +970,7 @@ msg：hello
 
 
 
-## 事务支持
+### 事务支持
 
 **声明式事务**
 
@@ -1057,7 +1059,7 @@ msg：hello
 
 注：以上两种编程式事务，都是事务嵌套；外层事务和内层事务通过事务传播级别关联；设置不同的事务传播级别，可以实现：内部事务抛错外部回滚，内部抛错外部提交等；通过事务传播级别，设置事务管理器中的事务是否`RollbackOnly`
 
-**注意**：springboot集成mybatis时，通过sqlSession进行数据库操作时，必须注意 sqlSession 可以设置自动提交，但是连接池连接的自动提交并不能在获取sqlSession时设置
+**注意**：SpringBoot集成mybatis时，通过sqlSession进行数据库操作时，必须注意 sqlSession 可以设置自动提交，但是连接池连接的自动提交并不能在获取sqlSession时设置
 
 >openSession(boolean autoCommit)，`autoCommit` 可选参数传递 `true` 值即可开启自动提交功能，没有提供同时设置 `Connection` 和 `autoCommit` 的方法，这是因为 MyBatis 会依据传入的 Connection 来决定是否启用 autoCommit
 
@@ -1129,7 +1131,7 @@ public Object testB() {
 
 
 
-## RESTFul风格
+### RESTFul风格
 
 主要是用`@PathVariable("")`注解
 
@@ -1186,18 +1188,18 @@ public class TestController {
 ```
 
 
-## 普通java程序
+### 普通java程序
 
-springboot实现普通java程序，有两种方法
+SpringBoot实现普通java程序，有两种方法
 
-1. 在springboot启动方法中获取 ConfigurableApplicationContext
+1. 在SpringBoot启动方法中获取 ConfigurableApplicationContext
 
    ```java
    //获得容器，然后取得bean并执行
    ConfigurableApplicationContext context=SpringApplication.run(Application.class, args);
    ```
 
-2. 在springboot启动类实现CommandLineRunner接口，并重写run方法
+2. 在SpringBoot启动类实现CommandLineRunner接口，并重写run方法
 
    ```java
    //实现CommandLineRunner接口，并重写run方法
@@ -1211,7 +1213,7 @@ springboot实现普通java程序，有两种方法
        public static void main(String[] args) {
            SpringApplication.run(Application.class, args);
        }
-   //重写接口方法，调用bean方法，springboot容器启动后会回调该方法
+   //重写接口方法，调用bean方法，SpringBoot容器启动后会回调该方法
        @Override
        public void run(String... args) throws Exception {
            userService.say();
@@ -1220,7 +1222,7 @@ springboot实现普通java程序，有两种方法
    ```
 
 
-## 拦截器 Interceptor
+### 拦截器 Interceptor
 
 1. 实现`HandlerInterceptor`接口并实现相关方法
 
@@ -1254,7 +1256,7 @@ springboot实现普通java程序，有两种方法
 
    
 
-2. 注册 `WebMvcConfigurer bean`，添加拦截器到springboot容器，并配置需要拦截的请求
+2. 注册 `WebMvcConfigurer bean`，添加拦截器到SpringBoot容器，并配置需要拦截的请求
 
    ```java
    @Bean
@@ -1306,7 +1308,7 @@ springboot实现普通java程序，有两种方法
    }
    ```
 
-## servlet、过滤器、监听器
+### servlet、过滤器、监听器
 
 > servlet    @WebServlet
 
@@ -1329,7 +1331,7 @@ springboot实现普通java程序，有两种方法
       }
       ```
 
-   2. springboot启动类配置servlet扫描
+   2. SpringBoot启动类配置servlet扫描
 
       ```java
       @SpringBootApplication
@@ -1373,9 +1375,9 @@ springboot实现普通java程序，有两种方法
 
 > 过滤器   @WebListenner
 
-过滤器属于servlet的，声明过滤器，注册到springboot容器中
+过滤器属于servlet的，声明过滤器，注册到SpringBoot容器中
 
-springboot有两种实现方式：
+SpringBoot有两种实现方式：
 
 1. 方式一：注解方式 `@WebFilter`、`@`
 
@@ -1404,7 +1406,7 @@ springboot有两种实现方式：
       }
       ```
 
-   2. springboot启动类，配置启动servlet扫描
+   2. SpringBoot启动类，配置启动servlet扫描
 
       ```java
       @SpringBootApplication
@@ -1441,7 +1443,7 @@ springboot有两种实现方式：
       }
       ```
 
-   2. 编写配置类，注册过滤器到springboot
+   2. 编写配置类，注册过滤器到SpringBoot
 
       ```java
       @Configuration
@@ -1596,11 +1598,11 @@ public class ParamFilter implements Filter {
 
 
 
-## 设置字符编码
+### 设置字符编码
 
 针对servlet使用，两种方式
 
-方式一：使用springboot核心配置文件设置
+方式一：使用SpringBoot核心配置文件设置
 
 - application.properties
 
@@ -1625,9 +1627,9 @@ public class ParamFilter implements Filter {
   }
   ```
 
-方式二：通过注册spring编码过滤器，并关闭springboot自带编码
+方式二：通过注册spring编码过滤器，并关闭SpringBoot自带编码
 
-- springboot自带编码过滤器注册
+- SpringBoot自带编码过滤器注册
 
   ```java
   @Configuration
@@ -1644,7 +1646,7 @@ public class ParamFilter implements Filter {
   }
   ```
 
-- 关闭springboot自带编码
+- 关闭SpringBoot自带编码
 
   ```properties
   server.servlet.encoding.enabled=false
@@ -1665,7 +1667,7 @@ public class ParamFilter implements Filter {
   }
   ```
 
-## springboot工程打包
+### SpringBoot工程打包
 
 > 打包war
 
@@ -1694,16 +1696,16 @@ public class ParamFilter implements Filter {
    }
    ```
 
-springboot打war包，在springboot核心配置文件中配置的tomcat相关配置失效，以部署的tomcat配置为主
+SpringBoot打war包，在SpringBoot核心配置文件中配置的tomcat相关配置失效，以部署的tomcat配置为主
 
-## 热部署插件
+### 热部署插件
 
 1. JRebel插件 或者  devtools  或者   启动配置更新 resource 和 class
 2. 代码修改后 build一下
 
-## 数据库连接池
+### 数据库连接池
 
-springboot2.x后默认使用 HikariCP 作为数据源，因此使用其他数据源需要进行配置
+SpringBoot2.x后默认使用 HikariCP 作为数据源，因此使用其他数据源需要进行配置
 
 1. pom.xml 排除默认的 HikariCP 数据库连接池，并添加 数据库连接池
 
@@ -1725,14 +1727,14 @@ springboot2.x后默认使用 HikariCP 作为数据源，因此使用其他数据
    </dependency>
    ```
 
-2. springboot核心配置文件指定数据源
+2. SpringBoot核心配置文件指定数据源
 
    ```properties
    #指定数据源
    spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
    ```
 
-也可以直接使用起步依赖，不需要在springboot核心配置文件中指定数据源，并且可以在springboot核心配置文件中配置该连接池相关参数
+也可以直接使用起步依赖，不需要在SpringBoot核心配置文件中指定数据源，并且可以在SpringBoot核心配置文件中配置该连接池相关参数
 
 ```xml
 <dependency>
@@ -1752,7 +1754,7 @@ springboot2.x后默认使用 HikariCP 作为数据源，因此使用其他数据
 </dependency>
 ```
 
-## CORS跨域
+### CORS跨域
 
 传统ajax请求，只能请求同一域下的资源，否则存在跨域错误
 
@@ -1804,9 +1806,9 @@ springboot2.x后默认使用 HikariCP 作为数据源，因此使用其他数据
 
 4. 使用jsonp方式，只支持get请求，局限性大，但是支持老式浏览器
 
-## 静态资源的处理
+### 静态资源的处理
 
-springboot默认静态资源位于 classpath 目录下，且满足如下命名
+SpringBoot默认静态资源位于 classpath 目录下，且满足如下命名
 
 1. `/static`
 2. `/public`
@@ -1827,15 +1829,15 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{"class
 spring.web.resources.static-locations=classpath:/mystatic/
 ```
 
-## 线程池异步调用
+### 线程池异步调用
 
-springboot框架自动装配提供了一个线程池，用于异步提交任务
+SpringBoot框架自动装配提供了一个线程池，用于异步提交任务
 
 有了线程池，只需要编写任务即可，采用注解`@Async`提交任务
 
-springboot自动装配的线程池还可以根据需要配置
+SpringBoot自动装配的线程池还可以根据需要配置
 
-1. 创建配置类，注入线程池 bean，覆盖默认的线程池，会覆盖springboot创建的默认线程池
+1. 创建配置类，注入线程池 bean，覆盖默认的线程池，会覆盖SpringBoot创建的默认线程池
 
    ```java
    @Bean
@@ -1850,7 +1852,7 @@ springboot自动装配的线程池还可以根据需要配置
    }
    ```
 
-2. springboot核心配置文件也可以配置线程池
+2. SpringBoot核心配置文件也可以配置线程池
 
    ```properties
    spring.task.execution.pool.core-size=5
@@ -1936,9 +1938,9 @@ springboot自动装配的线程池还可以根据需要配置
    }
    ```
 
-## 内嵌服务器
+### 内嵌服务器
 
-springboot内嵌服务器默认为 Tomcat，也可以将程序切换为其他服务器 Undertow、Jetty，只需要通过pom.xml配置即可
+SpringBoot内嵌服务器默认为 Tomcat，也可以将程序切换为其他服务器 Undertow、Jetty，只需要通过pom.xml配置即可
 
 排除默认的tomcat服务器，导入其他服务器的起步依赖
 
@@ -1966,7 +1968,7 @@ springboot内嵌服务器默认为 Tomcat，也可以将程序切换为其他服
 </dependency>
 ```
 
-## HTTPS支持
+### HTTPS支持
 
 1. 生成证书，JDK生成（也可以采用openssl生成）
    ```bash
@@ -1977,7 +1979,7 @@ springboot内嵌服务器默认为 Tomcat，也可以将程序切换为其他服
    #查看证书内容
    keytoll -list -v -keystore tomcat.jks
    ```
-2. springboot核心配置文件配置
+2. SpringBoot核心配置文件配置
 
    ```properties
    #ssh端口
@@ -2037,7 +2039,7 @@ springboot内嵌服务器默认为 Tomcat，也可以将程序切换为其他服
 
 - 全部通过代码实现HTTP和HTTPS，HTTPS实现也是注册一个bean
 
-## 全局异常拦截
+### 全局异常拦截
 
 > 方式一：
 
@@ -2065,7 +2067,7 @@ springboot内嵌服务器默认为 Tomcat，也可以将程序切换为其他服
 
 > 方式二
 
-注册一个 WebServerFactory Bean，并重写其中的 factory方法，会拦截springboot的错误响应，并根据状态码返回不同的页面
+注册一个 WebServerFactory Bean，并重写其中的 factory方法，会拦截SpringBoot的错误响应，并根据状态码返回不同的页面
 
 ```java
 @Bean
@@ -2106,7 +2108,7 @@ public class BaseController {
 }
 ```
 
-## 统一切面日志打印
+### 统一切面日志打印
 
 ```java
 /**
@@ -2226,14 +2228,14 @@ public class RequestLogAspect {
 
 
 
-# 综合案例
+## 综合案例
 
-## 创建父工程
+### 创建父工程
 
 ![image-20210624012754252](images.assets/image-20210624012754252.png)
 
 1. 创建 parent 工程，用于管理依赖
-2. 修改 pom.xml 中package为 pom，指定JDK版本号以及相关依赖，声明springboot父依赖，因为后续子工程包含有springboot工程
+2. 修改 pom.xml 中package为 pom，指定JDK版本号以及相关依赖，声明SpringBoot父依赖，因为后续子工程包含有SpringBoot工程
 3. pom.xml文件如下
 
 ```xml
@@ -2297,7 +2299,7 @@ public class RequestLogAspect {
 </project>
 ```
 
-## 接口工程
+### 接口工程
 
 ![image-20210624012731571](images.assets/image-20210624012731571.png)
 
@@ -2321,7 +2323,7 @@ public class RequestLogAspect {
 </project>
 ```
 
-## 提供者
+### 提供者
 
 ![image-20210624012846302](images.assets/image-20210624012846302.png)
 
@@ -2361,7 +2363,7 @@ public class RequestLogAspect {
                <groupId>org.springframework.boot</groupId>
                <artifactId>spring-boot-starter-data-redis</artifactId>
            </dependency>
-           <!--springboot dubbo整合起步依赖-->
+           <!--SpringBoot dubbo整合起步依赖-->
            <dependency>
                <groupId>org.apache.dubbo</groupId>
                <artifactId>dubbo-spring-boot-starter</artifactId>
@@ -2436,7 +2438,7 @@ public class RequestLogAspect {
                <property name="forceBigDecimals" value="true" />
            </javaTypeResolver>
    
-           <javaModelGenerator targetPackage="com.lei.model" targetProject="G:\study\code\javaProject\springboot\ch11-inte-interface\src\main\java\">
+           <javaModelGenerator targetPackage="com.lei.model" targetProject="G:\study\code\javaProject\SpringBoot\ch11-inte-interface\src\main\java\">
                <property name="enableSubPackages" value="true" />
                <property name="trimStrings" value="true" />
            </javaModelGenerator>
@@ -2461,7 +2463,7 @@ public class RequestLogAspect {
    </generatorConfiguration>
    ```
 
-4. springboot核心配置文件
+4. SpringBoot核心配置文件
 
    ```properties
    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
@@ -2486,7 +2488,7 @@ public class RequestLogAspect {
    logging.level.com.lei.mapper=debug
    ```
 
-5. springboot启动类上配置 mapper 包扫描
+5. SpringBoot启动类上配置 mapper 包扫描
 
    ```java
    @SpringBootApplication
@@ -2518,13 +2520,13 @@ public class RequestLogAspect {
 
 
 
-## 消费者
+### 消费者
 
 ![image-20210624014220404](images.assets/image-20210624014220404.png)
 
 1. 创建服务消费者 consumer，并指定父工程
 
-2. pom.xml 文件添加依赖，dubbo起步依赖、dubbo、zookeeper客户端、springboot-web起步依赖、springboot-thymeleaf起步依赖、接口工程
+2. pom.xml 文件添加依赖，dubbo起步依赖、dubbo、zookeeper客户端、SpringBoot-web起步依赖、SpringBoot-thymeleaf起步依赖、接口工程
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
@@ -2586,7 +2588,7 @@ public class RequestLogAspect {
    </project>
    ```
 
-3. springboot核心配置文件
+3. SpringBoot核心配置文件
 
    ```properties
    spring.thymeleaf.cache=false

@@ -1,23 +1,23 @@
 ---
-title: "html"
+title: "HTML"
 date: 2020-09-09
 lastmod: 2020-09-09
 draft: false
-tags: ['html']
+tags: ['HTML']
 categories: ["前端"]
 author: "lei"
 ---
 
+HTML
 
+## 概述
 
-# 概述
-
-1. \<!DOCTYPE html\>有这个标志代表html5，没有代表html4
+1. \<!DOCTYPE HTML\>有这个标志代表HTML5，没有代表HTML4
 
 ```html
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <!--根节点-->
-<html>
+<HTML>
     <!--头-->
 	<head>
 		<meta charset="utf-8" />
@@ -27,18 +27,18 @@ author: "lei"
 	<body>
 		<!--主题内容-->
 	</body>
-</html>
+</HTML>
 ```
 
-2. id在同一个html文档中,id不能重复,唯一标识,id可以使我们更方便的获取这个元素
+2. id在同一个HTML文档中,id不能重复,唯一标识,id可以使我们更方便的获取这个元素
 
-# div和span
+## div和span
 
 1. div和span都可以称为"图层",使页面可以灵活布局
 2. div默认独占一行
 3. span不会独占一行
 
-# 基本标签
+## 基本标签
 
 1. 段落标签:\<p\>\</p\>
 2. 标题:\<h1\>\<h1\>
@@ -54,7 +54,7 @@ author: "lei"
 12. 图片标签:\<img src="地址" title="鼠标悬停显示" alt="图片未加载时文字" /\> ;设置图片大小,只设置宽度,高度会自动适应
 13. 超链接:\<a href="链接地址" target="以什么方式打开连接" \>文字\</a\> ; 有下划线,鼠标停留手形状,点击跳转
 
-# 实体符号
+## 实体符号
 
 网页中显示某些符号,可能会被浏览器解析,如a大于b大于c : b\<a\>c;所以有实体符号;所有实体符号以 **\&**开始 以**;**结尾
 
@@ -64,7 +64,7 @@ author: "lei"
 
 空格:**\&nbsp;**
 
-# 表格
+## 表格
 
 \<table border="1px" width="300px"\>边框为1px宽为300px的表格
 
@@ -80,14 +80,14 @@ author: "lei"
 
 thead tbody tfoot:非必须,为了后期js代码的编写,将一个表格切分为三部分,头,身体,脚
 
-# 背景色和背景图
+## 背景色和背景图
 
 1. \<meta charset="utf-8"\>:告诉浏览器应该采用什么编码打开该文件
 2. 背景色:bgcolor="red"
 3. 背景图片:background="图片地址"
 4. 背景色在背景图片下面
 
-# 表单
+## 表单
 
 1. 表单用于收集用户信息;比超链接高级的是表单发送请求时可以携带数据
 2. form标签

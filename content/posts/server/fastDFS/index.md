@@ -1,5 +1,5 @@
 ---
-title: "fastDFS"
+title: "FastDFS"
 date: 2021-05-14
 lastmod: 2021-05-24
 draft: false
@@ -8,7 +8,7 @@ categories: ["其他"]
 author: "lei"
 ---
 
-
+# FastDFS
 
 
 ## FastDFS入门
@@ -29,12 +29,12 @@ FastDFS服务端由两个部分组成：跟踪器（tracker）、存储节点（
    yum install gcc libevent libevent-devel -y
    ```
 
-2. github地址：`https://github.com/happyfish100`，下载安装：`libfastcommon库`、`fastdfs-master`
+2. github地址：`https://github.com/happyfish100`，下载安装：`libfastcommon库`、`FastDFS-master`
 
    ```bash
-   #解压libfastcommon库、fastdfs-master
+   #解压libfastcommon库、FastDFS-master
    unzip libfastcommon-master.zip
-   unzip fastdfs-master.zip
+   unzip FastDFS-master.zip
    
    #进入相应的目录编译安装
    ./make.sh
@@ -55,7 +55,7 @@ FastDFS服务端由两个部分组成：跟踪器（tracker）、存储节点（
    -rw-r--r-- 1 root root  9138 Aug 15 19:52 tracker.conf   #跟踪器配置
    ```
 
-4. 拷贝`fastdfs-master/conf`目录下的`http.conf`、 `mime.types`到配置目录 `/etc/fdfs`
+4. 拷贝`FastDFS-master/conf`目录下的`http.conf`、 `mime.types`到配置目录 `/etc/fdfs`
 
    ```bash
    cp http.conf /etc/fdfs/
@@ -73,13 +73,13 @@ FastDFS服务端由两个部分组成：跟踪器（tracker）、存储节点（
    
    #修改tracker.conf配置文件中，store和log存放位置
    # the base path to store data and log files
-   base_path = /opt/fastdfs/tracker
+   base_path = /opt/FastDFS/tracker
    
    #修改storage.conf配置文件中，sotre和log存放位置、file存放位置、tracerIp
    # the base path to store data and log files
-   base_path = /opt/fastdfs/storeage
+   base_path = /opt/FastDFS/storeage
    # store_path#, based on 0, to configure the store paths to store files
-   store_path0 = /opt/fastdfs/storeage/files
+   store_path0 = /opt/FastDFS/storeage/files
    # tracker_server can ocur more than once for multi tracker servers.
    tracker_server = 127.0.0.1:22122
    ```
@@ -126,7 +126,7 @@ FastDFS服务端由两个部分组成：跟踪器（tracker）、存储节点（
 
    ```ini
    # the base path to store log files
-   base_path = /opt/fastdfs/client
+   base_path = /opt/FastDFS/client
    
    # tracker_server can ocur more than once for multi tracker servers.
    tracker_server = 192.168.45.12:22122
@@ -141,7 +141,7 @@ FastDFS服务端由两个部分组成：跟踪器（tracker）、存储节点（
    group_name=group1, remote_filename=M00/00/00/wKgtDGEZI7uAMqbkAAAACpEbkw40686912
    
    #查看上传文件
-   ll /opt/fastdfs/storeage/files/data/00/00/
+   ll /opt/FastDFS/storeage/files/data/00/00/
    wKgtDGEZI7uAMqbkAAAACpEbkw406869121.txt		#上传的文件
    wKgtDGEZI7uAMqbkAAAACpEbkw406869121.txt-m	#上传的文件属性
    wKgtDGEZI7uAMqbkAAAACpEbkw40686912_big1.txt	#上传的文件备份
@@ -162,15 +162,15 @@ FastDFS服务端由两个部分组成：跟踪器（tracker）、存储节点（
 
 ## 分布式文件系统http访问
 
-nginx的fastDFS扩展模块整合
+nginx的FastDFS扩展模块整合
 
-1. fastDFS github下载`fastdfs-nginx-module-master`，并解压
+1. FastDFS github下载`FastDFS-nginx-module-master`，并解压
 
    ```bash
-   unzip fastdfs-nginx-module-master.zip
+   unzip FastDFS-nginx-module-master.zip
    ```
 
-2. 安装nginx，添加 `fastDFS` 模块
+2. 安装nginx，添加 `FastDFS` 模块
 
    ```bash
    tar -zxvf nginx-1.20.1.tar.gz
@@ -180,7 +180,7 @@ nginx的fastDFS扩展模块整合
    #debain系列下可能需要安装先运行如下命令安装依赖
    apt-get install libpcre3 libpcre3-dev 
    
-   ./configure --prefix=/etc/nginx-fdfs --sbin-path=/usr/bin/nginx-fdfs --add-module=/root/fastdfs-nginx-module-master/src/
+   ./configure --prefix=/etc/nginx-fdfs --sbin-path=/usr/bin/nginx-fdfs --add-module=/root/FastDFS-nginx-module-master/src/
    
    make
    
@@ -191,25 +191,25 @@ nginx的fastDFS扩展模块整合
 
    ```ini
    #将模块配置文件拷贝到 fdfs 配置目录下
-   cp fastdfs-nginx-module-master/src/mod_fastdfs.conf /etc/fdfs/
+   cp FastDFS-nginx-module-master/src/mod_FastDFS.conf /etc/fdfs/
    
    #修改配置文件，基础目录（该目录必须已存在）、url带组名访问、跟踪器
    # the base path to store log files
-   base_path=/opt/fastdfs/fastdfs_mod
+   base_path=/opt/FastDFS/FastDFS_mod
    # if the url / uri including the group name
    url_have_group_name = true
    # FastDFS tracker_server can ocur more than once, and tracker_server
    tracker_server=192.168.45.12:22122
    # store_path must same as storage.conf
-   store_path0=/opt/fastdfs/storeage/files
+   store_path0=/opt/FastDFS/storeage/files
    ```
 
 4. 配置nginx
 
    ```ini
-   #拦截请求文件的路径，并使用fastdfs的nginx模块进行转发
+   #拦截请求文件的路径，并使用FastDFS的nginx模块进行转发
    location ~/group[1-9]/M0[0-9]{
-   	ngx_fastdfs_module;
+   	ngx_FastDFS_module;
    }
    ```
 
@@ -236,9 +236,9 @@ nginx的fastDFS扩展模块整合
 
 ## FastDFS在java中使用
 
-1. 下载`happyfish100/fastdfs-client-java` java 操作 fastdfs 源代码
+1. 下载`happyfish100/FastDFS-client-java` java 操作 FastDFS 源代码
 
-2. `fastdfs-client-java`是一个普通的maven项目，使用 `maven install` 安装到本地仓库
+2. `FastDFS-client-java`是一个普通的maven项目，使用 `maven install` 安装到本地仓库
 
 3. 创建普通的 maven 项目，添加依赖
 
@@ -246,34 +246,34 @@ nginx的fastDFS扩展模块整合
    <!-- 该依赖为刚刚maven安装的 -->
    <dependency>
        <groupId>org.csource</groupId>
-       <artifactId>fastdfs-client-java</artifactId>
+       <artifactId>FastDFS-client-java</artifactId>
        <version>1.29-SNAPSHOT</version>
    </dependency>
    ```
 
-4. 创建配置文件，fastdfs.properties
+4. 创建配置文件，FastDFS.properties
 
    ```properties
-   fastdfs.tracker_servers = 192.168.45.185:22122,192.168.10.130:22122
-   fastdfs.connection_pool.enabled = true
-   fastdfs.connection_pool.max_count_per_entry = 500
-   fastdfs.connection_pool.max_idle_time = 3600
-   fastdfs.connection_pool.max_wait_time_in_ms = 1000
+   FastDFS.tracker_servers = 192.168.45.185:22122,192.168.10.130:22122
+   FastDFS.connection_pool.enabled = true
+   FastDFS.connection_pool.max_count_per_entry = 500
+   FastDFS.connection_pool.max_idle_time = 3600
+   FastDFS.connection_pool.max_wait_time_in_ms = 1000
    ```
 
-5. 创建 `FastDfsUtil` 工具类
+5. 创建 `FastDFSUtil` 工具类
 
    ```java
-   public class FastDfsUtil {
+   public class FastDFSUtil {
        private static TrackerServer trackerServer=null;  //tracker 服务器对象
        private static StorageServer storageServer=null;  //storage 服务器对象
        private static TrackerClient trackerClient=null;  //tracker 客户端对象
        private static StorageClient storageClient=null;  //storage 客户端对象
-       private FastDfsUtil(){};
+       private FastDFSUtil(){};
        static {
            try {
                // 加载Properties配置文件
-               ClientGlobal.initByProperties("fastdfs.properties"); 
+               ClientGlobal.initByProperties("FastDFS.properties"); 
                trackerClient=new TrackerClient();
                trackerServer=trackerClient.getTrackerServer();
                storageServer=trackerClient.getStoreStorage(trackerServer);
@@ -290,7 +290,7 @@ nginx的fastDFS扩展模块整合
         * @param localFilename 本地文件名
         * @param extName 文件扩展名
         * @param metas 文件属性
-        * @return {@link String[]}  返回文件存储在 fastdfs 中信息，很重要
+        * @return {@link String[]}  返回文件存储在 FastDFS 中信息，很重要
         */
        public static String[] uploadFile(String localFilename, String extName, NameValuePair[] metas) throws Exception {
            return storageClient.upload_file(localFilename,extName,metas);
@@ -325,7 +325,7 @@ nginx的fastDFS扩展模块整合
    ```java
    public static void main(String[] args) throws Exception{
            //上传
-       String[] result=FastDfsUtil.uploadFile("E:\\123.jpg","jpg",null);
+       String[] result=FastDFSUtil.uploadFile("E:\\123.jpg","jpg",null);
        Arrays.stream(result).forEach(System.out::println);
        // result值为：["group1","M00/00/00/wKgtuWEhM7WAG15kAAYIjBrlJRI160.jpg"]
    
@@ -333,20 +333,20 @@ nginx的fastDFS扩展模块整合
        String remote="M00/00/00/wKgtuWEhM7WAG15kAAYIjBrlJRI160.jpg";
    
        //下载
-       FastDfsUtil.downloadFile(group, remote, "e:\\1.jpg");
+       FastDFSUtil.downloadFile(group, remote, "e:\\1.jpg");
    
        //删除
-       FastDfsUtil.delFile(group,remote);
+       FastDFSUtil.delFile(group,remote);
    }
    ```
 
 > 注意：
 >
-> 需要将文件上传后返回的 String 数组保存好（一般存在数据库），它包含了上传文件在 fastDfs 服务器中存储的相关信息
+> 需要将文件上传后返回的 String 数组保存好（一般存在数据库），它包含了上传文件在 FastDFS 服务器中存储的相关信息
 
-## FastDfs在web中使用
+## FastDFS在web中使用
 
-1. 添加依赖，`fileupload`和`fastdfs`
+1. 添加依赖，`fileupload`和`FastDFS`
 
    ```xml
    <dependency>
@@ -356,7 +356,7 @@ nginx的fastDFS扩展模块整合
    </dependency>
    <dependency>
        <groupId>org.csource</groupId>
-       <artifactId>fastdfs-client-java</artifactId>
+       <artifactId>FastDFS-client-java</artifactId>
        <version>1.29-SNAPSHOT</version>
    </dependency>
    ```
@@ -366,7 +366,7 @@ nginx的fastDFS扩展模块整合
    ```java
    @Bean
    public StorageClient storageClient() throws MyException, IOException {
-       ClientGlobal.initByProperties("fastdfs.properties");
+       ClientGlobal.initByProperties("FastDFS.properties");
        TrackerClient trackerClient=new TrackerClient();
        TrackerServer trackerServer=trackerClient.getTrackerServer();
        StorageServer storageServer=trackerClient.getStoreStorage(trackerServer);
@@ -439,7 +439,7 @@ spring.servlet.multipart.max-file-size=1MB
 spring.servlet.multipart.max-request-size=10MB
 ```
 
-## fastDFS集群部署
+## FastDFS集群部署
 
 ![image-20211006035144414](index.assets/image-20211006035144414.png ':size=50%')
 
@@ -467,16 +467,16 @@ spring.servlet.multipart.max-request-size=10MB
    ./make.sh install
    
    #安装fdfs
-   unzip fastdfs-master.zip && cd fastdfs-master
+   unzip FastDFS-master.zip && cd FastDFS-master
    ./make.sh
    ./make.sh install
    
    #拷贝必要配置文件
-   cp fastdfs-master/conf/http.conf /etc/fdfs/
-   cp fastdfs-master/conf/mime.types /etc/fdfs/
+   cp FastDFS-master/conf/http.conf /etc/fdfs/
+   cp FastDFS-master/conf/mime.types /etc/fdfs/
    
    #修改tracker配置文件
-   base_path = /opt/fastdfs/tracker
+   base_path = /opt/FastDFS/tracker
    
    #启动tracker
    fdfs_trackerd /etc/fdfs/tracker.conf start
@@ -496,18 +496,18 @@ spring.servlet.multipart.max-request-size=10MB
    ./make.sh install
    
    #安装fdfs
-   unzip fastdfs-master.zip && cd fastdfs-master
+   unzip FastDFS-master.zip && cd FastDFS-master
    ./make.sh
    ./make.sh install
    
    #拷贝必要配置文件
-   cp fastdfs-master/conf/http.conf /etc/fdfs/
-   cp fastdfs-master/conf/mime.types /etc/fdfs/
+   cp FastDFS-master/conf/http.conf /etc/fdfs/
+   cp FastDFS-master/conf/mime.types /etc/fdfs/
    
    #修改storage配置文件
    group_name = group1 / group_name = group2
-   base_path = /opt/fastdfs/storeage
-   store_path0 = /opt/fastdfs/storeage/files
+   base_path = /opt/FastDFS/storeage
+   store_path0 = /opt/FastDFS/storeage/files
    tracker_server = 192.168.10.129:22122
    tracker_server = 192.168.10.130:22122
    
@@ -572,17 +572,17 @@ spring.servlet.multipart.max-request-size=10MB
 
    ```bash
    #安装fdfs_nginx
-   unzip fastdfs-nginx-module-master.zip
+   unzip FastDFS-nginx-module-master.zip
    tar -zxvf nginx-1.20.1.tar.gz & cd nginx-1.20.1/
-   ./configure --prefix=/etc/nginx-fdfs --sbin-path=/usr/bin/nginx-fdfs --add-module=/root/fastdfs-nginx-module-master/src/
+   ./configure --prefix=/etc/nginx-fdfs --sbin-path=/usr/bin/nginx-fdfs --add-module=/root/FastDFS-nginx-module-master/src/
    make
    make install
-   cp fastdfs-nginx-module-master/src/mod_fastdfs.conf /etc/fdfs/
+   cp FastDFS-nginx-module-master/src/mod_FastDFS.conf /etc/fdfs/
    
-   #配置mod_fastdfs.conf配置文件,group_name针对不同的当前storage所属的group配置
-   base_path=/opt/fastdfs/fastdfs_mod
+   #配置mod_FastDFS.conf配置文件,group_name针对不同的当前storage所属的group配置
+   base_path=/opt/FastDFS/FastDFS_mod
    group_name=group1	/ group_name=group2
-   store_path0=/opt/fastdfs/storeage/files
+   store_path0=/opt/FastDFS/storeage/files
    url_have_group_name = true
    tracker_server=192.168.10.130:22122
    tracker_server=192.168.10.129:22122
@@ -591,16 +591,16 @@ spring.servlet.multipart.max-request-size=10MB
    group_name=group1
    storage_server_port=23000
    store_path_count=1
-   store_path0=/opt/fastdfs/storeage/files
+   store_path0=/opt/FastDFS/storeage/files
    [group2]
    group_name=group2
    storage_server_port=23000
    store_path_count=1
-   store_path0=/opt/fastdfs/storeage/files
+   store_path0=/opt/FastDFS/storeage/files
    
    #配置nginx配置文件
    location ~/group[1-9]/M0[0-9]{
-   	ngx_fastdfs_module;
+   	ngx_FastDFS_module;
    }
    
    #启动，加-t参数，校验配置文件

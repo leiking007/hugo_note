@@ -8,9 +8,11 @@ categories: ["笔记"]
 author: "lei"
 ---
 
-# 应用场景
+# Java中事件监听
 
-## 案例
+## 应用场景
+
+### 案例
 
 假设现在有这么一个业务场景：
 
@@ -76,13 +78,13 @@ public void order(){
 
 车队回来了，你却受不了这大起大落异常刺激的生活，决定离职
 
-## 以增量的方式应对变化的需求
+### 以增量的方式应对变化的需求
 
 ![img](images.assets/v2-a20dbb6b5050a0d15022ad3eea51b7ac_720w.jpg)
 
-# Spring事件监听
+## Spring事件监听
 
-## 业务代码
+### 业务代码
 
 ```java
 /**
@@ -104,7 +106,7 @@ public class OrderService {
 }
 ```
 
-## 自定义事件
+### 自定义事件
 
 OrderSuccessEvent（继承ApplicationEvent，自定义事件）
 
@@ -119,7 +121,7 @@ public class OrderSuccessEvent extends ApplicationEvent {
 
 
 
-## 监听事件
+### 监听事件
 
 可以指定监听者监听的事件类型，那么就会对未声明的事件不进行监听
 
@@ -155,7 +157,7 @@ public void onApplicationEvent(OrderSuccessEvent event) {
 }
 ```
 
-## Test
+### Test
 
 ```java
 @RunWith(SpringRunner.class)
@@ -177,11 +179,11 @@ public class Test {
 //	main线程结束...
 ```
 
-## 异步调用
+### 异步调用
 
 某些时候，为了推送第三方信息的执行不影响业务代码，可以通过在监听事件的方法上添加注解`@Async`注解，开启异步执行(启动类需要配置注解：`@EnableAsync`)
 
-## 事务监听
+### 事务监听
 
 对于业务代码需要提交事务后，或者说等待主线程执行完毕后再推送第三方信息，则可以使用事务监听
 
@@ -197,7 +199,7 @@ public void onApplicationEventLister(MyApplicationEvent event) {
 }
 ```
 
-## 示例
+### 示例
 
 1. 创建事件抽象类，以及其实现
 
@@ -314,5 +316,5 @@ public void onApplicationEventLister(MyApplicationEvent event) {
    
 
 
-# 消息队列发布订阅模式
+## 消息队列发布订阅模式
 

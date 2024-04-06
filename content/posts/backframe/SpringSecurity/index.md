@@ -8,20 +8,22 @@ categories: ["框架"]
 author: "lei"
 ---
 
-# 简介
+# SpringSecurity
 
-## 核心功能
+## 简介
+
+### 核心功能
 
 - 认证（你是谁，用户/设备/系统）
 - 验证（你能干什么，也叫权限控制/授权，允许执行的操作）
 
-## 原理
+### 原理
 
 基于Filter、Servlet、AOP 实现身份认证和权限验证
 
-# 起步
+## 起步
 
-## demo
+### demo
 
 1. 导入spring-boot-starter-security 起步依赖
 
@@ -55,7 +57,7 @@ author: "lei"
 
 
 
-## 自定义认证(内存)
+### 自定义认证(内存)
 
 > 通过继承 WebSecurityConfigurerAdapter 类，并重写其中某些方法实现自定义认证功能
 >
@@ -122,7 +124,7 @@ author: "lei"
    }
    ```
 
-## 基于数据库用户认证
+### 基于数据库用户认证
 
 从数据库中获取用户信息（用户名称、密码、角色）
 
@@ -145,7 +147,7 @@ author: "lei"
    spring.datasource.username=postgres
    spring.datasource.password=123456
    spring.datasource.password=123456
-   # 开启根据实体类自动建表、显示sql、数据库类型
+   ## 开启根据实体类自动建表、显示sql、数据库类型
    spring.jpa.generate-ddl=true
    spring.jpa.show-sql=true
    spring.jpa.database=mysql
@@ -259,9 +261,9 @@ public class WebAutConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-# 基于角色权限
+## 基于角色权限
 
-## 介绍
+### 介绍
 
 **认证和授权**
 
@@ -285,7 +287,7 @@ RBAC（Role-Based Access Control）即：基于角色的权限控制。通过角
 3. 用户和角色关系表：用户和角色多对多关系
 4. 权限表：角色可以拥有哪些权限
 
-## 认证相关类
+### 认证相关类
 
 **UserDetails接口**
 
@@ -371,9 +373,9 @@ public UserDetailsService jdbcUserDetailsService(){
   }
   ```
 
-# 自定义认证
+## 自定义认证
 
-## 创建库表
+### 创建库表
 
 ![image-20220606232738133](images.assets/image-20220606232738133.png)
 
@@ -412,7 +414,7 @@ CREATE TABLE "sys_user_role" (
 );
 ```
 
-## 依赖与配置
+### 依赖与配置
 
 1. 依赖
 
@@ -461,7 +463,7 @@ CREATE TABLE "sys_user_role" (
 
    
 
-## 相关类创建
+### 相关类创建
 
 1. 示例 重点 SysUser 实体类 创建；需要实现`UserDetails`接口
 
@@ -587,7 +589,7 @@ CREATE TABLE "sys_user_role" (
 
 
 
-## 初始化数据
+### 初始化数据
 
 创建相关表结构的mapper，dao，service，serviceimpl；然后初始化数据
 
@@ -608,7 +610,7 @@ public void jdbcInit(){
 }
 ```
 
-## 配置框架
+### 配置框架
 
 配置安全框架从数据库加载用户信息
 
@@ -664,9 +666,9 @@ public void jdbcInit(){
    }
    ```
 
-# 其他配置
+## 其他配置
 
-## 自定义登录页
+### 自定义登录页
 
 security框架内置了许多过滤器，验证用户是否登录也是通过过滤器实现
 
@@ -723,7 +725,7 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
 
 
 
-## AJAX登陆配置
+### AJAX登陆配置
 
 1. 创建登录页，引入jquery.js，并编写登录逻辑；`注意:jquery.js如果是放在本地的，后台需配置非登录用户也可以访问`
 
@@ -807,7 +809,7 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
 
 **successHandler(AuthenticationSuccessHandler authSuccess)**: 登陆成功后处理器，authSuccess 实现了AuthenticationSuccessHandler 接口，并实现其中唯一方法，该方法有三个参数，通过这三个参数就可返回相关信息
 
-## 验证码的实现
+### 验证码的实现
 
 1. 创建验证码控制器，并实现验证码的生成，并将生成的验证码放入session中
 
@@ -932,7 +934,7 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
 
 4. 设置过滤器用于验证码的校验，参考后面`自定义过滤器`
 
-## 自定义过滤器
+### 自定义过滤器
 
 Spring Security 框架是使用过滤器实现的
 

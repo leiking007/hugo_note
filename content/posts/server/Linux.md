@@ -8,9 +8,11 @@ categories: ["笔记"]
 author: "lei"
 ---
 
-# 系统管理
+# Linux
 
-## echo
+## 系统管理
+
+### echo
 
 echo命令用于在终端输出字符串或变量提取后的值
 
@@ -19,20 +21,20 @@ echo命令用于在终端输出字符串或变量提取后的值
 示例：
 
 ```bash
-export name="TOM"  # shell环境中定义一个临时变量name
-echo $name  # 输出
+export name="TOM"  ## shell环境中定义一个临时变量name
+echo $name  ## 输出
 
-# > 输出重定向到文件，如果已存在会覆盖文件内容，不存在则新建
+## > 输出重定向到文件，如果已存在会覆盖文件内容，不存在则新建
 echo "This is a test text." > test.txt
-# >> 追加重定向，不会覆盖已存在内容
+## >> 追加重定向，不会覆盖已存在内容
 echo "This is a test text." >> test.txt
 
-# 输出当前工作目录
+## 输出当前工作目录
 echo `pwd`
 echo $(pwd)
 ```
 
-## date
+### date
 
 date命令用于显示和设置系统的时间和日期
 
@@ -66,24 +68,24 @@ date命令用于显示和设置系统的时间和日期
 示例：
 
 ```bash
-# 以默认格式查看当前系统时间
+## 以默认格式查看当前系统时间
 date
 
-# 以指定格式查看系统时间
+## 以指定格式查看系统时间
 date "+%Y-%m-%d %H:%M:%S"
 
-# 查看今天是当年中的第几天
+## 查看今天是当年中的第几天
 date "+%j"
 
-# 将系统时间设置为2020-02-20 20:20:20
+## 将系统时间设置为2020-02-20 20:20:20
 date -s "20200220 20:20:20"
 
-# 校正系统时间，与网络同步
+## 校正系统时间，与网络同步
 yum -y install ntp
 ntpdate time.nist.gov
 ```
 
-## wget
+### wget
 
 wget用于在终端中下载文件
 
@@ -103,11 +105,11 @@ wget用于在终端中下载文件
 示例：
 
 ```bash
-# 下载图片到指定路径，路径不存在则新建
+## 下载图片到指定路径，路径不存在则新建
 wget -P /root/static/img/ http://img.alicdn.com/tfs/TB1.R._t7L0gK0jSZFxXXXWHVXa-2666-1500.png
 ```
 
-## ps
+### ps
 
 ps命令用于查看系统中的进程状态
 
@@ -127,11 +129,11 @@ ps命令用于查看系统中的进程状态
 示例：
 
 ```bash
-# 查看sshd进程
+## 查看sshd进程
 ps -ef | grep sshd
 ```
 
-## top
+### top
 
 top命令动态地监视进程活动与系统负载等信息
 
@@ -164,7 +166,7 @@ top命令动态地监视进程活动与系统负载等信息
 
 按 q 键退出监控页面。
 
-## pidof
+### pidof
 
 pidof命令用于查询指定服务进程的PID值
 
@@ -182,11 +184,11 @@ pidof命令用于查询指定服务进程的PID值
 示例：
 
 ```bash
-# 查询出crond服务下的所有进程ID
+## 查询出crond服务下的所有进程ID
 pidof crond
 ```
 
-## kill/killall
+### kill/killall
 
 kill命令用于终止指定PID的服务进程
 
@@ -199,13 +201,13 @@ killall命令用于终止指定名称的服务对应的全部进程
 示例：
 
 ```bash
-# -9 为发送给指定程序的信息（强制删除），预设为15
+## -9 为发送给指定程序的信息（强制删除），预设为15
 kill -9 1247
 
 killall crond
 ```
 
-## ifconfig
+### ifconfig
 
 ifconfig命令用于获取网卡配置与网络状态等信息
 
@@ -226,11 +228,11 @@ ifconfig命令用于获取网卡配置与网络状态等信息
 示例：
 
 ```bash
-# 获取网卡配置与网络状态等信息
+## 获取网卡配置与网络状态等信息
 ifconfig
 ```
 
-## uname
+### uname
 
 uname命令用于查看系统内核与系统版本等信息
 
@@ -239,23 +241,23 @@ uname命令用于查看系统内核与系统版本等信息
 示例：
 
 ```bash
-# 显示系统信息
+## 显示系统信息
 uname -a
 
-# 显示当前系统的硬件架构
+## 显示当前系统的硬件架构
 uname -i
 
-# 显示操作系统发行编号
+## 显示操作系统发行编号
 uname -r
 
-# 显示操作系统名称
+## 显示操作系统名称
 uname -s
 
-# 显示主机名称
+## 显示主机名称
 uname -n
 ```
 
-## uptime
+### uptime
 
 uptime 用于查看系统的负载信息
 
@@ -268,7 +270,7 @@ uptime 用于查看系统的负载信息
 | 当前用户数         | 2 users                                                      |
 | 当前负载情况       | load average: 0.03, 0.04, 0.02（分别取1min，5min，15min的均值） |
 
-## free
+### free
 
 free用于显示当前系统中内存的使用量信息
 
@@ -298,29 +300,29 @@ free用于显示当前系统中内存的使用量信息
 示例：
 
 ```bash
-# 以合适的单位显示系统内存信息
+## 以合适的单位显示系统内存信息
 free -h
 ```
 
-## who
+### who
 
 who 命令显示关于当前在本地系统上的所有用户的信息
 
 示例：
 
 ```bash
-# 显示当前登录系统的用户
+## 显示当前登录系统的用户
 who
 
-# 显示用户登录来源
+## 显示用户登录来源
 who -l -H
 ```
 
-## last
+### last
 
 last 命令用于显示用户最近登录信息
 
-## history
+### history
 
 history命令用于显示历史执行过的命令
 
@@ -329,18 +331,18 @@ bash默认记录1000条执行过的历史命令，被记录在~/.bash_history文
 示例：
 
 ```bash
-# 显示最新10条执行过的命令
+## 显示最新10条执行过的命令
 history 10
 
-# 清除历史记录
+## 清除历史记录
 history -c
 ```
 
 
 
-# 磁盘管理
+## 磁盘管理
 
-## df
+### df
 
 该命令检查文件系统的磁盘空间占用情况。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息
 
@@ -361,20 +363,20 @@ history -c
 示例：
 
 ```bash
-# 显示磁盘使用情况
+## 显示磁盘使用情况
 df
 
-# 以inode模式来显示磁盘使用情况
+## 以inode模式来显示磁盘使用情况
 df -i
 
-# 显示系统内的所有特殊文件格式、名称及磁盘使用情况
+## 显示系统内的所有特殊文件格式、名称及磁盘使用情况
 df -aT
 
-# 以GBytes、MBytes、KBytes等格式显示各文件系统容量
+## 以GBytes、MBytes、KBytes等格式显示各文件系统容量
 df -h
 ```
 
-## du
+### du
 
 du命令描述：查看磁盘使用空间。du与df命令不同点在于，du命令用于查看文件和目录磁盘的使用空间
 
@@ -394,20 +396,20 @@ du命令描述：查看磁盘使用空间。du与df命令不同点在于，du命
 示例：
 
 ```bash
-# 列出当前目录下的所有文件夹的容量
+## 列出当前目录下的所有文件夹的容量
 du
 
-# 列出当前目录下的所有文件夹和文件的容量
+## 列出当前目录下的所有文件夹和文件的容量
 du -a
 
-# 列出当前目录下的所有文件夹和文件的容量，并以G、M、K格式显示容量
+## 列出当前目录下的所有文件夹和文件的容量，并以G、M、K格式显示容量
 du -ah
 
-# 列出根目录底下每个目录所占用的容量，并以MBytes单位显示容量
+## 列出根目录底下每个目录所占用的容量，并以MBytes单位显示容量
 du -sm /*
 ```
 
-## fdisk
+### fdisk
 
 fdisk命令描述：该命令用于磁盘分区
 
@@ -422,24 +424,24 @@ fdisk命令描述：该命令用于磁盘分区
 示例：
 
 ```bash
-# 列出系统所有装置的分区信息
+## 列出系统所有装置的分区信息
 fdisk -l
 
-# 列出系统中的根目录所在磁盘，并查阅该硬盘内的相关信息
-# 1.找出根目录所在磁盘名
+## 列出系统中的根目录所在磁盘，并查阅该硬盘内的相关信息
+## 1.找出根目录所在磁盘名
 df /
-# 2.对磁盘/dev/vda进行分区操作
+## 2.对磁盘/dev/vda进行分区操作
 fdisk /dev/vda
-# 3.command提示符下键入 m 获取提示
-# 4.command提示符下键入 p 查看磁盘状态
-# 5.command提示符下键入 q 不做保存退出分区
+## 3.command提示符下键入 m 获取提示
+## 4.command提示符下键入 p 查看磁盘状态
+## 5.command提示符下键入 q 不做保存退出分区
 ```
 
 
 
-# 文本处理
+## 文本处理
 
-## Vim使用
+### Vim使用
 
 **vim的三种操作模式**
 
@@ -523,7 +525,7 @@ fdisk /dev/vda
 | 重复前一个搜寻的动作                                       | :n                                       |
 | 从第一行到最后一行寻找word1字符串，并将该字符串取代为word2 | :1,$s/word1/word2/g 或 :%s/word1/word2/g |
 
-## cat
+### cat
 
 cat命令用于查看内容较少的纯文本文件
 
@@ -540,17 +542,17 @@ cat命令用于查看内容较少的纯文本文件
 示例：
 
 ```bash
-# 将一个自增序列写入test.txt文件中
+## 将一个自增序列写入test.txt文件中
 for i in $(seq 1 10); do echo $i >> test.txt ; done
 
-# 查看文件
+## 查看文件
 cat test.txt
 
-# 清空文件内容
+## 清空文件内容
 cat /dev/null > test.txt
 ```
 
-## more
+### more
 
 more命令从前向后分页显示文件内容
 
@@ -568,11 +570,11 @@ more命令从前向后分页显示文件内容
 示例：
 
 ```bash
-# 从第20行开始分页查看系统日志文件/var/log/messages
+## 从第20行开始分页查看系统日志文件/var/log/messages
 more +20 /var/log/messages
 ```
 
-## less
+### less
 
 less命令可以对文件或其它输出进行分页显示，与moe命令相似，但使用 less 可以随意浏览文件，而 more 仅能向前移动，却不能向后移动
 
@@ -606,11 +608,11 @@ less命令可以对文件或其它输出进行分页显示，与moe命令相似�
 示例：
 
 ```bash
-# 查看命令历史使用记录并通过less分页显示
+## 查看命令历史使用记录并通过less分页显示
 history | less
 ```
 
-## head
+### head
 
 head命令用于查看文件开头指定行数的内容
 
@@ -627,11 +629,11 @@ head命令用于查看文件开头指定行数的内容
 示例：
 
 ```bash
-# 查看/etc/passwd文件的前5行内容
+## 查看/etc/passwd文件的前5行内容
 head -5 /etc/passwd
 ```
 
-## tail
+### tail
 
 tail命令用于查看文档的后N行或持续刷新内容
 
@@ -650,22 +652,22 @@ tail命令用于查看文档的后N行或持续刷新内容
 示例：
 
 ```bash
-# 查看/var/log/messages系统日志文件的最新10行，并保持实时刷新
+## 查看/var/log/messages系统日志文件的最新10行，并保持实时刷新
 tail -f -n 10 /var/log/messages
 ```
 
-## stat
+### stat
 
 用来显示文件的详细信息，包括inode、atime、mtime、ctime等
 
 示例：
 
 ```bash
-# 查看/etc/passwd文件的详细信息
+## 查看/etc/passwd文件的详细信息
 stat /etc/passwd
 ```
 
-## wc
+### wc
 
 wc命令用于统计指定文本的行数、字数、字节数
 
@@ -682,11 +684,11 @@ wc命令用于统计指定文本的行数、字数、字节数
 示例：
 
 ```bash
-# 统计/etc/passwd文件的行数
+## 统计/etc/passwd文件的行数
 wc -l /etc/passwd
 ```
 
-## file
+### file
 
 file命令用于辨识文件类型
 
@@ -704,28 +706,28 @@ file命令用于辨识文件类型
 示例：
 
 ```bash
-# 查看/var/log/messages文件的文件类型
+## 查看/var/log/messages文件的文件类型
 file /var/log/messages
 ```
 
-## diff
+### diff
 
 diff命令用于比较文件的差异
 
 示例：
 
 ```bash
-# 构造两个相似文件
+## 构造两个相似文件
 echo -e '第一行\n第二行\n我是log1第3行\n第四行\n第五行\n第六行' > 1.log
 echo -e '第一行\n第二行\n我是log2第3行\n第四行' > 2.log
 
-# diff命令对比文件差异
+## diff命令对比文件差异
 #对比结果中的3c3表示两个文件在第3行有不同
 #5,6d4表示2.log文件相比1.log文件在第4行处开始少了1.log文件的第5和第6行
 diff 1.log 2.log
 ```
 
-## grep
+### grep
 
 grep命令用于查找文件里符合条件的字符串
 
@@ -754,20 +756,20 @@ grep命令用于查找文件里符合条件的字符串
 示例：
 
 ```bash
-# 查看sshd服务配置文件中监听端口配置所在行编号
+## 查看sshd服务配置文件中监听端口配置所在行编号
 grep -n Port /etc/ssh/ssh_config
 
-# 查询字符串在文本中出现的列数
+## 查询字符串在文本中出现的列数
 grep -c localhost /etc/hosts
 
-# 以递归的方式查找目录下含有关键字的文件
+## 以递归的方式查找目录下含有关键字的文件
 grep -r *.sh /etc
 
-# 使用正则表达式匹配httpd配置文件中异常状态码响应的相关配置
+## 使用正则表达式匹配httpd配置文件中异常状态码响应的相关配置
 grep 'ntp[0-9].aliyun.com' /etc/ntp.conf
 ```
 
-## sed
+### sed
 
 sed是一种流编辑器，它是文本处理中非常强的工具，能够完美的配合正则表达式使用
 
@@ -805,27 +807,27 @@ sed是一种流编辑器，它是文本处理中非常强的工具，能够完�
 示例：
 
 ```bash
-# $表示最后一行
+## $表示最后一行
 
-# 删除2行到4行的内容
+## 删除2行到4行的内容
 sed '2,4d' /etc/passwd
 
-# 删除第3行到最后一行内容
+## 删除第3行到最后一行内容
 sed '3,$d' /etc/passwd
 
-# 最后一行新增
+## 最后一行新增
 sed '$a admin:x:1000:1000:admin:/home/admin:/bin/bash' /etc/passwd
 
-# 替换内容
+## 替换内容
 sed 's/SELINUX=disabled/SELINUX=enforcing/' /etc/selinux/config
 
-# 替换第一行内容
+## 替换第一行内容
 sed '1c abcdefg' /etc/passwd
 ```
 
-# 文件与权限
+## 文件与权限
 
-## ls
+### ls
 
  ls命令用于显示指定工作目录下的内容
 
@@ -844,15 +846,15 @@ sed '1c abcdefg' /etc/passwd
 示例：
 
 ```bash
-# 查看当前目录所有文件（包括隐藏文件）
+## 查看当前目录所有文件（包括隐藏文件）
 ls -al
 ```
 
-## pwd
+### pwd
 
 pwd 获取当前工作目录的绝对路径
 
-## cd
+### cd
 
 cd 命令用于切换工作目录
 
@@ -863,7 +865,7 @@ cd 命令用于切换工作目录
 
 cd 命令的默认参数为~，符号~表示当前用户的家目录，即在root用户登录时，命令cd、cd ~和cd /root执行效果相同
 
-## touch
+### touch
 
 touch命令用于修改文件或者目录的时间属性，包括存取时间和更改时间。若文件不存在，系统会建立一个新的文件
 
@@ -880,26 +882,26 @@ touch命令用于修改文件或者目录的时间属性，包括存取时间和
 示例：
 
 ```bash
-# 创建两个空文件
+## 创建两个空文件
 touch demo1.txt demo2.txt
 
-# 修改demo1.txt的时间记录为当前系统时间
+## 修改demo1.txt的时间记录为当前系统时间
 touch demo1.txt
 
-# 更新demo2.txt的时间记录，使其和demo1.txt的时间记录相同
+## 更新demo2.txt的时间记录，使其和demo1.txt的时间记录相同
 touch -r demo1.txt demo2.txt
 ```
 
-## mkdir
+### mkdir
 
 mkdir命令用于新建子目录。-p 参数确保目录名称存在，不存在的就新建一个
 
 ```bash
-# 创建 a->b->c->d 目录
+## 创建 a->b->c->d 目录
 mkdir -p a/b/c/d
 ```
 
-## rm
+### rm
 
 rm命令用于删除一个文件或者目录
 
@@ -916,11 +918,11 @@ rm命令用于删除一个文件或者目录
 示例：
 
 ```bash
-# 无需确认直接删除目录a及其目录下所有子目录和文件
+## 无需确认直接删除目录a及其目录下所有子目录和文件
 rm -rf a
 ```
 
-## cp
+### cp
 
 cp命令主要用于复制文件或目录
 
@@ -939,11 +941,11 @@ cp命令主要用于复制文件或目录
 示例：
 
 ```bash
-# 将目录c/d中的所有内容复制到目录a/b下
+## 将目录c/d中的所有内容复制到目录a/b下
 cp -r c/d/ a/b/
 ```
 
-## mv
+### mv
 
 mv命令用来为文件或目录改名、或将文件或目录移入其它位置
 
@@ -959,28 +961,28 @@ mv命令用来为文件或目录改名、或将文件或目录移入其它位置
 示例：
 
 ```bash
-# 将a.txt改名为b.txt
+## 将a.txt改名为b.txt
 mv a.txt b.txt
 
-# 将a.txt移动到a/b目录下
+## 将a.txt移动到a/b目录下
 mv a.txt a/b
 ```
 
-## rename
+### rename
 
 rename命令用字符串替换的方式批量改变文件名
 
 示例：
 
 ```bash
-# 将当前目录下所有文件名中的字符串demo改为大写的字符串DEMO
+## 将当前目录下所有文件名中的字符串demo改为大写的字符串DEMO
 rename demo DEMO *
 
-# 将当前目录下所有.txt文件后缀都改为text
+## 将当前目录下所有.txt文件后缀都改为text
 rename .txt .text *
 ```
 
-## 文件权限介绍
+### 文件权限介绍
 
 ls -l命令中显示的第一列就是文件权限信息，共11位字符，分5部分。
 
@@ -994,27 +996,27 @@ ls -l命令中显示的第一列就是文件权限信息，共11位字符，分5
 
 u表示属主，g表示属组，o表示其他，a表示所有用户
 
-## chmod
+### chmod
 
 chmod命令用于修改文件权限mode，-R 参数以递归方式对子目录和文件进行修改
 
 示例：
 
 ```bash
-# 新建脚本文件hello.sh，输出 Hellow
+## 新建脚本文件hello.sh，输出 Hellow
 echo "echo 'Hellow'" > hello.sh
 
-# 将hello.sh文件增加属主的执行权限
+## 将hello.sh文件增加属主的执行权限
 chmod u+x hello.sh
 
-# 将hello.sh文件撤销属主的执行权限
+## 将hello.sh文件撤销属主的执行权限
 chmod u-x hello.sh
 
-# 将hello.sh文件权限修改为八进制表示的744权限
+## 将hello.sh文件权限修改为八进制表示的744权限
 chmod 744 hello.sh
 ```
 
-## chown
+### chown
 
 chown命令修改文件的属主和属组；-R参数以递归方式对子目录和文件进行修改
 
@@ -1023,38 +1025,38 @@ chown命令修改文件的属主和属组；-R参数以递归方式对子目录�
 示例：
 
 ```bash
-# 查看当前登录用户
+## 查看当前登录用户
 whoami
 
-# 新建一个用户
+## 新建一个用户
 adduser test
 passwd test
 
-# 修改文件属主为 test
+## 修改文件属主为 test
 chown test DEMO2.txt 
 
-# 修改文件属组和属主都是test
+## 修改文件属组和属主都是test
 chown test:test DEMO2.txt
 ```
 
-## chgrp
+### chgrp
 
 chgrp命令用于修改文件的属组
 
 示例：
 
 ```bash
-# 将 test.txt 属组修改为 root
+## 将 test.txt 属组修改为 root
 chgrp root test.txt
 ```
 
-# 文件管理
+## 文件管理
 
 
 
-# Centos
+## Centos
 
-## 系统命令
+### 系统命令
 
 ```bash
 systemctl stop firewalld	#关闭防火墙
@@ -1077,13 +1079,13 @@ firewall-cmd --zone=public --list-ports	#查看开启的防火墙端口
 systemctl status firewalld.service		#查看防火墙状态
 ```
 
-## 应用命令
+### 应用命令
 
 ```bash
 nohup ./bin/cmak > log &		#后台守护运行,并指定输出到当前目录log文件
 ```
 
-## Centos7网络配置
+### Centos7网络配置
 
 ```bash
 #网络配置文件
@@ -1103,9 +1105,9 @@ DNS=114.114.114.114		#DNS
 service network restart
 ```
 
-# Ubuntu22.04
+## Ubuntu22.04
 
-## 网络配置
+### 网络配置
 
 1. 查看当前系统详细信息
 
@@ -1117,16 +1119,16 @@ service network restart
 
    ```bash
    vim /etc/netplan/00-installer-config.yaml
-   # Let NetworkManager manage all devices on this system
+   ## Let NetworkManager manage all devices on this system
    network:
        ethernets:
-           ens32:                    ## network card name
+           ens32:                    ### network card name
                dhcp4: false
                addresses:
-                 - 192.168.3.88/24   ## set static IP
+                 - 192.168.3.88/24   ### set static IP
                routes:
                  - to: default
-                   via: 192.168.3.1  ## gateway
+                   via: 192.168.3.1  ### gateway
                nameservers:
                  addresses: [8.8.8.8,8.8.4.4,192.168.3.1]
        version: 2
@@ -1153,7 +1155,7 @@ service network restart
    ping -c 3 www.baidu.com
    ```
 
-## 防火墙
+### 防火墙
 
 > docker会自动在防火墙列表中添加了开放端口的规则
 

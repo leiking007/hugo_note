@@ -8,15 +8,15 @@ categories: ["框架"]
 author: "lei"
 ---
 
+# SpringSession
 
-
-# session丢失理解
+## session丢失理解
 
 ![image-20210809092106886](images.assets/image-20210809092106886.png ':size=600*300')
 
 `nginx每次将请求转发到不同的tomcat，对于当前tomcat来说，该次会话无疑是一次新的对话，则会创建一个session，并返回`
 
-# 解决方案
+## 解决方案
 
 原理：session不存入 JVM 中（存入redis），或相同的 ip 请求同一个服务器
 
@@ -25,7 +25,7 @@ author: "lei"
 3. 自己写一套session会话管理工具
 4. 采用框架将session存储到其他地方，实现session共享，比如：`SpringSession`
 
-# 基本使用
+## 基本使用
 
 1. 导入相关依赖
 
@@ -91,7 +91,7 @@ author: "lei"
    1) "\xac\xed\x00\x05t\x00,expires:e4839318-ba5a-4eca-92b5-e58bc34be195"
    ```
 
-# 使用场景(cookie存放规则修改)
+## 使用场景(cookie存放规则修改)
 
 > **默认**
 
@@ -121,7 +121,7 @@ DefaultCookieSerializer defaultCookieSerializer(){
 
 ![image-20210815010914900](images.assets/image-20210815010914900.png)
 
-# 知识点
+## 知识点
 
 > Cookie
 

@@ -8,27 +8,29 @@ categories: ["笔记"]
 author: "lei"
 ---
 
-# 查询
+# 常用SQL
 
-## 拼接SQL
+## 查询
+
+### 拼接SQL
 
 ```sql
 SELECT CONCAT('update tb_2 set col1=',tb1.col1,' where col2=',tb1.col2,';') from tb_1 tb1 where ....
 ```
 
-## 查询字符串出现次数
+### 查询字符串出现次数
 
 ```sql
 select id,LENGTH(string) - LENGTH(REPLACE(string, ",", "")) AS cnt from strings;
 ```
 
-## 按名字最后两个单词排序
+### 按名字最后两个单词排序
 
 ```sql
 select first_name from employees  order by substring(first_name,-2)
 ```
 
-## 分组并连接字段
+### 分组并连接字段
 
 ```sql
 SELECT
@@ -36,7 +38,7 @@ SELECT
 FROM dept_emp GROUP BY dept_no
 ```
 
-## 查询除了最大最小值后的均值
+### 查询除了最大最小值后的均值
 
 ```sql
 select avg(salary) as avgt from salaries
@@ -54,7 +56,7 @@ where
 
 
 
-## 使用强制索引查询
+### 使用强制索引查询
 
 ```sql
 select * from salaries
@@ -62,7 +64,7 @@ force index (idx_emp_no)
 where emp_no=10005
 ```
 
-## 使用with子句查询
+### 使用with子句查询
 
 ```sql
 #with tb as (select ....) select  
@@ -76,9 +78,9 @@ WHERE
 
 
 
-# 创建
+## 创建
 
-## 根据别的表数据新建表
+### 根据别的表数据新建表
 
 ```sql
 #根据别的表的数据新建表，方法1，MySQL适用
@@ -97,7 +99,7 @@ last_name   varchar(45)  not null); -- 创建表
 insert into actor_name select     first_name,last_name from actor; -- 插入查询结果
 ```
 
-## 根据表创建视图
+### 根据表创建视图
 
 ```sql
 -- 创建视图，使用小括号创建视图中的字段名
@@ -109,7 +111,7 @@ create view actor_name_view
 	as select first_name as first_name_v,last_name as last_name_v from actor
 ```
 
-## 构造触发器
+### 构造触发器
 
 ```sql
 -- mysql中触发器如下：
@@ -133,9 +135,9 @@ end
 
 
 
-# 修改
+## 修改
 
-## 修改表名
+### 修改表名
 
 ```sql
 -- 修改表名；ALTER TABLE 表名 RENAME TO/AS 新表名
@@ -143,7 +145,7 @@ end
 ALTER TABLE titles_test RENAME TO titles_2017;
 ```
 
-## 更新记录
+### 更新记录
 
 ```sql
 -- 直接更新
@@ -155,7 +157,7 @@ UPDATE titles_test SET emp_no = REPLACE(emp_no, 10001, 10005) WHERE id = 5
 
 
 
-## 创建索引
+### 创建索引
 
 ```sql
 -- 主键；该语句添加一个主键，这意味着索引值必须是唯一的，且不能为NULL
@@ -171,7 +173,7 @@ ALTER TABLE tbl_name ADD INDEX index_name (col_list);
 ALTER TABLE tbl_name ADD FULLTEXT index_name (col_list);
 ```
 
-## 创建外键约束
+### 创建外键约束
 
 ```sql
 -- ALTER TABLE <表名> ADD CONSTRAINT FOREIGN KEY (<列名>) REFERENCES <关联表>(关联列)
@@ -184,7 +186,7 @@ ADD
 
 
 
-## 新增列
+### 新增列
 
 ```sql
 -- ALTER TABLE <表名> ADD COLUMN <新字段名> <数据类型> [约束条件] [FIRST|AFTER 已存在的字段名];
@@ -192,7 +194,7 @@ alter table actor
 	add column create_date datetime not null default '2020-10-01 00:00:00' 		after last_update;
 ```
 
-## 删除重复记录
+### 删除重复记录
 
 ```sql
 -- 需要把记录先展示出来并重命名，然后删除

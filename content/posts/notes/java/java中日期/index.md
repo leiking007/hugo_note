@@ -1,18 +1,18 @@
 ---
-title: "java中日期"
+title: "Java中日期"
 date: 2021-11-01
 lastmod: 2021-11-11
 draft: false
-tags: ['javaSE','spring']
+tags: ['JavaSE','spring']
 categories: ["笔记"]
 author: "lei"
 ---
 
-
-
 # Java中日期
 
-## 概念
+## Java中日期
+
+### 概念
 
 **本地时间**
 
@@ -49,11 +49,11 @@ author: "lei"
 
 计算机通过`Locale`来针对当地用户习惯格式化日期、时间、数字、货币等
 
-java.lang.Locale代表特定的地理、政治和文化。需要Locale来执行其任务的操作叫语言环境敏感的操作
+Java.lang.Locale代表特定的地理、政治和文化。需要Locale来执行其任务的操作叫语言环境敏感的操作
 
 构造一个系统默认的Locale：Locale defaultLocale = Locale.getDefault();
 
-## GMT+8 和 Asia/Shanghai 的区别
+### GMT+8 和 Asia/Shanghai 的区别
 
 ```java
 public static void main(String[] args) throws ParseException {
@@ -78,13 +78,13 @@ public static void main(String[] args) throws ParseException {
 
 **时间戳字符串中不包含时区信息时，解析到的具体时区如果是使用夏令时的，就会跟不使用夏令时的时区，时间不一致。**
 
-## Date和Calendar
+### Date和Calendar
 
-java.util.Date：日期类
+Java.util.Date：日期类
 
-java.text.SimpleDateFormat：专门格式化日期的类
+Java.text.SimpleDateFormat：专门格式化日期的类
 
-java.util.Calendar：日历
+Java.util.Calendar：日历
 
 1. 生成时间 new Date ()；格式化时间 (new SimpleDateFoamat).format (new Date ())；
 2. 获取当前时间戳，System.currentTimeMillis ()
@@ -110,7 +110,7 @@ Date time5=new Date(System.currentTimeMillis()-1000*60*60*24); //传递时间戳
 System.out.println(sdf1.format(time5)); //输出：昨天这时的时间
 ```
 
-# JDK1.8之前
+## JDK1.8之前
 
 **Date类** 
 
@@ -120,7 +120,7 @@ Calendar 类是一个抽象类，它为特定瞬间与一组诸如 YEAR、MONTH�
 该类还为实现包范围外的具体日历系统提供了其他字段和方法。这些字段和方法被定义为 protected。
 与其他语言环境敏感类一样，Calendar 提供了一个类方法 getInstance，以获得此类型的一个通用的对象。Calendar 的 getInstance 方法返回一个 Calendar 对象，其日历字段已由当前日期和时间初始化
 
-## Date(时间)
+### Date(时间)
 
 **构造方法**
 
@@ -142,7 +142,7 @@ date.setTime(1649927726538L);	//根据时间戳设置时间
 leftdate.compareTo(rightdate);	//leftdate < rightdate 返回 -1; leftdate = rightdate 返回 0; leftdate > rightdate 返回 1
 ```
 
-## Calendar(日历)
+### Calendar(日历)
 
 **创建对象**
 
@@ -179,7 +179,7 @@ calendar1.add(Calendar.HOUR,12);	//日历时间 +12小时
 
 
 
-## 时间工具类
+### 时间工具类
 
 ```java
 public class OldDateUtil {
@@ -372,7 +372,7 @@ public class OldDateUtil {
 }
 ```
 
-# JDK1.8新引入
+## JDK1.8新引入
 
 - 本地日期和时间：`LocalDateTime`，`LocalDate`，`LocalTime`
 - 带时区的日期和时间：`ZonedDateTime`
@@ -383,7 +383,7 @@ public class OldDateUtil {
 
 
 
-## LocalDate和LocalTime
+### LocalDate和LocalTime
 
 **基本使用**
 
@@ -413,11 +413,11 @@ DateTimeFormatter dtf=DateTimeFormatter.ofPattern("yyyy-MMMM-dd HH:mm:ss");    /
 System.out.println(localDateTime.format(dtf));
 ```
 
-## ZonedDateTime
+### ZonedDateTime
 
 `LocalDateTime`总是表示本地日期和时间，要表示一个带时区的日期和时间，就需要`ZonedDateTime`。
 
-可以简单地把`ZonedDateTime`理解成`LocalDateTime`加`ZoneId`。`ZoneId`是`java.time`引入的新的时区类，注意和旧的`java.util.TimeZone`区别。
+可以简单地把`ZonedDateTime`理解成`LocalDateTime`加`ZoneId`。`ZoneId`是`Java.time`引入的新的时区类，注意和旧的`Java.util.TimeZone`区别。
 
 **基本使用**
 
@@ -441,7 +441,7 @@ System.out.println(zbj);
 System.out.println(zny);
 ```
 
-## 时间工具类
+### 时间工具类
 
 ```java
 public class NewDateUtil {
@@ -680,13 +680,13 @@ public class NewDateUtil {
 }
 ```
 
-# Spring中日期处理
+## Spring中日期处理
 
 实体类`Date`类型是属于`util`包下
 
 也可以使用jdk1.8 的 `LocalDateTime`  `LocalDate`类型
 
-## jackson出参格式化(序列化)
+### jackson出参格式化(序列化)
 
 出参格式化指的是，往前端传递参数时；spring 使用 json 工具将时间转换为怎么样的 json 串
 
@@ -746,7 +746,7 @@ public class NewDateUtil {
 - LocalDate：`yyyy-MM-dd`
 - LocalTime：`HH:mm:ss.SSSXXX`
 
-## Fastjson出参格式化(序列化)
+### Fastjson出参格式化(序列化)
 
 **格式化配置**
 
@@ -774,7 +774,7 @@ public class NewDateUtil {
 - LocalDate：`yyyy-MM-dd HH:mm:ss ` 时间为00:00:00
 - LocalTime：`yyyy-MM-dd HH:mm:ss `年为：1970-01-01
 
-## 入参格式化
+### 入参格式化
 
 > 注意：`param`传递接收时间参数时：使用`@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")` 匹配前端传参可能匹配更多，但不能匹配更少，否则会报404；
 >

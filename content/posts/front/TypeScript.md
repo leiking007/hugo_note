@@ -8,9 +8,11 @@ categories: ["前端"]
 author: "lei"
 ---
 
-# 初始
+# TypeScript
 
-## TypeScript 的介绍
+## 初始
+
+### TypeScript 的介绍
 
 TypeScript是一种由微软开发的开源、跨平台的编程语言。它是JavaScript的超集，最终会被编译为JavaScript代码
 
@@ -28,7 +30,7 @@ TypeScript 是 JavaScript 的一个超集，主要提供了类型系统和对 ES
 
 **总结**：TypeScript 在社区的流行度越来越高，它非常适用于一些大型项目，也非常适用于一些基础库，极大地帮助我们提升了开发效率和体验
 
-## 特点
+### 特点
 
 TypeScript 主要有 3 大特点：
 
@@ -44,7 +46,7 @@ TypeScript 主要有 3 大特点：
 
   TypeScript 提供最新的和不断发展的 JavaScript 特性，包括那些来自 2015 年的 ECMAScript 和未来的提案中的特性，比如异步功能和 Decorators，以帮助建立健壮的组件
 
-## 安装
+### 安装
 
 1. 全局安装
 
@@ -58,9 +60,9 @@ TypeScript 主要有 3 大特点：
    tsc -V
    ```
 
-# hello TS
-
 ## hello TS
+
+### hello TS
 
 1. 编写01_hello.ts文件
 
@@ -106,7 +108,7 @@ TypeScript 主要有 3 大特点：
 - 如果 ts 文件中包含 ts 特有语法，浏览器执行报错
 - ts 编译为js代码后，let 修饰的变量会变为 var 修饰
 
-## vscode 中自动编译
+### vscode 中自动编译
 
 1. 使用命令生成配置文件`tsconfig.json`
 
@@ -128,7 +130,7 @@ TypeScript 主要有 3 大特点：
 
 4. 此时编写 ts 文件会自动编译，并保存在当前项目的 js 目录下
 
-##  类型注解
+###  类型注解
 
 类型注解是 TypeScript 语法，是一种轻量级的为函数或变量添加约束的方式；如下：
 
@@ -152,7 +154,7 @@ sayHello 函数入参，使用了类型注解，此时如果调用时传入函�
 
 **总结**：TypeScript提供了静态的代码分析，它可以分析代码结构和提供的类型注解
 
-## 接口和类的演示
+### 接口和类的演示
 
 **接口**
 
@@ -208,9 +210,9 @@ sayHello 函数入参，使用了类型注解，此时如果调用时传入函�
 
 **总结**：查看编译后的js文件，可以看到看到 TypeScript 里的类只是一个语法糖，本质上还是 JavaScript 函数的实现
 
-# 常用语法
+## 常用语法
 
-## 数据类型
+### 数据类型
 
 TypeScript 支持与 JavaScript 几乎相同的数据类型
 
@@ -431,7 +433,7 @@ b10 = 123
 b10 = 'abc'
 ```
 
-## 接口
+### 接口
 
 TypeScript 的核心原则之一是对值所具有的结构进行类型检查。我们使用接口（Interfaces）来定义对象的类型。`接口是对象的状态(属性)和行为(方法)的抽象(描述)`
 
@@ -518,7 +520,7 @@ class Person3 implements IPerson3 {
 }
 ```
 
-## 类
+### 类
 
 **类定义基础示例**
 
@@ -661,7 +663,7 @@ dog.cry()
 dog.run()
 ```
 
-## 函数
+### 函数
 
 函数是 JavaScript 应用程序的基础，它帮助你实现抽象层，模拟类，信息隐藏和模块
 
@@ -756,7 +758,7 @@ function add(a:number|string,b:number|string):number|string{
 }
 ```
 
-## 泛型
+### 泛型
 
 **基础示例**
 
@@ -860,7 +862,7 @@ fn2('abc')
 // fn2(123) // error  number没有length属性
 ```
 
-## 其他
+### 其他
 
  **声明文件**
 

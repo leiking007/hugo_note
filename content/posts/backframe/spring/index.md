@@ -47,7 +47,7 @@ author: "lei"
   </dependency>
   ```
 
-## 优点
+### 优点
 
 - Spring 是一个开源的免费框架（容器）
 - Spring 是一个轻量级的，非侵入式的框架
@@ -56,11 +56,11 @@ author: "lei"
 
 **总结**：Spring 是一个轻量级的控制反转（IOC）与面向切面编程（AOP）的框架
 
-## 组成
+### 组成
 
  ![这里写图片描述](images.assets/20170713150400373.png) 
 
-## 扩展
+### 扩展
 
 - Spring boot
   - 一个快速开发的脚手架
@@ -73,9 +73,9 @@ author: "lei"
 
 **Spring 弊端**：发展太久，违背了原来的理念，配置十分繁琐，“配置地狱”
 
-# IOC
+## IOC
 
-## 理论推导
+### 理论推导
 
 以前的业务中
 
@@ -90,7 +90,7 @@ UserService
 #当dao新增时，需要修改UserviceImpl中代码，现在采用一个 setter 设置dao变量值，由调用者判断使用哪一个 dao，当dao新增时不需要修改UserServiceImpl中代码，实现控制反转
 ```
 
-## HelloSpring
+### HelloSpring
 
 **编写HelloService类**
 
@@ -149,7 +149,7 @@ public class Main {
 >
 > IOC 即 对象由spring创建、管理、装配
 
-## IOC创建对象的方法
+### IOC创建对象的方法
 
 1. 默认调用无参构造
 
@@ -196,7 +196,7 @@ public class Main {
 
 在`bean`配置文件加载时，容器管理的对象就已经初始化了
 
-## 依赖注入
+### 依赖注入
 
 >构造器注入
 
@@ -279,7 +279,7 @@ public class Main {
        <bean id="student1" class="com.lei.beans.Student" c:name="小明" c:age="21"/>
    ```
 
-## Bean的作用域
+### Bean的作用域
 
 | Scope       | Description                                                  |
 | :---------- | :----------------------------------------------------------- |
@@ -300,7 +300,7 @@ public class Main {
 <bean id="student" class="com.lei.beans.Student" p:name="小唐" scope="prototype"/>
 ```
 
-## Bean的自动装配
+### Bean的自动装配
 
 - 自动装配是 Spring 满足 bean 依赖的一种方式
 - Spring 会在上下文自动寻找，并自动给 bean 装配
@@ -390,7 +390,7 @@ public class Main {
    }
    ```
 
-## 注解开发
+### 注解开发
 
 > Spring4后，使用注解开发必须导入spring-aop包
 
@@ -418,7 +418,7 @@ public class Main {
 
 
 
-## JavaConfig实现配置
+### JavaConfig实现配置
 
 - 使用 JavaConfig 进行配置，完全脱离 xml 文件配置
 - 和 xml 文件配置类似，可以定义需要扫描的包，配置类的引入以及Bean的定义及命名等
@@ -445,9 +445,9 @@ public class AppConfig {
 
 
 
-# AOP
+## AOP
 
-## 代理模式
+### 代理模式
 
 > 代理模式
 
@@ -514,7 +514,7 @@ public class MiddleManInvocationHandler implements InvocationHandler {
 Business proxy= (Business) Proxy.newProxyInstance(Business.class.getClassLoader(), Business.class.getInterfaces(),handler);
 ```
 
-## AOP简介
+### AOP简介
 
 - 意为面向切面编程，OOP 把系统看作多个对象的交互，AOP把系统分解为不同的关注点，或者称之为切面（Aspect），本质上为动态代理
 - 切面（ASPECT）：横切关注点 被模块化 的特殊对象。即，他是一个类
@@ -530,7 +530,7 @@ Business proxy= (Business) Proxy.newProxyInstance(Business.class.getClassLoader(
 2. 类加载器：在目标类被装载到JVM时，通过一个特殊的类加载器，对目标类的字节码重新“增强”；
 3. 运行期：目标对象和切面都是普通Java类，通过JVM的动态代理功能或者第三方库实现运行期动态织入。
 
-## AOP装配
+### AOP装配
 
 > 引入依赖，spring对 aop的支持
 
@@ -644,7 +644,7 @@ Business proxy= (Business) Proxy.newProxyInstance(Business.class.getClassLoader(
 
 3. 自定义切面 与 使用spring原生api 区别：自定义切面相对简单，但是功能没有 spring原生 api多，不能获取执行的方法名以及需被 切入 的对象
 
-## 使用注解装配AOP
+### 使用注解装配AOP
 
 - 自定义切面类并添加相关注解
 
@@ -690,7 +690,7 @@ Business proxy= (Business) Proxy.newProxyInstance(Business.class.getClassLoader(
   2. 标记`@Component`和`@Aspect`；
   3. 在`@Configuration`类上标注`@EnableAspectJAutoProxy`。
 
-## AOP实例
+### AOP实例
 
 > 使用AOP统一处理controller异常和进入控制器之前设置当前请求上下文
 
@@ -788,7 +788,7 @@ public class SpringLogAspect {
 
 
 
-# 整合mybatis
+## 整合mybatis
 
 > 步骤
 
@@ -839,7 +839,7 @@ public class SpringLogAspect {
 
 
 
-## mybatis回顾
+### mybatis回顾
 
 > 导入mybatis依赖和mysql驱动
 
@@ -893,7 +893,7 @@ public class SpringLogAspect {
          3.传递map
           #{} 中必须为map的key
   
-  # 和 $
+  ## 和 $
     #{}：占位符，可以防止sql注入
     ${}：字符串拼接
   
@@ -1077,7 +1077,7 @@ try(InputStream in= Resources.getResourceAsStream(resource)){
   -   多个参数，使用对象方式#{属性名，javaType=类型名称，jdbcType=数据类型} ，可以直接使用 #{属性名} 来传入
   -  多个参数，按位置顺序传参（了解）；mybatis3.4版本后#{arg0},#{arg1}等，获取参数 
   -  map传参，通过key获取value值（了解）；#{key1},#{key2} 
-- ​    \#  和 $ 区别
+- ​    \##  和 $ 区别
   -  \#：可以防止sql注入，占位符，使用预编译对象PrepareStatement执行sql，安全 
   -  $：字符串的连接与替换，直接拼接到sql语句中，使用对象Statement执行sql，可以被sql注入，效率低 
 - mybatis 查询结果返回
@@ -1094,7 +1094,7 @@ try(InputStream in= Resources.getResourceAsStream(resource)){
     2. 可以使用别名方式查询，别名应该是java类型的属性名
 - 动态sql
 
-## Mybatis-Spring（xml）
+### Mybatis-Spring（xml）
 
 - spring配置文件中配置 mybatis 相关配置，一般新建一个配置文件，后续在spring主配置文件中导入该文件即可；DataSource、SqlsessionFactory、SqlSessionTemplate
 
@@ -1177,7 +1177,7 @@ try(InputStream in= Resources.getResourceAsStream(resource)){
 
 - 通过 SqlSessionTemplate 对象调用 mapper 中对应的 sql 语句
 
-## Mybatis-Spring（appConfig）
+### Mybatis-Spring（appConfig）
 
 ```java
 @Configuration
@@ -1209,9 +1209,9 @@ public class AppConfig {
 }
 ```
 
-# spring事务管理
+## spring事务管理
 
-## 事务回顾
+### 事务回顾
 
 - 确定数据的一致性和完整性
 - 一组业务当成一个业务来做，要么都成功，要么都失败
@@ -1222,7 +1222,7 @@ public class AppConfig {
   - 可重复读
   - 序列化读
 
-## 传播行为和隔离级别
+### 传播行为和隔离级别
 
 参考`TransactionDefinition`类
 
@@ -1277,7 +1277,7 @@ public interface TransactionDefinition {
 
 不可重复读：一个事务读取同一条记录2次，得到的结果不一致；事务A两次读取期间，事务B修改了数据并进行了提交，事务A两次读取数据不一致
 
-## 声明式事务
+### 声明式事务
 
 除了声明式事务，还有编程式事务
 
@@ -1426,11 +1426,11 @@ public interface TransactionDefinition {
 
   - 需要事务的类或方法前面添加注解 @Transactional("transactionManager") 
 
-# SpringMVC
+## SpringMVC
 
  ![img](images.assets/5220087-3c0f59d3c39a12dd.png) 
 
-## 执行流程
+### 执行流程
 
 1. 用户发送请求至前端控制器DispatcherServlet
 2. DispatcherServlet收到请求调用处理器映射器HandlerMapping。
@@ -1444,7 +1444,7 @@ public interface TransactionDefinition {
 10. DispatcherServlet对View进行渲染视图（即将模型数据model填充至视图中）。
 11. DispatcherServlet响应用户。
 
-## 组件说明
+### 组件说明
 
 1. DispatcherServlet：前端控制器。用户请求到达前端控制器，它就相当于mvc模式中的c，dispatcherServlet是整个流程控制的中心，由它调用其它组件处理用户的请求，dispatcherServlet的存在降低了组件之间的耦合性,系统扩展性提高。由框架实现
 2. HandlerMapping：处理器映射器。HandlerMapping负责根据用户请求的url找到Handler即处理器，springmvc提供了不同的映射器实现不同的映射方式，根据一定的规则去查找,例如：xml配置方式，实现接口方式，注解方式等。由框架实现
@@ -1454,7 +1454,7 @@ public interface TransactionDefinition {
 6. ViewResolver：视图解析器。ViewResolver负责将处理结果生成View视图，ViewResolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户
 7. View:是springmvc的封装对象，是一个接口, springmvc框架提供了很多的View视图类型，包括：jspview，pdfview,jstlView、freemarkerView、pdfView等。一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。
 
-## xml 配置 Hello
+### xml 配置 Hello
 
 - 导入依赖
 
@@ -1548,7 +1548,7 @@ public interface TransactionDefinition {
 
 - 启动 Tomcat，并访问地址  http://localhost:8080/hello 
 
-## 注解实现 Hello
+### 注解实现 Hello
 
 - web.xml 中配置 disPathServlet 
 
@@ -1625,7 +1625,7 @@ public interface TransactionDefinition {
   }
   ```
 
-## RestFul风格
+### RestFul风格
 
 > 概念
 
@@ -1671,7 +1671,7 @@ public interface TransactionDefinition {
 - 传统：localhost/login?username=lei&password=123
 - restful风格：localhost/login/lei/123
 
-## 重定向与转发
+### 重定向与转发
 
 - 没有视图解析器时
 
@@ -1722,7 +1722,7 @@ public interface TransactionDefinition {
   }
   ```
 
-## 请求参数获取
+### 请求参数获取
 
 **@PathVariable @RequestBody @RequestParam使用方法**
 
@@ -1877,7 +1877,7 @@ public interface TransactionDefinition {
     }
     ```
 
-## 拦截器（interceptor）
+### 拦截器（interceptor）
 
 - 拦截器类似于过滤器，是AOP思想的具体应用
 
@@ -1909,7 +1909,7 @@ public interface TransactionDefinition {
   </mvc:interceptors>
   ```
 
-## 文件上传
+### 文件上传
 
 - 导入依赖
 
@@ -2035,7 +2035,7 @@ public interface TransactionDefinition {
 
   
 
-## Json
+### Json
 
 > 前端
 
@@ -2087,9 +2087,9 @@ public interface TransactionDefinition {
   }
   ```
 
-# SSM整合
+## SSM整合
 
-## pom.xml配置
+### pom.xml配置
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -2190,7 +2190,7 @@ public interface TransactionDefinition {
 </project>
 ```
 
-## mybatis层
+### mybatis层
 
 1. mysql连接信息 databases.properties
 
@@ -2328,7 +2328,7 @@ public interface TransactionDefinition {
    }
    ```
 
-## spring层
+### spring层
 
 1. 创建 Spring 主配置文件 applicationContext.xml 
 
@@ -2409,7 +2409,7 @@ public interface TransactionDefinition {
    </beans>
    ```
 
-## springMVC层
+### springMVC层
 
 1. 在 web.xml 中配置 DisPathServlet 、乱码过滤、session过期时间
 
@@ -2517,13 +2517,13 @@ public interface TransactionDefinition {
    ```
 
 
-## 通过配置类整合SSM
+### 通过配置类整合SSM
 
 1. 
 
-# 常用注解
+## 常用注解
 
-## spring
+### spring
 
 `@Scope`：作用域，放在类上，默认是单例，可以修改为原型（即每次获取都是一个新的对象）
 
@@ -2566,7 +2566,7 @@ public interface TransactionDefinition {
 - ` @AfterThrowing ()`： 和@After不同的是，只有当目标代码抛出了异常时，才执行拦截器代码 
 - ` @Around() `： 能完全控制目标代码是否执行，并可以在执行前后、抛异常后执行任意拦截代码，可以说是包含了上面所有功能 
 
-## springMVC
+### springMVC
 
 `@EnableWebMvc `：标记spring配置类，表示启用springMVC
 

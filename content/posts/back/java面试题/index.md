@@ -8,9 +8,11 @@ categories: ["后端"]
 author: "lei"
 ---
 
-# 基础
+# Java面试题
 
-## java面向对象的特征
+## 基础
+
+### java面向对象的特征
 
 封装：说明的是一个类的行为和属性与其他类的关系是低耦合（模块之间）、高内聚（模块内）；可以在不影响使用的情况下改变类的内部结构，同时也保护了数据。对于外部它内部的细节是隐藏的，暴露出去的只是它的访问方法
 
@@ -18,14 +20,14 @@ author: "lei"
 
 多态：类与类之间的关系；父类的引用指向子类的实例；多态必备的三个要素：继承、重写、父类引用指向子类实例
 
-## java中四种引用类型
+### java中四种引用类型
 
 - 强引用：`Object object= new Object()`，这种方式为强引用，强引用在任何时候都不会被 jvm 垃圾回收，即使抛出 OutOfMemoryError
 - 软引用：通过`SoftReference`的get方法来获取对象。软引用，在jvm内存不足的情况下发生垃圾回收时会被回收
 - 弱引用：通过`WeakReference`的get方法来获取对象。弱引用，只要发生垃圾回收都会回收该对象，不管内存是否充足
 - 虚引用：虚引用和没有引用是一样的，需要和队列(ReferenceQueue)联合使用。当jvm扫描到虚引用对象时，会将此对象放入关联的引入队列中，后续可以通过判断队列中是否存这个对象，来进行回收前的一些处理
 
-## ArrayList和LinkedList区别
+### ArrayList和LinkedList区别
 
 ArrayList 和 LinkedList 都实现了 List 接口
 
@@ -33,11 +35,11 @@ ArrayList 底层是数组，可以快速的通过索引进行随机访问，时�
 
 LinkedList 底层是链表，每个节点存储了两个引用，一个指向前一个元素，一个指向后一个元素，因此会比 ArrayList 更占内存；随机插入和删除效率高，不需要改变数据的大小；随机访问数据效率低，因为它会从第一个元素顺序遍历到需要访问的元素；LinkedList 更适用于：访问数据少，删除，插入数据多的场景
 
-# 集合
+## 集合
 
-# 线程
+## 线程
 
-## 线程实现方式
+### 线程实现方式
 
 1. 继承 Thread 类，重新 run 方法；启动线程时调用 Thread.start() 方法
 
@@ -96,7 +98,7 @@ LinkedList 底层是链表，每个节点存储了两个引用，一个指向前
 
 线程实现方式，底层都是实现 Runnable 方式
 
-## 线程状态
+### 线程状态
 
 **操作系统层面讲**
 
@@ -123,7 +125,7 @@ java 的线程状态可查看 jdk 的 `Thread.State` 枚举，其中包含了 6 
 - timed_waiting：处于这种状态的线程不会被分配CPU执行时间，不过无须无限期等待被其他线程显示地唤醒，在达到一定时间后它们会自动唤醒
 - terminated：当线程的run()方法完成时，或者主线程的main()方法完成时，就认为它终止了；这个线程对象也许是活的，但是它已经不是一个单独执行的线程；`线程一旦终止了，就不能复生`；在一个终止的线程上调用start()方法，会抛出 java.lang.IllegalThreadStateException 异常
 
-## java 中停止线程
+### java 中停止线程
 
 使用 interrupt() 中断线程；如果线程在 等待状态时，调用  interrupt() 会抛出异常 InterruptedException
 
@@ -146,7 +148,7 @@ public static void main(String[] args) {
 }
 ```
 
-## sleep 和 wait 方法的区别
+### sleep 和 wait 方法的区别
 
 - sleep 方法属于 Thread 类的一个静态方法；wait 方法属于 Object 类的方法
 - sleep 方法会使线程变成 `超时等待状态`（自动唤醒）；wait 方法会使线程变成`等待状态`（需要被唤醒）
@@ -155,7 +157,7 @@ public static void main(String[] args) {
 
 wait 方法会将持有锁的线程从 owner 扔到 WaitSet 集合中，这个操作是修改 ObjectMonitor 对象，如果没有持有 synchronized 锁的话，是没法操作 ObjectMonitor 对象的
 
-## synchronized 实现原理
+### synchronized 实现原理
 
 synchronized 基于对象实现
 
@@ -167,7 +169,7 @@ MarkWord 在 Hot Spot 中结构如下
 
 MarkWord 标记着四种锁信息：无锁、偏向锁、轻量级锁、重量级锁
 
-## synchronized 在 jdk 1.6 的优化
+### synchronized 在 jdk 1.6 的优化
 
 **锁消除：**在 synchronized 修饰的代码中，如果不存在操作临界资源的情况，会触发锁消除，即使写了 synchronized ，也不会触发
 
@@ -184,14 +186,14 @@ MarkWord 标记着四种锁信息：无锁、偏向锁、轻量级锁、重量�
   - 如果自旋了一定次数，没有拿到锁资源，锁升级
 - 重量级锁：就是最传统的 synchronized 方式，拿不到锁资源，就挂起当前线程（用户态 & 内核态）
 
-## ReentrantLock 和 synchronized
+### ReentrantLock 和 synchronized
 
 - ReentrantLock 是个类，synchronized 是关键字，都是在 JVM 层面实现互斥锁的方式
 - 如果竞争比较激烈，推荐使用 ReentrantLock 去实现，不存在锁升级概念。而 synchronized 是存在锁升级概念的，如果升级到重量级锁，是不存在锁降级的
 - 实现原理不一样，ReentrantLock 基于 AQS 实现的，synchronized 基于 ObjectMonitor 实现的
 - ReentrantLock 功能比 synchronized 更全面；ReentrantLock 支持公平锁或非公平锁；ReentrantLock 可以指定等待锁资源的时间
 
-## ThreadLocal 内存泄漏问题
+### ThreadLocal 内存泄漏问题
 
 **ThreadLocal 实现原理**
 
@@ -209,7 +211,7 @@ MarkWord 标记着四种锁信息：无锁、偏向锁、轻量级锁、重量�
 
 ![image-20230607125100358](images.assets/image-20230607125100358.png)
 
-## java 中锁分类
+### java 中锁分类
 
 1. 可重入锁、不可重入锁
 
@@ -257,7 +259,7 @@ MarkWord 标记着四种锁信息：无锁、偏向锁、轻量级锁、重量�
 
    **共享锁：**同一时间点，当前共享锁可以被多个线程同时持有
 
-## 并发编程的三大特性
+### 并发编程的三大特性
 
 **原子性**
 
@@ -282,7 +284,7 @@ cpu 执行过程会存在缓存，需要保证所有线程读取到的数据是�
 
 可以使用 volatile 可以保证有序性，防止指令重排
 
-## JDK 中提供的线程池
+### JDK 中提供的线程池
 
 **newFixedThreadPool**
 
@@ -359,7 +361,7 @@ public static ExecutorService newWorkStealingPool() {
 
 前面的线程池底层都是基于 `ThreadPoolExecutor` 构建的；newWorkStealingPool 线程池是基于 ForkJoinPool 构建出来的
 
-## 线程池核心参数
+### 线程池核心参数
 
 ThreadPoolExecutor 有 7 个核心参数
 
@@ -381,7 +383,7 @@ public ThreadPoolExecutor(int corePoolSize,   // 核心线程数量，始终存�
 - ThreadPoolExecutor.DiscardPolicy：丢弃任务
 - ThreadPoolExecutor.DiscardOldestPolicy：丢弃最早的未处理任务
 
-## 线程池状态
+### 线程池状态
 
 线程池核心属性是 ctl，基于 ctl 拿到线程池的状态以及工作线程个数
 
@@ -412,7 +414,7 @@ private static final int TERMINATED =  3 << COUNT_BITS;
 
 ![image-20230608101242593](images.assets/image-20230608101242593.png)
 
-## @Contended 注解作用
+### @Contended 注解作用
 
 使用@Contended来保证被标识的字段或者类不与其他字段出现内存争用
 
@@ -482,7 +484,7 @@ public class ContendedDemo {
 
 
 
-## 什么是 CAS
+### 什么是 CAS
 
 CAS(compare and swap)：也就是比较和交换，它是一条 CPU 的并发原语
 
@@ -500,7 +502,7 @@ Java 中基于 Unsafe 的类提供了对 CAS 操作的方法，JVM 会帮助我�
 
 自旋时间可能过长，CPU开销较大
 
-## 哲学家就餐问题
+### 哲学家就餐问题
 
 **描述：**哲学家就餐问题是计算机科学中一经典问题，用于演示并行计算中多线程同步（Synchronization）问题
 
@@ -607,7 +609,7 @@ public class DiningPhilosophers {
 }
 ```
 
-## 多线程事务控制
+### 多线程事务控制
 
 - 创建子线程个数的 CountDownLatch 
 
@@ -715,7 +717,7 @@ public class TransactionIssues {
 }
 ```
 
-## 交替输出问题
+### 交替输出问题
 
 假设有两个线程 A、B，A 输出的是 123456 ，B 输出的是 ABCDEF，需要保证最终输出为：1A2B3C4D5E6F 交替输出
 
@@ -835,9 +837,9 @@ public class AlternatingOutput {
 
 
 
-# Spring
+## Spring
 
-## 对 Spring 理解
+### 对 Spring 理解
 
 **发展历程**
 
@@ -870,7 +872,7 @@ Spring 是一个轻量级的 IOC 和 AOP 容器框架。是为 Java 程序提供
 |  7   |     异常处理      | Spring 提供方便的 API 把具体的技术相关异常转化为一个 unchecked 异常 |
 |  8   |      最重要       | 使用的人多，生态丰富                                         |
 
-## Spring 中用到的设计模式
+### Spring 中用到的设计模式
 
 **单例模式**
 
@@ -975,7 +977,7 @@ AOP 中的拦截器链
 
 DelegatingFilterProxy，整合 Shiro、SpringSecurity 的时候都有用到
 
-## @Autowired 和 @Resource
+### @Autowired 和 @Resource
 
 @Autowired 和 @Resource 都是做 bean 的注入时使用，@Resource 并不是 Spring 的注解，它的包是 javax.annotation.Resource，需要导入，但是 Spring 支持该注解的注入
 
@@ -996,7 +998,7 @@ DelegatingFilterProxy，整合 Shiro、SpringSecurity 的时候都有用到
 3. 如果指定 type，则从上下文找到类似匹配的唯一 bean 进行装配，找不到或是找到多个，都会抛出异常
 4. 如果 name 和 type 属性都没指定，则自动按照 byName 进行装配；如果没有匹配，则回退为一个原始类型进行匹配，如果匹配了则自动装配
 
-## Spring 中循环依赖
+### Spring 中循环依赖
 
 **循环依赖几种情况**
 
@@ -1031,7 +1033,7 @@ public class Main {
 
 ![image-20230612140918417](images.assets/image-20230612140918417.png)
 
-## Spring 几种作用域
+### Spring 几种作用域
 
 Spring 容器中的 bean 可分为五个范围
 
@@ -1045,7 +1047,7 @@ Spring 容器中的 bean 可分为五个范围
 
 **global session（全局作用域）：**类似于标准的HTTP Session作用域，不过它仅仅在基于portlet的web应用中才有意义。Portlet规范定义了全局Session的概念，它被所有构成某个portlet web应用的各种不同的portlet所共享。在global session作用域中定义的bean被限定于全局portlet Session的生命周期范围内
 
-## Spring 事务隔离级别
+Spring 事务隔离级别
 
 事务隔离级别指的是一个事务对数据的修改与另一个并行的事务的隔离程度，当多个事务访问相同的数据，如果没有采用必要的隔离机制，就可能发生以下问题：
 
@@ -1065,7 +1067,7 @@ Spring 容器中的 bean 可分为五个范围
 | REPEABLE_READ    | 可重复读，解决不可重复读，但是存在幻读的风险（事务B不能对当前事务A读取的数据进行更新） |
 | SERLALIZEABLE    | 序列化读，最高事务隔离级别；所有事务依次执行；效率低下       |
 
-## Spring 中事务传播
+### Spring 中事务传播
 
 保证事务：ACID，A（Atomicity原子性）、I（Isolation隔离性）、D（Durability持久性）==》C（Consistency一致性）
 
@@ -1083,7 +1085,7 @@ Spring 容器中的 bean 可分为五个范围
 | PROPAGATION_NEVER         | 不支持当前事务；如果存在抛出错误                             |
 | PROPAGATION_NESTED        | 如果当前事务存在，则在嵌套事务中执行，否则行为类似于 PROPAGATION_REQUIRED |
 
-## Spring 事务实现方式
+### Spring 事务实现方式
 
 **编程式事务：**通过编程方式管理事务，具有很大的灵活性，但难以维护
 
@@ -1216,7 +1218,7 @@ Spring 容器中的 bean 可分为五个范围
    </beans>
    ```
 
-## Spring 事务实现原理
+### Spring 事务实现原理
 
 `@Transactional `注解仅仅配置一些与事务相关的元数据，在运行时被事务设施读取消费，并根据这些元数据来配置 bean 的事务行为。主要功能大概是：一是声明哪些方法需要参与事务，二是配置相关的属性来定制事务参与方式和运行行为
 
@@ -1224,7 +1226,7 @@ Spring 事务主要得益于 Spring AOP，使用一个事务拦截器，在方�
 
 `@Transactional `注解可以标注在类上，也可以标注在方法上。当在类上时，默认应用到类里的所有方法，如果此时方法上也标注了，则方法的优先级更高。`注意：方法一定是public修饰的`
 
-## BeanPostProcessor
+### BeanPostProcessor
 
 针对 bean 对象初始化前后需要的处理操作
 
@@ -1253,7 +1255,7 @@ public class BeanPostProcessorDemo implements BeanPostProcessor {
 */
 ```
 
-## Spring MVC
+### Spring MVC
 
 **执行流程**
 
@@ -1281,7 +1283,7 @@ public class BeanPostProcessorDemo implements BeanPostProcessor {
 
 ![image-20230615151304389](./images.assets/image-20230615151304389.png)
 
-## Spring Boot 自动装配
+### Spring Boot 自动装配
 
 1. `@SpringBootApplication`注解标识启动类
 
@@ -1328,7 +1330,7 @@ public class BeanPostProcessorDemo implements BeanPostProcessor {
    }
    ```
 
-## bootstrap.yml 作用
+### bootstrap.yml 作用
 
 bootstrap.yml 需要 SpringCloud 支持用来程序引导时执行，应用于更加早期配置信息读取。可以理解成系统级别的一些参数配置，这些参数一般是不会变动的。一旦bootStrap.yml 被加载，则内容不会被覆盖
 
@@ -1338,7 +1340,7 @@ application.yml 可以用来定义应用级别的， 应用程序特有配置信
 
 经常用来加载配置中心的内容，一个正常的 SpringBoot 项目启动时只会去加载对应的 application.yml 文件中相关信息，bootstrap.yml 会在 SpringBoot 正常启动前创建一个父容器，通过 bootstrap.yml 中的配置加载配置中心的内容
 
-## 对敏感信息进行加密
+### 对敏感信息进行加密
 
 ![image-20230615220441991](./images.assets/image-20230615220441991.png)
 
@@ -1404,7 +1406,7 @@ application.yml 可以用来定义应用级别的， 应用程序特有配置信
 
 > 可以使用 **jasypt** 来进行加密敏感信息
 
-## Indexed 注解
+### Indexed 注解
 
 spring 5.0 提供的，它可以为 Spring 的**模式注解**添加索引，以提升应用启动性能
 
@@ -1427,7 +1429,7 @@ spring 5.0 提供的，它可以为 Spring 的**模式注解**添加索引，以
 
 >@Component 默认已经被 @Indexed 注解标注了
 
-## AOP 中通知类型
+### AOP 中通知类型
 
 | 通知类型        | 说明                                               |
 | --------------- | -------------------------------------------------- |
@@ -1506,7 +1508,7 @@ public class ConfigA {
 //   方法执行后
 ```
 
-## @ComponentScan
+### @ComponentScan
 
 @ComponentScan 主要就是定义**扫描的路径**从中找出标识了**需要装配**的类自动装配到 spring 的 bean 容器中
 
@@ -1570,7 +1572,7 @@ public @interface ComponentScan {
 }
 ```
 
-## Import 注解
+### Import 注解
 
 Import 注解的三种用法
 
@@ -1603,7 +1605,7 @@ Import 注解的三种用法
 
 3. 实现 `ImportBeanDefinitionRegistrar`，并且实现了 `registerBeanDefinitions` 方法，。可以自行封装 BeanDefinition
 
-## SpringBoot 多套环境配置
+### SpringBoot 多套环境配置
 
 1. 创建各个环境配置文件
 
@@ -1620,7 +1622,7 @@ Import 注解的三种用法
        active: test,pro
    ```
 
-## SpringBoot 读取配置文件方式
+### SpringBoot 读取配置文件方式
 
 SpringBoot 默认的配置文件有两种格式：`application.properties` 和 `application.yml`。查找顺序首先从 properties 文件查找
 
@@ -1694,7 +1696,7 @@ public class ConfigC {
 }
 ```
 
-## SpringBoot打包jar和普通jar区别
+### SpringBoot打包jar和普通jar区别
 
 SpringBoot 项目最终打包成的 jar 是可执行的 jar，这种 jar可以通过 `java -jar xxx.jar` 命令运行，这种 jar 不可作为普通 jar 包被其他项目依赖，主要是因为它和普通 jar 包的结构不同
 
@@ -1702,7 +1704,7 @@ SpringBoot 项目最终打包成的 jar 是可执行的 jar，这种 jar可以�
 
 如果非要作为普通 jar 包进行引用，可在打包时进行配置，将 SpringBoot 打包成两个 jar，一个可执行，一个可引用
 
-## SpringBoot 优点
+### SpringBoot 优点
 
 **独立运行**
 
@@ -1724,7 +1726,7 @@ SpringBoot 配置过程中无代码生成，也无需 XML 配置文件就能完�
 
 SpringBoot 提供了一系列端点可以监控服务及应用，做健康检测
 
-## SpringBoot 启动时机运行代码
+### SpringBoot 启动时机运行代码
 
 **CommandLineRunner接口：实现 CommandLineRunner 接口，并重写 run 方法**
 
@@ -1760,13 +1762,13 @@ public class Application implements ApplicationRunner {
 
 将实现上面接口的 bean 交给 IOC 容器管理即可生效
 
-# JVM
+## JVM
 
-# 分布式
+## 分布式
 
-# MySQL
+## MySQL
 
-## SQL 语句执行顺序
+### SQL 语句执行顺序
 
 **书写顺序**：SELECT -> FROM -> JOIN -> ON -> WHERE -> GROUP BY -> HAVING -> UNION -> ORDER BY ->LIMIT
 
@@ -1774,7 +1776,7 @@ public class Application implements ApplicationRunner {
 
 ![image-20230620151428706](./images.assets/image-20230620151428706.png)
 
-## 什么是Buffer Pool
+### 什么是Buffer Pool
 
 Buffer Pool：缓冲池，简称`BP`。其作用是用来缓存表数据与索引数据，减少磁盘 IO 操作，提升效率
 
@@ -1793,7 +1795,7 @@ MySQL 中有一个哈希表数据结构，它使用`表空间号+数据页号`�
 - 当访问某个页数据时，会先从哈希表中根据`表空间号+页号`查看是否存在对应的控制块
 - 如果有，则直接使用控制块中信息直接定位到 Buffer Pool 中的数据页地址；如果没有，就从 free 链表中选出一个空闲的缓冲页，然后把磁盘中对应的页加载到该缓冲页的位置
 
-## InndoDB 如何管理 Page 页
+### InndoDB 如何管理 Page 页
 
 **Page 分类管理**
 
@@ -1826,7 +1828,7 @@ lru list：表示正在使用的缓冲区，管理 Clean Page 和 Dirty Page，�
 
 ![image-20230618170428945](./images.assets/image-20230618170428945.png)
 
-## 索引
+### 索引
 
 索引就是排序好的，帮我们进行快速查询的数据结构；索引就是一种将数据库的记录按照特殊形式存储的数据结构，通过索引，能够显著的提高查询的效率，从而提升性能
 
@@ -1848,7 +1850,7 @@ lru list：表示正在使用的缓冲区，管理 Clean Page 和 Dirty Page，�
 - 数据量小的表最好不要使用索引，因为由于数据较少，可能查询全部数据花费的时间比遍历索引的时间还要短，索引就可能不会产生优化效果
 - 在一字段上相同值比较多不要建立索引，比如在学生表的"性别"字段上只有男，女两个不同值。相反的，在一个字段上不同值较多可是建立索引
 
-## Page页结构
+### Page页结构
 
 Page 是整个 InnoDB 存储的最基本构件，也是 InnoDB 磁盘管理的最小单位，与数据库相关的内容都存储在这中 Page 结构里
 
@@ -1870,7 +1872,7 @@ Page 是整个 InnoDB 存储的最基本构件，也是 InnoDB 磁盘管理的�
 2. **记录部分（User Records % Free Space）：**页的主要作用是存储数据，所以“最小最大记录”和“用户记录”部分占了页结构的主要空间。另外空闲空间是个灵活部分。当有新的记录插入时，会从空间空间中进行分配用于存储数据
 3. **数据目录部分（Page Directory）：**数据页中行记录是按照主键值由小到大的顺序串联成一个单链表（`页中记录是以单向链表的形式进行存储的`），且单链表的链表头为最小记录，链表尾为最大记录。并且为了更快速地定位到指定的行记录，通过 `Page Directory`实现目录功能，借助`Page Directory`使用二分法快速找到需要查找的行记录
 
-## 聚簇索引和非聚簇索引
+### 聚簇索引和非聚簇索引
 
 聚簇索引和非聚簇索引区别是：叶节点是否存放一整行记录
 
@@ -1913,7 +1915,7 @@ InnoDB 主键使用的是聚簇索引，MyISAM 不管是逐渐索引还是二级
 - 更新主键的代价很高，因为将会导致被更新的行移动
 - 二级索引访问需要两次索引查找，第一次找到主键值，第二次根据主键值找到行数据
 
-## 索引有哪几种类型
+### 索引有哪几种类型
 
 **普通索引**
 
@@ -2002,7 +2004,7 @@ SELECT * from runoob_tbl where match(content) against('+panes +Navicat -Detail' 
 - 全文索引必须在字符串、文本字段上建立
 - 全文索引字段值必须在最小字符和最大字符之间才会有效（InnoDB：3-84；MyISAM：4-84）
 
-## 最佳左前缀法则
+### 最佳左前缀法则
 
 最佳左前缀法则：如果创建的是联合索引，就要遵循该法则；使用索引时，where 后面的条件需要从索引的`最左前列开始使用`，且不能跳过索引中的列使用
 
@@ -2023,7 +2025,7 @@ select * tab where col2 = '' and col1 = ''
 select * tab where col2 = ''
 ```
 
-## 索引下推
+### 索引下推
 
 索引下推（index condition pushdown）简称 `ICP`，在 MySQL5.6 的版本上推出，用于优化查询
 
@@ -2039,7 +2041,7 @@ select * from user where name like '张%' and age=10
 
 在支持 ICP 优化后，MySQL 会在取出索引的同时，判断是否可以进行 where 条件的过滤再进行索引查询，在某些场景下可以大大减少回表次数，从而提升整体性能
 
-## InnoDB 与 MyISAM 区别
+### InnoDB 与 MyISAM 区别
 
 **事务和外键**
 
@@ -2066,7 +2068,7 @@ select * from user where name like '张%' and age=10
 - InnoDB 表对应两个文件，`.frm`表结构文件，`.ibd`数据文件，InnoDB 表最大支持 64TB
 - MyISAM 表对应三个文件，`.frm`表结构文件，`.MYI`索引文件，`.MYD`数据文件，MyISAM 从 MySQL5.0 开始默认限制为 256TB
 
-## explain
+### explain
 
 使用`EXPLAIN`关键字模拟优化器来执行 SQL 查询，从而知道 MySQL 是如何处理 SQL 语句的，从而分析出查询语句或者表结构的性能瓶颈
 
@@ -2124,7 +2126,7 @@ select * from user where name like '张%' and age=10
   | impossible where  | where子句的值`总是false`，不能用来获取任何元组               |
   | Using where       | 意味着全表扫描或使用索引查询的情况下，还是有查询条件不在索引中 |
 
-## 如何进行分页查询优化
+### 如何进行分页查询优化
 
 **一般性分页**
 
@@ -2158,7 +2160,7 @@ select id from 表名 limit 10000,1;
 select * from 表名 where id >= (select id from 表名 limit 10000,1) limit 100;
 ```
 
-## 优化慢查询SQL
+### 优化慢查询SQL
 
 **MySQL 慢查询相关参数配置**
 
@@ -2246,7 +2248,7 @@ SQL 性能下降原因主要体现在以下两方面：
 
 9. 合理设计并利用索引
 
-## InnoDB 内存相关参数
+### InnoDB 内存相关参数
 
 **Buffer Pool 参数优化**
 
@@ -2323,7 +2325,7 @@ Innodb_buffer_pool_pages_misc   |4     |   # 已被hash索引的数据页数
 Innodb_buffer_pool_pages_total  |32768 |   # 总共页大小
 ```
 
-## JOIN 优化
+### JOIN 优化
 
 **join的两种算法：BNL 和 NLJ**
 
@@ -2351,7 +2353,7 @@ select * from t1 join t2 on t1.a=t2.a
 - 增大 join buffer size 的大小（一次性缓存的数据越多，那么内层扫描表次数就越少）
 - 减少不必要的字段查询（字段越少，join buffer 所循环的数据就越多）
 
-## 索引失效的情况
+### 索引失效的情况
 
 1. 查询条件包含 `or`，会导致索引失效
 2. `隐式类型转换`，会导致索引失效，例如 age 字段类型为 int，使用 where age='1' ，就会触发隐式类型转换
@@ -2363,13 +2365,13 @@ select * from t1 join t2 on t1.a=t2.a
 8. 相 join 的两张表`字符编码不同`，不能命中索引，会导致笛卡尔积的循环运算（和字符集的包含关系有关？）
 9. mysql 预计使用全表扫描会比使用索引快，则不适用索引
 
-## 覆盖索引
+### 覆盖索引
 
 - 覆盖索引即需要查询到的字段直接可以从索引树上获取到，无需再进行回表（查主键索引树）
 - MySQL 只能使用 B+ Tree 索引作为覆盖索引（因为只有 B+ Tree 能存储索引列值）
 - 在 explain 的 Extra 列，如果出现 `Using index`，则表示使用到了覆盖索引
 
-## MySQL 中事务特性
+### MySQL 中事务特性
 
 在关系型数据库管理系统中，一个逻辑单元要成为事务，必须满足 4 个特性，即 ACID：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）和持久性（Durability）
 
@@ -2400,7 +2402,7 @@ InnoDB存储引擎提供了两种事务日志：
 
 持久性指的是事务一旦提交，它对数据库中数据的改变应该是永久性的，后续的操作故障不应该对其有任何影响
 
-## 数据库锁的种类
+### 数据库锁的种类
 
 **按照数据操作的类型分**
 
@@ -2418,7 +2420,7 @@ InnoDB存储引擎提供了两种事务日志：
 - 乐观锁：一般实现方式是对记录的数据版本进行比对，在更新提交前才会进行冲突检测，如果发现冲突了则提示错误信息
 - 悲观锁：在对一条数据修改的时候，为了避免同时被其他人修改，在修改前先将数据锁定，再进行修改的控制方式。`共享锁和排他锁是悲观锁的不同实现`
 
-## 共享锁和排他锁
+### 共享锁和排他锁
 
 **行级锁分为共享锁和排它锁两种**
 
@@ -2446,7 +2448,7 @@ InnoDB 引擎默认更新语句，`update、delete、insert 都会自动给涉�
 - 共享锁只能兼容共享锁
 - 排它锁互斥共享锁和其他的排它锁
 
-## MVCC
+### MVCC
 
 **概念**
 
@@ -2526,7 +2528,7 @@ Read View 中比较重要的字段有4个
 
   当前读是读取数据库最新的数据，当前读与快照读把不同，因为要读取最新的数据而且保证事务的隔离性，所以当前读是需要对数据进行加锁的（Update、delete、insert、select .. lock in share mode、select ... for update 为当前读）
 
-## MySQL 死锁
+### MySQL 死锁
 
 **表死锁**
 
@@ -2552,11 +2554,11 @@ Read View 中比较重要的字段有4个
 
 解决方案2：在程序中尽量使用相同的顺序来访问索引记录和表
 
-## MySQL架构
+### MySQL架构
 
 ![image-20230625230803063](./images.assets/image-20230625230803063.png)
 
-## MySQL Log 分类
+### MySQL Log 分类
 
 **undo log**
 

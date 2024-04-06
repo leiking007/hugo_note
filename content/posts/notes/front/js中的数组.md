@@ -8,7 +8,9 @@ categories: ["前端"]
 author: "lei"
 ---
 
-# 基本操作
+# js中的数组
+
+## 基本操作
 
 ```js
 let arr=[1,2,3,4,5,6,7,8,9,0]        //定义数组
@@ -28,7 +30,7 @@ arr.splice(1,0,12,13)  //在arr数组第二位元素，删除0个元素，并插
 arr.join(".")
 ```
 
-# 常用方法
+## 常用方法
 
 ```js
 let list = [
@@ -43,7 +45,7 @@ let list = [
         ]
 ```
 
-## sort()
+### sort()
 
 数组排序，sort(compareFunction)；compareFunction排序顺序的函数,该函数应返回负值、零值或正值，具体取决于参数
 
@@ -58,7 +60,7 @@ list.sort((a, b) => {
 })
 ```
 
-## filter()
+### filter()
 
 filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素
 
@@ -79,7 +81,7 @@ list.filter(e=>{
 })
 ```
 
-## map()
+### map()
 
 map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值
 
@@ -94,7 +96,7 @@ listInt.map(e=>{
 })
 ```
 
-## forEach()
+### forEach()
 
 forEach() 方法用于调用数组的每个元素，并将元素传递给回调函数
 
@@ -107,7 +109,7 @@ list.forEach(e=>{
 })
 ```
 
-## find()
+### find()
 
 查找数组中符合条件的元素
 
@@ -129,7 +131,7 @@ list.findIndex(e=>{
 })
 ```
 
-## reduce()
+### reduce()
 
 reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值，聚合函数
 
@@ -147,7 +149,7 @@ array.reduce(function(total, currentValue, currentIndex, arr), initialValue)    
 list.reduce((res,item)=>{return res+item.age},0)
 ```
 
-## 对象数组分组
+### 对象数组分组
 
 ```js
 //对象数组，根据某个属性进行分组

@@ -1,17 +1,16 @@
 ---
-title: "javaSE2"
+title: "JavaSE2"
 date: 2020-06-09
 lastmod: 2020-06-09
 draft: false
-tags: ['javaSE']
+tags: ['JavaSE']
 categories: ["后端"]
 author: "lei"
-
 ---
 
+# JavaSE2
 
-
-# 序言.IDEA使用
+## 序言.IDEA使用
 
 使用：安装--激活--启动--新建空工程--新建module(相当于eclipse中的包)
 
@@ -26,7 +25,7 @@ IDEA退出任何窗口，**esc**
 任何新建/新增，**alt+insert**
 可新建类，创建构造方法，创建get、set，重写等
 
-切换java程序，**alt+左箭头/右箭头**
+切换Java程序，**alt+左箭头/右箭头**
 
 窗口变大变小，**ctrl+shift+f12**
 
@@ -42,11 +41,11 @@ IDEA自动保存，不需要ctrl+s
 
 运行，代码右键run、或者点击左侧箭头
 
-# 面向对象
+## 面向对象
 
-## final
+### final
 
-1. final是java中的关键字
+1. final是Java中的关键字
 2. final仅仅表示最终的 、不可变的
 3. final可以修饰变量、方法、类等
 4. final修饰的类，不能被继承
@@ -104,7 +103,7 @@ public class Person {
 } 
 ```
 
-## 抽象类
+### 抽象类
 
 定义：
 
@@ -118,7 +117,7 @@ public class Person {
 						//类体；
 				}
 
-## 接口
+### 接口
 
 定义：
 
@@ -256,7 +255,7 @@ class Xchushi implements FoodMenu{//西餐厨师,实现接口方法
 
 分析：任何一个接口都有调用者和实现者；接口可以实现调用者与实现者解耦合；调用者面向接口调用；实现者面向接口编写
 
-## 其他
+### 其他
 
 但凡满足：**has a**都采用属性，例如，鸟有一个眼睛；类似于**is a**都可以使用继承
 
@@ -268,40 +267,40 @@ class Xchushi implements FoodMenu{//西餐厨师,实现接口方法
 
 接口：多实现；没有构造方法；完全抽象（使用比较多）
 
-# 包和访问权限
+## 包和访问权限
 
-## package
+### package
 
 **包（package）介绍：**包机制方便程序的管理；不同功能的类放在不同的包下
 
-**包使用：**package	io.leiking.javasestud.chapes01；只能出现在源代码第一行
+**包使用：**package	io.leiking.Javasestud.chapes01；只能出现在源代码第一行
 
 **包命名规范：**公司域名倒序+项目名+模块名+功能名
 
-**运行：**普通编译带有package程序，类名变了，为：io.leiking.javasestud.chapes01.Hellow；**javac  -d  .  Hellow.java**，该命令代表编译指定目录，当前目录，-d带包编译，. 点代表当前目录；运行：java io.leiking.javasestud.Test08；
+**运行：**普通编译带有package程序，类名变了，为：io.leiking.Javasestud.chapes01.Hellow；**Javac  -d  .  Hellow.Java**，该命令代表编译指定目录，当前目录，-d带包编译，. 点代表当前目录；运行：Java io.leiking.Javasestud.Test08；
 
-**import：**同一包下使用类，可以省略包名；不在同一包下，包名不能省略；需要使用importj将需要的类导入：import  io.leiking.javasestud.Test01；import只能在package与class之间；可以采用*****方式引入别的包所有类；java.lang包开了vip，自动导入（包括String、System等类）
+**import：**同一包下使用类，可以省略包名；不在同一包下，包名不能省略；需要使用importj将需要的类导入：import  io.leiking.Javasestud.Test01；import只能在package与class之间；可以采用*****方式引入别的包所有类；Java.lang包开了vip，自动导入（包括String、System等类）
 
 代码实例
 
 ```java
-package io.leiking.javasestud;
-import java.util.*;	//导入java.util包下所有类
+package io.leiking.Javasestud;
+import Java.util.*;	//导入Java.util包下所有类
 /*
-	编译：javac -d . Test08.java
-	运行：java io.leiking.javasestud.Test08
+	编译：Javac -d . Test08.Java
+	运行：Java io.leiking.Javasestud.Test08
 */
 public class Test08
 {
 	public static void main(String[] args) 
 	{
 		Scanner s=new Scanner(System.in);
-		System.out.print(s.next());	//System是java.lang包下的类
+		System.out.print(s.next());	//System是Java.lang包下的类
 	}
 }
 ```
 
-## 访问控制权限
+### 访问控制权限
 
 public：公开（默认）；任何位置都可以访问
 
@@ -313,9 +312,9 @@ private：私有的；只能在本类中访问
 
 public > protected > 默认 > private
 
-# 内部类
+## 内部类
 
-## 简介
+### 简介
 
 在类的内部又定义了一个新的类，被称为内部类
 
@@ -329,7 +328,7 @@ public > protected > 默认 > private
 
 匿名内部类：该类没有名字；不建议使用匿名内部类，不能重复使用（没有名字），看着混乱
 
-## 代码示例
+### 代码示例
 
 匿名内部类
 
@@ -370,38 +369,38 @@ public class Hellow{
 
 
 
-# 数组
+## 数组
 
-## 简介
+### 简介
 
-1. java中数组是一种引用数据类型
+1. Java中数组是一种引用数据类型
 2. 数组是一个容器，不属于基本数据类型，父类是Obiect
 3. 数组中可以存储可以存储基本数据类型，也可以存储引用数据类型
 4. 因为数组是引用数据类型，所以存储在堆中
-5. 数组中存储的是java对象，实际存储的是引用地址
+5. 数组中存储的是Java对象，实际存储的是引用地址
 6. 数组长度定义后，不能改变
 7. 一维数组、二维数组、三维数组
 8. 所有数组对象都有length属性
-9. java中数组要求存储在数组中元素类型必须统一；int型数组只能存储int类型数据
+9. Java中数组要求存储在数组中元素类型必须统一；int型数组只能存储int类型数据
 10. 所有数组都是拿第一个小方块（首元素）的内存地址作为整个数组的内存地址（标识）；数组在内存中存储数据时，内存地址是连续的
 11. 数组中每个元素都是有下标的，从0开始到（length-1）结束
 12. 好处：查找/检索某个下标上元素时，效率最高的一种结构；因为，地址连续，而且存储数据类型一样，只需要简单的运算就能找出，理解：查找下标为100的元素和查找下标为10000的元素效率一样（不是一个一个查找，算出一个内存地址，直接定位）；
 13. 坏处：地址连续，所以随机删除或者增加元素，效率低，因为需要依次处理后续元素；不能存储大数据，因为很难找到一块大内存的连续空间
-14. 数组扩容，先创建一个大容量数组，然后将需要扩容的数组内容一个一个拷贝到大容量数组中，然后释放原数组内存；java中数组扩容效率较低
+14. 数组扩容，先创建一个大容量数组，然后将需要扩容的数组内容一个一个拷贝到大容量数组中，然后释放原数组内存；Java中数组扩容效率较低
 
-## 语法
+### 语法
 
 定义语法：int[]  array1；double[]  array2；
 
 初始化数组：静态初始化，int[]  array={100,200,300}；动态初始化，int[]  array=new  int[6]，初始化6个长度的int类型数组，每个元素默认值0
 
-java.lang.ArrayIndexOutOfBoundsException：下标越界异常
+Java.lang.ArrayIndexOutOfBoundsException：下标越界异常
 
 创建时确定数组存储数据，可以静态初始化；如果不确定，动态初始化的方式分配内存空间
 
-## 数组工具类
+### 数组工具类
 
-java.util.Arrays；工具类方法大多是静态的，直接类名调用
+Java.util.Arrays；工具类方法大多是静态的，直接类名调用
 
 Arrays.sort(arr)；冒泡排序，大的在右，小的在左；直接改变数组arr
 
@@ -421,12 +420,12 @@ binarySearch(参数列表)；二分法查找
 
 
 
-## 代码示例
+### 代码示例
 
 **一维引用数组和数组扩容（复制**）
 
 ```java
-package io.leiking.javasestud.test02;
+package io.leiking.Javasestud.test02;
 
 public class Test02 {
     public static void main(String[] args) {
@@ -474,9 +473,9 @@ class Dog extends Anmial{
 **酒店管理系统**
 
 ```java
-package io.leiking.javasestud.test02;
+package io.leiking.Javasestud.test02;
 
-import java.util.Scanner;
+import Java.util.Scanner;
 
 public class Tets04 {
     public static void main(String[] args) {
@@ -662,9 +661,9 @@ class Room{  //房间类
     }
 ```
 
-# 常用类
+## 常用类
 
-## obiect
+### obiect
 
 根类：
 
@@ -674,7 +673,7 @@ class Room{  //房间类
 4. public String toString()；  //将对象转换为字符串形式；所有类重写，简单明了
 5. protected  void  finalize()；垃圾回收器负责调用方法；对象的遗言；一个时机，对象销毁时机，如果需要对象销毁时执行代码可以写在这；只需要重写，不要调用；System.gc()，该方法建议启动垃圾回收
 
-java中基本数据类型采用**“==”**判断是否相等；java中引用数据类型（对象）采用**equals()**判断是否相等，可查看String类 
+Java中基本数据类型采用**“==”**判断是否相等；Java中引用数据类型（对象）采用**equals()**判断是否相等，可查看String类 
 
 代码实例
 
@@ -727,15 +726,15 @@ class Address{
 }
 ```
 
-## System
+### System
 
 System.out.println();
 
 public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)：指定源数组中的数组从指定位置开始复制到目标数组的指定位置；（源起始位置，下标，目标，目标起始位置，需要拷贝的长度）
 
-## String
+### String
 
-java.lang.String
+Java.lang.String
 
 1. String表示字符串类型，属于引用数据类型；
 2. 所有使用双引号括起来的都是String；且从创建到销毁都不可变
@@ -763,13 +762,13 @@ java.lang.String
 24. String **trim**()；去除字符串前后空白
 25. **valueOf**；String只有这个方法是静态的；将非字符串转化为字符串；为引用时，会调用toString方法
 
-## StringBuffer
+### StringBuffer
 
-java.lang.StringBuffer
+Java.lang.StringBuffer
 
-java.lang.StringBuilder
+Java.lang.StringBuilder
 
-1. java字符串因为是不可变的，每次拼接都会产生新的字符串频繁拼接会很浪费方法区字符串常量池内存;因此频繁拼接使用StringBuffer
+1. Java字符串因为是不可变的，每次拼接都会产生新的字符串频繁拼接会很浪费方法区字符串常量池内存;因此频繁拼接使用StringBuffer
 
 2. new StringBuffer()；创建一个初始容量为16的byte[]数组；；以后字符串拼接调用append（）追加就好；省去了中间字符串在方法区字符串常量池中的内存占用；
 
@@ -778,20 +777,20 @@ java.lang.StringBuilder
 4. **StringBuffer**和**StringBuilder**区别；StringBuffer中方法都有synchronized关键词修饰，代表在多线程环境下是安全的；StringBuilder中所有方法没有synchronized修饰，代表在多线程环境下不安全
 
 
-## 基础类对应的8个包装类
+### 基础类对应的8个包装类
 
 包装类，将8种基本数据类型包装为对象
 
 | 基本数据类型 |      包装类型       |
 | :----------: | :-----------------: |
-|     byte     |   java.lang.Byte    |
-|    short     |   java.lang.Short   |
-|     int      |  java.lang.Integer  |
-|     long     |   java.lang.Long    |
-|    float     |   java.lang.Float   |
-|    double    |  java.lang.Double   |
-|   boolean    |  java.lang.Boolean  |
-|     char     | java.lang.Character |
+|     byte     |   Java.lang.Byte    |
+|    short     |   Java.lang.Short   |
+|     int      |  Java.lang.Integer  |
+|     long     |   Java.lang.Long    |
+|    float     |   Java.lang.Float   |
+|    double    |  Java.lang.Double   |
+|   boolean    |  Java.lang.Boolean  |
+|     char     | Java.lang.Character |
 
 1. Integer a=new Integer(59)；基本数据类型转换为引用数据类型 （装箱）
 
@@ -801,7 +800,7 @@ java.lang.StringBuilder
 
 4. **==**不会触发自动拆箱机制；只有+、-、*、/、=非等会触发自动拆箱
 
-5. java中为了提高效率，将[-128~~127]之间所有数字放在了方法区的“整数常量池中”，所以使用这个区间的数字，不需要new一个对象了；理解：下面代码
+5. Java中为了提高效率，将[-128~~127]之间所有数字放在了方法区的“整数常量池中”，所以使用这个区间的数字，不需要new一个对象了；理解：下面代码
 
    ```java
            Integer a=127;
@@ -816,7 +815,7 @@ java.lang.StringBuilder
 
    ```java
    Integer a=1000;
-           //Integer c=new Integer("中文"); //java.lang.NumberFormatException，数字格式化异常
+           //Integer c=new Integer("中文"); //Java.lang.NumberFormatException，数字格式化异常
            //手动拆箱
            int b=a.intValue();
            //static int parseUnsignedInt(String s),将字符串(整数字符串，否则报错)解析为无符号十进制整数
@@ -840,13 +839,13 @@ java.lang.StringBuilder
            String c2=String.valueOf(c1);
    ```
 
-## java对日期处理
+### Java对日期处理
 
-java.util.Date：日期类
+Java.util.Date：日期类
 
-java.text.SimpleDateFormat：专门格式化日期的类
+Java.text.SimpleDateFormat：专门格式化日期的类
 
-java.util.Calendar：日历
+Java.util.Calendar：日历
 
 1. 生成时间new Date()；格式化时间(new SimpleDateFoamat).format(new Date())；
 2. 获取当前时间戳，System.currentTimeMillis()
@@ -872,15 +871,15 @@ java.util.Calendar：日历
         System.out.println(sdf1.format(time5)); //输出：昨天这时的时间
 ```
 
-## 数字类
+### 数字类
 
-java.text.DecimalFormat；数字格式化
+Java.text.DecimalFormat；数字格式化
 
-java.text.BigDecimal；用于财务软件中数据
+Java.text.BigDecimal；用于财务软件中数据
 
-java.util.Random；随机数类
+Java.util.Random；随机数类
 
-1. DecimalFormat：# 代表数字；，代表千分位；. 代表小数点，返回字符串0代表不够时补0；
+1. DecimalFormat：## 代表数字；，代表千分位；. 代表小数点，返回字符串0代表不够时补0；
 2. new BigDecimal(100)的对象求和使用add()方法
 3. 创建随机数对象；然后调用方法产生随机数；nextInt(100)，表示产生0-100的随机数
 
@@ -895,7 +894,7 @@ java.util.Random；随机数类
         int b=rd.nextInt(100); //生成0-99的随机数，默认是int范围类的
 ```
 
-## 枚举
+### 枚举
 
 1. 枚举是一个引用数据类型；编译后是class文件
 
@@ -914,25 +913,25 @@ java.util.Random；随机数类
 
    
 
-## 其他
+### 其他
 
-API（Application Program Interface）：应用程序编程接口；整个JDK的类库就是一个javase的API；每一个API都会配置一套API帮助文档
+API（Application Program Interface）：应用程序编程接口；整个JDK的类库就是一个Javase的API；每一个API都会配置一套API帮助文档
 
-# 异常
+## 异常
 
-## 简介
+### 简介
 
-异常，java语言完善的异常机制，会将程序发生不正常情况在控制台打印；这种机制可以使程序员找到错误并修改，使程序更加健壮
+异常，Java语言完善的异常机制，会将程序发生不正常情况在控制台打印；这种机制可以使程序员找到错误并修改，使程序更加健壮
 
-## 异常抛出与捕获处理
+### 异常抛出与捕获处理
 
-1. 每一个异常在java中都是以类的形式存在，每一个异常类都可以创建异常对象
+1. 每一个异常在Java中都是以类的形式存在，每一个异常类都可以创建异常对象
 2. 例：int a=7/0; //在这里会new ArithmeticException(/ by zero)异常对象，并抛出
 3. Exception有两个子类，ExceptionSubClass（直接子类）编译时异常，在编写程序阶段预先进行处理，如果不处理，编译器会报错；RuntimeException运行时异常，在编写程序阶段你可以选择不处理
 4. Object-->Throwable(可抛出的)；Throwable-->Erroe(不可处理，直接退出JVM)，Throwable-->Exception(可处理的)；Expecption下有两个分支：1.编译时异常（受控），2.运行时异常（非受控）
 5. 所有异常都是在程序运行时发生的（new 异常对象），编译时异常一般发生概率比较高（生病异常，打伞预处理异常）；运行时异常（被飞机轮子砸到）
 6. 如果所有异常都在编写代码时进行预处理，那么程序绝对安全，但是活得很累
-7. java中对异常处理两种方式：1.在方法声明的位置上，使用**throws**关键字，抛给上一级（谁调用我，就抛给谁）；2.使用**try...catch**语句进行异常处理
+7. Java中对异常处理两种方式：1.在方法声明的位置上，使用**throws**关键字，抛给上一级（谁调用我，就抛给谁）；2.使用**try...catch**语句进行异常处理
 8. 如果异常一直上抛，抛给了JVM，JVM就会终止这个程序；不建议在main()方法不建议上抛，否则异常发生，程序直接报错 
 9. 只要异常没有捕捉，采用上抛的方式，那么该方法的后续代码不会执行
 10. try...catch；catch后面的异常类型可以使用该异常类型的父类型；catch语句可以有多个，且捕捉类型从小到大；JDK8支持在catch后面的异常使用 | 连接多个异常类型，进行处理
@@ -946,7 +945,7 @@ public static void main(String[] args){
         /*
         因为doSome()方法声明位置上有：throws ClassNotFoundException
         我们在调用doSome()方法时，必须对这种异常进行预先处理，否则会报错如下：
-        Unhandled exception: java.lang.ClassNotFoundException
+        Unhandled exception: Java.lang.ClassNotFoundException
         处理异常：
             1.可以在main()处继续上抛（甩锅）
             2.可以使用try...catch进行异常捕获，然后处理（处理，结束异常）
@@ -969,7 +968,7 @@ public static void main(String[] args){
     }
 ```
 
-## finally
+### finally
 
 1. 在finally子句中的代码是最后执行的，并且是一定会执行的，即使try语块的代码出现了异常；除非退出JVM虚拟机，否则finally语句块中内容一定会执行
 2. finally语句必须和try一起出现，不能单独编写
@@ -1022,7 +1021,7 @@ class MyException extends Exception{ //自定义异常
 }
 ```
 
-## 实际中应用
+### 实际中应用
 
 源代码
 
@@ -1055,14 +1054,14 @@ class Mystack{
 
 
 
-## 其他
+### 其他
 
 UML：一种统一建模语言；一种图标式语言（画图的）；为面向对象产品进行说明
 
 1. 在UML图中能描述类与类之间的关系，程序执行的流程，对象的状态等
 2. 一般是系统分析师、软件架构师或者设计师使用
 
-java中语法规则，一旦这么说了，就必须这么做
+Java中语法规则，一旦这么说了，就必须这么做
 
 1. 方法体中代码必须是自上而下顺序依次执行
 
@@ -1078,7 +1077,7 @@ java中语法规则，一旦这么说了，就必须这么做
        private static int m() {
            int i=100;
            try {
-               //返回的i的值是100，虽然return在finally代码块后执行，但是遵守java语法规范
+               //返回的i的值是100，虽然return在finally代码块后执行，但是遵守Java语法规范
                return i;
            }finally {
                i++;
@@ -1088,17 +1087,17 @@ java中语法规则，一旦这么说了，就必须这么做
    //反编译出来后可以看到，他将i变量先复制了出来，然后i++，然后返回的是复制出来的值
    ```
 
-# 集合
+## 集合
 
-java.util.*
+Java.util.*
 
-## 简介
+### 简介
 
 1. 数组其实就是一个集合，集合实际上是一个容器，可以容纳其他类型的数据
-2. 集合不能直接存储基本数据类型，也不能直接存储java对象，集合中存储的是java对象的内存地址（引用，集合在任何时候存储的都是引用）
-3. java中，每个不同的集合，底层会对应不同的数据结构。往不同的集合中存储元素，等于放到了不同的数据结构中。数据存储的结构就是数据结构
-4. java中集合分为两类；所有集合继承Iterable（可迭代的），表示所有集合可迭代
-   1. 一类是单个方式存储元素（超级夫接口：java.util.Collection；）
+2. 集合不能直接存储基本数据类型，也不能直接存储Java对象，集合中存储的是Java对象的内存地址（引用，集合在任何时候存储的都是引用）
+3. Java中，每个不同的集合，底层会对应不同的数据结构。往不同的集合中存储元素，等于放到了不同的数据结构中。数据存储的结构就是数据结构
+4. Java中集合分为两类；所有集合继承Iterable（可迭代的），表示所有集合可迭代
+   1. 一类是单个方式存储元素（超级夫接口：Java.util.Collection；）
       1. List接口：有序的 collection（也称为序列）
          1. ArrayList：采用了数组这种数据结构；初始化容量为10；存储类型为Object类型数组；ArrayList是非线程安全的
          2. Vector：采用了数组这种数据结构；ArrayList是线程安全的；所有方法都有synchronized修饰，但效率较低
@@ -1108,17 +1107,17 @@ java.util.*
          1. HashSet：new HashSet时，底层实际是new了一个HashMap集合；存储数据实际存储在HashMap的key中了（HashMap是一种哈希表数据结构）
          2. SortedSet接口：无序不可重复，该接口实现了元素自动按照大小排序
             1. TreeSet：new TreeSet实际底层new了一个TreeMap集合；往TreeSet中存储数据实际存储在了TreeMap中了（TreeMap底层采用二叉树数据结构）
-   2. 一类是以键值对方式存储元素（超级父接口：java.util.Map；）
-      Map接口：Map集合与Collection集合没有关系；Map集合以key，value这种键值对方式存储元素；key与value存储的都是java对象的内存地址；Map集合元素key是不可重复的
+   2. 一类是以键值对方式存储元素（超级父接口：Java.util.Map；）
+      Map接口：Map集合与Collection集合没有关系；Map集合以key，value这种键值对方式存储元素；key与value存储的都是Java对象的内存地址；Map集合元素key是不可重复的
       1. HashMap：HashMap底层是哈希表数据结构；是非线程安全的
       2. Hashtable：底层也是哈希表数据结构，是线程安全的，现在使用较少
          1. Properties：Properties是线程安全的，因为继承Hashtable；另外Properties存储元素时也采用key与value的形式存储，并且key与value只支持String类型
       3. SortedMap接口：无序不可重复，且实现元素自动排序
          1.TreeMap：TreeMap集合底层的数据结构是二叉树
 
-## java.util.Collection
+### Java.util.Collection
 
-1. 没有使用泛型可以存储Object所有子类型；使用泛型后只能存储某个具体类型（集合中只能存储java对象的内存地址，不能直接存储基本数据类型和对象）
+1. 没有使用泛型可以存储Object所有子类型；使用泛型后只能存储某个具体类型（集合中只能存储Java对象的内存地址，不能直接存储基本数据类型和对象）
 2. boolean add(E e) ；向集合中添加元素 
 3. int size()；获取集合中元素的个数
 4. void clear()  ；清空集合
@@ -1127,7 +1126,7 @@ java.util.*
 7. boolean isEmpty()  ；判断集合是否为空；空返回（true）
 8. Object[] toArray()  ；将集合转换为数组
 9. Iterator<E> iterator()  ；返回一个Iterator（迭代器）
-   Iterator迭代器中有三个方法：boolean hasNext() 如果仍有元素可以迭代，则返回 true； E next() 返回迭代的下一个元素 ；void remove() 删除迭代器当前指向的元素（会自动更新迭代器中的元素）；集合一旦发生改变，迭代器必须重新获取，否则会出现异常（java.util.ConcurrentModificationException）；所以在迭代过程中不能改变集合结构
+   Iterator迭代器中有三个方法：boolean hasNext() 如果仍有元素可以迭代，则返回 true； E next() 返回迭代的下一个元素 ；void remove() 删除迭代器当前指向的元素（会自动更新迭代器中的元素）；集合一旦发生改变，迭代器必须重新获取，否则会出现异常（Java.util.ConcurrentModificationException）；所以在迭代过程中不能改变集合结构
 10. 代码示例
 
 ```java
@@ -1148,7 +1147,7 @@ java.util.*
     }
 ```
 
-## java.util.ArryList
+### Java.util.ArryList
 
 1. 有序可重复；List集合有下标，从0开始，依次递增；可重复；非线程安全；默认容量为10；扩容到为原来的1.5倍；
 2. 检索效率高，**随机**增删效率低（因为底层是数组）
@@ -1160,26 +1159,26 @@ java.util.*
 8. E set(int index, E element)  ：修改指定位置的元素
 9. \>\>1二进制右移一位、\>\>2二进制右移两位；\<\<1二进制左移一位、<<2二进制左移两位
 
-## java.util.LinkedList
+### Java.util.LinkedList
 
 1. 底层是一个双向链表；因此具有链表的特性
 2. 检索效率较低
 3. 随即增删效率较高
 
-## java.util.Vector
+### Java.util.Vector
 
 1. 底层是一个数组；默认容量10；扩容之后是原容量的2倍
 
 2. 所有方法都是线程同步的，线程安全的。但是效率较低，用的少
 
-3. 将非线程安全转换为线程安全，使用一个工具类可以实现java.util.Collections
+3. 将非线程安全转换为线程安全，使用一个工具类可以实现Java.util.Collections
 
    ```java
     ArrayList coll=new ArrayList();
     Collections.synchronizedList(coll); //将ArryList转化为线程安全的，之后coll集合就变成线程安全了
    ```
 
-## java.util.Map
+### Java.util.Map
 
 1. Map与Collection没有继承关系；Map以key和value方式存储数据；键值对key和value都是引用数据类型；key和value都是存储对象的内存地址；key起主导地位，value是key的一个附属品
 
@@ -1235,7 +1234,7 @@ java.util.*
             }
     ```
 
-## java.util.HashMap
+### Java.util.HashMap
 
 1. HashMap集合底层是哈希表/散列表的数据结构；哈希表是一个数组与单项链表的集合体；哈希表将数组与链表数据结构结合，充分发挥其两者优点；哈希表是一个一维数组（容量达到75%时扩容），数组中每个元素是一个单向链表；HashMap的默认容量必须是2的倍数，为了散列均匀；初始化容量16，默认加载因子0.75
 
@@ -1302,13 +1301,13 @@ java.util.*
    }
    ```
 
-## java.util.Hashtable
+### Java.util.Hashtable
 
 1. HashMap的key与value存储时都可以为null，而Hashtable的key与value不能为null，否则会报空指针异常；
 2. Hashtable所有方法带有synchronized修饰，线程安全；
 3. 扩容时原容量2倍加1；
 
-## java.util.Properties
+### Java.util.Properties
 
 1. Properties是一个Map集合，继承Hashtable；Properties的key和value都是String类型；Properties被称作属性对象；是线程安全的
 
@@ -1326,7 +1325,7 @@ java.util.*
    System.out.println(pro.getProperty("34"));//通过key获取键对应的值
    ```
 
-## java.util.TreeSet
+### Java.util.TreeSet
 
 1. TreeSet集合底层实际是一个TreeMap
 
@@ -1399,7 +1398,7 @@ java.util.*
 
    
 
-## 泛型
+### 泛型
 
 1. JDK5后支持泛型机制
 
@@ -1413,7 +1412,7 @@ java.util.*
 
 6. JDK8之后引入了自动类型推断机制（又称钻石表达式）
 
-7. 自定义泛型；java源码中常出现：<E>:element首字母大写
+7. 自定义泛型；Java源码中常出现：<E>:element首字母大写
 
 8. 或者<T>:Type首字母大写
 
@@ -1438,7 +1437,7 @@ java.util.*
            }
    ```
 
-## foreach
+### foreach
 
 1. 增强for循环
 
@@ -1459,15 +1458,15 @@ java.util.*
            }
    ```
 
-# 数据结构
+## 数据结构
 
-## 链表
+### 链表
 
 1. 单项链表，每个元素是一个节点Node，每一个Node包括存储数据（data）、下一个节点的内存地址（next ）
 2. 优点：随机增删元素效率较高（因为不涉及大量元素的位移）
 3. 缺点：查询效率较低，因为每一次查找元素都需要从头节点向下查询 
 
-## 二叉树
+### 二叉树
 
 1. TreeSet/TreeMap是自平衡二叉树，遵循左小右大的原则存放
 2. 二叉树遍历有三种方式：

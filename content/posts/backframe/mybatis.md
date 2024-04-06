@@ -1,5 +1,5 @@
 ---
-title: "mybatis"
+title: "MyBatis"
 date: 2020-03-23
 lastmod: 2020-03-23
 draft: false
@@ -8,17 +8,19 @@ categories: ["框架"]
 author: "lei"
 ---
 
-# 概述
+# MyBatis
 
-## 三层架构
+## 概述
+
+### 三层架构
 
 1. 界面层（springmvc）：和用户打交道，接受用户请求参数，显示处理结果（jsp，html，servlet）
 2. 业务逻辑层（spring）：接受界面层传递数据，计算逻辑，调用数据库，获取数据
-3. 数据访问层（持久层，mybatis）：访问数据库，对数据进行查询、删除、修改
+3. 数据访问层（持久层，MyBatis）：访问数据库，对数据进行查询、删除、修改
 
 用户使用界面层--->业务逻辑层--->数据访问层（持久层）--->数据库
 
-## 框架(Framework)
+### 框架(Framework)
 
 1. 框架是一个模板、软件；定义好了一些可重复使用的基础功能
 2. 规定好了一些条款和内容；可以加入自己的东西
@@ -27,48 +29,48 @@ author: "lei"
    2. 框架是针对某一个领域有效
    3. 框架是一个软件
 
-## JDBC缺陷
+### JDBC缺陷
 
 1. 代码量很多，大量的代码重复，效率较低，业务代码和数据库操作混在一起
 
-## MyBatis简述
+### MyBatis简述
 
-1. mybatis是apache的一个开源项目，是一个开源的持久层框架，用户数据库操作
-2. mybatis是一个sql映射框架，数据访问（DAOs）；可以将数据库一行数据映射为一个java对象
+1. MyBatis是apache的一个开源项目，是一个开源的持久层框架，用户数据库操作
+2. MyBatis是一个sql映射框架，数据访问（DAOs）；可以将数据库一行数据映射为一个java对象
 3. 功能：
    1. 提供了创建Connection、Statement、ResultSet的能力，不需要开发人员创建这些对象
    2. 提供了执行sql语句的能力
    3. 提供了循环sql，吧sql的结果转化为java对象，List集合的能力
    4. 提供了关闭资源的能力，不需要你关闭Connection、Statement、ResultSet
 
-# MyBatis框架快速入门
+## MyBatis框架快速入门
 
-## 下载
+### 下载
 
 1. 在github上面可以直接下载，然后导入项目即可
 
-## 实现步骤
+### 实现步骤
 
 1. 新建student表
 
-2. 导入mybatis包和mysql包
+2. 导入MyBatis包和mysql包
 
 3. 新建实体类Student，对应表中一行数据
 
 4. 创建持久层dao接口，定义操作数据库的方法
 
-5. 创建一个mybatis使用的配置文件
+5. 创建一个MyBatis使用的配置文件
    叫做sql映射文件，一般一个表对应一个映射文件
    这个文件是xml文件
 
    ```xml
    <?xml version="1.0" encoding="UTF-8" ?>
    <!DOCTYPE mapper
-           PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-           "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+           PUBLIC "-//MyBatis.org//DTD Mapper 3.0//EN"
+           "http://MyBatis.org/dtd/MyBatis-3-mapper.dtd">
    <mapper namespace="com.lei.dao.StudentDao">
        <!--
-           id：是你要执行sql语句的唯一标识，mybatis会根据你这个id值来找到你需要执行的sql语句，
+           id：是你要执行sql语句的唯一标识，MyBatis会根据你这个id值来找到你需要执行的sql语句，
            你可以自定义，但要求使用接口中的方法名
            resultType：表示sql语句执行后，返回什么类型，值写的是类型的全限定名称
            -->
@@ -77,10 +79,10 @@ author: "lei"
        </select>
    </mapper>
    <!--
-   1.指定约束文件为mybatis-3-mapper.dtd
+   1.指定约束文件为MyBatis-3-mapper.dtd
        <!DOCTYPE mapper
-           PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-           "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+           PUBLIC "-//MyBatis.org//DTD Mapper 3.0//EN"
+           "http://MyBatis.org/dtd/MyBatis-3-mapper.dtd">
    2.mapper当前文件根标签
        <mapper namespace="test"></mapper>
        namespace叫做命名空间，唯一值的，要求使用dao接口的全限定名称
@@ -96,19 +98,19 @@ author: "lei"
    -->
    ```
 
-6. 创建mybatis主配置文件：
+6. 创建MyBatis主配置文件：
    一个项目就一个主配置文件
    主配置文件提供了数据库连接信息和sql文件映射的位置信息
 
    ```xml
    <?xml version="1.0" encoding="UTF-8" ?>
    <!DOCTYPE configuration
-           PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-           "http://mybatis.org/dtd/mybatis-3-config.dtd">
+           PUBLIC "-//MyBatis.org//DTD Config 3.0//EN"
+           "http://MyBatis.org/dtd/MyBatis-3-config.dtd">
    <configuration>
-       <!--mybatis设置，控制其全局行为-->
+       <!--MyBatis设置，控制其全局行为-->
        <settings>
-   		<!--设置mybatis输出日志-->
+   		<!--设置MyBatis输出日志-->
            <setting name="logImpl" value="STDOUT_LOGGING"/>
        </settings>
        <!-- 和spring整合后 environments配置将废除-->
@@ -116,7 +118,7 @@ author: "lei"
            <environment id="development">
                <!-- type="JDBC" 代表使用JDBC的提交和回滚来管理事务 -->
                <transactionManager type="JDBC" />
-               <!-- mybatis提供了3种数据源类型，分别是：POOLED,UNPOOLED,JNDI -->
+               <!-- MyBatis提供了3种数据源类型，分别是：POOLED,UNPOOLED,JNDI -->
                <!-- POOLED 表示支持JDBC数据源连接池 -->
                <!-- UNPOOLED 表示不支持数据源连接池 -->
                <!-- JNDI 表示支持外部数据源连接池 -->
@@ -134,7 +136,7 @@ author: "lei"
        </mappers>
    </configuration>
    <!--
-       mybatis的主配置文件，定义了数据库配置以及sql映射文件配置
+       MyBatis的主配置文件，定义了数据库配置以及sql映射文件配置
        <configuration>
              <environment>
                    环境配置
@@ -147,12 +149,12 @@ author: "lei"
    -->
    ```
 
-7. 创建使用的mybatis类
-   通过mybatis访问数据库
+7. 创建使用的MyBatis类
+   通过MyBatis访问数据库
 
    ```java
    public static void main(String[] args) throws IOException {
-       String resource = "mybatis-config.xml";
+       String resource = "MyBatis-config.xml";
        // 通过流将核心配置文件读取进来
        InputStream inputStream = null;
        inputStream = Resources.getResourceAsStream(resource);
@@ -171,7 +173,7 @@ author: "lei"
    }
    ```
 
-## 插入操作
+### 插入操作
 
 StudentDao.xml
 
@@ -192,27 +194,27 @@ try {
     e.printStackTrace();
 }finally {
     if (session!=null){
-        session.commit();//mybatis默认不自动提交事务
+        session.commit();//MyBatis默认不自动提交事务
         session.close();
     }
 }
 ```
 
-# 使用 SqlSession
+## 使用 SqlSession
 
 在 MyBatis 中，你可以使用 `SqlSessionFactory` 来创建 `SqlSession`。 一旦你获得一个 session 之后，你可以使用它来执行映射了的语句，提交或回滚连接，最后，当不再需要它的时候，你可以关闭 session。 使用 MyBatis-Spring 之后，你不再需要直接使用 `SqlSessionFactory` 了，因为你的 bean 可以被注入一个线程安全的 `SqlSession`，它能基于 Spring 的事务配置来自动提交、回滚、关闭 session
 
-## SqlSessionTemplate
+### SqlSessionTemplate
 
 当调用 SQL 方法时（包括由 `getMapper()` 方法返回的映射器中的方法），`SqlSessionTemplate` 将会保证使用的 `SqlSession` 与当前 Spring 的事务相关
 
-# MyBatis框架Dao代理
+## MyBatis框架Dao代理
 
-## 主要类的介绍
+### 主要类的介绍
 
-1. **Resources**：mybatis中的一个类，负责读取配置文件
+1. **Resources**：MyBatis中的一个类，负责读取配置文件
 
-   InputStream in=Resources.getResourceAsStream("mybatis.xml")
+   InputStream in=Resources.getResourceAsStream("MyBatis.xml")
 
    
 
@@ -238,13 +240,13 @@ try {
 
    使用要求：SqlSession对象不是线程安全的，需要在方法内部使用，在执行sql语句之前，先获取SqlSession对象，执行完后关闭SqlSession它，这样可以保证线程安全
 
-## mybatis工具类的创建
+### MyBatis工具类的创建
 
 ```java
 public class MybatisUtil {
     private static SqlSessionFactory factory=null;
     static {
-        String resource = "mybatis-config.xml";
+        String resource = "MyBatis-config.xml";
         // 通过流将核心配置文件读取进来
         InputStream inputStream = null;
         try {
@@ -283,20 +285,20 @@ public class MybatisUtil {
 }
 ```
 
-## MyBatis动态代理
+### MyBatis动态代理
 
 1. 因为mapper的命名空间与dao接口的全限定名称对应、同时相关sql语句id与dao接口中的方法对应，
 
    以上两中对应是一种规定，命名时注意；根据返回值类型，调用对应的方法，如果是List，调用sqlSession.selectList()方法；如果返回值是int，则查看mapper文件中的标签，从而执行对应的方法，
 
-2. mybatis根据dao方法调用，获取执行sql语句信息；mybatis根据你得dao接口，创建出一个dao接口实现类，并创建这个类的对象；完成SqlSession调用方法去访问数据库
+2. MyBatis根据dao方法调用，获取执行sql语句信息；MyBatis根据你得dao接口，创建出一个dao接口实现类，并创建这个类的对象；完成SqlSession调用方法去访问数据库
 
 3. 不要使用重载方法，因为sql语句id根据方法名命名
 
 ```java
 /**
-* 通过mybatis的动态代理，sqlSession.getMapper(StudentDao.class)
-* mybatis能通过上述代码，取得StudentDao接口的实例对象（像创建实现类，再创建接口）
+* 通过MyBatis的动态代理，sqlSession.getMapper(StudentDao.class)
+* MyBatis能通过上述代码，取得StudentDao接口的实例对象（像创建实现类，再创建接口）
 * 执行查询操作，注意mapper中的namespace与sql语句id  对应  Dao接口的全限定名称和方法名
 */
 public static void selectStud(){
@@ -317,15 +319,15 @@ public static void insertStud(){
 }
 ```
 
-## Mybatis传参
+### Mybatis传参
 
 1. **parameterType**：写在mapper文件中的一个属性，表示dao接口中方法的参数的数据类型；
-   parameterType 是dao接口中方法参数的数据类型，它的值是java数据类型的全限定名称或者mybatis定义的别名(mybatis文档可以看到，都是数据类型的小写)；
-   这个值可以没有，不是强制的，mybatis通过反射机制能够发现接口参数的数据类型
+   parameterType 是dao接口中方法参数的数据类型，它的值是java数据类型的全限定名称或者MyBatis定义的别名(MyBatis文档可以看到，都是数据类型的小写)；
+   这个值可以没有，不是强制的，MyBatis通过反射机制能够发现接口参数的数据类型
 
-2. 简单类型参数：mybatis把java的基本数据类型和string都看作简单类型
+2. 简单类型参数：MyBatis把java的基本数据类型和string都看作简单类型
    在mapper中获取一个简单类型参数的值，使用**#{任意字符}**
-   mybatis：创建JDBC连接对象-->PrepareStatement对象(预编译)-->设置sql语句中占位符值，并执行sql-->将查询结果封装返回
+   MyBatis：创建JDBC连接对象-->PrepareStatement对象(预编译)-->设置sql语句中占位符值，并执行sql-->将查询结果封装返回
 
 3. 多个参数，使用**@Param**命名参数（推荐使用）
 
@@ -347,7 +349,7 @@ public static void insertStud(){
 
    ​	javaType：指java类型中属性的数据类型
 
-   ​	jdbcType：指在数据库中的数据类型(mybatis文档可查)
+   ​	jdbcType：指在数据库中的数据类型(MyBatis文档可查)
 
    ​	例如：#{paramName,javaType=java.lang.String,jdbcType=VARCHAR}
 
@@ -372,28 +374,28 @@ public static void insertStud(){
    </select>
    ```
 
-5. 多个参数，按位置顺序传参（了解）；mybatis3.4版本后#{arg0},#{arg1}等，获取参数
+5. 多个参数，按位置顺序传参（了解）；MyBatis3.4版本后#{arg0},#{arg1}等，获取参数
 
 6. map传参，通过key获取value值（了解）；#{key1},#{key2}
 
-## #和$的区别
+### #和$的区别
 
    #：可以防止sql注入，占位符，使用预编译对象PrepareStatement执行sql，安全
    $：字符串的连接与替换，直接拼接到sql语句中，使用对象Statement执行sql，可以被sql注入，效率低
 
-## 封装mybatis输出结果
+### 封装MyBatis输出结果
 
-1. mybatis执行sql语句，得到java对象
+1. MyBatis执行sql语句，得到java对象
 
 2. resultType结果类型，指sql语句执行结束后，数据转化为java对象，这个java类型是任意的
 
-   1. mybatis执行sql语句，然后mybatis调用类的无参构造，创建对象
-   2. mybatis把resultSet指定列的值赋值给对象同名属性
-   3. resultType值有两种：mybatis规定的别名、全限定名称
+   1. MyBatis执行sql语句，然后MyBatis调用类的无参构造，创建对象
+   2. MyBatis把resultSet指定列的值赋值给对象同名属性
+   3. resultType值有两种：MyBatis规定的别名、全限定名称
 
 3. 定义resultType 自定义类型的别名
 
-   1. 在mybatis的主配置文件中，\<configuration\>标签下定义，使用时直接给resultType值就行
+   1. 在MyBatis的主配置文件中，\<configuration\>标签下定义，使用时直接给resultType值就行
 
    ```xml
    <!--方式1：type是全限定名称，alias是定义的别名-->
@@ -437,7 +439,7 @@ public static void insertStud(){
        <result colum="列名" property="属性名"/>
    </resultMap>
    
-   <!--引用resultMap,此时mybatis根据mapper对应映射关系-->
+   <!--引用resultMap,此时MyBatis根据mapper对应映射关系-->
    <select id="selectId" restypeMap="map1">
    	select * from t_student
    </select>
@@ -448,7 +450,7 @@ public static void insertStud(){
    1. resultType默认原则，同名的列值赋给同名的属性
    2. 可以使用别名方式查询，别名应该是java类型的属性名
 
-## like模糊查询
+### like模糊查询
 
 1. 方式一：在java代码中指定like的内容，推荐
 
@@ -472,22 +474,22 @@ public static void insertStud(){
    </select>
    ```
 
-## 多表联查
+### 多表联查
 
 domain不能代表返回值，解决方案：map 或者 vo
 
 1. 可以使用map返回值类型，sql语句中可以取别名
 2. 可以使用vo，作为多表联查返回值类型；需要创建出一个类，类中属性由我们自己定义，属性会包含所需要展示的信息
 
-# MyBatis框架动态SQL
+## MyBatis框架动态SQL
 
-## 简介
+### 简介
 
 1. 动态sql，指的是sql语句是变化的，可以根据条件获取不同的sql语句
-2. 动态sql语句的实现，使用的是mybatis提供的标签 \<if\>,\<where\>,\<foreach\>
+2. 动态sql语句的实现，使用的是MyBatis提供的标签 \<if\>,\<where\>,\<foreach\>
 3. 动态sql必须使用java对象作为参数
 
-## \<if\>标签
+### \<if\>标签
 
 1. \<if\>是判断条件的，语法如下
 
@@ -511,7 +513,7 @@ domain不能代表返回值，解决方案：map 或者 vo
    </select>
    ```
 
-## \<where\>标签
+### \<where\>标签
 
 1. \<where\>用来包含多个\<if\>的，当多个if有一个成立，\<where\>标签会自动增加一个where关键字，并去掉最后sql中多余的or，and 防止语法错误
 
@@ -534,7 +536,7 @@ domain不能代表返回值，解决方案：map 或者 vo
 
 
 
-## \<foreach\>标签
+### \<foreach\>标签
 
 1. 循环标签，用户循环java中数组、List集合的。主要用于sql的in语句中
 
@@ -577,15 +579,15 @@ domain不能代表返回值，解决方案：map 或者 vo
 
 
 
-## 动态sql的代码片段
+### 动态sql的代码片段
 
 1. 复用sql语句
 2. 首先使用\<sql id="唯一id"\>标签定义一个代码片段
 3. 然后使用\<include refid="自定义片段的id " \>标签引用代码片段
 
-# 配置文件介绍
+## 配置文件介绍
 
-## 属性配置文件
+### 属性配置文件
 
 1. 在根目录下定义一个属性配置文件，xxx.properties，例如：jdbc.properties
 
@@ -598,7 +600,7 @@ domain不能代表返回值，解决方案：map 或者 vo
 
 2. 在mybaties主配置文件中，使用\<properties\>标签指定文件位置；然后在需要使用值的地方：${key}
 
-## 引入mapper文件
+### 引入mapper文件
 
 1. 方式一：mapper
 
@@ -614,26 +616,26 @@ domain不能代表返回值，解决方案：map 或者 vo
    ```xml
     <mappers>
         <!--
-   	这个包中所有xml文件可以一次加载给mybatis
+   	这个包中所有xml文件可以一次加载给MyBatis
    	要求：dao接口与mapper文件名一样且在同一目录
    	-->
         <package resource="包名"/>
    </mappers>
    ```
 
-## 主配置文件
+### 主配置文件
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+        PUBLIC "-//MyBatis.org//DTD Config 3.0//EN"
+        "http://MyBatis.org/dtd/MyBatis-3-config.dtd">
 <configuration>
     <!--    属性配置文件位置-->
     <properties resource="jdbc.properties"></properties>
 
     <!--    
-		mybatis设置，控制其全局行为，与数据库交互环境（二级缓存，加载策略...）
+		MyBatis设置，控制其全局行为，与数据库交互环境（二级缓存，加载策略...）
 		对于海量级别数据，如何提高查询效率
 		基础操作：
 			对于常用查询字段，设置索引（加目录）
@@ -643,7 +645,7 @@ domain不能代表返回值，解决方案：map 或者 vo
 			针对于电商行业，搜索引擎（Elasticsearch和Solr）
 	-->
     <settings>
-        <!--        设置mybatis输出日志-->
+        <!--        设置MyBatis输出日志-->
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
 	
@@ -654,7 +656,7 @@ domain不能代表返回值，解决方案：map 或者 vo
 				<typeAlias type="com.lei.domain.Student" alias="Student"/>
 				type：指定为那个domain起别名
 				alias：别名名字
-			方式2：使用package标签，批量起别名，别名是mybatis默认取好的，命名不由我们自己决定
+			方式2：使用package标签，批量起别名，别名是MyBatis默认取好的，命名不由我们自己决定
 				<package name="com,lei,domain" />
 				name：表示在该包下，所有domain自动起好了别名，别名就是类名
 		-->
@@ -672,7 +674,7 @@ domain不能代表返回值，解决方案：map 或者 vo
             <transactionManager type="JDBC" />
             <!--
 				dataSource：表示数据源，在java体系中，规定实现javax.sql.DataSource接口的都是数据源
-				mybatis提供了3种数据源类型，分别是：POOLED,UNPOOLED,JNDI
+				MyBatis提供了3种数据源类型，分别是：POOLED,UNPOOLED,JNDI
             		POOLED 表示支持JDBC数据源连接池
           			UNPOOLED 表示不支持数据源连接池；每次执行sql，都会先创建链接，执行sql，关闭连接
            			JNDI 表示支持外部数据源连接池，java命名和目录（类似windows注册表）
@@ -701,7 +703,7 @@ domain不能代表返回值，解决方案：map 或者 vo
     </mappers>
 </configuration>
         <!--
-            mybatis的主配置文件，定义了数据库配置以及sql映射文件配置
+            MyBatis的主配置文件，定义了数据库配置以及sql映射文件配置
             <configuration>
                   <environment>
                         环境配置
@@ -715,13 +717,13 @@ domain不能代表返回值，解决方案：map 或者 vo
 
 ```
 
-## mapper映射文件
+### mapper映射文件
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//MyBatis.org//DTD Mapper 3.0//EN"
+        "http://MyBatis.org/dtd/MyBatis-3-mapper.dtd">
 <mapper namespace="com.lei.dao.OrderDao">
     <!--
     paramterType
@@ -733,7 +735,7 @@ domain不能代表返回值，解决方案：map 或者 vo
                 #{} 中必须为对象的属性
             3.传递map
                 #{} 中必须为map的key
-        parameterType 一般不写，mybatis会自动识别
+        parameterType 一般不写，MyBatis会自动识别
     -->
     <!--
         #{}：占位符，可以防止sql注入
@@ -787,7 +789,7 @@ domain不能代表返回值，解决方案：map 或者 vo
 
 
 
-# 插件
+## 插件
 
 MyBatis允许用户在已映射语句执行过程中的某一点进行拦截调用。MyBatis使用插件来拦截的方法调用，故此MyBatis插件通常称为：Mybatis拦截器。默认情况下，MyBatis允许使用插件来拦截的对象包括下面的四个：
 
@@ -805,7 +807,7 @@ StatementHandler：拦截Sql语法构建的处理。
   - method：对应接口中的哪类方法（因为可能存在重载方法）
   -  args：对应哪一个方法的入参
 
-## 相关注解介绍
+### 相关注解介绍
 
 1. 类上使用注解`@Intercepts`，定义拦截信息，只有符合条件的才会进入拦截，参数为拦截点
 
@@ -861,7 +863,7 @@ StatementHandler：拦截Sql语法构建的处理。
 })
 ```
 
-## 拦截器实例
+### 拦截器实例
 
 > 编写拦截器实现sql语句打印，以及执行时间打印
 
@@ -969,11 +971,11 @@ StatementHandler：拦截Sql语法构建的处理。
    }
    ```
 
-2. 注册该插件(拦截器)到mybatis的拦截器链中
+2. 注册该插件(拦截器)到MyBatis的拦截器链中
 
    ```java
    @Bean
-   public MybatisInterceptor mybatisInterceptor(SqlSessionFactory sqlSessionFactory) {
+   public MybatisInterceptor MyBatisInterceptor(SqlSessionFactory sqlSessionFactory) {
        MybatisInterceptor plugin2=new MybatisInterceptor();
        sqlSessionFactory.getConfiguration().addInterceptor(plugin2);
        return plugin2;
@@ -992,15 +994,15 @@ StatementHandler：拦截Sql语法构建的处理。
 
 
 
-# 扩展
+## 扩展
 
-## PageHelper
+### PageHelper
 
 1. PageHelper用来做数据分页的
 
 2. 在 [分页插件的下载地址](https://github.com/pagehelper/Mybatis-PageHelper)
 
-3. 在mybatis主配置文件中配置插件
+3. 在MyBatis主配置文件中配置插件
 
    ```xml
        <!--    插件配置,在<environments> 标签上面-->
@@ -1025,9 +1027,9 @@ StatementHandler：拦截Sql语法构建的处理。
    ```
 
 
-## 工具类
+### 工具类
 
-1. mybatis封装
+1. MyBatis封装
 
    ```java
    public class SqlSessionUtil {
@@ -1035,7 +1037,7 @@ StatementHandler：拦截Sql语法构建的处理。
        //静态代码块，只执行一次，类被加载时
        static {
            try {
-               InputStream inputStream= Resources.getResourceAsStream("mybatis-config.xml");
+               InputStream inputStream= Resources.getResourceAsStream("MyBatis-config.xml");
                sessionFactory=new SqlSessionFactoryBuilder().build(inputStream);
            } catch (IOException e) {
                e.printStackTrace();
@@ -1115,7 +1117,7 @@ StatementHandler：拦截Sql语法构建的处理。
    ```
 
 
-## manev配置
+### manev配置
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1157,8 +1159,8 @@ StatementHandler：拦截Sql语法构建的处理。
       <version>2.2</version>
     </dependency>
     <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis</artifactId>
+      <groupId>org.MyBatis</groupId>
+      <artifactId>MyBatis</artifactId>
       <version>3.5.5</version>
     </dependency>
     <dependency>

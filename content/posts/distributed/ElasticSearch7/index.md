@@ -8,13 +8,15 @@ categories: ["后端"]
 author: "lei"
 ---
 
-# 一些概念
+# ElasticSearch7
 
-## Elastic Stack核心
+## 一些概念
+
+### Elastic Stack核心
 
 The Elastic Stack 包括 Elasticsearch、Kibana、Beats 和 Logstash（也称为 ELK Stack）。Elasticsearch 简称 ES，ES 是一个`开源的高扩展的分布式全文搜索引擎`，是整个 Elastic Stack 技术栈的核心。它可以近乎实时的存储、检索数据。本身扩展性很好。可以扩展到上百台服务器，处理 PB 级别的数据。
 
-## 核心定义
+### 核心定义
 
 Elasticsearch 是面向文档型数据库，一条数据就是一个文档。
 
@@ -22,14 +24,14 @@ Elasticsearch 是面向文档型数据库，一条数据就是一个文档。
 
 ES 6.0之前 Index 可以看作是一个库，而 Types 相当于表，Documents 则相当于表的行。`不过 Types 的概念已经逐渐弱化，在 ES6.X 中，一个 Index 下已经只能包含一个 Type，在 ES7.X 中，Type的概念已经被移除了`
 
-## RESTful
+### RESTful
 
 - GET：非幂等性
 - POST：非幂等性
 - PUT：幂等性
 - DELETE：幂等性
 
-## 数据分类
+### 数据分类
 
 **数据大致可分为两类**
 
@@ -45,7 +47,7 @@ ES 6.0之前 Index 可以看作是一个库，而 Types 相当于表，Documents
   1. 顺序扫描：通过文字名称也可了解到它的大概搜索方式，即按照顺序扫描的方式查询特定的关键字
   2. 全文检索：将非结构化数据中的一部分信息提取出来，重新组织，使其变得有一定结构，然后对此有一定结构的数据进行搜索
 
-## 倒排索引
+### 倒排索引
 
 - 正排索引：以 id 为索引检索数据内容
 - 倒排索引：以数据内容为索引，检索 id
@@ -64,11 +66,11 @@ ES 6.0之前 Index 可以看作是一个库，而 Types 相当于表，Documents
 
 ![image-20231118213048766](./images.assets/image-20231118213048766.png)
 
-# ES 基本使用
+## ES 基本使用
 
 请求路径省略`127.0.0.1:9200`
 
-## 安装
+### 安装
 
 1. 从官网下载 [Elasticsearch：官方分布式搜索和分析引擎 | Elastic](https://www.elastic.co/cn/elasticsearch/)
 
@@ -93,7 +95,7 @@ ES 6.0之前 Index 可以看作是一个库，而 Types 相当于表，Documents
 
    ![image-20231118140005297](./images.assets/image-20231118140005297.png)
 
-## 基础操作
+### 基础操作
 
 1. 创建索引 shopping：`PUT /shopping`
 
@@ -138,7 +140,7 @@ ES 6.0之前 Index 可以看作是一个库，而 Types 相当于表，Documents
 
 8. 删除文档：`DELETE /shopping/_doc/1001`
 
-## 复杂查询
+### 复杂查询
 
 **查询、分页、过滤字段、排序**
 
@@ -250,7 +252,7 @@ ES 6.0之前 Index 可以看作是一个库，而 Types 相当于表，Documents
 
 根据 price 分组查询数量，返回数据字段名为 price_group
 
-## 映射关系
+### 映射关系
 
 `mapping` 是用于定义 ES 对索引中字段的存储类型、分词方式和是否存储等信息，就像数据库中的 Schema ，描述了文档可能具有的字段或属性、每个字段的数据类型。ES 对于字段类型可以不指定然后动态对字段类型猜测，也可以在创建索引时具体指定字段的类型。
 
@@ -303,9 +305,9 @@ ES 6.0之前 Index 可以看作是一个库，而 Types 相当于表，Documents
 > - **支持模糊查询，支持准确查询。**
 > - **支持聚合查询。**
 
-# 常用 ES Java API
+## 常用 ES Java API
 
-## 索引操作
+### 索引操作
 
 ```java
 public class CH04ESTestOne {
@@ -366,7 +368,7 @@ public class CH04ESTestOne {
 }
 ```
 
-## 文档操作
+### 文档操作
 
 ```java
 public class CH04ESTestOne {
@@ -453,7 +455,7 @@ public class CH04ESTestOne {
 }
 ```
 
-## 文档查询
+### 文档查询
 
 ```java
 public class CH04ESTestOne {
@@ -620,12 +622,12 @@ public class CH04ESTestOne {
 
 ```
 
-# 利用 docker 搭建 ES 集群
+## 利用 docker 搭建 ES 集群
 
 1. 修改系统配置 ，进入文件`/etc/sysctl.conf`，添加以下内容
 
    ```ini
-   # 系统虚拟内存默认最大映射数为65530，无法满足ES系统要求，需要调整为262144以上
+   ## 系统虚拟内存默认最大映射数为65530，无法满足ES系统要求，需要调整为262144以上
    vm.max_map_count = 262144
    ```
 
@@ -645,8 +647,8 @@ public class CH04ESTestOne {
 
    ```ascii
    es
-   ├── node1		# 节点1
-   │   ├── config		# 配置文件存放目录
+   ├── node1		## 节点1
+   │   ├── config		## 配置文件存放目录
    │   └── data		#数据存放目录
    │       └── nodes
    └── node2
@@ -670,15 +672,15 @@ public class CH04ESTestOne {
 5. 先启动一个 ES 容器，将配置文件结构拷贝出来
 
    ```bash
-   # 启动 es 
+   ## 启动 es 
    docker run -d --name elasticsearch --net mynet -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.17.7
    
-   # 将 es 容器中的 /usr/share/elasticsearch/config 拷贝到 es/node1/下
-   # docker cp 容器id:容器文件路径 主机路径，将容器中文件拷贝到主机
+   ## 将 es 容器中的 /usr/share/elasticsearch/config 拷贝到 es/node1/下
+   ## docker cp 容器id:容器文件路径 主机路径，将容器中文件拷贝到主机
    docker cp 97a4205f7844:/usr/share/elasticsearch/config es/node1/
    docker cp 97a4205f7844:/usr/share/elasticsearch/config es/node2/
    
-   # 删除 es 容器
+   ## 删除 es 容器
    docker rm -f elasticsearch
    ```
 
@@ -687,15 +689,15 @@ public class CH04ESTestOne {
    es/node1/config/elasticsearch.yml
 
    ```yaml
-   # 集群名称
+   ## 集群名称
    cluster.name: "docker-cluster"
-   # 允许链接地址
+   ## 允许链接地址
    network.host: 0.0.0.0
-   # 当前节点名称
+   ## 当前节点名称
    node.name: es1
-   # 初始化的主节点
+   ## 初始化的主节点
    cluster.initial_master_nodes: ["es1"]
-   # 集群节点的 host
+   ## 集群节点的 host
    discovery.seed_hosts: ["192.168.77.101", "192.168.77.102"]
    #跨域
    http.cors.enabled: true
@@ -717,14 +719,14 @@ public class CH04ESTestOne {
 7. 创建并启动容器 es1、es2
 
    ```bash
-   # --name 容器名称
-   # --net mynet 指定容器网络
-   # -d 后台运行
-   # -v 卷挂载  宿主机:容器
-   # --ip 指定容器 ip 地址
-   # --privileged=true 容器中 root 拥有真正的 root 权限
+   ## --name 容器名称
+   ## --net mynet 指定容器网络
+   ## -d 后台运行
+   ## -v 卷挂载  宿主机:容器
+   ## --ip 指定容器 ip 地址
+   ## --privileged=true 容器中 root 拥有真正的 root 权限
    
-   # es1 创建并启动
+   ## es1 创建并启动
    docker run -d --name es1 
    --net mynet 
    -p 15101:9200 -p 15111:9300 

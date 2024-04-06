@@ -1,5 +1,5 @@
 ---
-title: "redis"
+title: "Redis"
 date: 2020-11-12
 lastmod: 2020-11-12
 draft: false
@@ -8,9 +8,11 @@ categories: ["后端"]
 author: "lei"
 ---
 
-# 起步
+# Redis
 
-## 简介
+## 起步
+
+### 简介
 
 - redis是一种数据库。能够存储数据，管理数据的一种软件
 - redis基于C开发，开源；基于内存运行，效率高，可支持持久化
@@ -28,13 +30,13 @@ author: "lei"
   - 关系型数据库：mysql、oracle、DB2、sqlserver
   - 非关系型数据库：彻底改变底层存储机制。聚合数据结构存储数据，不再使用表进行存储；redies、mongoDB、HBase...
 
-## redis特点
+### redis特点
 
 - 支持数据持久化
 - 支持多种数据结构
 - 支持数据备份
 
-## redis安装
+### redis安装
 
 1. 官网下载redis的tar压缩包，并解压
 2. 进入redis目录进行编译
@@ -48,11 +50,11 @@ author: "lei"
    - 通过kill命令，强制杀死，ps -ed|grep redis、kill -9 pid
    - `redis-cli shutdown`，通过redis命令进行关闭
 
-# 3种常用的缓存读写策略
+## 3种常用的缓存读写策略
 
 **这3 种缓存读写策略各有优劣，不存在最佳，需要根据具体的业务场景选择更适合的。**
 
-## 旁路缓存模式
+### 旁路缓存模式
 
 **旁路缓存模式(Cache Aside Pattern) 是我们平时使用比较多的一个缓存读写模式，比较适合读请求比较多的场景**
 
@@ -77,17 +79,17 @@ Cache Aside Pattern 中服务端需要`同时维系 DB 和 cache`，并且是以
 
 **在写数据的过程中，先更新DB，后删除cache就没有问题了么？**
 
-## 读写穿透
+### 读写穿透
 
 
 
-## 异步缓存写入
+### 异步缓存写入
 
 
 
-# redis命令
+## redis命令
 
-## redis客户端
+### redis客户端
 
 - 用于链接redis服务，相redis服务端发送命令，并显示redis服务处理结果
 - redis-cli：redis安装好后自带的客户端 ，`redis-cli`启动自带客户端，自动链接redis服务器，不需要密码
@@ -97,7 +99,7 @@ Cache Aside Pattern 中服务端需要`同时维系 DB 和 cache`，并且是以
 - `exit/quit:`退出客户端
 - 第三方redis客户端连接工具：redis-desktop-manager.exe
 
-## 基本概念
+### 基本概念
 
 - `redis-benchmark`：测试redis服务的性能
 - `ping `：查看redis服务是否正常运行，在redis客户端发送信息到服务端
@@ -117,7 +119,7 @@ Cache Aside Pattern 中服务端需要`同时维系 DB 和 cache`，并且是以
 - `flushall`：清空所有数据库实例
 - `config get *`：查看redis中所有的配置信息
 
-## redis数据结构
+### redis数据结构
 
 redis支持五种数据结构
 
@@ -129,7 +131,7 @@ redis支持五种数据结构
 - zset有序集合：单key-多value，value有序；hash和跳跃表实现；通过一个参考值排序
 - hash哈希：单key-对象（属性：值）；适合存储对象
 
-## key操作
+### key操作
 
 - `keys pattern`：查询与通配符匹配的key；* 匹配0个或多个任意字符、？ 匹配一个字符、[]  匹配[]中的任意一个字符
 - `exists [k1]`：判断key是否存在；exists k1 k2 ... 判断多个key是否存在
@@ -141,7 +143,7 @@ redis支持五种数据结构
 - `del k1`：删除key（包括值）；可删除多个key，空号隔开。返回值为实际删除key的数量
 - `flushall`：清空当前表
 
-## 字符串操作
+### 字符串操作
 
 - `set 键 值`：存入string数据到redis数据库；如果key已存在，会覆盖之前的数据；set k1 value1
 - `get 键`：通过键获取string值；get k1
@@ -159,7 +161,7 @@ redis支持五种数据结构
 - `mget k1 k2 ...`：批量从redis获取string类型数据
 - `msetnx k1 v1 k2 v2 ...`：所有key不存在时设置成功，否则全部放弃设置
 
-## list操作
+### list操作
 
 - 设置值
   - `rpush k1 v1 [v1 v2]`：在链表尾插入数据
@@ -176,7 +178,7 @@ redis支持五种数据结构
   - `blpop key [key ...] timeout`：从列表头移除一个元素，返回值为被移除元素，timeout表示没有元素时等待时间
   - `lrem key count element`：移除指定value的元素，count指定移除多少个（可能有多个相同的数据）；count>0 从左侧移除指定个、count<0 从右侧移除指定个、count=0 删除列表所有与value相等的值
 
-## set操作
+### set操作
 
 - 设置
   - `sadd key member [member ...]`：向集合添加元素，无序不重复，通过hash插入，元素重复忽略
@@ -193,7 +195,7 @@ redis支持五种数据结构
   - `spop key [count]`：随机移除指定集合中一个或多个元素
   - `smove source destination member`：移除集合中指定元素到另一个集合
 
-## zset操作
+### zset操作
 
 - 设置
   - zset的每一个元素都会关联一个分数，分数可以重复，元素不能重复；zset根据分数对集合中元素排序
@@ -209,7 +211,7 @@ redis支持五种数据结构
 - 删除
   - `zrem key member [member ...]`：移除zset中指定的元素
 
-## hash操作
+### hash操作
 
 - 设置
   - `hset key field value [field value ...]`：设置hash表，如果字段已存在会覆盖原本value
@@ -228,9 +230,9 @@ redis支持五种数据结构
 - 删除
   - `hdel key field [field ...]`：从指定hash表删除一个或多个field（域）
 
-# 配置文件
+## 配置文件
 
-## 简介
+### 简介
 
 - redis根目录下提供一个redis.conf配置文件
 - 可以配置redis服务端运行时的一些参数
@@ -255,7 +257,7 @@ redis支持五种数据结构
 - requirepass：配置访问redis服务时所使用的密码；不推荐
 - protected-mode=yes：redis安全模式，配置密码访问时需要配置为yes；实际使用时都配置为no，不做权限等验证
 
-## 示例
+### 示例
 
 ```text
 #------ 网络 --------#
@@ -265,30 +267,30 @@ tcp-keepalive 300
 
 #----- 安全 ------#
 requirepass 123456
-# 需要密码进行访问
-# protected-mode yes
+## 需要密码进行访问
+## protected-mode yes
 
 #-------- 集群 -----------#
-# cluster-enabled yes
-# cluster-config-file nodes-6379.conf
-# cluster-node-timeout 15000
+## cluster-enabled yes
+## cluster-config-file nodes-6379.conf
+## cluster-node-timeout 15000
 
 #--------- 群集DOCKER/NAT支持 ----------#
 cluster-announce-ip 172.28.0.1${port}
 cluster-announce-port 6379
 cluster-announce-bus-port 16379
 
-# 开启aof
+## 开启aof
 appendonly yes
 ```
 
 
 
-# 持久化
+## 持久化
 
 redis提供持久化策略，在适当的时机采用适当的手段把内存中数据持久化到磁盘中，每次启动redis时，都可以把磁盘上的数据再次加载到内存中使用
 
-## RDB策略
+### RDB策略
 
 - 在指定时间间隔内，redis服务执行指定次数的写操作，会自动触发一次持久化操作
 - 配置文件
@@ -298,7 +300,7 @@ redis提供持久化策略，在适当的时机采用适当的手段把内存中
 - RDB是redis默认策略，redis开启时自动开启该策略
 - 缺陷：可能有少部分数据丢失
 
-## AOF策略
+### AOF策略
 
 - 采用操作日志来记录redis进行的每一次写操作，每次redis服务启动时，都会重新执行一遍操作日志
 - 效率比RDB持久化策略低，redis默认不开启AOF持久化策略
@@ -307,13 +309,13 @@ redis提供持久化策略，在适当的时机采用适当的手段把内存中
   - appendfilename：AOF保存文件名
   - appendfsync：AOF异步持久化策略；aways，同步持久化，每次数据发生变化会立即写入到磁盘中；everysec，出厂默认推荐，美妙异步记录一次（默认）、no，不即时同步，由操作系统决定何时同步
 
-## 小结
+### 小结
 
 根据数据的特点决定开启哪种持久化策略
 
 一般情况下，开启RDB足够了
 
-# redis事务
+## redis事务
 
  事务：一组数据库的写操作放在一起执行，保证操作的原子性，要么同时成功，要么同时失败
 
@@ -323,7 +325,7 @@ redis事务：允许把一组redis命令放在一起执行，把命令进行序�
 - 收到 EXEC 命令后进入事务执行，事务中任意命令执行失败，其余的命令依然被执行。
 - 在事务执行过程，其他客户端提交的命令请求不会插入到事务执行命令序列中
 
-## 实现
+### 实现
 
 - `multi`：标记事务的开始
 - `exec`：事务队列中所有代码的执行
@@ -335,12 +337,12 @@ redis事务：允许把一组redis命令放在一起执行，把命令进行序�
 - 可理解为打包的批量执行脚本
 - 可以通过监控一个变量，实现简易的锁装置
 
-## 小结
+### 小结
 
 - 单独的隔离操作：事务中所有命令都会序列化、顺序地执行。事务执行过程中，不会被其他客户端发来的命令请求所打断，除非使用`watch`监控命令
 - 不保证事务的原子性：redis 同一事务如果一条命令执行失败，其后的命令仍然可能会被执行，redis的事务没有回滚。redis已经在系统内部进行功能简化，这样可以确保更快的运行速度，因为redis不需要事务回滚能力
 
-# redis发布与订阅
+## redis发布与订阅
 
 Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。
 
@@ -359,11 +361,11 @@ redis客户端订阅频道，消息的发布者往频道上发布消息，所有
 5. `punsubscribe [pattern [pattern ...]]`：退订给定的频道，支持通配符
 6. 可以实现客户端通信
 
-# redis集群
+## redis集群
 
 当一台redis服务器处理到上限时，需要搭建redis集群
 
-## 搭建三台redis服务器
+### 搭建三台redis服务器
 
 1. 搭建三台redis服务
 
@@ -373,7 +375,7 @@ redis客户端订阅频道，消息的发布者往频道上发布消息，所有
 
    ```bash
    127.0.0.1:6380> info replication
-   # Replication
+   ## Replication
    role:master			//maskter代表主机
    connected_slaves:0
    master_failover_state:no-failover
@@ -388,7 +390,7 @@ redis客户端订阅频道，消息的发布者往频道上发布消息，所有
    ```
 
 
-## redis主从复制（集群）
+### redis主从复制（集群）
 
 - 存在主库master负责写、从库slave负责读，主机数据更新后根据配置和策略，自动同步到从机master/slave机制
 - 主多从少、主写从读、读写分离、主写同步复制到从
@@ -410,14 +412,14 @@ redis客户端订阅频道，消息的发布者往频道上发布消息，所有
      3. 主机在此时恢复、没有从机了：可以加入原来集群当从机，也可重新配置主从关系
 - 全量复制：一旦主从关系确定，会自动把主机上已有的数据同步复制到从库
 
-## 观点
+### 观点
 
 - 一台主机可以有多台从机，一台从机可以有一个主机和多台从机
   - 减轻主机压力
   - 增加了服务间的延时关系
 - redis集群中，主要有从关系的，无论它下面还有没有从机，都不可以进行写操作
 
-## 哨兵模式
+### 哨兵模式
 
 - 解决主从复制的缺陷：主机宕机时，从机等待；哨兵模式可以解决主机宕机时，自动设置一个从机为主机
 
@@ -439,7 +441,7 @@ redis客户端订阅频道，消息的发布者往频道上发布消息，所有
 
 - 主机恢复，所有从机从属于新主机
 
-## 小结
+### 小结
 
 - 哨兵是一个特殊的redis节点
 - 查看从主关系：`info replication`
@@ -449,11 +451,11 @@ redis客户端订阅频道，消息的发布者往频道上发布消息，所有
 - 哨兵模式三大任务：监控、提醒、自动故障迁移
 - 缺点：主从复制会有延迟，当系统繁忙时延迟问题加重，当从机数量过多时也会加重延迟
 
-# Jedis
+## Jedis
 
 redis官方推荐java使用jedis操作redis，jedis包括了redis操作几乎所有命令，redis所有命令在jedis中以方法形式出现
 
-## 添加jedis依赖
+### 添加jedis依赖
 
 pom.xml
 
@@ -466,7 +468,7 @@ pom.xml
 </dependency>
 ```
 
-## jedis使用
+### jedis使用
 
 - 连接redis，需要在redis配置文件配置 bind ip
 
@@ -499,7 +501,7 @@ public static void main(String[] args) {
 }
 ```
 
-## jedis连接池的使用
+### jedis连接池的使用
 
 1. 导入依赖
 
@@ -562,9 +564,9 @@ public static void main(String[] args) {
    }
    ```
 
-# Jedis最新(2022)
+## Jedis最新(2022)
 
-## 导入依赖
+### 导入依赖
 
 ```xml
 <dependency>
@@ -574,7 +576,7 @@ public static void main(String[] args) {
 </dependency>
 ```
 
-## 创建工具类
+### 创建工具类
 
 ```java
 public class JedisUtil {

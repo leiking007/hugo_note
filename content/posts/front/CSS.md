@@ -1,25 +1,27 @@
 ---
-title: "css"
+title: "CSS"
 date: 2020-09-09
 lastmod: 2020-09-09
 draft: false
-tags: ['css']
+tags: ['CSS']
 categories: ["前端"]
 author: "lei"
 ---
 
-# 简介
+# CSS
 
-1. css（cascading style sheet）：层叠样式表
+## 简介
+
+1. CSS（cascading style sheet）：层叠样式表
 2. 修饰html页面，设置html页面中元素样式；就像是html的化妆品一样
 
-# 使用css三种方式
+## 使用CSS三种方式
 
 1. 内联定义
 
    ```html
    <p style="margin:0 auto">
-       内联定义css
+       内联定义CSS
    </p>
    ```
 
@@ -27,7 +29,7 @@ author: "lei"
 
    ```html
    <head>
-       <style type="text/css">
+       <style type="text/CSS">
            选择器 {
                样式名：样式值
            }
@@ -38,7 +40,7 @@ author: "lei"
 3. 外联样式
 
    ```html
-   <link type="text/css" rel="stylesheet" href="css文件路径" />
+   <link type="text/CSS" rel="stylesheet" href="CSS文件路径" />
    ```
 
 4. 选择器
@@ -47,7 +49,7 @@ author: "lei"
    2. 类选择器：**.**类名
    3. 标签选择器：标签名
 
-# 常用样式
+## 常用样式
 
 1. display：布局样式
 2. width：宽；height：高
@@ -58,7 +60,7 @@ author: "lei"
 7. cursor：鼠标样式，加载小手之类的
 8. list-style-type：列表样式
 
-# 定位
+## 定位
 
 `position`属性用来指定一个元素在网页上的位置，一共有5种定位方式，即`position`属性主要有五个值
 
@@ -70,14 +72,14 @@ author: "lei"
 
 
 
-## 绝对定位
+### 绝对定位
 
 1. position：absolute；绝对定位
 2. 元素会脱离文档流，如果设置偏移量，会影响其他元素的位置定位
 3. 在父元素没有设置相对定位或绝对定位的情况下，元素相对于根元素定位（即html元素）（是父元素没有）
 4. 父元素设置了相对定位或绝对定位，元素会相对于离自己最近的设置了相对或绝对定位的父元素进行定位（或者说离自己最近的不是static的父元素进行定位，因为元素默认是static）。
 
-## 相对定位
+### 相对定位
 
 1. position：relative；相对定位
 2. 相对于原来位置移动，元素设置此属性之后仍然处在文档流中，不影响其他元素的布局

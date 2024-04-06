@@ -1,5 +1,5 @@
 ---
-title: "springcloudNetflix"
+title: "SpringcloudNetflix"
 date: 2021-11-17
 lastmod: 2021-11-17
 draft: false
@@ -8,9 +8,11 @@ categories: ["框架"]
 author: "lei"
 ---
 
-# 简介
+# SpringcloudNetflix
 
-## 架构的演化
+## 简介
+
+### 架构的演化
 
 集中式架构：传统架构，所有的功能一个项目完成，可以进行集群；一个war包或jar包
 
@@ -26,7 +28,7 @@ author: "lei"
 
 两者类似，目的不同
 
-## springcloud
+### springcloud
 
 Spring Cloud是一套工具的集合，用于快速构建分布式项目以及解决分布式项目中的一些常见问题（配置管理、服务发现、断路器、智能路由、微代理、控制总线、一次性令牌、全局锁、领导选举、分布式会话、集群状态等）
 
@@ -40,7 +42,7 @@ Service Consumer：调用远程服务的服务消费方
 
 Eureka Server：服务注册中心和服务发现中心
 
-## 起步
+### 起步
 
 新建springboot项目，导入springcloud依赖，并申明为父项目，供后续服务springcloud的版本统一
 
@@ -66,9 +68,9 @@ Eureka Server：服务注册中心和服务发现中心
 
 
 
-# Eureka
+## Eureka
 
-## Eureka介绍
+### Eureka介绍
 
 Eureka Server 主要对外提供了三个功能：
 
@@ -94,7 +96,7 @@ Eureka Client 主要用来简化每个服务和 Eureka Server 的交互。 Eurek
 
   Eureka Client 从 Eureka Server 上获取服务的注册信息，并将其缓存到本地。本地客户端，在需要调用远程服务时，会从该信息中查找远程服务所对应的的 IP 地址、端口等信息。Eureka Client 上缓存的服务注册信息会定期更新（30 秒），如果 Eureka Server 返回的注册表信息与本地缓存的注册表信息不同的话，Eureka Client 会自动处理
 
-## EurekaServer搭建
+### EurekaServer搭建
 
 1. 新建项目添加依赖
 
@@ -128,7 +130,7 @@ Eureka Client 主要用来简化每个服务和 Eureka Server 的交互。 Eurek
 
    ![image-20211108162337623](images.assets/image-20211108162337623.png)
 
-## EurekaClient
+### EurekaClient
 
 1. 导入`EurekaClient客户端依赖`
 
@@ -158,7 +160,7 @@ Eureka Client 主要用来简化每个服务和 Eureka Server 的交互。 Eurek
 
 3. Application启动类添加注解`@EnableEurekaClient`，启动Eureka客户端，用于注册当前服务到`EurekaServer`
 
-## 远程服务调用
+### 远程服务调用
 
 注册`RestTemplate`模板，并添加`@LoadBalanced`注解
 
@@ -205,7 +207,7 @@ public WrapperResponse getGoods(){
 }
 ```
 
-## Eureka集群
+### Eureka集群
 
 所谓的Eureka集群，就是启动多个服务端，相互进行注册即可
 
@@ -283,7 +285,7 @@ nohup java -jar springcloud-eureka-server-1.0-SNAPSHOT.jar --spring.profiles.act
 nohup java -jar springcloud-eureka-server-1.0-SNAPSHOT.jar --spring.profiles.active=eure8762 > ./log/eure8762 &
 ```
 
-## Eureka-server的自我保护机制
+### Eureka-server的自我保护机制
 
 ```properties
 #开启注册中心的保护机制，默认是开启
@@ -294,7 +296,7 @@ eureka.server.enable-self-preservation=true
 
 例如：两个客户端实例 C1 和 C2 的连通性是良好的，但是由于网络故障，C2 未能及时向 Eureka 发送心跳续约，这时候 Eureka 不能简单的将 C2 从注册表中剔除。因为如果剔除了，C1 就无法从 Eureka 服务器中获取 C2 注册的服务，但是这时候 C2 服务是可用的
 
-## Eureka和zookeeper比较
+### Eureka和zookeeper比较
 
 CAP理论，一致性、可用性、分区容错性；分区容错性是分布式系统必须要保证的，因此只能在一致性和可用性之间进行取舍
 
@@ -302,7 +304,7 @@ zookeeper保证服务的`AP`，当zookeeper集群中某台机器宕机时，zook
 
 Eureka保证服务的`CP`，当Eureka集群中某台机器宕机时，Eureka Client 会自动切换到新的 Eureka Server 上。每个 Eureka Server 节点，都会互相同步数据
 
-# 负载均衡Ribbon
+## 负载均衡Ribbon
 
 Ribbon是一个开源的运行在`消费端`的客户端/进程内负载均衡器
 
@@ -310,7 +312,7 @@ Ribbon是一个开源的运行在`消费端`的客户端/进程内负载均衡�
 
 ![image-20211121162159619](images.assets/image-20211121162159619.png)
 
-## Ribbon与nginxs
+### Ribbon与nginxs
 
 Ribbon是在请求发起前，对所有服务进行负载均衡后，选择服务进行调用
 
@@ -318,7 +320,7 @@ Nginx是在收到客户端发起的请求，进行负载均衡
 
 **注意**： `Request` 的位置，在 `Nginx` 中请求是先进入负载均衡器，而在 `Ribbon` 中是先在客户端进行负载均衡才进行请求的
 
-## Ribbon负载均衡算法
+### Ribbon负载均衡算法
 
 Ribbon负载均衡算法都实现了`IRule`接口，可以通过IDEA自带的工具`Diagrams`查看UML图，如下：
 
@@ -341,7 +343,7 @@ public interface ILoadBalancer {
 
 通过debug该接口的实现类的`chooseServer`方法，可以查看当前选择的规则；默认规则实现为`ZoneAvoidanceRule`
 
-## Ribbon的基本使用
+### Ribbon的基本使用
 
 使用注解，将`@LoadBalanced`注解加到`RestTemplate Bean`上，当使用RestTemplate进行http访问时，会将请求进行拦截，然后通过Ribbon进行负载均衡后，再将请求发出
 
@@ -365,7 +367,7 @@ public IRule iRule(){
 
 修改后可以通过debug查看`ILoadBalancer`接口实现类的`chooseServer`方法，可以查看到当前规则的实现
 
-## 负载均衡策略
+### 负载均衡策略
 
 所有策略实现`IRule`接口
 
@@ -381,9 +383,9 @@ public IRule iRule(){
 
 默认实现为`ZoneAvoidanceRule`策略
 
-# 远程调用OpenFeign
+## 远程调用OpenFeign
 
-## 介绍
+### 介绍
 
 通过 `RestTemplate` 进行远程调用时，不够优雅，即使注册到eureka后，仍需要填写远程服务名，如下：
 
@@ -398,7 +400,7 @@ public WrapperResponse getGoods(){
 
 因此引入了`Open Feign`，利用了OpenFeign的声明式方式定义Web服务客户端；可以将远程服务像本地服务一样进行调用
 
-## 使用
+### 使用
 
 1. 添加`spring-cloud-starter-openfeign`起步依赖
 
@@ -443,7 +445,7 @@ public WrapperResponse getGoods(){
    }
    ```
 
-## 传参方式
+### 传参方式
 
 > 默认情况下，Feign会将标有@RequestParam注解的参数转换成字符串添加到URL中，将没有注解的参数通过Jackson转换成json放到请求体中。注意，如果在@RequetMapping中的method将请求方式指定为POST，那么所有未标注解的参数将会被忽略
 
@@ -495,9 +497,9 @@ public WrapperResponse getGoods(){
    }
    ```
 
-# 服务熔断与降级 Hystrix
+## 服务熔断与降级 Hystrix
 
-## 介绍
+### 介绍
 
 Hystrix 提供了`熔断降级`和`请求限流`
 
@@ -516,7 +518,7 @@ Hystrix 提供了`熔断降级`和`请求限流`
 2. 异常或报错了可以快速让请求返回，不会一直等待；（避免线程累积）
 3. 系统马上大量并发时，可以考虑先关闭一些不重要的微服务（在降级方法中返回一个比较友好的信息)，把资源让给核心微服务，待高峰流量过去，再开启回来。
 
-## Hystrix使用
+### Hystrix使用
 
 1. 导入已经整合的 start  依赖
 
@@ -602,12 +604,12 @@ Hystrix 提供了`熔断降级`和`请求限流`
      OkToRetryOnAllOperations: false  #是否所有操作都重试?默认get请求起作用，如果想其他类型的请求起作用，需要配置true，但是！ post请求一般是create，如果接口没做幂等性会有并发问题，所以慎重配置。
      
     #上面rabbin的配置有：
-    # 1(首次访问) + 1(MaxAutoRetries一次) + 1 (负载到实例2之后请求一次) + 1 (实例2重试一次) + 1（负载到实例3之后请求一次）+ 1（实例3重试一次）= 6次，那么rabbin总共工作时间为 42s的时间，此时hystrix熔断时间应该配置为大于42s
+    ## 1(首次访问) + 1(MaxAutoRetries一次) + 1 (负载到实例2之后请求一次) + 1 (实例2重试一次) + 1（负载到实例3之后请求一次）+ 1（实例3重试一次）= 6次，那么rabbin总共工作时间为 42s的时间，此时hystrix熔断时间应该配置为大于42s
    ```
    
    
 
-## Hystrix异常处理
+### Hystrix异常处理
 
 默认情况下方法抛了异常会自动进行服务降级，交给服务降级中的方法去处理； 当发生异常后，只需要在服务降级方法中添加一个 Throwable 类型的参数就能够获取到抛出的异常的类型，如下
 
@@ -626,7 +628,7 @@ public WrapperResponse getDetailFallback(Throwable th){
 }
 ```
 
-## Hystrix限流
+### Hystrix限流
 
 **限流的方案**
 
@@ -655,7 +657,7 @@ threadPoolKey 是线程池唯一标识， hystrix 会使用该标识来计数，
 Task java.util.concurrent.FutureTask@2d934502[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@965faa0[Wrapped task = null]] rejected from java.util.concurrent.ThreadPoolExecutor@174a1fe4[Running, pool size = 1, active threads = 1, queued tasks = 1, completed tasks = 14]
 ```
 
-## Feign整合Hystrix
+### Feign整合Hystrix
 
 1. feign 默认是支持hystrix的，需要在配置文件中开启
 
@@ -713,7 +715,7 @@ Task java.util.concurrent.FutureTask@2d934502[Not completed, task = java.util.co
    }
    ```
 
-## Spring Cloud Feign超时时间设置
+### Spring Cloud Feign超时时间设置
 
 Feign调用服务的默认时长是1秒钟，也就是如果超过1秒没连接上或者超过1秒没响应，那么会相应的报错。而实际情况是因为业务的不同可能出现超出1秒的情况，这时我们需要调整超时时间
 
@@ -734,7 +736,7 @@ ribbon还有`MaxAutoRetries`对当前实例的重试次数
 
 为了确保重试机制的正常运作，理论上建议hystrix的超时时间为:(1 + MaxAutoRetries + MaxAutoRetriesNextServer) * ReadTimeout
 
-## hystrix相关配置
+### hystrix相关配置
 
 **Execution相关的属性的配置**
 
@@ -791,7 +793,7 @@ ribbon还有`MaxAutoRetries`对当前实例的重试次数
 - hystrix.threadpool.default.metrics.rollingStats.timeInMilliseconds 线程池统计指标的时间，默 认10000
 - hystrix.threadpool.default.metrics.rollingStats.numBuckets 将rolling window划分为n个 buckets，默认10
 
-## Hystrix 仪表盘监控
+### Hystrix 仪表盘监控
 
 Hystrix 仪表盘主要用来监控 Hystrix 的实时运行状态，通过它可以看到 Hystrix 的各项指标信息
 
@@ -908,9 +910,9 @@ Hystrix 仪表盘主要用来监控 Hystrix 的实时运行状态，通过它可
 
    访问：http://localhost:3722/turbine.stream，就可以监控多个hystrix服务了
 
-# 网关Zuul
+## 网关Zuul
 
-## 介绍
+### 介绍
 
 Zuul包含了对请求的`过滤`和`路由`两个功能
 
@@ -918,7 +920,7 @@ Zuul包含了对请求的`过滤`和`路由`两个功能
 
 Zuul和eureka进行整合，将自身注册为eureka服务治理下，同时从eureka获取其他微服务的信息，以后访问微服务都可以通过zuul跳转后获得
 
-## Zuul服务搭建
+### Zuul服务搭建
 
 1. 导入依赖
 
@@ -950,19 +952,19 @@ Zuul和eureka进行整合，将自身注册为eureka服务治理下，同时从e
 
 3. zuul服务已经搭建成功，然后通过`zuul服务地址+微服务名+请求地址`，即可访问具体微服务的方法实现；例如：http://localhost/portal-service/portal/geGoodsFign
 
-## 路由
+### 路由
 
 Zuul网关搭建好后，可以通过：`zuul服务地址+微服务名+请求地址`访问微服务
 
 1. 自定义访问微服务得路径，而不是通过微服务名;此时可以通过：http://localhost/portal/portal/geGoodsFign 访问
 
    ```properties
-   # 超时时间
+   ## 超时时间
    zuul.host.connect-timeout-millis=5000
    
-   # 路由规则配置
-   # / **代表是所有（多个）层级   /cloud/goodsFeignHystrix
-   # / * 是代表一层
+   ## 路由规则配置
+   ## / **代表是所有（多个）层级   /cloud/goodsFeignHystrix
+   ## / * 是代表一层
    zuul.routes.portal.service-id=portal-service
    zuul.routes.portal.path=/portal/**
    ```
@@ -991,7 +993,7 @@ Zuul网关搭建好后，可以通过：`zuul服务地址+微服务名+请求地
 | *      | 匹配任意数量的字符 | /portal-service/*  | 匹配 /portal-service/aaa,无法匹配 /portal-service/a/b/c |
 | **     | 匹配任意数量的字符 | /portal-service/** | 匹配 /portal-service/aaa,  /portal-service/a/b/c        |
 
-## 过滤器
+### 过滤器
 
 限流、权限验证、记录日志
 
@@ -1055,7 +1057,7 @@ Zuul网关搭建好后，可以通过：`zuul服务地址+微服务名+请求地
    zuul.LogFilter.route.disable=true
    ```
 
-## 异常处理
+### 异常处理
 
 正常情况下，zuul过滤器按顺序 PRE-->ROUTE 然后由POST返回response；如果 PRE 阶段或者 ROUTE 阶段发生异常，会执行ERROR过滤器，统一处理异常
 
@@ -1117,7 +1119,7 @@ Zuul网关搭建好后，可以通过：`zuul服务地址+微服务名+请求地
 
 3. 此时错误也返回的也是友好页面，全局统一异常拦截
 
-## zuul服务降级熔断
+### zuul服务降级熔断
 
 zuul是一个代理服务，但如果被代理的服务突然断了，这个时候zuul上面会有出错信息，例如，停止了被调用的微服务；
 
@@ -1179,9 +1181,9 @@ public class ProviderFailback implements FallbackProvider {
 }
 ```
 
-# 配置中心Config
+## 配置中心Config
 
-## 简介
+### 简介
 
 **为什么使用配置中心**
 
@@ -1218,7 +1220,7 @@ Spring Cloud Config 是一个解决分布式系统的配置管理方案。它包
 
 5. 由于配置文件是存储在 Git 仓库中，所以配置文件天然具有版本管理功能
 
-## Config Server构建
+### Config Server构建
 
 1. 构建springboot项目，并添加依赖
 
@@ -1327,7 +1329,7 @@ Spring Cloud Config 是一个解决分布式系统的配置管理方案。它包
 
 7. 当有微服务获取配置中心文件时，配置中心首先会自动从远程仓库pull最新配置文件，否则使用本地缓存配置文件
 
-## Config Client构建
+### Config Client构建
 
 修改微服务配置文件，让微服务自动从配置中心加载配置
 
@@ -1343,10 +1345,10 @@ Spring Cloud Config 是一个解决分布式系统的配置管理方案。它包
 2. 创建 `bootstrap.properties`配置文件，用于获取远程配置信息
 
    ```properties
-   # name 对应配置文件中的 application 部分,这个也是应用名
-   # profile 对应了 profile 部分
-   # label 对应了 label 部分
-   # uri 表示配置中心的地址
+   ## name 对应配置文件中的 application 部分,这个也是应用名
+   ## profile 对应了 profile 部分
+   ## label 对应了 label 部分
+   ## uri 表示配置中心的地址
    spring.application.name=application
    spring.cloud.config.profile=portal1
    spring.cloud.config.label=master
@@ -1372,7 +1374,7 @@ Spring Cloud Config 是一个解决分布式系统的配置管理方案。它包
 
    访问接口可获得返回值：http://eure8761:8761/eureka/,http://eure8762:8762/eureka/；表示已经从配置中心获取到配置信息了
 
-## 配置信息的加解密处理
+### 配置信息的加解密处理
 
 ![image-20220105170751012](images.assets/image-20220105170751012.png)
 
@@ -1405,7 +1407,7 @@ Spring Cloud Config 是一个解决分布式系统的配置管理方案。它包
 
 5. 通过http://localhost:8888/master/application.properties访问配置中心，看是否能得到`原文`
 
-## 配置中心局部刷新
+### 配置中心局部刷新
 
 局部刷新通过Spring Boot 的actuator提供了一个刷新端点/refresh
 
@@ -1449,7 +1451,7 @@ Spring Cloud Config 是一个解决分布式系统的配置管理方案。它包
 
 局限性：这种方式的刷新，就是你对每个微服务分别进行刷新，也一个一个操作，如果你有80个微服务，那么就需要手动刷新这80个微服务
 
-## 通过Bus消息总线全局刷新
+### 通过Bus消息总线全局刷新
 
 ![image-20220122235323214](images.assets/image-20220122235323214.png)
 
@@ -1490,7 +1492,7 @@ Spring Cloud Config 是一个解决分布式系统的配置管理方案。它包
 
 5. 访问：http://localhost:8888/actuator/bus-refresh通过消息总线进行全局配置刷新，RabbitMQ将收到消息，然后微服务会消费消息，config的所有客户端的微服务配置都会动态刷新
 
-## config高可用
+### config高可用
 
 Spring Cloud Config的高可用机制解决方式非常简单，把Spring Cloud Config注册到Eureka就搞定了，此时用户访问的时候不是直接从配置中心获取配置信息，而是先通过eureka中获取配置中心的地址，然后再从配置中心获取具体服务的配置信息
 
@@ -1520,9 +1522,9 @@ spring.cloud.config.password=123456
 
 
 
-# 安全认证
+## 安全认证
 
-## Config安全认证
+### Config安全认证
 
 1. 配置中心添加依赖
 
@@ -1550,7 +1552,7 @@ spring.cloud.config.password=123456
    spring.cloud.config.password=123456
    ```
 
-## Eureka安全认证
+### Eureka安全认证
 
 一般情况下Eureka 都会在一个内网环境中，但免不了在某些项目中需要让其他外网的服务注册到Eureka，这个时候就有必要让Eureka增加一套安全认证机制了，让所有服务提供者通过安全认证后才能注册进来
 
@@ -1596,9 +1598,9 @@ spring.cloud.config.password=123456
    eureka.client.service-url.defaultZone=http://lei:123456@localhost:8761/eureka
    ```
 
-# 分布式链路跟踪 Sleuth
+## 分布式链路跟踪 Sleuth
 
-## 分布式链路跟踪概述
+### 分布式链路跟踪概述
 
 分布式链路跟踪可以 串联整个调用链路，快速定位问题；理清各个微服务之间的依赖关系；进行各个微服务接口的性能分折；跟踪整个业务流程的调用处理顺序
 
@@ -1622,7 +1624,7 @@ Zipkin主要是分析追踪数据
 
 SpringCloud Sleuth 分布式链路跟踪仅仅只会生成一堆数据，这些数据不便于阅读；通常情况，会将Sleuth产生的数据上传到`Zipkin`服务器上，`Zipkin Server`会解析Sleuth数据，方便于阅读
 
-## Sleuth和ZipkinServer联动
+### Sleuth和ZipkinServer联动
 
 **搭建ZipkinServer**
 
@@ -1664,9 +1666,9 @@ SpringCloud Sleuth 分布式链路跟踪仅仅只会生成一堆数据，这些�
 
 Sleuth 目前只要是服务重启，所有的链路跟踪数据都会丢失，可以集成数据库或者Elasticsearch，此时数据就可以被持久化保存在第三方介质上，当Sleuth重启时，以前的链路信息就会得以保存下来
 
-# Spring Cloud Stream
+## Spring Cloud Stream
 
-## 简介
+### 简介
 
 Spring Cloud Stream来整合消息中间件，这样就可以降低微服务和消息中间件的耦合性，做到轻松在不同消息中间件间切换，目前Spring Cloud Stream只支持rabbitmq 和 kafka
 
@@ -1684,7 +1686,7 @@ Spring Cloud Stream 可以说是在消息中间件上抽象了一层；它负责
 | @StreamListener | 监听队列，用于消费者的队列的消息接收                         |
 | @EnableBinding  | 将信道channel和exchange绑定在一起                            |
 
-## Stream整合rabbitMQ
+### Stream整合rabbitMQ
 
 ![image-20220408164408627](images.assets/image-20220408164408627.png)
 
@@ -1781,7 +1783,7 @@ Spring Cloud Stream 可以说是在消息中间件上抽象了一层；它负责
 
 ![image-20220409140132042](images.assets/image-20220409140132042.png)
 
-## Stream分组与持久化
+### Stream分组与持久化
 
 消息分组，对于rabbitMQ来说即创建了指定名称的队列；此时消费者可以指定到一个分组（队列）中，则消息只会被消费一次；并且队列不再是临时队列，因此消息可以持久化保存
 
@@ -1805,7 +1807,7 @@ spring.cloud.stream.bindings.testInPut.group=myGroup
 
 为持久化队列，当没有任何监听者监听队列时，队列不会被删除，消息可以持久化保存
 
-## Stream设置路由键
+### Stream设置路由键
 
 路由键默认为 `#`，可以手动设置路由键，仅适用于rabbitMQ；在`消费端设置`
 
@@ -1859,9 +1861,9 @@ public class MessageSender {
 }
 ```
 
-# 阿波罗配置中心
+## 阿波罗配置中心
 
-## 安装apollo
+### 安装apollo
 
 1. github 上下载Quick Start安装包，解压后大概目录结构如下
 
@@ -1882,7 +1884,7 @@ public class MessageSender {
 3. 先根据sql初始化库表，然后运行
 
    ```shell
-   # 修改数据库连接
+   ## 修改数据库连接
    $ vim demo.sh
    	#这儿修改数据库连接
    $ ./demo.sh start
@@ -1894,7 +1896,7 @@ public class MessageSender {
    - Admin-service  8090端口
    - Portal管控台  8070端口
 
-## 集成apollo配置中心
+### 集成apollo配置中心
 
 1. 导入依赖
 
@@ -1922,7 +1924,7 @@ public class MessageSender {
 
 Apollo客户端会把从服务端获取到的配置在本地文件系统缓存一份，用于在遇到服务不可用，或网络不通的时候，依然能从本地恢复配置，不影响应用正常运行
 
-## Apollo客户端的实现原理
+### Apollo客户端的实现原理
 
 ![image-20220503113439835](images.assets/image-20220503113439835.png)
 
@@ -1941,4 +1943,4 @@ Apollo客户端会把从服务端获取到的配置在本地文件系统缓存�
 - portal：提供Web界面供用户管理配置
 - client：Apollo提供的客户端程序，为应用提供配置获取、实时更新等功能
 
-# 各组件的总结
+## 各组件的总结

@@ -1,20 +1,20 @@
 ---
-title: "javaSE1"
+title: "JavaSE1"
 date: 2020-06-09
 lastmod: 2020-06-09
 draft: false
-tags: ['javaSE']
+tags: ['JavaSE']
 categories: ["后端"]
 author: "lei"
 ---
 
+# JavaSE1
 
+##  Java基础
 
-#  JAVA基础
+### 名词介绍
 
-## 名词介绍
-
-**java三个版本**
+**Java三个版本**
 
 - Java SE：Standard Edition ，Java SE 就是标准版，包含标准的 JVM 和标准库
 - Java EE：Enterprise Edition，Java EE是企业版，它只是在Java SE的基础上加上了大量的API和库，以便方便开发Web应用、数据库、消息服务等
@@ -22,47 +22,47 @@ author: "lei"
 
 **JDK JRE区别**
 
-- JDK：Java Development Kit，java开发环境
-- JRE：Java Runtime Environment，java运行环境（相比 JDK 少了编译器，调式器等）
+- JDK：Java Development Kit，Java开发环境
+- JRE：Java Runtime Environment，Java运行环境（相比 JDK 少了编译器，调式器等）
 
 **JSR JCP是什么**
 
 - JSR规范：Java Specification Request，SUN公司规定的 JSR 规范，凡是想给Java平台加一个功能，比如说访问数据库的功能，要先创建一个JSR规范，定义好接口，这样，各个数据库厂商都按照规范写出Java驱动程序
 - JCP组织：Java Community Process，负责审核 JSR 的组织
 
-## 安装
+### 安装
 
 1. 下载 jdk 压缩包，解压到任意目录
 
-2. 配置环境变量 `JAVA_HOME`指向 JDK 安装目录；然后，把`JAVA_HOME`的`bin`目录附加到系统环境变量`PATH`上
+2. 配置环境变量 `Java_HOME`指向 JDK 安装目录；然后，把`Java_HOME`的`bin`目录附加到系统环境变量`PATH`上
 
    ```tex
-   新建java_home环境变量
-       JAVA_HOME
-       F:\study\environment\javaDevelopmentKit\graalvm-ee-java11-22.2.0
+   新建Java_home环境变量
+       Java_HOME
+       F:\study\environment\JavaDevelopmentKit\graalvm-ee-Java11-22.2.0
    
    在path环境变量下添加
-       %JAVA_HOME%\bin
+       %Java_HOME%\bin
    ```
 
 3. 命令行执行
 
    ```bash
-   java --version
-   # 输出 java 11.0.16 2022-07-19 LTS 版本号，即安装成功
+   Java --version
+   ## 输出 Java 11.0.16 2022-07-19 LTS 版本号，即安装成功
    ```
 
 **常用命令解释**
 
-- java：这个可执行程序其实就是JVM，运行Java程序，就是启动JVM，然后让JVM执行指定的编译后的代码；
-- javac：这是Java的编译器，它用于把Java源码文件（以`.java`后缀结尾）编译为Java字节码文件（以`.class`后缀结尾）；
+- Java：这个可执行程序其实就是JVM，运行Java程序，就是启动JVM，然后让JVM执行指定的编译后的代码；
+- Javac：这是Java的编译器，它用于把Java源码文件（以`.Java`后缀结尾）编译为Java字节码文件（以`.class`后缀结尾）；
 - jar：用于把一组`.class`文件打包成一个`.jar`文件，便于发布；
-- javadoc：用于从Java源码中自动提取注释并生成文档；
+- Javadoc：用于从Java源码中自动提取注释并生成文档；
 - jdb：Java调试器，用于开发阶段的运行调试
 
-## Hello World
+### Hello World
 
-1. 打开文本编辑器输入以下代码，然后保存为 Hello.java
+1. 打开文本编辑器输入以下代码，然后保存为 Hello.Java
 
    ```java
    public class Hello {
@@ -72,16 +72,16 @@ author: "lei"
    }
    ```
 
-2. 编译，在保存 Hello.java 的目录下执行下面命令编译，编译成功会在当前目录下会产生一个`Hello.class`文件
+2. 编译，在保存 Hello.Java 的目录下执行下面命令编译，编译成功会在当前目录下会产生一个`Hello.class`文件
 
    ```bash
-   $ javac Hello.java
+   $ Javac Hello.Java
    ```
 
 3. 执行Hello.class ，
 
    ```bash
-   $ java Hello
+   $ Java Hello
    Hello, world!
    ```
 
@@ -89,11 +89,11 @@ author: "lei"
 
 **Java程序运行流程**
 
-Java源码本质上是一个文本文件，我们需要先用`javac`把`Hello.java`编译成字节码文件`Hello.class`，然后，用`java`命令执行这个字节码文件：
+Java源码本质上是一个文本文件，我们需要先用`Javac`把`Hello.Java`编译成字节码文件`Hello.class`，然后，用`Java`命令执行这个字节码文件：
 
 ```ascii
 ┌──────────────────┐
-│    Hello.java    │◀── source code
+│    Hello.Java    │◀── source code
 └──────────────────┘
           │ compile
           ▼
@@ -107,7 +107,7 @@ Java源码本质上是一个文本文件，我们需要先用`javac`把`Hello.ja
 └──────────────────┘
 ```
 
-## java程序基础结构
+### Java程序基础结构
 
 **结构**
 
@@ -145,7 +145,7 @@ public class Hello {
  */
 ```
 
-# 数据类型
+## 数据类型
 
 **4大类，8小类**
 
@@ -227,7 +227,7 @@ double │   │   │   │   │   │   │   │   │
 5. byte、short、chart混合运算时，先各自转化为int类型
 6. 多种数据类型混合运算时，先转化成容量最大的那一种，再做运算
 
-# 运算符
+## 运算符
 
 **算数运算符**
 
@@ -279,18 +279,18 @@ instanceof：
 4. c是一个引用，指向堆内存中地址；如果 c  instanceof  Cat  返回true，表示c指向是一个Cat对象
 5. 任何时候向下转型都需要使用instanceof运算
 
-# 控制语句
+## 控制语句
 
-## 接受用户输入
+### 接受用户输入
 
 ```jade
 //创建一个键盘扫描器对象
-java.util.Scanner s = new java.util.Scanner(System.in);
+Java.util.Scanner s = new Java.util.Scanner(System.in);
 int i=s.nextInt();	//等待接受用户输入一个int,敲击回车结束
 System.out.println("你输入的数字是："+i)；
 ```
 
-## 选择语句
+### 选择语句
 
 if语句
 在if分支中，如果只有一条语句可以省略{}
@@ -303,7 +303,7 @@ else		//这一行报错，提示有else确没有if
 	System.out.println("女");
 
 //根据输入年龄判断属于什么人群
-		java.util.Scanner s=new java.util.Scanner(System.in);
+		Java.util.Scanner s=new Java.util.Scanner(System.in);
 		System.out.print("请输入年龄：");
 		int age=s.nextInt();
 		if(age>150 || age<0){
@@ -326,7 +326,7 @@ switch语句条件只支持int、String两种类型
 遇到break;case结束		没有遇到break;case穿透		case合并
 
 ```java
-java.util.Scanner s=new java.util.Scanner(System.in);
+Java.util.Scanner s=new Java.util.Scanner(System.in);
 		System.out.print("请输入成绩:");
 		double score=s.nextDouble();
 		if(score > 100 || score<0){
@@ -351,7 +351,7 @@ java.util.Scanner s=new java.util.Scanner(System.in);
 
 
 
-## 循环语句
+### 循环语句
 
 循环语句为了解决代码的复用
 for循环
@@ -391,7 +391,7 @@ do...while...循环
 
 即使不满足条件，也至少执行一次
 
-## 转向语句
+### 转向语句
 
 break
 	break 主要用在循环语句或者 switch 语句中，用来跳出整个语句块。
@@ -413,20 +413,20 @@ continue
 
 return	终止一个方法；和break不是一个级别
 
-# 方法
+## 方法
 
 方法可以达到”代码复用“
 
-## 方法的定义
+### 方法的定义
 
 [修饰符列表]	返回值类型	方法名（）{
 	方法体;
 }
-[]符号叫做中括号，里面内容不是必须的；方法体是java语句构成
+[]符号叫做中括号，里面内容不是必须的；方法体是Java语句构成
 
 修饰符列表：可选项
 
-返回值类型：可以是java中所有合法的数据类型；当方法不返回任何值时，使用void关键字；如果不是返回值类型void，方法结束后必须return，否则报错
+返回值类型：可以是Java中所有合法的数据类型；当方法不返回任何值时，使用void关键字；如果不是返回值类型void，方法结束后必须return，否则报错
 
 方法名：驼峰命名，首字母小写，见名知意
 
@@ -436,7 +436,7 @@ return	终止一个方法；和break不是一个级别
 
 方法调用：实参形参类型对应，个数对应，否则报错；类名.方法名(实参)；调用当前类中的方法可以不加类名调用方法
 
-## JVM内存结构
+### JVM内存结构
 
 栈内存（stack）：在方法被调用时，发生进栈（分配空间）、方法执行完，发生弹栈（释放空间）；栈数据结构先进后出，有入栈（push）、出栈（pop）、栈帧始终指着栈顶元素、栈底元素、处于栈顶的元素具有活跃权
 
@@ -444,20 +444,20 @@ return	终止一个方法；和break不是一个级别
 
 方法区内存：classloader将类加载时，会放入方法区；存储代码片段，字节码；最先有数据
 
-## 方法重载
+### 方法重载
 
 优点：代码整齐美观、功能相似的可以让方法名相同
-在java语言中，首先通过方法名区分方法，名相同时，通过参数类型区分
+在Java语言中，首先通过方法名区分方法，名相同时，通过参数类型区分
 在同一个类中，如果两个方法功能相似，可以考虑方法重载（方法名一样）
 方法重载条件：同一个类、方法名相同、参数列表不同（类型，个数，顺序）
 方法重载和**修饰列表**与**返回值类型**无关
 
-## 方法递归
+### 方法递归
 
 方法自己调用自己，被称作方法递归
 当递归程序没有结束条件时，一定会发生栈溢出错误；递归结束条件太深，也有可能会发生溢出；所以递归必须要有结束条件
 尽量使用循环代替递归
-java -X可以查看调整栈内存大小的参数
+Java -X可以查看调整栈内存大小的参数
 
 ```java
 	public static void main(String[] args)
@@ -474,14 +474,14 @@ java -X可以查看调整栈内存大小的参数
 	}
 ```
 
-# 面向对象
+## 面向对象
 
-## 简述
+### 简述
 
 面向过程：注重实现功能的步骤；注重实现功能的因果关系；A步骤因果关系到B步骤，组成一个子模块，子模块之间又因为因果关系结合，其中任何地方出现问题，整个系统就出错了（代码耦合度高，扩展性差）；开发小型项目效率高（不需要对象的提取）
 面向对象：对象A，对象B，对象A与B的组合；符合人类的认知；耦合度低，扩展性强
 
-## OOA/OOD/OOP
+### OOA/OOD/OOP
 
 OOA：面向对象分析（analysis）
 
@@ -491,7 +491,7 @@ OOP：面向对象编程（programming）
 
 整个开发过程都采用OO贯穿的
 
-## 面向对象三大特性
+### 面向对象三大特性
 
 封装：
 
@@ -499,9 +499,9 @@ OOP：面向对象编程（programming）
 
 多态：
 
-## 类
+### 类
 
-java中对象是通过类创建出的个体
+Java中对象是通过类创建出的个体
 
 类：现实中不存在，是思考、总结、抽象出来的概念（例如：明星）；类中描述的所有对象的共同特征信息
 
@@ -513,7 +513,7 @@ java中对象是通过类创建出的个体
 
 类的属性来源于状态；类的方法来源于动作
 
-## 类的定义
+### 类的定义
 
 语法格式：
 [修饰符列表]	class	类名{
@@ -522,7 +522,7 @@ java中对象是通过类创建出的个体
 		//方法表述动作、行为
 }
 
-## 对象的创建
+### 对象的创建
 
 ```java
 Xuesheng	s1	=	new	 Xuesheng();
@@ -535,7 +535,7 @@ new：运算符，用于对象创建
 Xuesheng：引用数据类型
 new	Xuesheng()：一个对象
 
-编译时，如果类没有编译，会自动查找该类的.java文件，并进行编译
+编译时，如果类没有编译，会自动查找该类的.Java文件，并进行编译
 
 对于成员变量来说，如果声明时没有赋值，系统会赋值该类型的默认值
 引用类型的默认值为*null*
@@ -544,7 +544,7 @@ new	Xuesheng()：一个对象
 
 引用也有可能是实例变量，存储在堆中
 
-## 对象创建内存图
+### 对象创建内存图
 
 ```java
 class  Test01
@@ -592,11 +592,11 @@ class D
 可以通过画内存图进行分析。
 关键字：空指针异常（空引用访问对象相关的数据时）；GC主要回收堆内存的数据（没有任何引用指向的对象）
 
-## 方法调用时的参数传递
+### 方法调用时的参数传递
 
 参数传递时，永远都是将实参盒子中的值复制一份传递过去
 
-## 构造方法
+### 构造方法
 
 语法结构：
 [修饰符列表]		构造方法名	（形式参数列表）{ //创建对象、给属性赋值
@@ -614,15 +614,15 @@ class D
 
 实例变量，是在构造方法调用（创建对象）时赋值的（包括默认值）
 
-# 封装
+## 封装
 
-## 简要
+### 简要
 
 有了封装才有继承，有了继承才有多态
 
 封装：1.保证内部结构的安全性；2.屏蔽复杂，暴露简单
 
-## 怎么封装
+### 怎么封装
 
 1. 属性私有化（private修饰，只能在本类中访问）
 2. 对外提供简单的入口（getAttr、setAttr）；可以在set方法中设立关卡，保证数据安全性
@@ -655,9 +655,9 @@ class Person
 }
 ```
 
-# this与static
+## this与static
 
-## static
+### static
 
 1. static翻译为静态
 2. 所有static关键字修饰的都是类相关的，类级别的
@@ -672,7 +672,7 @@ class Person
 
 static修饰变量，静态变量；在类加载时静态变量空间就开辟出来了；静态变量存储在方法区	**（**局部变量->栈；实例变量（对象级别）->堆；静态变量（类级别）->方法区**）**
 
-## 静态代码块
+### 静态代码块
 
 使用static定义静态代码块；静态代码块在类加载时执行，且仅执行一次，在main之前执行，自上而下；常用于记录类加载时机，哪个类加载到JVM中了
 
@@ -697,11 +697,11 @@ class Test04
 }
 ```
 
-## 实例代码块
+### 实例代码块
 
-实例语块在类加载时没有执行，在new时，先执行实例语块，再执行构造方法；java提供的对象创建时机
+实例语块在类加载时没有执行，在new时，先执行实例语块，再执行构造方法；Java提供的对象创建时机
 
-## this
+### this
 
 this是一个关键字，全部小写；保存的内存地址指向当前对象自己本身;不能使用在类的静态方法中
 
@@ -738,7 +738,7 @@ class Student
 }
 ```
 
-## 总结代码
+### 总结代码
 
 ```java
 /*
@@ -813,15 +813,15 @@ class Student
 }
 ```
 
-# 继承
+## 继承
 
-## 方法修饰符
+### 方法修饰符
 
 默认为default
 
-![在这里插入图片描述](../image/java基础.assets/201905292024108png)
+![在这里插入图片描述](../image/Java基础.assets/201905292024108png)
 
-## 简要
+### 简要
 
 子类继承父类，代码得到复用；因为继承关系，才有了方法覆盖与多态机制
 
@@ -830,9 +830,9 @@ class Student
 特性：
 
 1. B类继承A类，则A类被称为超类（superclass）、父类、基类；B类称为子类（subclass）、派生类、扩展类
-2. java中只支持单继承，但有些时候会产生间接继承的效果，如：C继承B，B继承A，则C间接继承A
+2. Java中只支持单继承，但有些时候会产生间接继承的效果，如：C继承B，B继承A，则C间接继承A
 3. 规定，除了private修饰数据与构造方法不能继承，其他的都可以继承下来（相当于复制一份，会打上继承过来的标记）
-4. java中没有任何继承时，则默认继承Object类，Object类为根类
+4. Java中没有任何继承时，则默认继承Object类，Object类为根类
 5. 继承缺点，父类改变，会影响子类
 
 Object(根类)中toString()方法：
@@ -855,7 +855,7 @@ toString()方法的作用：将一个对象转换为字符串形式；  toString
 	}
 ```
 
-## 方法覆盖
+### 方法覆盖
 
 当子类继承过来的方法无法满足需求时，可以考虑方法的覆盖；方法的覆盖又叫做方法的重写（Override、Overwrite）
 
@@ -915,9 +915,9 @@ class AmericPeople extends People	//美国人继承人类
 }
 ```
 
-# 多态（重点）
+## 多态（重点）
 
-## 简介
+### 简介
 
 向上转型（自动转换）：子类实例化的对象使用父类修饰
 
@@ -927,7 +927,7 @@ class AmericPeople extends People	//美国人继承人类
 A o1=new B();	//向下转型
 B o2=new A();	//向上转型，实际上o2存储的还是A类的对象地址
 
-## 多态
+### 多态
 
 多种形态、多种状态，编译和运行有两个不同的状态
 
@@ -966,7 +966,7 @@ class  Test03
 		//但是向下转型有风险，如下：
 		//Dog a4=(Dog)a1;	//强制向下转型为Dog实例，但是a1实际存储的是Cat实例
 		//a4.call();	//编译通过，因为a4实际上是Cat实例，
-					//所以运行报错：java.lang.ClassCastException，类型转换异常
+					//所以运行报错：Java.lang.ClassCastException，类型转换异常
 		//处理向下转型的风险，使用instanceof，在运行时动态的判断该引用地址对象是否为某种类型，返回true/false
 		if(a1 instanceof Dog){	//因为a1引用指向不是Dog类的对象，返回false
 			Dog a4=(Dog)a1;
@@ -1000,7 +1000,7 @@ class Cat extends Animal
 
 
 
-## 多态在开发中作用
+### 多态在开发中作用
 
 降低程序耦合度，增强程序扩展性
 
@@ -1058,7 +1058,7 @@ class Cat extends Pet
 }
 ```
 
-## 其他
+### 其他
 
 方法覆盖需要和多态机制联合起来才有意义
 
@@ -1066,13 +1066,13 @@ class Cat extends Pet
 
 私有方法不能覆盖
 
-方法重写时：对于返回值类型是基本数据类型时，必须一致！返回值为引用数据类型时，重写时返回值类型可以变小（向下转型），java中允许；而返回值类型变大，java中是不允许的
+方法重写时：对于返回值类型是基本数据类型时，必须一致！返回值为引用数据类型时，重写时返回值类型可以变小（向下转型），Java中允许；而返回值类型变大，Java中是不允许的
 
 
 
-# super
+## super
 
-## 简介
+### 简介
 
 与this关键字对比着学，super有以下特点
 
@@ -1082,7 +1082,7 @@ class Cat extends Pet
 4. super()表示通过子类构造方法调用父类构造方法，只能出现在构造方法第一行
 5. 如果既没有this()也没有super()系统会默认有一个super()调用父类的无参 构造方法
 
-## 代码示例
+### 代码示例
 
 ```java
 class  Test06
@@ -1127,11 +1127,11 @@ class C extends B
 
 通过以上代码，可以知道，无论怎么样，实例化子类，都会调用父类构造方法，最终会调用到Object的无参构造，并且Object的无参构造最先执行
 
-## 其他
+### 其他
 
 super()虽然调用了父类构造方法，但只是初始化了父类的特征，并不是创建新对象，可以参考super内存内存图理解。对象只是创建了一个（子类）
 
-java中允许在子类中出现和父类同名变量，这个时候如果使用父类的变量，必须使用super调用，不能省略
+Java中允许在子类中出现和父类同名变量，这个时候如果使用父类的变量，必须使用super调用，不能省略
 
 super不保存内存地址，也不指向任何对象，只是保存当前对象中一块父类的特征，使用时必须用**super.**
 
@@ -1174,7 +1174,7 @@ class C extends B
 }
 ```
 
-# 内部类
+## 内部类
 
 成员内部类
 

@@ -8,6 +8,8 @@ categories: ["笔记"]
 author: "lei"
 ---
 
+# frps内网穿透
+
 ## 什么是FRP
 
 Frp (Fast Reverse Proxy) 是比较流行的一款。FRP 是一个免费开源的用于内网穿透的反向代理应用，它支持 TCP、UDP 协议， 也为 http 和 https 协议提供了额外的支持。你可以粗略理解它是一个中转站， 帮你实现 公网 ←→ FRP(服务器) ←→ 内网 的连接，让内网里的设备也可以被公网访问到

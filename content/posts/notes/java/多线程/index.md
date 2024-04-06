@@ -1,16 +1,18 @@
 ---
-title: "java多线程"
+title: "Java多线程"
 date: 2022-04-11
 lastmod: 2022-04-11
 draft: false
-tags: ['javaSE']
+tags: ['JavaSE']
 categories: ["笔记"]
 author: "lei"
 ---
 
-# 线程基础
+# Java多线程
 
-## 线程的周期
+## 线程基础
+
+### 线程的周期
 
 ![image-20220411094947379](images.assets/image-20220411094947379.png)
 
@@ -23,7 +25,7 @@ author: "lei"
   - 其他阻塞：通过调用线程的 sleep() 或 join() 发出了 I/O 请求时，线程就会进入到阻塞状态。当sleep() 状态超时，join() 等待线程终止或超时，或者 I/O 处理完毕，线程重新转入就绪状态
 - 死亡状态: 一个运行状态的线程完成任务或者其他终止条件发生时，该线程就切换到终止状态
 
-## 线程的优先级
+### 线程的优先级
 
 每一个 Java 线程都有一个优先级，这样有助于操作系统确定线程的调度顺序
 
@@ -33,9 +35,9 @@ Java 线程的优先级是一个整数，其取值范围是 1 （Thread.MIN_PRIO
 
 具有较高优先级的线程对程序更重要，并且应该在低优先级的线程之前分配处理器资源。但是，线程优先级不能保证线程执行的顺序，而且非常依赖于平台
 
-# 线程创建
+## 线程创建
 
-## 通过实现 Runnable 接口
+### 通过实现 Runnable 接口
 
 实现 Runnable，在创建线程时传入实现了Runnable接口的实例，并调用start()方法启动线程
 
@@ -74,7 +76,7 @@ public class MyThread{
 
 
 
-## 通过继承 Thread 类
+### 通过继承 Thread 类
 
 继承Thread，直接创建子类实例，并调用start()方法启动线程
 
@@ -96,7 +98,7 @@ public class MyThread extends Thread{
 //        继承Thread多线程
 ```
 
-## 通过 Callable 和 Future 创建线程
+### 通过 Callable 和 Future 创建线程
 
 - 创建 Callable 接口的实现类，并实现 call() 方法，该 call() 方法将作为线程执行体，并且有返回值
 - 创建 Callable 实现类的实例，使用 FutureTask 类来包装 Callable 对象，该 FutureTask 对象封装了该 Callable 对象的 call() 方法的返回值
@@ -126,16 +128,16 @@ public class MyCallableThread implements Callable<String> {
 //        123
 ```
 
-## 创建线程的三种方式的对比
+### 创建线程的三种方式的对比
 
 - 采用实现 Runnable、Callable 接口的方式创建多线程时，线程类只是实现了 Runnable 接口或 Callable 接口，还可以继承其他类
 - 使用继承 Thread 类的方式创建多线程时，编写简单，如果需要访问当前线程，则无需使用 Thread.currentThread() 方法，直接使用 this 即可获得当前线程
 
-# 线程池的使用
+## 线程池的使用
 
 线程池创建应该使用`ThreadPoolExecutor`方式创建，而不使用Executors去创建；Executor框架虽然提供了如newFixedThreadPool()、newSingleThreadExecutor()、newCachedThreadPool()等创建线程池的方法，但都有其局限性，不够灵活；另外由于前面几种方法内部也是通过ThreadPoolExecutor方式实现，使用ThreadPoolExecutor有助于大家明确线程池的运行规则，创建符合自己的业务场景需要的线程池，避免资源耗尽的风险
 
-## ThreadPoolExecutor的构造函数
+### ThreadPoolExecutor的构造函数
 
 ```java
 public ThreadPoolExecutor(int corePoolSize,
@@ -169,7 +171,7 @@ public ThreadPoolExecutor(int corePoolSize,
 // handler:拒绝策略；当任务太多来不及处理时，如何拒绝任务
 ```
 
-## workQueue任务队列
+### workQueue任务队列
 
 1. **直接提交队列**：设置为SynchronousQueue队列，SynchronousQueue是一个特殊的BlockingQueue，它没有容量，每执行一个插入操作就会阻塞，需要再执行一个删除操作才会被唤醒，反之每一个删除操作也都要等待对应的插入操作
 
@@ -185,7 +187,7 @@ public ThreadPoolExecutor(int corePoolSize,
 
    PriorityBlockingQueue它其实是一个特殊的`无界队列`，它其中无论添加了多少个任务；线程池创建的线程数也不会超过corePoolSize的数量，只不过其他队列一般是按照先进先出的规则处理任务，而PriorityBlockingQueue队列可以自定义规则根据任务的优先级顺序先后执行
 
-## 拒绝策略
+### 拒绝策略
 
 当队列满了，并且线程池线程数量已经达到 maximumPoolSize 时，此时有新任务进来时，执行拒绝策略
 
@@ -217,7 +219,7 @@ private static void testThreadPoolRej() {
 
 
 
-## ThreadFactory自定义线程创建
+### ThreadFactory自定义线程创建
 
  线程池中线程就是通过ThreadPoolExecutor中的ThreadFactory，线程工厂创建的。那么通过自定义ThreadFactory，可以按需要对线程池中创建的线程进行一些特殊的设置，如命名、优先级等，下面代码我们通过ThreadFactory对线程池中创建的线程进行记录与命名
 
@@ -237,7 +239,7 @@ private static void testThreadFactory() {
 
 
 
-## ThreadPoolExecutor扩展
+### ThreadPoolExecutor扩展
 
 ThreadPoolExecutor扩展主要是围绕beforeExecute()、afterExecute()和terminated()三个接口实现的，
 
@@ -272,7 +274,7 @@ private static void testThreadPoolExt() {
 
 
 
-## 线程池数量
+### 线程池数量
 
 线程吃线程数量的设置没有一个明确的指标，根据实际情况，只要不是设置的偏大和偏小都问题不大，结合下面这个公式即可
 
@@ -285,7 +287,7 @@ private static void testThreadPoolExt() {
 Nthreads = Ncpu*Ucpu*(1+W/C)
 ```
 
-## 获取线程返回值
+### 获取线程返回值
 
 通过`Future`和线程池的`submit方法添加的Callable的实例`，可以获取多线程执行后返回的结果
 
@@ -313,11 +315,11 @@ private static void testThreadPoolFuture() throws Exception {
 }
 ```
 
-# Fork/join
+## Fork/join
 
-## 介绍
+### 介绍
 
-ForkJoinPool是自java7开始，jvm提供的一个用于并行执行的任务框架。其主旨是将大任务分成若干小任务，之后再并行对这些小任务进行计算，最终汇总这些任务的结果
+ForkJoinPool是自Java7开始，jvm提供的一个用于并行执行的任务框架。其主旨是将大任务分成若干小任务，之后再并行对这些小任务进行计算，最终汇总这些任务的结果
 
 **伪代码**
 
@@ -331,7 +333,7 @@ if(任务很小）{
 }
 ```
 
-## 实例
+### 实例
 
 **Fork/Join对大数据进行并行求和**
 
@@ -436,9 +438,9 @@ public class ThreadForkJoinDemo {
 
 
 
-# 线程安全
+## 线程安全
 
-## synchronized
+### synchronized
 
 synchronized 是`JDK`内部提供的`同步机制`，这也是使用比较多的手段
 
@@ -511,7 +513,7 @@ public static synchronized int addInt(int[] arr){
 }
 ```
 
-## Lock
+### Lock
 
 Lock接口
 
@@ -564,7 +566,7 @@ public interface Lock {
 
 3. **lockInterruptibly()**  通过这个方法去获取锁时，如果线程 正在等待获取锁，则这个线程能够 响应中断，即中断线程的等待状态；注意，当一个线程获取了锁之后，是不会被interrupt()方法中断的，因为interrupt()方法只能中断阻塞过程中的线程而不能中断正在运行过程中的线程
 
-### 重入锁
+#### 重入锁
 
 重入锁`ReentrantLock`是对`Lock`接口的实现
 
@@ -578,7 +580,7 @@ public interface Lock {
 
 - 进入了多少次锁，则需要退出多少次锁，次数必须相同
 - 如果进入的次数比退出的次数多，则会产生死锁
-- 如果进入的次数比退出的次数少，则会出现异常java.lang.IllegalMonitorStateException
+- 如果进入的次数比退出的次数少，则会出现异常Java.lang.IllegalMonitorStateException
 - unlock()的调用必须放在finally中，以便保证锁的退出肯定会执行
 
 重入锁实例：
@@ -617,7 +619,7 @@ private static void testThreadSafetySynchronized() throws Exception {
 }
 ```
 
-### Condition
+#### Condition
 
 对于Lock实现类的锁，使用`Condition`对象来实现`wait`和`notify`的功能
 
@@ -637,7 +639,7 @@ final ReentrantLock lockA = new ReentrantLock();
 final Condition condition=lockA.newCondition();
 ```
 
-### 读写锁
+#### 读写锁
 
 ReadWriteLock 可以保证
 
@@ -675,9 +677,9 @@ try {
 }
 ```
 
-# CountDownLatch
+## CountDownLatch
 
-## 逻辑
+### 逻辑
 
 主线程新建 mainLatch和threadLatch，分别对应主线程和子线程；开启子线程传入 mainLatch、threadLatch 、回滚标志、业务数据；然后等待 threadLatch 
 
@@ -687,7 +689,7 @@ try {
 
 子线程收到 mainLatch 信号，继续执行，并根据回滚标志是否回滚
 
-## 伪代码
+### 伪代码
 
 **主线程代码**
 
@@ -725,7 +727,7 @@ try{
 // 根据共有对象回滚标志 是否进行回滚
 ```
 
-## 实例代码
+### 实例代码
 
 1. 创建共享对象 ShareData
 

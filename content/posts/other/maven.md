@@ -1,5 +1,5 @@
 ---
-title: "maven"
+title: "Maven"
 description: ""
 date: 2020-11-07
 lastmod: 2020-11-07
@@ -9,11 +9,11 @@ author: "lei"
 draft: false
 ---
 
-
+# Maven
 
 ## Maven基础
 
-- maven可以管理jar文件
+- Maven可以管理jar文件
 - 自动下载jar和他的文档，源代码
 - 管理jar的直接依赖
 - 管理所需要的jar文件版本
@@ -25,16 +25,16 @@ draft: false
 
 1. 清理，把之前项目编译的东西删除掉
 2. 编译，把程序源代码编译成可执行代码，批量的
-3. 测试，maven执行多个测试代码，验证程序是否正确，批量的
+3. 测试，Maven执行多个测试代码，验证程序是否正确，批量的
 4. 报告，生成测试结果文件，测试是否通过
 5. 打包，将项目所有文件资源打包到一个压缩文件中；对于通常的java程序，文件扩展名为jar；对于web应用，文件扩展名为war
 6. 安装，把步骤五打包的文件jar或war安装到本地仓库
 7. 部署
 
-> maven核心概念
+> Maven核心概念
 
-1. POM：一个文件，名称是 pom.xml ，pom翻译过来就是项目对象模型；控制maven构建项目过程，管理jar依赖
-2. 约定目录结构：maven项目目录结构是规定的
+1. POM：一个文件，名称是 pom.xml ，pom翻译过来就是项目对象模型；控制Maven构建项目过程，管理jar依赖
+2. 约定目录结构：Maven项目目录结构是规定的
 3. 坐标：唯一字符串，用于表示资源的
 4. 依赖管理：管理项目 jar 文件
 5. 仓库管理
@@ -46,7 +46,7 @@ draft: false
 > Maven安装与配置
 
 1. 从 apache 官网下载 Maven 安装包
-2. 配置国内仓库，提升 maven 速度
+2. 配置国内仓库，提升 Maven 速度
 3. 环境变量配置
 4. mvn -v 验证是否配置成功
 
@@ -57,8 +57,8 @@ draft: false
 一个使用Maven管理的普通的Java项目，它的目录结构默认如下：
 
 ```ascii
-a-maven-project
-├── pom.xml		#maven的核心文件
+a-Maven-project
+├── pom.xml		#Maven的核心文件
 ├── src
 │   ├── main	#主程序
 │   │   ├── java
@@ -71,7 +71,7 @@ a-maven-project
 
 > 项目对象模型 POM
 
-项目描述文件`pom.xml`是`maven`的灵魂，它的内容长得像下面：
+项目描述文件`pom.xml`是`Maven`的灵魂，它的内容长得像下面：
 
 ```xml
 <project ...>
@@ -113,7 +113,7 @@ a-maven-project
 |          packaging           |        打包压缩文件后的扩展名，默认为jar        |
 |   dependencies、dependency   |          依赖，说明项目需要使用的 jar           |
 |          properties          |           定义属性，例如定义编码方式            |
-|            build             | 与构建相关的属性，如指定 maven 编译时的 jdk版本 |
+|            build             | 与构建相关的属性，如指定 Maven 编译时的 jdk版本 |
 
 
 
@@ -127,15 +127,15 @@ a-maven-project
 
 > 仓库
 
-- 仓库存放maven使用的jar（也叫做插件）和我们项目使用的 jar
+- 仓库存放Maven使用的jar（也叫做插件）和我们项目使用的 jar
 - 仓库分两种：本地仓库 和 远程仓库（中央仓库，中央仓库镜像，私服）
 - 本地仓库---->私服---->镜像---->中央仓库
 
 **小结**
 
 - Maven使用 pom.xml 定义项目内容，并使用预定义目录结构
-- 在 pom.xml 可以声明依赖，maven会自动下载，并放入 classpath
-- maven使用 groupId，artifactId 和 version 唯一定位一个依赖
+- 在 pom.xml 可以声明依赖，Maven会自动下载，并放入 classpath
+- Maven使用 groupId，artifactId 和 version 唯一定位一个依赖
 
 ## 依赖管理
 
@@ -163,7 +163,7 @@ Maven定义了几种依赖关系，分别是`compile`、`test`、`runtime`和`pr
 
 > 搜索第三方组件
 
-如果要引用一个第三方组件，比如`okhttp`，如何确切地获得它的`groupId`、`artifactId`和`version`？方法是通过[search.maven.org](https://search.maven.org/)搜索关键字，找到对应的组件后，直接复制
+如果要引用一个第三方组件，比如`okhttp`，如何确切地获得它的`groupId`、`artifactId`和`version`？方法是通过[search.Maven.org](https://search.Maven.org/)搜索关键字，找到对应的组件后，直接复制
 
 **小结**
 
@@ -231,7 +231,7 @@ Maven通过lifecycle、phase和goal来提供标准的构建流程。
 
 ## 插件使用
 
-maven的 lifecycle，phase和goal：使用 maven构建项目就是执行 lifecycle，执行到指定的push为止，每个push会执行自己默认的一个或多个 goal。goal是最小任务单元。
+Maven的 lifecycle，phase和goal：使用 Maven构建项目就是执行 lifecycle，执行到指定的push为止，每个push会执行自己默认的一个或多个 goal。goal是最小任务单元。
 
 > 例如执行以下命令
 
@@ -239,7 +239,7 @@ maven的 lifecycle，phase和goal：使用 maven构建项目就是执行 lifecyc
 mvn compile
 ```
 
-maven 将执行 `compile` 这个 phase，这个 phase 会调用 `compiler` 插件执行关联的 `compiler:compile` 这个goal
+Maven 将执行 `compile` 这个 phase，这个 phase 会调用 `compiler` 插件执行关联的 `compiler:compile` 这个goal
 
 实际上，执行每个phase，都是通过某个插件（plugin）来执行的，Maven本身其实并不知道如何执行`compile`，它只是负责找到对应的`compiler`插件，然后执行默认的`compiler:compile`这个goal来完成编译。
 
@@ -256,7 +256,7 @@ Maven已经内置了一些常用的标准插件：
 | surefire | test            |
 | jar      | package         |
 
-如果标准插件无法满足需求，我们还可以使用自定义插件。使用自定义插件的时候，需要声明。例如，使用`maven-shade-plugin`可以创建一个可执行的jar，要使用这个插件，需要在`pom.xml`中声明它：
+如果标准插件无法满足需求，我们还可以使用自定义插件。使用自定义插件的时候，需要声明。例如，使用`Maven-shade-plugin`可以创建一个可执行的jar，要使用这个插件，需要在`pom.xml`中声明它：
 
 ```xml
 <project>
@@ -264,8 +264,8 @@ Maven已经内置了一些常用的标准插件：
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
+				<groupId>org.apache.Maven.plugins</groupId>
+				<artifactId>Maven-shade-plugin</artifactId>
                 <version>3.2.1</version>
 				<executions>
 					<execution>
@@ -284,12 +284,12 @@ Maven已经内置了一些常用的标准插件：
 </project>
 ```
 
-自定义插件往往需要一些配置，例如，`maven-shade-plugin`需要指定Java程序的入口，它的配置是：
+自定义插件往往需要一些配置，例如，`Maven-shade-plugin`需要指定Java程序的入口，它的配置是：
 
 ```xml
 <configuration>
     <transformers>
-        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+        <transformer implementation="org.apache.Maven.plugins.shade.resource.ManifestResourceTransformer">
             <mainClass>com.itranswarp.learnjava.Main</mainClass>
         </transformer>
     </transformers>
@@ -300,9 +300,9 @@ Maven已经内置了一些常用的标准插件：
 
 下面列举了一些常用的插件：
 
-- maven-shade-plugin：打包所有依赖包并生成可执行jar；
-- cobertura-maven-plugin：生成单元测试覆盖率报告；
-- findbugs-maven-plugin：对Java源码进行静态分析以找出潜在问题。
+- Maven-shade-plugin：打包所有依赖包并生成可执行jar；
+- cobertura-Maven-plugin：生成单元测试覆盖率报告；
+- findbugs-Maven-plugin：对Java源码进行静态分析以找出潜在问题。
 
 **小结**
 
@@ -312,14 +312,14 @@ Maven通过自定义插件可以执行项目构建时需要的额外功能，使
 
 插件的配置和用法需参考插件的官方文档。
 
-## IDEA配置maven
+## IDEA配置Maven
 
 - 配置当前工程
 - 配置新建工程
 
-都需要配置 maven、配置文件、仓库
+都需要配置 Maven、配置文件、仓库
 
-注意在VM Options中配置： `-DarchetypeCatalog=internal`  可以提升创建maven项目的速度
+注意在VM Options中配置： `-DarchetypeCatalog=internal`  可以提升创建Maven项目的速度
 
 ## 单元测试
 
@@ -336,7 +336,7 @@ Maven通过自定义插件可以执行项目构建时需要的额外功能，使
            </dependency>
    ```
 
-2. 在 maven 项目下的 src/test/java 目录下，创建测试程序
+2. 在 Maven 项目下的 src/test/java 目录下，创建测试程序
 
    - 测试类的名称 是 Test + 需要测试的类名
    - 测试方法的名称是 Test + 方法名
@@ -379,9 +379,9 @@ Maven父工程遵循以下要求
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://Maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://Maven.apache.org/POM/4.0.0 http://Maven.apache.org/xsd/Maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.lei</groupId>
@@ -395,8 +395,8 @@ Maven父工程遵循以下要求
 
     <properties>
         <!-- 定义变量 -->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <Maven.compiler.source>11</Maven.compiler.source>
+        <Maven.compiler.target>11</Maven.compiler.target>
         <spring-boot.version>2.7.5</spring-boot.version>
         <hutool.version>5.8.9</hutool.version>
     </properties>
@@ -439,9 +439,9 @@ Maven父工程遵循以下要求
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://Maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://Maven.apache.org/POM/4.0.0 http://Maven.apache.org/xsd/Maven-4.0.0.xsd">
     
     <!-- 声明父工程 -->
     <parent>
@@ -477,27 +477,27 @@ Maven父工程遵循以下要求
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://Maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://Maven.apache.org/POM/4.0.0 http://Maven.apache.org/xsd/Maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
 <!--  通过 groupId、artifactId、version 唯一确定该项目-->
   <groupId>org.lei</groupId>
-  <artifactId>ch02-maven-web</artifactId>
+  <artifactId>ch02-Maven-web</artifactId>
 <!--  版本后面加 -SNAPSHOT代表还在开发阶段-->
   <version>1.0-SNAPSHOT</version>
 
 <!--  打包成归档文件的类型 se项目jar、web项目war-->
   <packaging>war</packaging>
 
-<!-- maven属性配置-->
+<!-- Maven属性配置-->
   <properties>
 <!--    编码格式-->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 <!--    编译使用 jdk 版本-->
-    <maven.compiler.source>1.8</maven.compiler.source>
+    <Maven.compiler.source>1.8</Maven.compiler.source>
 <!--    运行使用 jdk版本-->
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <Maven.compiler.target>1.8</Maven.compiler.target>
 <!--    自定义属性变量，标签就是变量名，可以通过 ${变量名} 来使用-->
     <juint-version>4.11</juint-version>
   </properties>
@@ -521,7 +521,7 @@ Maven父工程遵循以下要求
   </dependencies>
 
   <build>
-<!--    指定资源文件，默认maven 只会将资源目录下文件拷贝过去-->
+<!--    指定资源文件，默认Maven 只会将资源目录下文件拷贝过去-->
     <resources>
       <resource>
         <directory>src/main/java</directory>

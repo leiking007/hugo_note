@@ -1,5 +1,5 @@
 ---
-title: "mybatis妙用"
+title: "MyBatis妙用"
 date: 2023-01-17
 lastmod: 2023-01-17
 draft: false
@@ -8,7 +8,9 @@ categories: ["笔记"]
 author: "lei"
 ---
 
-# ResultHandler
+# MyBatis妙用
+
+## ResultHandler
 
 sql如下，需要返回map；map key为 查询结果id，map value为查询结果的 name；此时可以用 ResultHandler 对查询结果集处理，返回需要的 map
 
@@ -67,7 +69,7 @@ select id,name from t_user;
    Map<String, String> results = resultHandler.getMappedResults();
    ```
 
-# @MapKey注解
+## @MapKey注解
 
 MapKey 注解标注在mapper接口方法上
 

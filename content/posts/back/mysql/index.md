@@ -1,5 +1,5 @@
 ---
-title: "mysql"
+title: "MySQL"
 date: 2020-09-09
 lastmod: 2020-09-09
 draft: false
@@ -8,7 +8,9 @@ categories: ["后端"]
 author: "lei"
 ---
 
-# 初见
+# MySQL
+
+## 初见
 
 1. 序列化反序列化也可以开发项目，不过太不方便了
 2. 常见的数据库管理系统
@@ -45,7 +47,7 @@ author: "lei"
 10. .sql文件，以sql结尾，这样的文件被称为"sql脚本"，该文件中编写了大量的sql语句；想批量执行sql语句使用sql脚本
 11. 表结构
 
-# 常见命令使用
+## 常见命令使用
 
 1. 数据库
    1. show databases：查看数据库列表；
@@ -62,9 +64,9 @@ author: "lei"
    1. \c：结束mysql语句
    2. quit()：退出数据库
 
-# 查询（DQL）
+## 查询（DQL）
 
-## select
+### select
 
 1. 所有sql语句以**‘；’**结尾；sql不区分大小写；sql语句要求字符串使用单引号
 2. 语法格式
@@ -76,7 +78,7 @@ select ename,sql*12 as 年薪 from emp;//查询用户，年薪显示为年薪；
 select * from emp;//查询所有字段，不建议，效率低
 ```
 
-## 条件查询(where)
+### 条件查询(where)
 
 1. select 字段 from 表名 where 条件
 2. 执行顺序：from-->where-->select
@@ -98,7 +100,7 @@ select ename from emp where sal in (1000,5000);//工资等于1000和5000的员�
 select ename from emp where ename like '_A%';//名字中第二个字母是A的员工；可以使用转义查询：\_普通字符_
 ```
 
-## 排序(order by)
+### 排序(order by)
 
 1. select 字段 from 表 order by 字段
 2. 默认为升序，asc
@@ -110,7 +112,7 @@ select ename from emp where ename like '_A%';//名字中第二个字母是A的�
 select ename,sal from emp order by sal desc,ename asc;//按照工资降序排列,工资相同再按照名字排序
 ```
 
-## 分组函数
+### 分组函数
 
 1. 分组函数有：count：计数、sum：求和、max：最大值、min：最小值、avg：平均值
 2. 分组函数只有上面5个；又叫做多行处理，输入多行，输出一行，分组函数自动忽略NULL；
@@ -125,7 +127,7 @@ select ename,sal from emp where sal>avg(sal);//语法错误，分组函数不能
 select count(*),sum(sal),avg(sal),max(sal),min(sal) from emp;//分组函数组合起来使用
 ```
 
-## 分组查询(group by,having)
+### 分组查询(group by,having)
 
 1. group：按照某个字段或者某些字段进行分组
 2. having：是对分组之后的数据进行再次过滤，一定出现在group by中
@@ -145,7 +147,7 @@ select distinct deptno,job from emp;//distinct后面所有字段去重
 select count(distinct job) from emp;//统计岗位数量，先去重岗位，然后计数
 ```
 
-## 连接查询
+### 连接查询
 
 1. 实际开发中，大部分数据都不是从单表查询，而是多个表联合查询；一般一个业务都会对应多张表，为了解决数据冗余
 
@@ -199,7 +201,7 @@ select e.ename,d.dname,s.grade from emp e join dept d on e.deptno=d.deptno join 
 select e.name '员工',d.dname,s.grade,e1.ename '领导' from emp e join dept d on e.deptno=d.deptno join salgrade s on e.sal between s.losal and s.hisal left join emp e1 on e.mgr=e1.empno;//查询每一个员工部门名称，工资等级，以及上级领导
 ```
 
-## 子查询
+### 子查询
 
 1. 子查询：select语句中嵌套select语句，被嵌套的select语句就是子查询；嵌套select可以出现在select，from，where后
 
@@ -214,7 +216,7 @@ select avg(s.grade),e.deptno from emp e join salgrade s on e.sal between s.losal
 select e.ename,e.deptno,(select d.dname from dept d where e.deptno=d.deptno) as dname  from emp e;//找出每个员工所在部门的名字，显示员工名和部门名
 ```
 
-## union/unionall
+### union/unionall
 
 1. union/unionall可以将查询结果相加
 2. 前后列数必须相同
@@ -223,7 +225,7 @@ select e.ename,e.deptno,(select d.dname from dept d where e.deptno=d.deptno) as 
 select ename,job from emp where jon='MANAGER' union select ename,job from emp where jon='CLERK';//
 ```
 
-## limit
+### limit
 
 1. limit是mysql特有的，其他数据库没有
 2. limit取结果集中的部分数据
@@ -239,7 +241,7 @@ select ename,sal from emp order by sal limit 3,3;//查询薪资顺序的第4条�
 那么pageNo页：(pageNo-1)*pagesize,pagesize
 ```
 
-## 其他
+### 其他
 
 1. 不确定优先级时，使用括号
 2. 只要表达式中，只要有NULL参与运算，结果必定是NULL，如800+NULL，结果为NULL
@@ -250,9 +252,9 @@ select ename,sal from emp order by sal limit 3,3;//查询薪资顺序的第4条�
    执行顺序：from-->where-->group by-->having-->select-->order by-->limit (pageNo-1)*pagesize,pagesize;
    先哪个表查，where筛选数据，group by进行分组，然后having对分组的数据再过滤，select查询出结果，然后对查询出的数据进行oder by排序，最后进行limit语句；
 
-# 数据定义语言(DDL)
+## 数据定义语言(DDL)
 
-## 创建表(create)
+### 创建表(create)
 
 1. 表名建议使用t_或者tbl\_开头
 
@@ -285,13 +287,13 @@ select ename,sal from emp order by sal limit 3,3;//查询薪资顺序的第4条�
    )
    ```
 
-## 表结构修改(alter)
+### 表结构修改(alter)
 
-## 删除表(drop)
+### 删除表(drop)
 
 1. drop table if exists t_student：如果t_student这个表存在的话删除
 
-## 约束(Constraint)
+### 约束(Constraint)
 
 1. 创建表时添加约束，保证表中数据的合法性，有效性，完成约束
 
@@ -369,16 +371,16 @@ create table t_student (
 
 
 
-## 表的复制
+### 表的复制
 
 1. create table 表名 as select 语句：将查询结果当作表创建出来
 2. insert into 表名 select 语句：将查询结果插入到一个表中
 
-# 数据操作语言(DML)
+## 数据操作语言(DML)
 
 术语CRUD：Create(增)、Retrieve(检索)、Update(修改)、Delete(删除)
 
-## 插入数据(insert)
+### 插入数据(insert)
 
 1. 要求：字段数量与值数量相同，且数据类型要对应
 2. 字段顺序可以修改，只要对应就行
@@ -393,7 +395,7 @@ insert into t_student
 (102,'tom',1,1,'1998-08-27'),(103,'mary',1,2,'2000-01-30');
 ```
 
-## 修改数据(update)
+### 修改数据(update)
 
 1. 注意：如果没有条件代表全部更新
 2. 修改数据语法格式
@@ -404,7 +406,7 @@ update 表名 set 字段名1=值1，字段名2=值2，... where 条件;
 update t_student set classno=5 where name='mary';
 ```
 
-## 删除数据(delete)
+### 删除数据(delete)
 
 1. 注意：如果没有条件代表全部删除
 2. 表如果特别大，删除会很消耗时间，没有释放数据真实空间；删除大表中所有数据：truncate
@@ -418,7 +420,7 @@ truncate table 表名;//表被截断，不可回滚，永久丢失；删除大�
 delete from t_student where name='lei';
 ```
 
-## 存储过程
+### 存储过程
 
 SQL语句需要先编译然后执行，而存储过程（Stored Procedure）是一组为了完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给定参数（如果该存储过程带有参数）来调用执行它。
 
@@ -462,7 +464,7 @@ DELIMITER ;
 
 
 
-# 存储引擎
+## 存储引擎
 
 1. 存储引擎：表的存储方式
 
@@ -491,11 +493,11 @@ DELIMITER ;
    //默认存储引擎InnoDB，默认编码latin1
    ```
 
-# 事务控制语言(TCL)
+## 事务控制语言(TCL)
 
 Transaction
 
-## 简介
+### 简介
 
 1. 一个事务是一个完整的业务逻辑，不可再分；
    如：A账户向B账户转钱，A减钱，B加钱，必须同时成功才算成功，不允许一条成功一条失败（事务机制实现）
@@ -510,14 +512,14 @@ Transaction
       提交事务（commit）：一次性修改硬盘上数据，且清空缓存（操作历史）
       回滚事务（rollback）：并不修改硬盘文件，但会清空缓存（操作历史）
 
-## 事务特性(ACID)
+### 事务特性(ACID)
 
 1. A：原子性，事务是最小的工作单元，不可再分
 2. C：一致性，事务必须保证多条DML语句同时成功或同时失败
 3. I：隔离性，事务A与事务B之间具有隔离
 4. D：持久性，最终数据必须持久化到硬盘上，事务才算是成功
 
-## 事务隔离性
+### 事务隔离性
 
 1. 事务隔离性存在隔离级别，理论上隔离级别包括四个
    1. 第一级别：读未提交（read uncommitted）；对方事务还未提交，我们当前事务可以读取到对方未提交数据；问题：读未提交存在脏读（Dirty Read）现象
@@ -599,9 +601,9 @@ mysql> select * from t_user;//事务2读取到了数据，在事务1提交后
     2 rows in set (4.27 sec)
 ```
 
-# 索引
+## 索引
 
-## 简介
+### 简介
 
 1. 索引：相当于一本书的目录，通过目录可以快速找到对应资源；数据库中查询一张表的时候有两种检索方式：第一种，全表扫描；第二种，根据索引检索（效率高）
 
@@ -623,7 +625,7 @@ mysql> select * from t_user;//事务2读取到了数据，在事务1提交后
    mysql> explain select * from emp where sal > 4000;
    ```
 
-## 添加删除索引
+### 添加删除索引
 
 1. 添加索引：create index 索引名 on 表名(字段)
 
@@ -638,14 +640,14 @@ mysql> select * from t_user;//事务2读取到了数据，在事务1提交后
    mysql> drop index emp_sal_index on emp;//删除索引
    ```
 
-## 索引原理
+### 索引原理
 
 1. 底层是一个树
 2. 索引字段会自动排序，创建索引后，会在硬盘生成索引文件
 3. 数据在硬盘上有物理地址，当查询有索引字段时，会自动将查询语句的条件变成物理地址从而查询
 4. 通过B tree缩小扫描范围，底层索引进行了排序、分区；索引会携带数据在表中的“物理地址”，最终通过索引检索到数据之后，获取到关联物理地址，通过物理地址定位到表中的数据，效率是最高的
 
-## 索引分类
+### 索引分类
 
 1. 单一索引：给单个字段添加索引
 2. 复合索引：给多个字段联合起来添加一个索引
@@ -653,7 +655,7 @@ mysql> select * from t_user;//事务2读取到了数据，在事务1提交后
 4. 唯一索引：有unique约束的字段会自动添加索引
 5. 注意：模糊查询时，第一个通配符是%，这个时候索引是失效的
 
-### 联合索引
+#### 联合索引
 
 index_key(a,b,c)，联合索引，此时where字句必须包含`最左 a 字段`，才会走索引
 
@@ -666,7 +668,7 @@ select  * from test where a = '333' and c = '333';
 select  * from test where  b = '333' and c = '333';
 ```
 
-### 覆盖索引
+#### 覆盖索引
 
 覆盖索引其实是一种特殊的联合索引，怎么理解呢，即是你查询的字段的所有数据都在索引上，不需要再进行一次回表查询，这样的索引即为覆盖索引。查询的所有字段可直接从索引获得，称为覆盖索引
 
@@ -674,7 +676,7 @@ select  * from test where  b = '333' and c = '333';
 SELECT a,b,c from test where a = '333';
 ```
 
-## 视图
+### 视图
 
 1. 什么是视图：站在不同的角度去看数据（同一张表的数据，从不同的角度去看待）
 2. 怎么创建视图：create view myview as select empno,ename from emp;
@@ -683,7 +685,7 @@ SELECT a,b,c from test where a = '333';
 5. 对视图进行增删改查会影响原表数据；通过视图影响原表数据
 6. 视图作用：试图可以隐藏表的实现细节；保密级别较高的系统，数据库对外只提供相关视图，不展示原数据
 
-## DBA命令
+### DBA命令
 
 1. 将数据库当中数据导出(CMD界面)
 
@@ -702,14 +704,14 @@ SELECT a,b,c from test where a = '333';
    source D:\mydata.sql;//导入
    ```
 
-# 范式
+## 范式
 
-## 简介
+### 简介
 
 1. 什么是范式：设计表的依据，按照这个依据创建的表没有数据冗余
 2. 提醒：实际开发中以客户需求为主，有时候会拿冗余换执行速度
 
-## 范式分类
+### 范式分类
 
 1. 第一范式：任何一张表都应该有主键，并且每一个字段原子性不可再分
 2. 第二范式：基于第一范式基础，所有非主键字段完全依赖主键，不能产生部分依赖
@@ -718,28 +720,28 @@ SELECT a,b,c from test where a = '333';
    一对多，两张表，多的表加外键
 4. 一对一表设计：主键共享、唯一外键
 
-# 锁
+## 锁
 
-## 悲观锁(行级锁)
+### 悲观锁(行级锁)
 
 1. 事务必须进行排队执行，数据锁住了，不允许并发
 2. select ename,job from emp where job='MANAGER' for update;
    for update加行级锁，在当前事务没有完成时，别的事务不能对工作岗位为MANAGER的记录进行修改
 
-## 乐观锁
+### 乐观锁
 
 1. 支持并发，事务无需排队，只不过需要一个版本号
 2. 事务读取，会有一个版本号，如果提交修改数据时，版本号和读时的版本号一致则提交，不一致则回滚
 
-# Mysql 日志
+## Mysql 日志
 
-## 简介
+### 简介
 
 Mysql 日志主要包括：错误日志、查询日志、慢查询日志、事务日志、二进制日志几大类
 
 其中`二进制日志/归档日志（binlog）`、`事务日志/重做日志（redo log）`、回滚日志（undo log）
 
-## 重做日志（redo log）
+### 重做日志（redo log）
 
 redo log 是 InnoDB 存储引擎独有的，它让Mysql拥有了崩溃恢复能力
 
@@ -747,7 +749,7 @@ redo log 是 InnoDB 存储引擎独有的，它让Mysql拥有了崩溃恢复能�
 >
 > 每条 redo 记录由“表空间号+数据页号+偏移量+修改数据长度+具体修改的数据”组成
 
-### 刷盘时机
+#### 刷盘时机
 
 `InnoDB` 存储引擎为 `redo log` 的刷盘策略提供了 `innodb_flush_log_at_trx_commit` 参数，它支持三种策略：
 
@@ -763,7 +765,7 @@ redo log 是 InnoDB 存储引擎独有的，它让Mysql拥有了崩溃恢复能�
 
 因此：一个没有提交事务的 `redo log` 记录，也可能会刷盘，因为在事务执行过程 `redo log` 记录是会写入`redo log buffer` 中，这些 `redo log` 记录会被后台线程刷盘
 
-### 日志文件组
+#### 日志文件组
 
 硬盘上的`redo log`日志文件不止一个，而是以一个`日志文件组`的形式存在，每个`redo`日志文件大小都是一样的
 
@@ -781,13 +783,13 @@ redo log 是 InnoDB 存储引擎独有的，它让Mysql拥有了崩溃恢复能�
 `write pos` 和 `checkpoint` 之间的还空着的部分可以用来写入新的 `redo log` 记录
 如果 `write pos` 追上 `checkpoint` ，表示**日志文件组**满了，这时候不能再写入新的 `redo log` 记录，`MySQL` 得停下来，清空一些记录，把 `checkpoint` 推进一下
 
-### redo log 小结
+#### redo log 小结
 
 > 为什么不把修改的数据页直接刷盘，而是采用`redo log`进行记录？
 >
 > 同样因为性能原因，因此每次修改可能只改了数据页很少一部分，所以没有必要将数据页进行刷盘；而且数据页刷盘是随机写，因为一个数据页对应的位置可能在硬盘文件的随机位置，所以性能是很差；如果是写 `redo log`，一行记录可能就占几十 `Byte`，只包含表空间号、数据页号、磁盘文件偏移 量、更新值，再加上是顺序写，所以刷盘速度很快；所以用 `redo log` 形式记录修改内容，性能会远远超过刷数据页的方式，这也让数据库的并发能力更强
 
-## 归档日志（binlog）
+### 归档日志（binlog）
 
 `redo log`是物理日志，记录的内容是`哪个数据页上做了哪些修改`，属于`InnoDB`存储引擎、
 
@@ -795,7 +797,7 @@ redo log 是 InnoDB 存储引擎独有的，它让Mysql拥有了崩溃恢复能�
 
 mysql数据库的数据备份、主从、主主都离不开`binlog`日志，需要`binlog`来同步数据，保证数据的一致性
 
-### 记录格式
+#### 记录格式
 
 `binlog` 日志有三种格式，可以通过`binlog_format`参数指定
 
@@ -811,7 +813,7 @@ mysql数据库的数据备份、主从、主主都离不开`binlog`日志，需�
 
   相当于`statement`和`row`的折中方案，`MySQL`会判断这条`SQL`语句是否可能引起数据不一致，如果是，就用`row`格式，否则就用`statement`格式
 
-### 写入机制
+#### 写入机制
 
 `binlog`的写入时机也非常简单，事务执行过程中，先把日志写到`binlog cache`，事务提交的时候，再把`binlog cache`写到`binlog`文件中
 
@@ -838,7 +840,7 @@ mysql数据库的数据备份、主从、主主都离不开`binlog`日志，需�
 >
 > 在出现`IO`瓶颈的场景里，将`sync_binlog`设置成一个比较大的值，可以提升性能。同样的，如果机器宕机，会丢失最近`N`个事务的`binlog`日志
 
-### 两阶段提交
+#### 两阶段提交
 
 `redo log`（重做日志）让`InnoDB`存储引擎拥有了崩溃恢复能力
 
@@ -856,21 +858,21 @@ mysql数据库的数据备份、主从、主主都离不开`binlog`日志，需�
 
 > `redo log`设置`commit`阶段发生异常，并不会回滚事务，虽然`redo log`是处于`prepare`阶段，但是能通过事务`id`找到对应的`binlog`日志，所以`MySQL`认为是完整的，就会提交事务恢复数据
 
-## undo log
+### undo log
 
 要保证事务的原子性，就需要在异常发生时，对已经执行的操作进行**回滚**，在 MySQL 中，恢复机制是通过 **回滚日志（undo log）** 实现的，所有事务进行的修改都会先先记录到这个回滚日志中，然后再执行相关的操作。如果执行过程中遇到异常的话，我们直接利用 **回滚日志** 中的信息将数据回滚到修改之前的样子即可！并且，回滚日志会先于数据持久化到磁盘上。这样就保证了即使遇到数据库突然宕机等情况，当用户再次启动数据库的时候，数据库还能够通过查询回滚日志来回滚将之前未完成的事务。
 
 另外，`MVCC` 的实现依赖于：**隐藏字段、Read View、undo log**。在内部实现中，`InnoDB` 通过数据行的 `DB_TRX_ID` 和 `Read View` 来判断数据的可见性，如不可见，则通过数据行的 `DB_ROLL_PTR` 找到 `undo log` 中的历史版本。每个事务读到的数据版本可能是不一样的，在同一个事务中，用户只能看到该事务创建 `Read View` 之前已经提交的修改和该事务本身做的修改
 
-## 总结
+### 总结
 
 MySQL InnoDB 引擎使用 **redo log(重做日志)** 保证事务的**持久性**，使用 **undo log(回滚日志)** 来保证事务的**原子性**。
 
 `MySQL`数据库的**数据备份、主备、主主、主从**都离不开`binlog`，需要依靠`binlog`来同步数据，保证数据一致性。
 
-# Mysql高性能规范
+## Mysql高性能规范
 
-## 数据库基本设计规范
+### 数据库基本设计规范
 
 1. 所有表必须使用Innodb存储引擎
 
@@ -908,7 +910,7 @@ MySQL InnoDB 引擎使用 **redo log(重做日志)** 保证事务的**持久性*
 
 10. 禁止从开发环境、测试环境直接连接生产环境数据库
 
-## 数据库字段设计规范
+### 数据库字段设计规范
 
 1. 优先选择符合存储需要的最小数据类型
 
@@ -942,7 +944,7 @@ MySQL InnoDB 引擎使用 **redo log(重做日志)** 保证事务的**持久性*
 
    Decimal 类型为精准浮点数，在计算时不会丢失精度；占用空间由定义的宽度决定，每 4 个字节可以存储 9 位数字，并且小数点要占用一个字节；可用于存储比 bigint 更大的整型数据
 
-## 索引设计规范
+### 索引设计规范
 
 1. 限制每张表上的索引数量，建议单张表索引不超过5个
 
@@ -1001,7 +1003,7 @@ MySQL InnoDB 引擎使用 **redo log(重做日志)** 保证事务的**持久性*
    - 外键可用于保证数据的参照完整性，但建议在业务端实现
    - 外键会影响父表和子表的写操作从而降低性能
 
-## *数据库SQL开发规范
+### *数据库SQL开发规范
 
 1. 建议使用预编译语句进行数据库操作
 
@@ -1101,7 +1103,7 @@ MySQL InnoDB 引擎使用 **redo log(重做日志)** 保证事务的**持久性*
     - MySQL 中，一个 SQL 只能使用一个 CPU 进行计算
     - SQL 拆分后可以通过并行执行来提高处理效率
 
-## 数据库操作行为规范
+### 数据库操作行为规范
 
 1. 超 100 万行的批量写 (UPDATE,DELETE,INSERT) 操作,要分批多次进行操作
 
@@ -1138,7 +1140,7 @@ MySQL InnoDB 引擎使用 **redo log(重做日志)** 保证事务的**持久性*
    - 程序使用数据库账号只能在一个 DB 下使用，不准跨库
    - 程序使用的账号原则上不准有 drop 权限
 
-# 作业1
+## 作业1
 
 ```sql
 1.取得每个部门最高薪水的人员名称
@@ -1229,7 +1231,7 @@ select d.dname,t.* from (select a.ename,a.deptno,a.hiredate empHiredate,b.empno 
 select d.deptno,d.dname,e.ename from dept d left join emp e on d.deptno=e.deptno order by d.deptno;
 ```
 
-# 作业2
+## 作业2
 
 ```sql
 16.列出至少有5个员工的所有部门

@@ -8,9 +8,11 @@ categories: ["前端"]
 author: "lei"
 ---
 
-# 日期
+# js常用方法
 
-## 获取时间
+## 日期
+
+### 获取时间
 
 ```js
 let d1=new Date()            //获取当前时间的Date对象
@@ -18,7 +20,7 @@ let d1=new Date()            //获取当前时间的Date对象
 let d2=new Date("2020-12-10 17:25:55")        //获取指定是时间的Date对象
 ```
 
-## 获取时间戳
+### 获取时间戳
 
 ```js
 let t1=Date.now()            //获取当前时间戳
@@ -26,14 +28,14 @@ let t1=Date.now()            //获取当前时间戳
 let t2=new Date().getTime()        //通过日期对象获取时间戳
 ```
 
-## 获取moment对象
+### 获取moment对象
 
 ```js
 let now = moment()        //获取当前时间moment对象，不传参或传入参数undefined时
 let now=moment(new Date())
 ```
 
-## moment对象操作
+### moment对象操作
 
 ```js
 let now = moment()
@@ -44,9 +46,9 @@ let old = moment("2019-12-31 14:12:14")
 now.diff(old, 'days',true)        
 ```
 
-# 运算
+## 运算
 
-## 原因
+### 原因
 
 js因为底层数据存储原因，计算浮点数时会发生精度丢失
 
@@ -58,7 +60,7 @@ js因为底层数据存储原因，计算浮点数时会发生精度丢失
 0.3===(0.1+0.2)    // false
 ```
 
-## 解决办法
+### 解决办法
 
 **解决办法一**
 

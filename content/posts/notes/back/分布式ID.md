@@ -3,14 +3,16 @@ title: "分布式ID"
 date: 2023-05-09
 lastmod: 2023-05-09
 draft: false
-tags: ['javase']
+tags: ['JavaSE']
 categories: ["笔记"]
 author: "lei"
 ---
 
-# 雪花算法
+# 分布式ID
 
-## 介绍
+## 雪花算法
+
+### 介绍
 
 Snowflake 是 Twitter 开源的分布式 ID 生成算法。Snowflake 由 64 bit 的二进制数字组成，这 64bit 的二进制被分成了几部分，每一部分存储的数据都有特定的含义：
 
@@ -23,7 +25,7 @@ Snowflake 是 Twitter 开源的分布式 ID 生成算法。Snowflake 由 64 bit 
 
 **缺点**：需要解决重复 ID 问题（依赖时间，当机器时间不对的情况下，可能导致会产生重复 ID）
 
-## Java实现
+### Java实现
 
 ```java
 /**
@@ -185,9 +187,9 @@ public class SnowFlake {
 }
 ```
 
-# UUID
+## UUID
 
-## 介绍
+### 介绍
 
 UUID 是 Universally Unique Identifier（通用唯一标识符） 的缩写。UUID 包含 32 个 16 进制数字（8-4-4-4-12）
 
@@ -195,7 +197,7 @@ UUID 是 Universally Unique Identifier（通用唯一标识符） 的缩写。UU
 
 **缺点**：存储消耗空间大（32 个字符串，128 位）、 不安全（基于 MAC 地址生成 UUID 的算法会造成 MAC 地址泄露)、无序（非自增）、没有具体业务含义、需要解决重复 ID 问题（当机器时间不对的情况下，可能导致会产生重复 ID）
 
-## Java代码
+### Java代码
 
 ```java
 public class UUIDUtil {

@@ -1,5 +1,5 @@
 ---
-title: "springboot基础"
+title: "SpringBoot基础"
 date: 2020-07-04
 lastmod: 2020-07-04
 draft: false
@@ -8,13 +8,13 @@ categories: ["框架"]
 author: "lei"
 ---
 
+# SpringBoot
 
+## SpringBoot入门
 
-# springboot入门
+### 简介
 
-## 简介
-
-springboot简化了所有的spring配置文件，使开发，部署变得更简单了
+SpringBoot简化了所有的spring配置文件，使开发，部署变得更简单了
 
 特性：
 
@@ -32,12 +32,12 @@ springboot简化了所有的spring配置文件，使开发，部署变得更简�
 - Actuator（健康检测）
 - 命令行界面
 
-## Hello SpringBoot
+### Hello SpringBoot
 
 > 快速搭建
 
 1. 通过spring官网快速生成，并注入spring-web依赖（自动配置好web.xml），然后下载demo包，并导入ide中
-2. 通过idea创建springboot项目（idea集成了spring官网的自动生成）
+2. 通过idea创建SpringBoot项目（idea集成了spring官网的自动生成）
 
 > pom.xml
 
@@ -46,7 +46,7 @@ springboot简化了所有的spring配置文件，使开发，部署变得更简�
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-    <!-- 父依赖，后续springboot依赖可以自动继承该依赖版本 -->
+    <!-- 父依赖，后续SpringBoot依赖可以自动继承该依赖版本 -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -62,14 +62,14 @@ springboot简化了所有的spring配置文件，使开发，部署变得更简�
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
-        <!-- springboot 起步依赖-->
-        <!-- springbootWeb 配置好了web.xml，并且默认使用tomcat作用web容器 -->
+        <!-- SpringBoot 起步依赖-->
+        <!-- SpringBootWeb 配置好了web.xml，并且默认使用tomcat作用web容器 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-        <!-- springboot 测试起步依赖-->
-		<!-- springboot 单元测试 -->
+        <!-- SpringBoot 测试起步依赖-->
+		<!-- SpringBoot 单元测试 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -79,7 +79,7 @@ springboot简化了所有的spring配置文件，使开发，部署变得更简�
 
 	<build>
 		<plugins>
-            <!-- springboot 打包、编译插件 -->
+            <!-- SpringBoot 打包、编译插件 -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -93,8 +93,8 @@ springboot简化了所有的spring配置文件，使开发，部署变得更简�
 > Application类
 
 ```java
-//springboot项目启动入口类
-@SpringBootApplication	//springboot核心注解，主要用于开启springboot自动配置
+//SpringBoot项目启动入口类
+@SpringBootApplication	//SpringBoot核心注解，主要用于开启SpringBoot自动配置
 public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -110,9 +110,9 @@ public class DemoApplication {
 4. java -jar xxx.jar 运行jar包
 5. 浏览器访问 localhost:8080/hello
 
-# springboot源码分析
+## SpringBoot源码分析
 
-## 准备工作
+### 准备工作
 
 1. 安装 JDK1.8+
 2. 安装并配置Gradle
@@ -120,7 +120,7 @@ public class DemoApplication {
 4. github上下载Springboot源码，并解压
 5. 阅读源码目录下的 README.adoc，里面说明了如何进行构建源码
 6. 进入DOS执行命令进行构建：./gradlew publishToMavenLocal，可能出现网络错误；git 错误解决如下：
-   1. 该springboot目录必须纳入到git管理中
+   1. 该SpringBoot目录必须纳入到git管理中
    2. git init
    3. git add ./*，这里会报文件名太长的错误，通过下面命令：git config core.longpaths true
    4. git commit -m "1"
@@ -155,18 +155,18 @@ public class DemoApplication {
    
    	@Override
    	public void run(String... args) throws Exception {
-   		System.out.println("springboot start");
+   		System.out.println("SpringBoot start");
    	}
    }
    ```
 
-## springboot启动原理
+### SpringBoot启动原理
 
 主要分为三部分
 
 1. 第一部分进行SpringbootApplication的初始化模块，配置一些基本的环境变量、资源、构造器、监视器
 2. 第二部分实现了应用具体的启动方案，包括启动流程监听模块、加载配置环境模块、及核心的创建上下文环境模块
-3. 第三部分是自动化配置模块，该模块是springboot自动化配置的核心
+3. 第三部分是自动化配置模块，该模块是SpringBoot自动化配置的核心
 
 > 宏观步骤（概括为18个小步骤）
 
@@ -203,22 +203,22 @@ public class DemoApplication {
 
 ![img](images.assets/1927057-20200412104432816-1996156889.png)
 
-## 自动装配
+### 自动装配
 
 1. @import：spring注解，作用为注入一个指定的bean
-2. springboot----> start起步依赖（空的） ----> 整合依赖（整合相关包，然后暴露出去）
+2. SpringBoot----> start起步依赖（空的） ----> 整合依赖（整合相关包，然后暴露出去）
 
-# 核心配置文件
+## 核心配置文件
 
-一个springboot项目只有一个核心配置文件，有多种存在形式，取一种就可以
+一个SpringBoot项目只有一个核心配置文件，有多种存在形式，取一种就可以
 
 1. application.properties
 
    ```properties
    #设置内嵌Tomcat端口号
    server.port=8080
-   #设置项目默认上下文根(localhost:8080/springboot/hello)
-   server.servlet.context-path=/springboot
+   #设置项目默认上下文根(localhost:8080/SpringBoot/hello)
+   server.servlet.context-path=/SpringBoot
    ```
 
 2. application.yaml
@@ -227,10 +227,10 @@ public class DemoApplication {
    server:
      port: 8081
      servlet:
-       context-path: /springboot
+       context-path: /SpringBoot
    ```
 
-## 多环境配置文件
+### 多环境配置文件
 
 - application.properties
 
@@ -257,7 +257,7 @@ public class DemoApplication {
         active: xxx
     ```
 
-## 获取自定义配置
+### 获取自定义配置
 
 - 获取自定义配置的值，使用@Value(${...})
 
@@ -331,7 +331,7 @@ public class DemoApplication {
 
     
 
-## 常用配置
+### 常用配置
 
 ```properties
 #指定需要使用的配置文件(多环境配置文件)
@@ -413,7 +413,7 @@ logging:
     dateformat: "MM-dd HH:mm:ss"
 ```
 
-## 启动时区配置
+### 启动时区配置
 
 1. 启动类配置
 
@@ -436,11 +436,11 @@ logging:
    -Duser.timezone=GMT+8
    ```
 
-# Springboot参数接收
+## Springboot参数接收
 
 注意看请求头中的 content-type 属性，他告诉后台用什么方式解析参数
 
-## @PathVariable
+### @PathVariable
 
 restful风格
 
@@ -455,7 +455,7 @@ public Object test(@PathVariable(value = "id",required = false) String id){
 
 @PathVariable 的 required 属性默认为true，如果设置为false表示该参数可以为空，此时访问url时可以不携带参数；**注意**：mapping需要设置不带参数的路径，否则会抛404
 
-## @PathParam
+### @PathParam
 
 从请求地址中截取参数
 
@@ -470,7 +470,7 @@ public Object test(@PathParam(value = "id") String id, @PathParam(value = "name"
 
 @PathParam注解没有 required属性，可以不传参数
 
-## @RequestParam
+### @RequestParam
 
 被标注的参数的值来源于 `request.getParameter`或`request.getParameterValues`
 
@@ -502,7 +502,7 @@ public Object test(@RequestParam("file") MultipartFile file) {
 
 @RequestParam 可以处理 multipart/form-data 中上传的文件
 
-## @RequestPart
+### @RequestPart
 
 @RequestPart与@RequestParam比较相似；它不能解析 url 上的参数
 
@@ -512,7 +512,7 @@ public Object test(@RequestParam("file") MultipartFile file) {
 4. 他们最大的不同是，当请求方法的请求参数类型不再是String类型的时候
 5. @RequestParam适用于name-valueString类型的请求域，@RequestPart适用于复杂的请求域（像JSON，XML）
 
-## @RequestBody
+### @RequestBody
 
 @RequestBody 可以接受 application/json、application/xml、application/javascript、text 等
 
@@ -526,43 +526,43 @@ public Object test(@RequestBody Map map) {
 
 可以自动将参数解析为 Entity
 
-## 无注解
+### 无注解
 
 - 可以处理 multipart/form-data 、 url 地址后参数
 - 可以将参数自动解析为 Entity （无法映射为map）
 
-# dubbo集成ssm
+## dubbo集成ssm
 
 接口工程：存放实体bean和业务接口
 
 服务提供者：
 
-- 它是一个springboot框架web项目，集成MyBatis、Redis
+- 它是一个SpringBoot框架web项目，集成MyBatis、Redis
 - 添加依赖：mybatis依赖、mysql驱动、dubbo依赖、zookeeper依赖、redis依赖、接口工程
-- 配置springboot核心配置文件
+- 配置SpringBoot核心配置文件
   - 配置连接数据库
   - 配置连接redis
   - 配置dubbo
 
 服务消费者：
 
-- 它是一个springboot框架的web项目，集成JSP、dubbo
+- 它是一个SpringBoot框架的web项目，集成JSP、dubbo
 - 添加依赖dubbo依赖、zookeeper依赖、解析jsp的依赖、接口工程
-- 配置springboot核心配置文件
+- 配置SpringBoot核心配置文件
   - 配置jsp视图解析器
 
-## 服务提供者
+### 服务提供者
 
 1. 相关依赖 pom.xml
 
    ```xml
    <dependencies>
-       <!-- springboot起步依赖 -->
+       <!-- SpringBoot起步依赖 -->
        <dependency>
            <groupId>org.springframework.boot</groupId>
            <artifactId>spring-boot-starter</artifactId>
        </dependency>
-       <!--springboot dubbo整合起步依赖-->
+       <!--SpringBoot dubbo整合起步依赖-->
        <dependency>
            <groupId>org.apache.dubbo</groupId>
            <artifactId>dubbo-spring-boot-starter</artifactId>
@@ -591,7 +591,7 @@ public Object test(@RequestBody Map map) {
            <artifactId>curator-recipes</artifactId>
            <version>4.2.0</version>
        </dependency>
-       <!--springboot mybatis起步依赖-->
+       <!--SpringBoot mybatis起步依赖-->
        <dependency>
            <groupId>org.mybatis.spring.boot</groupId>
            <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -602,7 +602,7 @@ public Object test(@RequestBody Map map) {
            <groupId>mysql</groupId>
            <artifactId>mysql-connector-java</artifactId>
        </dependency>
-       <!--springboot redis起步依赖-->
+       <!--SpringBoot redis起步依赖-->
        <dependency>
            <groupId>org.springframework.boot</groupId>
            <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -616,7 +616,7 @@ public Object test(@RequestBody Map map) {
    </dependencies>
    ```
 
-2. springboot核心配置文件
+2. SpringBoot核心配置文件
 
    ```properties
    #mysql配置
@@ -669,7 +669,7 @@ public Object test(@RequestBody Map map) {
    }
    ```
 
-## 服务消费者
+### 服务消费者
 
 1. 添加依赖 pom.xml
 
@@ -711,7 +711,7 @@ public Object test(@RequestBody Map map) {
            <artifactId>curator-recipes</artifactId>
            <version>4.2.0</version>
        </dependency>
-       <!--springboot内嵌tomcat的jsp支持-->
+       <!--SpringBoot内嵌tomcat的jsp支持-->
        <dependency>
            <groupId>org.apache.tomcat.embed</groupId>
            <artifactId>tomcat-embed-jasper</artifactId>
@@ -744,7 +744,7 @@ public Object test(@RequestBody Map map) {
 
 2. 创建webapp目录，并指定为web资源目录
 
-3. springboot核心配置文件
+3. SpringBoot核心配置文件
 
    ```yaml
    spring:
@@ -794,9 +794,9 @@ public Object test(@RequestBody Map map) {
    }
    ```
 
-# 手写starter启动器
+## 手写starter启动器
 
-## 创建自动配置模块
+### 创建自动配置模块
 
 > 创建maven项目：ch01-autoconfig
 
@@ -865,13 +865,13 @@ public Object test(@RequestBody Map map) {
    }
    ```
 
-5. `resources/META-INF/spring.factories`，springboot会自动扫描该配置文件，并读取里面的类
+5. `resources/META-INF/spring.factories`，SpringBoot会自动扫描该配置文件，并读取里面的类
 
    ```properties
    org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.demo.MyAutoConfig
    ```
 
-## 创建starter项目
+### 创建starter项目
 
 > 仅用于依赖，里面不存在任何内容，依赖于autoconfig模块
 
@@ -887,7 +887,7 @@ pom文件
 </dependencies>
 ```
 
-## 创建测试项目
+### 创建测试项目
 
 1. `pom`文件，依赖自己创建的starter
 
@@ -899,7 +899,7 @@ pom文件
        </dependency>
        <dependency>
            <groupId>com.lei</groupId>
-           <artifactId>ch01-springboot-start-demo</artifactId>
+           <artifactId>ch01-SpringBoot-start-demo</artifactId>
            <version>0.0.1-SNAPSHOT</version>
        </dependency>
        <dependency>
@@ -937,17 +937,17 @@ pom文件
 
    ![image-20210809215132689](images.assets/image-20210809215132689.png ':size=400*200')
 
-## 相关注解
+### 相关注解
 
-- `@Configuration`：标记该类为springboot配置类
+- `@Configuration`：标记该类为SpringBoot配置类
 - `@ConditionalOnClass(MyBean.class)`：标记类或方法，当`classpath`中存在MyBean字节码文件时，配置类生效
 - `@ConditionalOnProperty(prefix = "spring.user", value = "enabled", havingValue = "true")`：标记类或方法，`prefix `前缀、`value `属性、`havingValue `该值与属性值进行比较；配置是否生效
 - `@EnableConfigurationProperties(MyProperties.class)`：使读取配置属性的类`MyProperties`生效
 - `@ConfigurationProperties("spring.user")`：将配置属性映射到类
 
-# websocket
+## websocket
 
-## 介绍
+### 介绍
 
 - websocket时html5定义的一个协议，由tcp协议实现的一种网络协议
 - 该协议可以主动向客户端发送信息
@@ -961,14 +961,14 @@ pom文件
   - 企业内部管理通讯
   - 系统提醒、用户上下线提醒、实时数据更新
 
-## java中websocket Api
+### java中websocket Api
 
 - javaee 7中开始支持 websocket 协议，javaee 7定义了一套 websocket API 规范，也就是一系列接口，没有实现
 - 位于 javax.websocket 包下，包含客户端 API 和服务端 API
 - websocket API 的具体实现需要 web 容器
 - 服务端实现：Tomcat 7.x+、Spring 4.x+
 
-## 相关注解
+### 相关注解
 
 1. 服务端代码
 
@@ -1052,9 +1052,9 @@ pom文件
    </html>
    ```
 
-## springboot中websocket
+### SpringBoot中websocket
 
-springboot 的 web 起步依赖内嵌的 tomcat 集成了 websocket 依赖
+SpringBoot 的 web 起步依赖内嵌的 tomcat 集成了 websocket 依赖
 
 > 在线聊天室实现
 
@@ -1126,7 +1126,7 @@ springboot 的 web 起步依赖内嵌的 tomcat 集成了 websocket 依赖
 4. 编写websocket类，用于接收请求
 
    ```java
-   @Component   //springboot需要注入到ioc容器
+   @Component   //SpringBoot需要注入到ioc容器
    @ServerEndpoint("/websocket/{username}")
    public class ChartWebsocket {
        @OnOpen

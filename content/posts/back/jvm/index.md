@@ -3,18 +3,18 @@ title: "JVM"
 date: 2021-06-09
 lastmod: 2021-06-09
 draft: false
-tags: ['javaSE']
+tags: ['JavaSE']
 categories: ["后端"]
 author: "lei"
 ---
 
+# JVM
 
-
-# 引言
+## 引言
 
 > 基于JDK1.8
 
-## jvm是什么
+### jvm是什么
 
 **定义**
 
@@ -27,7 +27,7 @@ jvm 全称 Java Virtual Machine ， java 虚拟机，java 二进制字节码的�
 - 数组下标越界检查（c 的数据越界可能会覆盖其他内存数据）
 - 多态
 
-## jdk、jre、jvm区别
+### jdk、jre、jvm区别
 
 - jdk：JVM + 基础类库 + 编译工具
 - jre：JVM + 基础类库
@@ -35,19 +35,19 @@ jvm 全称 Java Virtual Machine ， java 虚拟机，java 二进制字节码的�
 
 ![java](images.assets/20210620185122715658.png)
 
-## JVM组成
+### JVM组成
 
 ![image-20220618133459684](images.assets/image-20220618133459684.png)
 
-# 内存结构
+## 内存结构
 
-## 相关概念
+### 相关概念
 
 - 二进制字节码：类基本信息、常量池、类方法定义（包含了虚拟机指令）；通过`javap -v HelloWorld.class` 可以显示反编译字节码后的详细信息
 - 堆=新生代+老年代，不包括永久代（方法区）
 - java文件执行过程：Class源代码 ===编译===> 二进制字节码(jvm指令) ===解释器===> 机器码 ===> cpu执行
 
-## 程序计数器
+### 程序计数器
 
 **定义**：Program Counter Register 程序计数器（寄存器）
 
@@ -58,7 +58,7 @@ jvm 全称 Java Virtual Machine ， java 虚拟机，java 二进制字节码的�
 - 程序计数器是`线程私有`的，每个线程都有自己的程序计数器
 - 不会存在内存溢出，jvm 中`唯一`不会存在内存溢出的区域
 
-## 虚拟机栈
+### 虚拟机栈
 
 ![image-20220621223648829](images.assets/image-20220621223648829.png)
 
@@ -232,13 +232,13 @@ private static void test2() {
 
 
 
-## 本地方法栈
+### 本地方法栈
 
 本地方法（Native Method）：就是一个Java调用非Java代码的接口，用于和系统底层进行交互
 
 本地方法栈：为本地方法运行提供内存空间，本地方法不是 java 编写的方法，native 声明的方法
 
-## 堆
+### 堆
 
 Heap堆：通过new关键词，创建的对象都会使用堆内存
 
@@ -388,7 +388,7 @@ class S{
 
    可以看到堆占用过大的原因，然后可进行代码优化
 
-## 方法区
+### 方法区
 
 **定义**
 
@@ -464,7 +464,7 @@ public class MetaspaceDemo_1 extends ClassLoader{
 }
 ```
 
-## StringTable代码分析
+### StringTable代码分析
 
 **StringTable调优**
 
@@ -582,7 +582,7 @@ public static void main(String[] args) {
 }
 ```
 
-##   直接内存
+###   直接内存
 
 - 定义（Direct Memory）
   - 属于操作系统的内存
@@ -685,9 +685,9 @@ public class IODemo {
 
 
 
-# 垃圾回收
+## 垃圾回收
 
-## 如何判断对象可以回收
+### 如何判断对象可以回收
 
 > 引用计数法
 
@@ -710,7 +710,7 @@ public class IODemo {
 > GC Root演示
 
 ```bash
-# 运行一个java程序
+## 运行一个java程序
 
 #查看运行程序的线程id
 jps   
@@ -724,7 +724,7 @@ jmap -dump:format=b,live,file=1.bin 16232
 
 
 
-## 四种引用
+### 四种引用
 
 - 强引用：`Object object= new Object()`，这种方式为强引用，强引用在任何时候都不会被 jvm 垃圾回收，即使抛出 OutOfMemoryError 
 
@@ -795,7 +795,7 @@ public static void weakReference(){
 }
 ```
 
-## 垃圾回收算法
+### 垃圾回收算法
 
 **第一种：标记清除**
 
@@ -817,7 +817,7 @@ public static void weakReference(){
 
 
 
-## 分代垃圾回收
+### 分代垃圾回收
 
 **JVM虚拟机将堆内存分为：新生代（伊甸园、幸存区From、幸存区To）、老年代**
 
@@ -854,7 +854,7 @@ public class GCDemo_2 {
 
 ```bash
 [] -XX:+PrintGCDetails is deprecated. Will use -Xlog:gc* instead.
-[] Using Serial			# 使用了 Serial GC
+[] Using Serial			## 使用了 Serial GC
 [] Heap address: 0x0.., size: 20 MB, Compressed Oops mode: 32-bit	#堆大小20M
 [] Heap
 [] def new generation   total 9216K, used 3008K [0x0.., 0x0.., 0x0..) #新生代大小，幸存区to空间始终为空，所以这里的大小不会算上为9M
@@ -869,7 +869,7 @@ public class GCDemo_2 {
 
 > 一个线程内的堆内存溢出 (OutOfMemoryError: Java heap space)，不会导致主线程异常结束
 
-## 垃圾回收器
+### 垃圾回收器
 
 在安全点才暂停用户线程是因为垃圾回收时对象的内存地址可能会发生变化
 
@@ -910,9 +910,9 @@ public class GCDemo_2 {
 3. 重新标记重新标记阶段是为了修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，这个阶段的停顿时间一般会比初始标记阶段稍长一些，但远比并发标记的时间短，仍然需要“Stop The World”
 4. 并发清除（CMS concurrent sweep） 并发清除阶段会清除对象；并发清除时不能清除用户线程新产生的垃圾，这些垃圾被称为`浮动垃圾`
 
-## G1垃圾回收器
+### G1垃圾回收器
 
-### 简介
+#### 简介
 
 Garbage First（G1垃圾回收器）
 
@@ -933,7 +933,7 @@ Garbage First（G1垃圾回收器）
 - -XX:G1HeapRegionSize=size：设置划分区域的大小
 - -XX:+MaxGCPauseMillis=time：设置暂停目标，默认为200ms
 
-### G1垃圾回收器阶段
+#### G1垃圾回收器阶段
 
 分成三个阶段：
 
@@ -947,7 +947,7 @@ Garbage First（G1垃圾回收器）
 
 ![image-20220904163445049](images.assets/image-20220904163445049.png)
 
-### Remark
+#### Remark
 
 ![image-20220904165008776](images.assets/image-20220904165008776.png)
 
@@ -955,7 +955,7 @@ D、E对象为未标记处理对象，F为标记为垃圾的对象、A、B、C�
 
 pre-write barrier + satb_mark_queue：写屏障 + 队列；当对象的引用发生变化时，会触发写屏障的代码的执行，将对象标记为未处理，并将对象引用加入到一个队列中；当Remark阶段时，会重新处理该队列中的对象
 
-### G1垃圾回收器一些优化
+#### G1垃圾回收器一些优化
 
 jdk8与jdk9的G1垃圾回收器的一些优化
 
@@ -999,7 +999,7 @@ String b=new String("hello");  //char[] = {'h','e','l','l','o'}
 - jdk 9 之前需要使用 `-XX:InitiatingHeapOccupancyPercent`设置老年代占比阈值（默认为45%），固定的，超过阈值则会开始进行老年代垃圾回收
 - jdk 9 可以动态调整；`-XX:InitiatingHeapOccupancyPercent` 用于设置初始值，进行数据采样并动态调整这个阈值；总是会预留一个安全的空档空间来容纳浮动垃圾，不至于频繁的造成 full GC
 
-## 垃圾回收调优
+### 垃圾回收调优
 
 调优跟应用、环境有关，不存在通用的调优法则
 
@@ -1019,9 +1019,9 @@ String b=new String("hello");  //char[] = {'h','e','l','l','o'}
 
 
 
-# 常用
+## 常用
 
-## 相关JVM参数
+### 相关JVM参数
 
 |        含义         | 参数                                                         |
 | :-----------------: | ------------------------------------------------------------ |
@@ -1041,7 +1041,7 @@ String b=new String("hello");  //char[] = {'h','e','l','l','o'}
 |       GC详情        | -XX:+PrintGCDetails -verbose:gc                              |
 |  FullGC前先MinorGC  | -XX:+ScavengeBeforeFullGC                                    |
 
-## 常用方法
+### 常用方法
 
 ```bash
 jps #查看当前运行的进程id

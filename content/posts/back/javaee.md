@@ -8,11 +8,11 @@ categories: ["后端"]
 author: "lei"
 ---
 
+# JavaEE
 
+## 简介
 
-# 简介
-
-## 互联网通信流程
+### 互联网通信流程
 
 1. 设计技术：
 
@@ -65,7 +65,7 @@ author: "lei"
       静态资源文件：http服务器直接通过**输出流**将文件内容以*二进制* 形式推送给浏览器
       动态资源文件：http服务器需要创建当前class文件的实例对象，通过实例对象调用对应的方法处理用户请求，通过**输出流**将运行结果以*二进制* 形式推送到发起请求的浏览器
 
-## http网络协议包
+### http网络协议包
 
 1. 网络协议包
    1. 在网络中所传递信息都是以二进制数据方式传送
@@ -94,7 +94,7 @@ author: "lei"
    3. 空白行：[没有任何内容，隔离作用]
    4. 响应体：[可能被访问静态资源文件内容  可能被访问的静态资源文件命令  可能被访问的动态资源文件运行结果]
 
-## javaee
+### javaee
 
 1. 是一种企业级java规范
 
@@ -109,7 +109,7 @@ author: "lei"
 
 3. 浏览器-->http<--服务器-->servlet<--服务端程序-->JDBC<--数据库
 
-## tomcat服务器
+### tomcat服务器
 
 1. 必须配置JAVA_HOME环境变量
 
@@ -146,7 +146,7 @@ author: "lei"
      </Host>
    ```
 
-## idea配置tomcat
+### idea配置tomcat
 
 1. 找到：file->setting->Build,Execution,Deployment->Application Servers
    1. 右侧窗口点击 + 号，添加tomcat服务器，找到tomcat安装地址，点击确定
@@ -154,9 +154,9 @@ author: "lei"
    1. 找到 + 号，添加tomcat启动开关
       1. Deployment：将网站交给tomcat发布，配置网站以及应用名
 
-# servlet规范
+## servlet规范
 
-## 简介
+### 简介
 
 1. servlet规范来自于javaee规范中的一种
 2. 作用：
@@ -168,7 +168,7 @@ author: "lei"
    2. tomcat下lib文件夹有一个servlet-api.jar存放servlet接口(javax.servlet.Servlet接口)
    3. servlet规范中，http服务器能够调用的动态资源文件**必须是Servlet接口**的实现类
 
-## Servlet接口实现类开发步骤
+### Servlet接口实现类开发步骤
 
 1. 创建一个java类，继承HttpServlet这个父类，使之实现Servlet接口
    OneServlet--->(abstract)HttpServlet--->(abstract)GenericServlet--->Servlet(接口)
@@ -201,7 +201,7 @@ author: "lei"
 
 
 
-## Servlet对象生命周期
+### Servlet对象生命周期
 
 1. 网站中所有Servlet实现类，只能由http服务器负责创建
 2. 默认情况下，http服务器收到当前Servlet接口实现类第一次请求时自动创建该Servlet接口实现类的实例对象
@@ -210,7 +210,7 @@ author: "lei"
 3. http服务器运行期间，一个Servlet接口实现类只能被创建出一个实例对象
 4. http服务器关闭时，会自动销毁实例对象
 
-## HttpServletResponse接口
+### HttpServletResponse接口
 
 1. HttpServletResponse接口来自于Servlet规范中，在tomcat中存放在servlet.jar
 
@@ -243,7 +243,7 @@ author: "lei"
    	}
    ```
 
-## HttpServletRequest接口
+### HttpServletRequest接口
 
 1. HttpServletRequest接口来自于Servlet规范中，在tomcat中存放在servlet.jar
 2. HttpServletRequest接口实现类由http服务器负责提供
@@ -290,13 +290,13 @@ author: "lei"
 	}
 ```
 
-## 请求对象与响应对象生命周期
+### 请求对象与响应对象生命周期
 
 1. 在http服务器**接收到**浏览器发送的http协议包，就会立即生成一个请求对象与一个响应对象
 2. 在http服务器调用doGet/doPost方法时，负责将**请求对象**与**响应对象**作为实参传入
 3. 在http服务器准备**推送http响应协议包**时，负责将本次请求关联的**请求对象**和**响应对象**负责**销毁**
 
-## 欢迎资源文件
+### 欢迎资源文件
 
 1. 网站默认首页
 
@@ -314,7 +314,7 @@ author: "lei"
 
 4. 设置当前网站的默认首页定位规则，直接在当前网站的/WEB-INF/web.xml配置文件中配置，设置了后，tomcat默认的首页定位规则设置就会失效
 
-## http状态码
+### http状态码
 
 1. 介绍
 
@@ -344,7 +344,7 @@ author: "lei"
    6. 5xx：
       500：通知浏览器，服务端定位到资源文件(Servlet)，并且可以处理浏览器的请求方式，但是由于java异常导致处理失败
 
-## 多个servlet调用规则
+### 多个servlet调用规则
 
 1. 前提条件：某些浏览器发送请求，往往需要服务端都奥格servlet协同处理，但是浏览器一次只能访问一个servlet，需要浏览器多次发送请求
 
@@ -382,7 +382,7 @@ author: "lei"
       2. 请求地址：只能向tomcat服务器申请调用当前资源文件地址
       3. 请求方式：在请求转发过程中，浏览器只发送一个请 求协议包，参与本次请求的所有servlet共享一个请求协议包，因此这些servlet接收的请求方式与浏览器发送请求方式保持一致
 
-## 多个servlet之间数据共享实现方案
+### 多个servlet之间数据共享实现方案
 
 1. 数据共享，一个servlet工作完后，将产生的数据交给另一个servlet来使用
 2. servlet规范中提供了四种数据共享方案
@@ -391,7 +391,7 @@ author: "lei"
    3. HttpSession接口
    4. HttpServletRequest接口
 
-## ServletContext接口
+### ServletContext接口
 
 1. 介绍
 
@@ -431,7 +431,7 @@ author: "lei"
    }
    ```
 
-## Cookie类
+### Cookie类
 
 1. 介绍
 
@@ -475,7 +475,7 @@ author: "lei"
    2. 手动设置情况下，可以要求浏览器将收到的cookie存放在客户机硬盘上，同时要求cookie在硬盘上存活时间，此时cookie不会消失，直到存活时间到达才会被销魂
       cookie.setMaxAge(60);//cookie在硬盘上存活60秒
 
-## HttpSession接口
+### HttpSession接口
 
 1. 介绍
 
@@ -544,7 +544,7 @@ author: "lei"
    </session-config>
    ```
 
-## HttpServletRequest接口实现数据共享
+### HttpServletRequest接口实现数据共享
 
 1. 介绍
 
@@ -571,7 +571,7 @@ author: "lei"
    }
    ```
 
-## servlet规范扩展监听器接口
+### servlet规范扩展监听器接口
 
 1. 介绍：
 
@@ -625,7 +625,7 @@ author: "lei"
       app.removeAttribute("key1");
       ```
 
-## 通过监听接口提高程序运行
+### 通过监听接口提高程序运行
 
 程序运行期间，耗时主要是获取数据库连接对象与关闭数据库连接对象；可以在全局作用域对象创建时，也就是tomcat启动时，直接创建20个连接对象；在需要数据库连接对象时，可以直接从全局作用域对象中获取；在全局作用域对象销毁时，也就是tomcat关闭时，进行数据库链接对象的销毁
 
@@ -712,7 +712,7 @@ author: "lei"
     int res=userDao.add(userInfo,request);
 ```
 
-## servlet规范扩展Filter(过滤接口)
+### servlet规范扩展Filter(过滤接口)
 
 1. 介绍
 
@@ -763,9 +763,9 @@ author: "lei"
    ```
 
 
-# jsp规范
+## jsp规范
 
-## 简介
+### 简介
 
 1. jsp可以方便将响应内容写入响应体，而不需要使用大量的out.print()语句
 2. jsp命令书写规则
@@ -790,13 +790,13 @@ author: "lei"
 //整个jsp网页，会将命令标识符中内容整合到一块，上面书写合法
 ```
 
-## jsp内置对象
+### jsp内置对象
 
 1. request：请求对象HttpServletRequest
 2. session：会话作用域对象HttpSession
 3. appliation：全局作用域对象ServletContext
 
-## Servlet与jsp分工
+### Servlet与jsp分工
 
 1. 分工
    1. Servlet：处理业务得到处理结果
@@ -806,35 +806,35 @@ author: "lei"
    1. Servlet将处理结果添加到请求作用域
    2. jsp通过请求对象，来调用共享数据
 
-## jsp文件运行原理
+### jsp文件运行原理
 
-### http服务器调用jsp文件步骤
+#### http服务器调用jsp文件步骤
 
 1. http服务器将jsp文件内容**编辑**为一个Servlet接口实现类(.java)
 2. http服务器将Servlet接口实现类**编译**为class文件(.class)
 3. http服务器负责创建这个class的实例对象，这个实例对象就是Servlet实例对象
 4. http通过Servlet实例对象调用jsp_service方法，将jsp文件内容写入响应体中
 
-### http服务器编辑与编译jsp
+#### http服务器编辑与编译jsp
 
 http服务器编辑与编译jsp文件生成相关java与class文件地址
 work文件下
 
-## EL工具包
+### EL工具包
 
 1. java开发的一个jar包，用于jsp文件，存放在tomcat下/lib/er-api.jar
 
-### jsp文件作用
+#### jsp文件作用
 
 代替响应对象，将servlet中doGet和doPost方法执行结果写入响应体
 
-### jsp文件中主要开发步骤
+#### jsp文件中主要开发步骤
 
 1. 将作用域对象中共享数据读取出来并写入响应体
 2. 将数据进行类型强转
 3. 将转换后数据写入到响应体
 
-### EL表达式
+#### EL表达式
 
 1. ${作用域对象别名.共享数据名}
 2. 作用
@@ -842,7 +842,7 @@ work文件下
    2. EL表达式在JSP文件上使用
    3. 负责将作用域对象共享数据读取出来并输出到响应体中
 
-### EL表达式-作用域对象别名
+#### EL表达式-作用域对象别名
 
 1. jsp文件中可以使用的作用域别名
 
@@ -861,13 +861,13 @@ work文件下
    |   request   |   ${requestScope.共享数据名}   |
    | pageContext |    ${pageScope.共享数据名}     |
 
-### EL将引用对象属性写入响应体中
+#### EL将引用对象属性写入响应体中
 
 1. ${requestScope.引用类型共享数据名.属性名}；属性名必须和引用数据类中属性名一致
 
 2. EL表达式没有提供遍历集合的方法，因此无法读取集合中数据
 
-### EL表达式简化版
+#### EL表达式简化版
 
 1. 命令格式：${共享数据名}
 2. 允许开发人员省略共享数据所在的作用域别名
@@ -879,7 +879,7 @@ work文件下
    目的：简化从当前页pageContext读取共享数据并输出的难度
 6. 虽然存在隐患，但实际开发中，一般使用简化版
 
-### EL表达式--支持运算表达式
+#### EL表达式--支持运算表达式
 
 1. 前提：jsp文件中，需要将读取到共享数据经过一番计算然后写入响应体中
 2. 运算表达式：
@@ -887,7 +887,7 @@ work文件下
    2. 关系运算：>(gt)   >=(ge)   ==(eq)   <(lt)   <=(le)   !=
    3. 逻辑运算： &&    ||     !
 
-### EL表达式提供内置对象
+#### EL表达式提供内置对象
 
 1. 命令格式：${param.请求参数名}
 2. 命令作用：通过请求对象读取当前请求包中请求参数内容
@@ -899,9 +899,9 @@ work文件下
 2. 命令作用：如果浏览器的请求参数是**一个请求参数关联多个值**，可以通过以上命令取出指定下标值
 3. 代替：request.getParrmenterValues("参数名")，返回一个数组
 
-# Tomcat
+## Tomcat
 
-## 内嵌tomcat
+### 内嵌tomcat
 
 通过maven引入依赖
 

@@ -8,11 +8,11 @@ categories: ["笔记"]
 author: "lei"
 ---
 
+# 常用软件配置
 
+## Node
 
-# Node
-
-## nvm安装
+### nvm安装
 
 nvm是一个node版本管理工具
 
@@ -50,20 +50,20 @@ nvm是一个node版本管理工具
 6. 命令行测试
 
    ```bash
-   nvm version   # 查看nvm版本
+   nvm version   ## 查看nvm版本
    
-   nvm list available   # 查看可安装的 node 版本
+   nvm list available   ## 查看可安装的 node 版本
    
-   nvm list  # 查看已经安装的node版本
+   nvm list  ## 查看已经安装的node版本
    
-   nvm install 18.16.0  # 安装指定版本的node
+   nvm install 18.16.0  ## 安装指定版本的node
    
-   nvm use 18.16.0  # 切换/使用指定版本的node
+   nvm use 18.16.0  ## 切换/使用指定版本的node
    ```
 
    
 
-## npm配置
+### npm配置
 
 ```bash
 #配置仓库
@@ -81,17 +81,17 @@ npm config ls -l
 #配置修改后，将node_global目录加入path环境变量
 ```
 
-## 共用node_modules
+### 共用node_modules
 
 ```bash
-# 创建符号链接
-# mklink /D 目标目录 源目录
+## 创建符号链接
+## mklink /D 目标目录 源目录
 mklink /D "F:\work\code\hrp\04.Implement\yhhrp_front\node_modules" "F:\work\code\hrp\node_modules"
 ```
 
 
 
-# git hosts
+## git hosts
 
 ```tex
 #github related website

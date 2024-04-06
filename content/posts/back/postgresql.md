@@ -1,5 +1,5 @@
 ---
-title: "postgresql"
+title: "PostgreSQL"
 date: 2022-10-09
 lastmod: 2022-10-09
 draft: false
@@ -8,9 +8,11 @@ categories: ["后端"]
 author: "lei"
 ---
 
-# 起步
+# PostgreSQL
 
-## 简介
+## 起步
+
+### 简介
 
 开源：可以基于任何目的使用、修改甚至发布
 
@@ -20,7 +22,7 @@ author: "lei"
 
 可扩展性：存储过程（C、PL/pgSQL、Perl、Python、Java等）；FDW；自定义类型和索引；存储引擎
 
-## 安装
+### 安装
 
 1. 下载源码`https://www.postgresql.org/download/`，postgresql-14.5.tar.gz
 
@@ -70,7 +72,7 @@ author: "lei"
    kill -INT `head -1 /usr/local/pgsql/data/postmaster.pid`
    ```
 
-## 认证设置
+### 认证设置
 
 打开数据集簇中`postgresql.conf`配置文件
 
@@ -81,7 +83,7 @@ listen_addresses = '*'
 打开数据集簇中`pg_hba.conf`客户端认证配置文件
 
 ```bash
-# 0.0.0.0/0 可以表示所有ipv4地址，::0/0表示所有 IPv6 地址
+## 0.0.0.0/0 可以表示所有ipv4地址，::0/0表示所有 IPv6 地址
 local   all             all                                     trust
 host    all             all             0.0.0.0/0            	password
 host    all             all             ::1/128                 password
@@ -96,14 +98,14 @@ host    all     		all             ::1/128                 password
 psql   #本地连接pg数据库
 
 #角色相关命令
-postgres=# CREATE ROLE admin LOGIN PASSWORD '123456'		
-postgres=# CREATE USER admin PASSWORD '123456'
-postgres=# DROP ROLE admin;
-postgres=# ALTER ROLE admin WITH PASSWORD '123456';
-postgres=# SELECT rolname FROM pg_roles;
+postgres=## CREATE ROLE admin LOGIN PASSWORD '123456'		
+postgres=## CREATE USER admin PASSWORD '123456'
+postgres=## DROP ROLE admin;
+postgres=## ALTER ROLE admin WITH PASSWORD '123456';
+postgres=## SELECT rolname FROM pg_roles;
 ```
 
-## 创建数据库
+### 创建数据库
 
 ```bash
 #创建数据库
@@ -115,11 +117,11 @@ pgsql mydb
 
 ```
 
-## 连接
+### 连接
 
 通过客户端连接，默认用户名密码都为`postgres`
 
-# SQL语言
+## SQL语言
 
 单引号：表示值
 
@@ -127,7 +129,7 @@ pgsql mydb
 
 空值：null是一个特殊值（缺失值），不能使用 `=` 判断；使用`distinct`可以对null值进行去重；排序时`order`会认为null值最大；
 
-## DDL
+### DDL
 
 新建和删除表
 
@@ -149,7 +151,7 @@ DROP TABLE weather;
 create table employees_his as (select * from employees where 1=0);
 ```
 
-## DML
+### DML
 
 **新增**
 
@@ -294,7 +296,7 @@ with recursive tb as (
 ) select * from tb
 ```
 
-## 常用函数
+### 常用函数
 
 **条件表达式**
 
@@ -356,7 +358,7 @@ select coalesce(null,'as')
 | `@`    | 绝对值                 | `@ -5.0`    | `5`   |
 | `&`    | 二进制 AND             | `91 & 15`   | `11`  |
 | `|`    | 二进制 OR              | `32 | 3`    | `35`  |
-| `#`    | 二进制 XOR             | `17 # 5`    | `20`  |
+| `#`    | 二进制 XOR             | `17 ## 5`    | `20`  |
 | `~`    | 二进制 NOT             | `~1`        | `-2`  |
 | `<<`   | 二进制左移             | `1 << 4`    | `16`  |
 | `>>`   | 二进制右移             | `8 >> 2`    | `2`   |
@@ -447,9 +449,9 @@ select to_char(current_date,'YYYY-MM-DD');
 
 
 
-# 高级特性
+## 高级特性
 
-## 视图
+### 视图
 
 视图（View）本质上是一个存储在数据库中的查询语句。视图本身不包含数据，也被称为
 虚拟表
@@ -508,7 +510,7 @@ drop view myview;
 那么该视图被称为可更新视图（updatable view），意味着我们可以对其执行 INSERT、
 UPDATE 以及 DELETE 语句，PostgreSQL 会将这些操作转换为对底层表的操作
 
-## 外键
+### 外键
 
 ```sql
 CREATE TABLE cities (
@@ -525,7 +527,7 @@ CREATE TABLE weather (
 );
 ```
 
-## 事务
+### 事务
 
 数据库中的事务具有原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）以及持久性（Durability），也就是 ACID 属性
 
@@ -576,7 +578,7 @@ SET TRANSACTION ISOLATION LEVEL { SERIALIZABLE | REPEATABLE READ | READ
 COMMITTED | READ UNCOMMITTED };
 ```
 
-## 窗口函数
+### 窗口函数
 
 窗口函数不是将一组数据汇总为单个结果，而是针对每一行数据，基于和它相关的一组数 据计算出一个结果；聚合函数通常也可以作为窗口函数，区别在于后者包含了 OVER 关键字
 
@@ -668,7 +670,7 @@ from
 	    from employees group by 1, 2) as t
 ```
 
-## 索引与优化
+### 索引与优化
 
 索引（Index）可以用于提高数据库的查询性能；但是索引也需要进行读写，同时还会占用
 更多的存储空间
@@ -794,9 +796,9 @@ drop index test_id_index;
 
 
 
-# 存储过程
+## 存储过程
 
-## 概述
+### 概述
 
 除了标准 SQL 语句之外，PostgreSQL 还支持使用各种过程语言（例如 PL/pgSQL、C、PL/Tcl、PL/Python、PL/Perl、PL/Java 等 ）创建复杂的过程和函数，称为存储过程（Stored Procedure）和自定义函数（User-Defined Function）。存储过程支持许多过程元素，例如控制结构、循环和复杂的计算
 
@@ -814,7 +816,7 @@ drop index test_id_index;
 
 PostgreSQL 默认支持的存储过程为PL/pgSQL
 
-## PL/pgSQL结构
+### PL/pgSQL结构
 
 PL/pgSQL 是一种块状语言，因此存储过程和函数以代码块的形式进行组织；定义如下
 
@@ -874,7 +876,7 @@ end;
 $$;
 ```
 
-## 变量与赋值
+### 变量与赋值
 
 PL/pgSQL 支持定义变量和常量
 
@@ -947,7 +949,7 @@ begin
 end $$;
 ```
 
-## 控制结构
+### 控制结构
 
 **IF语句**
 
@@ -1137,7 +1139,7 @@ begin
 end; $$
 ```
 
-## 游标
+### 游标
 
 PL/pgSQL 游标允许封装一个查询，然后每次处理结果集中的一条记录
 
@@ -1188,7 +1190,7 @@ begin
 end;$$
 ```
 
-## 错误处理
+### 错误处理
 
 **报告错误和信息**
 
@@ -1250,7 +1252,7 @@ exception
 end $$;
 ```
 
-## 自定义函数
+### 自定义函数
 
 使用create function创建自定义函数：
 
@@ -1304,7 +1306,7 @@ drop function get_count(integer);
 
 PL/pgSQL 函数支持重载（Overloading），也就是相同的函数名具有不同的函数参数
 
-## 存储过程
+### 存储过程
 
 PostgreSQL 11 增加了存储过程，使用 create procedure语句创建：
 
@@ -1381,9 +1383,9 @@ select * from test;
 drop table test
 ```
 
-# 触发器
+## 触发器
 
-## 概述
+### 概述
 
 PostgreSQL 触发器（trigger）是一种特殊的函数，当某个数据变更事件（INSERT、UPDATE、DELETE 或者 TRUNCATE 语句）或者数据库事件（DDL 语句）发生时自动执行，而不是由用户或者应用程序进行调用
 
@@ -1399,7 +1401,7 @@ PostgreSQL 触发器（trigger）是一种特殊的函数，当某个数据变�
 
 
 
-## 管理触发器
+### 管理触发器
 
 **创建**
 
@@ -1522,9 +1524,9 @@ drop table test_b;
 
 
 
-# 服务器配置
+## 服务器配置
 
-## 通过配置文件影响参数
+### 通过配置文件影响参数
 
 设置这些参数最基本的方法是编辑`postgresql.conf`文件， 它通常被保存在数据目录中（当数据库集簇目录被初始化时，一个默认的拷贝将会被安装在那里
 
@@ -1532,7 +1534,7 @@ drop table test_b;
 
 
 
-## 通过SQL影响参数
+### 通过SQL影响参数
 
 `ALTER SYSTEM`命令提供了一种改变全局默认值
 

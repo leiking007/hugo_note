@@ -1,16 +1,18 @@
 ---
-title: "java IO流"
-date: 2023-5-28
-lastmod: 2023-5-28
+title: "Java IO流"
+date: 2023-5-28 12:12:12
+lastmod: 2023-5-28 12:12:12
 draft: false
-tags: ['javaSE']
+tags: ['JavaSE']
 categories: ["笔记"]
 author: "lei"
 ---
 
-# Java的IO演进
+# Java IO流
 
-## IO模型基本说明
+## Java的IO演进
+
+### IO模型基本说明
 
 IO模型：就是用什么样的通道或者说是通信模式和架构进行数据的传输和接收，很大程度上决定了程序通信的性能
 
@@ -24,25 +26,25 @@ Java共支持3种网络编程的IO模型
 
 实际通信需求下，要根据不同的业务场景和性能需求决定选择不同的IO模型
 
-## BIO、NIO、AIO使用场景分析
+### BIO、NIO、AIO使用场景分析
 
 - BIO 方式适用于连接数目比较小且固定的架构，这种方式对服务器资源要求比较高，并发局限于应用
 - NIO 方式适用于连接数据多且连接比较（轻操作）的架构，比如聊天服务器、弹幕系统、服务器间通讯等，编程较难，JDK1.4开始支持
 - AIO 方式使用于连接数目多且连接比较长（重操作）的架构，比如聊天服务器，充分调用OS参与并发操作，编程较难，JDK1.7开始支持
 
-# BIO深入剖析
+## BIO深入剖析
 
-## 介绍
+### 介绍
 
-JAVA BIO 就是传统的 java io 编程，其相关类和接口都在 java.io 包下
+Java BIO 就是传统的 Java io 编程，其相关类和接口都在 Java.io 包下
 
 BIO（blocking IO）：同步阻塞，服务器实现模式为一个连接对应一个线程，即客户端有连接请求时服务端就需要启动一个线程处理，如果这个连接不做任何事情会造成不必要的线程开销，可以通过线程池机制改善
 
-## Java BIO 工作机制
+### Java BIO 工作机制
 
 ![image-20230528144355742](./images.assets/image-20230528144355742.png)
 
-## BIO编程实例
+### BIO编程实例
 
 网络编程的基本模型都是 Client/Server 模型，也就是两个进程之间进行相互通信，其中服务端提供位置信息（绑定IP地址和端口），客户端通过连接餐桌向服务端坚挺的端口地址发起连接请求，基于TCP协议下进行三次握手连接，连接成功后，双方通过网络套接字（Socket）进行通信
 
@@ -116,10 +118,10 @@ public class Server {
 
 - 在以上通信中，服务端会一直等待客户端的消息，如果客户端没有消息的发送，服务端将一直进入阻塞状态
 - 同时服务端是按照行获取消息的，这意味着客户端也必须按照行进行消息的发送，否则服务端将进入消息阻塞状态
-- 当客户端关闭 socket ，服务端还在读取流中消息时会抛错 java.net.SocketException: Connection reset
+- 当客户端关闭 socket ，服务端还在读取流中消息时会抛错 Java.net.SocketException: Connection reset
 - 服务端 serverSocket.accept() 时会阻塞等待客户端 socket 请求
 
-## BIO模式下接收多个客户端
+### BIO模式下接收多个客户端
 
 客户端每发起一次请求，服务端就创建一个新的线程来处理客户端请求，这样就能实现一个客户端一个线程模型
 
@@ -177,9 +179,9 @@ public class Service {
 - 并不是每个 socket 请求都进行 IO 操作，无意义的线程处理
 - 客户端的并发访问增加时，服务端将呈现 1:1 的线程开销，访问量过大，系统将发生线程栈溢出，线程创建失败，最终导致进程宕机或者僵死，从而不能对外提供服务
 
-## 伪异步IO编程
+### 伪异步IO编程
 
-伪异步IO通信框架，采用线程池和任务队列实现，当客户端接入时，将客户端的 Socket 封装成一个 Task （该任务实现 java.lang.Runnable 线程任务接口）交给后端的线程池进行处理。JDK 的线程池维护一个消息队列和 N 个活跃的线程，对消息队列中 Socket 任务进行处理，由于线程池可以设置消息队列的大小和最大线程数，因此，它的资源占用是可控的，无论多少个客户端并发访问，都不会导致资源的耗尽和宕机
+伪异步IO通信框架，采用线程池和任务队列实现，当客户端接入时，将客户端的 Socket 封装成一个 Task （该任务实现 Java.lang.Runnable 线程任务接口）交给后端的线程池进行处理。JDK 的线程池维护一个消息队列和 N 个活跃的线程，对消息队列中 Socket 任务进行处理，由于线程池可以设置消息队列的大小和最大线程数，因此，它的资源占用是可控的，无论多少个客户端并发访问，都不会导致资源的耗尽和宕机
 
 ![image-20230529095138386](./images.assets/image-20230529095138386.png)
 
@@ -233,7 +235,7 @@ public class Server {
 - 伪异步 IO 才用了线程池实现，因此可以避免每个请求创建一个独立线程造成资源耗尽的问题，但是由于底层依然是采用的同步阻塞模型，因此无法从根本上解决问题
 - 如果单个消息处理的缓慢，或者服务器线程池中的全部线程都被阻塞，那么后续 socket 的IO消息都将在队列中等待。新的 socket 请求将会被拒绝，客户端会发生大量连续超时
 
-## 基于BIO模式下的文件上传
+### 基于BIO模式下的文件上传
 
 **客户端**
 
@@ -320,17 +322,17 @@ public class Server {
 }
 ```
 
-## BIO模式下的端口转发
+### BIO模式下的端口转发
 
 需求：实现一个客户端的消息可以发送给所有的客户端去接受（群聊）
 
 ![image-20230530092015156](./images.assets/image-20230530092015156.png)
 
-# BIO模式下的即时通信
+## BIO模式下的即时通信
 
 基于 BIO 模式下的即时通信，需要解决客户端到客户端通信，也就是实现客户端与客户端的端口消息转发逻辑
 
-## 实现功能列表
+### 实现功能列表
 
 1. 客户端登录功能
 2. 在线人数实时更新
@@ -344,7 +346,7 @@ public class Server {
 
 ![image-20230530124648760](./images.assets/image-20230530124648760.png)
 
-## 服务端代码实现
+### 服务端代码实现
 
 **Server**
 
@@ -465,7 +467,7 @@ public class ServerReader extends Thread {
 }
 ```
 
-## 客户端代码实现
+### 客户端代码实现
 
 **Client**
 
@@ -712,7 +714,7 @@ public class ClientReader extends Thread {
 }
 ```
 
-## 常量类
+### 常量类
 
 ```java
 public class Constants {
@@ -727,17 +729,17 @@ public class Constants {
 }
 ```
 
-# NIO深入剖析
+## NIO深入剖析
 
-## 介绍
+### 介绍
 
-- Java NIO（New IO）也有人称为 java non-blocking IO 是从 java 1.4 版本开始引入的一个新的 IO API，可以替代标准的 Java IO API。NIO 与原来的 IO 有同样的作用和目的，但是使用方式完全不同，NIO 支持`面向缓冲区`的、基于`通道`的IO操作。NIO 将以更加高效的方式进行文件的读写操作。NIO 可以理解为非阻塞 IO，传统的 IO 的 read 和 write 只能阻塞执行，线程在读写 IO 期间不能干其他事情，比如调用 socket.read() 时，如果服务器一直没有数据传输过来，线程就一直阻塞，而 NIO 中可以配置 socket 为非阻塞模式
-- NIO 相关类被放在 java.nio 包以及其子包下，并且对原 java.io 包中的很多类进行改写
+- Java NIO（New IO）也有人称为 Java non-blocking IO 是从 Java 1.4 版本开始引入的一个新的 IO API，可以替代标准的 Java IO API。NIO 与原来的 IO 有同样的作用和目的，但是使用方式完全不同，NIO 支持`面向缓冲区`的、基于`通道`的IO操作。NIO 将以更加高效的方式进行文件的读写操作。NIO 可以理解为非阻塞 IO，传统的 IO 的 read 和 write 只能阻塞执行，线程在读写 IO 期间不能干其他事情，比如调用 socket.read() 时，如果服务器一直没有数据传输过来，线程就一直阻塞，而 NIO 中可以配置 socket 为非阻塞模式
+- NIO 相关类被放在 Java.nio 包以及其子包下，并且对原 Java.io 包中的很多类进行改写
 - NIO 有三大核心部分：`Channel（通道）`、`Buffer（缓冲区）`、`Selector（选择器）`
 - Java NIO的非阻塞模式，使一个线程从某通道发送请求或者读取数据，但是它仅能得到目前可用的数据，如果目前没有数据可用时，就什么都不会获取，而不是保持线程阻塞，所以直至数据变的可读取之前，该线程可以继续做其他的事情。非阻塞写也是如此，一个线程请求写入一些数据到某通道，但不需要等待它完全写入，这个线程同时可以去做别的事情
 - 通俗理解：NIO 是可以做到用一个线程来处理多个操作的。假设有 1000 个请求过来，根据实际情况，可以分配 20 或者 80 个线程来处理。不想之前的阻塞 IO 那样，非得分配 1000 个线程 
 
-## NIO 和 BIO 比较
+### NIO 和 BIO 比较
 
 - BIO 以流的方式处理数据，而 NIO 以块的方式处理数据，块 IO 的效率比流 IO 高很多
 - BIO 是阻塞的，NIO 则是非阻塞的
@@ -749,7 +751,7 @@ public class Constants {
 | 非阻塞（Non Blocking IO） | 阻塞 IO （Blocking IO） |
 | 选择器（Selectors）       |                         |
 
-## NIO三大核心原理示意图
+### NIO三大核心原理示意图
 
 NIO 有三大核心部分：**Channel（通道）、Buffer（缓冲区）、Selector（选择器）**
 
@@ -775,9 +777,9 @@ Selector 是一个 Java NIO 组件，可以能够检查一个或多个 NIO 通�
 - 数据的读取写入都是通过 Buffer 完成的，BIO 中要么是输入流，或者是输出流，不能双向，但是 NIO 中的 Buffer 是可以读也可以写的
 - Java NIO 系统的核心在于：通道（Chanel）、缓冲区（Buffer）。通道表示打开到 IO 设备（例如：文件、套接字）的连接。若要使用 NIO 系统，需要获取用于连接 IO 设备的通道以及用于容纳数据的缓冲区。然后操作缓冲区，对数据进行处理，简而言之，Channel 负责传输，Buffer 负责存取数据
 
-## 缓冲区（Buffer）
+### 缓冲区（Buffer）
 
-一个用于特定基本数据类型的容器。由 java.nio 包定义的，所有缓冲区都是 Buffer 抽象类的子类。java NIO 的 Buffer 主要用于与 NIO 通道进行交互，数据是从通道读入缓冲区，从缓冲区写入通道中的
+一个用于特定基本数据类型的容器。由 Java.nio 包定义的，所有缓冲区都是 Buffer 抽象类的子类。Java NIO 的 Buffer 主要用于与 NIO 通道进行交互，数据是从通道读入缓冲区，从缓冲区写入通道中的
 
 ![image-20230530181020515](./images.assets/image-20230530181020515.png)
 
@@ -914,9 +916,9 @@ public class BufferDemo {
 1. 有很大的数据需要存储，它的生命周期又很长
 2. 适合频繁的 IO 操作，比如网络并发场景
 
-## 通道（Channel）
+### 通道（Channel）
 
-通道（Channel）：由 java.nio.channels 包定义的。Channel 表示 IO 源与目标打开的连接。Channel 类似于传统的"流"，只不过 Channel 本身不能直接访问数据，Channel 只能与 Buffer进行交互
+通道（Channel）：由 Java.nio.channels 包定义的。Channel 表示 IO 源与目标打开的连接。Channel 类似于传统的"流"，只不过 Channel 本身不能直接访问数据，Channel 只能与 Buffer进行交互
 
 1. NIO 的通道类似于流，但有些区别如下
 
@@ -1146,7 +1148,7 @@ public class ChannelDemo {
 }
 ```
 
-## 选择器（Selector）
+### 选择器（Selector）
 
 选择器（Selector）是SelectableChannel 对象的多路复用器，Selector 可以同时监控多个 SelectableChannel 的 IO 状况，也就是说，利用 Selector 可使一个单独的线程管理多个 Channel。Selector 是非阻塞 IO 的核心
 
@@ -1193,7 +1195,7 @@ channel.register(selector, SelectionKey.OP_ACCEPT);
 int ops = SelectionKey.OP_CONNECT | SelectionKey.OP_READ;
 ```
 
-## NIO 网络通信原理分析
+### NIO 网络通信原理分析
 
 **服务端流程**
 
@@ -1306,7 +1308,7 @@ int ops = SelectionKey.OP_CONNECT | SelectionKey.OP_READ;
 
    
 
-## NIO 网络通信入门案例
+### NIO 网络通信入门案例
 
 **服务端**
 
@@ -1385,15 +1387,15 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-# NIO 实现群聊系统
+## NIO 实现群聊系统
 
-## 目标
+### 目标
 
 - 编写一个 NIO 群聊系统，实现客户端与客户端的通信需求（非阻塞）
 - 服务端：可以监测用户上线、离线，并实现消息转发功能
 - 客户端：通过 Channel 可以无阻塞发送消息给其他所有客户端用户，同时可以接受其他客户端用户通过服务端转发来的消息
 
-## 服务端代码
+### 服务端代码
 
 ```java
 public class Server {
@@ -1501,7 +1503,7 @@ public class Server {
 }
 ```
 
-## 客户端代码
+### 客户端代码
 
 ```java
 public class Client {
@@ -1571,9 +1573,9 @@ public class Client {
 }
 ```
 
-# AIO 理解
+## AIO 理解
 
-## AIO 编程
+### AIO 编程
 
 - Java AIO(NIO.2)：异步非阻塞，服务器实现模式为一个有效请求一个线程，客户端的I/O请求都是 由OS先完成了再通知服务器应用去启动线程进行处理。
 
@@ -1587,14 +1589,14 @@ public class Client {
 
 与 NIO 不同，当进行读写操作时，只须直接调用 API 的 read 或 write 方法即可，这两种方法均为异步的， 对于读操作而言，当有流可读时，操作系统会将可读的流传入 read 方法的缓冲区，对于写操作而言，当 操作系统将 write 方法传递的流写入完毕时，操作系统主动通知应用程序 。 
 
-即可以理解为，read/write 方法都是异步的，完成后会主动调用回调函数。在 JDK1.7 中，这部分内容被 称作  NIO.2，主要在 java.nio.channel包下增加了下面四个异步通道：
+即可以理解为，read/write 方法都是异步的，完成后会主动调用回调函数。在 JDK1.7 中，这部分内容被 称作  NIO.2，主要在 Java.nio.channel包下增加了下面四个异步通道：
 
 -  AsynchronousSocketChannel
 - AsynchronousServerSocketChannel
 - AsynchronousFileChannel
 - AsynchronousDatagramChannel 
 
-# BIO、NIO、AIO总结
+## BIO、NIO、AIO总结
 
  BIO、NIO、AIO：
 

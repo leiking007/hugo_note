@@ -1,20 +1,20 @@
 ---
-title: "javaSE3"
+title: "JavaSE3"
 date: 2020-06-09
 lastmod: 2020-06-09
 draft: false
-tags: ['javaSE']
+tags: ['JavaSE']
 categories: ["后端"]
 author: "lei"
 ---
 
+# JavaSE3
 
+## IO流
 
-# IO流
+Java.io.*
 
-java.io.*
-
-## 简介
+### 简介
 
 1. 通过IO可以完成内存和硬盘之间数据的流动
 
@@ -22,49 +22,49 @@ java.io.*
 
 3. 流读取方式分类：有的流按照字节读取，一次读取一个字节byte，等同于一次读取8个二进制位，这种流是万能的，什么类型文件都能读取；有的流按照字符方式读取，这种流为了方便读取普通文本文件存在，不能读取：图片，声音，视频等，只能读取纯文本文件
 
-4. java IO流这块有四大家族；以下是四大家族的首领（抽象类）
+4. Java IO流这块有四大家族；以下是四大家族的首领（抽象类）
 
-   1. java.io.InputStream：字节输入流
-   2. java.io.OutputStream：字节输出流
-   3. java.io.Reader：字符输入流
-   4. java.io.Writer：字符输出流
+   1. Java.io.InputStream：字节输入流
+   2. Java.io.OutputStream：字节输出流
+   3. Java.io.Reader：字符输入流
+   4. Java.io.Writer：字符输出流
 
-   注意：在java中凡是类名以Stream结尾的都是字节流。以Reader/Writer结尾的都是字符流
+   注意：在Java中凡是类名以Stream结尾的都是字节流。以Reader/Writer结尾的都是字符流
 
 5. 所有的流都实现了Java.io.Closeable接口，都是可关闭的，都有close()方法；流毕竟是一个管道，会占用资源，用完后一定要关闭
 
-6. 所有的输出流都实现了java.io.Flushable接口，都是可刷新的，都有flush()方法；刷新表示将通道或者管道当中剩余的未输出的数据强行输出完(清空管道)
+6. 所有的输出流都实现了Java.io.Flushable接口，都是可刷新的，都有flush()方法；刷新表示将通道或者管道当中剩余的未输出的数据强行输出完(清空管道)
 
-7. java中需要掌握的io流有16个
+7. Java中需要掌握的io流有16个
    文件专属
-   java.io.FileInputStream
-   java.io.FileOutputStream
-   java.io.FileReader
-   java.io.FileWriter
+   Java.io.FileInputStream
+   Java.io.FileOutputStream
+   Java.io.FileReader
+   Java.io.FileWriter
 
    转换流（将字节流转化为字符流）
-   java.io.InputStreamReader
-   java.io.OutputStreamWriter
+   Java.io.InputStreamReader
+   Java.io.OutputStreamWriter
 
    缓冲区专属
-   java.io.BufferedReader
-   java.io.BufferedWriter
-   java.io.BufferedInputStream
-   java.io.BufferedOutputStream
+   Java.io.BufferedReader
+   Java.io.BufferedWriter
+   Java.io.BufferedInputStream
+   Java.io.BufferedOutputStream
 
    数据流专属
-   java.io.DataInputStream
-   java.io.DataOutputStream
+   Java.io.DataInputStream
+   Java.io.DataOutputStream
 
    标准输出流
-   java.io.PrintWriter
-   java.io.PrintStream
+   Java.io.PrintWriter
+   Java.io.PrintStream
 
    对象专属流
-   java.io.ObjectInputStream
-   java.io.ObjectOutputStream
+   Java.io.ObjectInputStream
+   Java.io.ObjectOutputStream
 
-## FileInputStream
+### FileInputStream
 
 1. 文件字节输入流，万能，任何文件都可以使用这个流来读；字节方式完成输入操作（硬盘-->内存）；IDEA默认当前路径为工程的根
 
@@ -79,7 +79,7 @@ java.io.*
            FileInputStream fis=null; //创建字节输入流
            int a;
            try {
-               fis=new FileInputStream("module01/src/io/leiking/javasestud/tempfile"); //当前路径为工程路径
+               fis=new FileInputStream("module01/src/io/leiking/Javasestud/tempfile"); //当前路径为工程路径
                byte[] b=new byte[fis.available()]; //创建一个byte数组，大小为未读文件字节的大小，不适用于大文件，因为byte数组会过大
                fis.read(b);
                /*
@@ -106,7 +106,7 @@ java.io.*
        }
    ```
 
-## FileOutputStream
+### FileOutputStream
 
 1. 文件字节输出流（内存-->硬盘）；写完之后一定要使用flush()刷新
 
@@ -117,7 +117,7 @@ java.io.*
            FileOutputStream fos=null;
            try {
                //true表示如果文件已经存在，会将数据追加到文件末尾
-           fos=new FileOutputStream("module01/src/io/leiking/javasestud/tempfile1",true);
+           fos=new FileOutputStream("module01/src/io/leiking/Javasestud/tempfile1",true);
                byte[] bytes={97,98,99,32};
                fos.write(bytes);//将byte数组写入文件
                fos.write(bytes,0,1);//将数组中指定元素写入文件
@@ -136,7 +136,7 @@ java.io.*
        }
    ```
 
-   ## 其他代码
+   ### 其他代码
 
    文件复制
 
@@ -164,7 +164,7 @@ java.io.*
        }
    ```
 
-## Reader和Writer
+### Reader和Writer
 
 1. 文件字符输入流，读取文本时比较方便
 
@@ -206,7 +206,7 @@ java.io.*
        }
    ```
 
-## 缓冲流
+### 缓冲流
 
 1. 带有缓冲区的流，不需要定义char数组或者byte数组；BufferedReader、BufferedWriter
 
@@ -233,7 +233,7 @@ java.io.*
        }
    ```
 
-## 数据流
+### 数据流
 
 1. 这个流可以将数据连同数据的类型一并写入文件；这个文件不是普通文本文件，不能用记事本打开
 
@@ -257,7 +257,7 @@ java.io.*
        }
    ```
 
-## 标准输出流
+### 标准输出流
 
 1. 标准字节输出流，默认输出到控制台；标准输出流不需要手动关闭流
 
@@ -284,7 +284,7 @@ java.io.*
        }
    ```
 
-## java.io.File
+### Java.io.File
 
 1. File类与四大家族没有关系，所以File类不能完成文件的读和写
 
@@ -316,7 +316,7 @@ java.io.*
 
     ```java
         public static void main(String[] args) {
-            File soufile=new File("F:\\源码\\java");
+            File soufile=new File("F:\\源码\\Java");
             File desfile=new File("D:\\a");
             copy(soufile,desfile);
         }
@@ -371,13 +371,13 @@ java.io.*
     ```
 
 
-## 对象流
+### 对象流
 
 1. 序列化：将对象存储到硬盘中（拆分对象）；反序列化：将对象从硬盘中取出（组装对象）
 
 2. 参与序列化和反序列化的对象必须实现Serializable接口，这个接口中什么代码都没有，仅作为标识；标志接口，给JVM看的，JVM看到后会自动生成一个序列化版本号
 
-3. java中区分类：首先靠类名进行区分，如果一样，则靠序列化版本号区分；
+3. Java中区分类：首先靠类名进行区分，如果一样，则靠序列化版本号区分；
 
 4. 序列化版本号的缺陷，一旦代码确定后，后面不能修改代码，一旦修改，会重新编译，生成新的序列化版本号，JVM会认为这是一个新的类；因此，建议实现Serializable接口的，手动给予序列化版本号
 
@@ -425,10 +425,10 @@ java.io.*
    }
    ```
 
-## 其他
+### 其他
 
 1. IO+Properties联合使用（读取配置文件）
-2. 类似于key=value，被称为属性配置文件，java中建议使用.properties结尾；属性配置文件中使用**#**进行注释
+2. 类似于key=value，被称为属性配置文件，Java中建议使用.properties结尾；属性配置文件中使用**#**进行注释
 3. 代码示例
 
 ```java
@@ -441,20 +441,20 @@ java.io.*
     }
 ```
 
-# 多线程
+## 多线程
 
-## 简介
+### 简介
 
 1. 进程是一个应用程序（一个进程是一个软件）；线程是一个进程的执行场景/执行单元；一个进程可以有多个线程
-2. 对于java程序来说，当在DOS命令窗口中输入：java HellowWorld回车之后；会首先启动JVM，而JVM就是一个进程；JVM再启动一个主线程调用main方法；同时再启动一个垃圾回收线程负责看护，回收垃圾；java程序中至少有两个线程并发
-3. java中进程内存互不干扰；线程的堆内存和方法区内存共享；栈内存独立，一个线程一个栈；多线程机制目的是提高程序执行效率
+2. 对于Java程序来说，当在DOS命令窗口中输入：Java HellowWorld回车之后；会首先启动JVM，而JVM就是一个进程；JVM再启动一个主线程调用main方法；同时再启动一个垃圾回收线程负责看护，回收垃圾；Java程序中至少有两个线程并发
+3. Java中进程内存互不干扰；线程的堆内存和方法区内存共享；栈内存独立，一个线程一个栈；多线程机制目的是提高程序执行效率
 4. main方法（主线程）结束，程序不一定执行完毕，可以有其他线程还在压栈弹栈
 
-## 实现线程两种方式
+### 实现线程两种方式
 
-1. 第一种：编写一个类直接继承java.lang.Thread，重写run方法；然后new就可以创建线程；使用strat()方法开辟新的栈空间，瞬间执行结束，线程就启动成功；启动成功后自动调用run方法，且压栈到新栈的底部（与main类似）
+1. 第一种：编写一个类直接继承Java.lang.Thread，重写run方法；然后new就可以创建线程；使用strat()方法开辟新的栈空间，瞬间执行结束，线程就启动成功；启动成功后自动调用run方法，且压栈到新栈的底部（与main类似）
 
-2. 第二种：编写一个类实现java.lang.Runnable接口；这个类并不是一个线程类，是一个可运行的类；先创建一个可运行的对象，然后将可运行的对象封装成一个线程对象；同样使用start()启动线程（开辟栈空间）
+2. 第二种：编写一个类实现Java.lang.Runnable接口；这个类并不是一个线程类，是一个可运行的类；先创建一个可运行的对象，然后将可运行的对象封装成一个线程对象；同样使用start()启动线程（开辟栈空间）
 
 3. 建议使用第二种方式，实现接口；因为这样以后还能继承其他类，比较灵活
 
@@ -502,7 +502,7 @@ java.io.*
    }
    ```
 
-## 线程生命周期
+### 线程生命周期
 
 1. 才new出来的线程叫做新建状态；通过start(),线程变成就绪状态；run()方法执行标志进入运行状态，时间片用完会继续进入就绪状态抢夺时间片，直到线程执行完，当线程遇到阻塞事件，会进入阻塞状态，此时会放弃抢夺的时间片；当阻塞清除时，会自动回到就绪状态抢夺时间片；就绪状态和运行状态切换，是JVM调度
 2. 新建状态：刚new出一个线程时
@@ -511,7 +511,7 @@ java.io.*
 5. 阻塞状态：此时线程放弃之前抢夺的时间片，清除阻塞时会进入就绪状态，抢夺时间片
 6. 死亡状态：
 
-## 获取线程对象
+### 获取线程对象
 
 1. 获取当前线程对象：static Thread.currentThread()；出现在哪个线程对象中，就是获取哪个线程对象
 
@@ -539,11 +539,11 @@ java.io.*
 
    
 
-## 线程状态改变
+### 线程状态改变
 
 1. static void sleep(Long millis)；是一个静态方法；参数是毫秒；作用：让线程进入休眠，运行在哪个线程中，则让哪个线程休眠
 
-2. t.interrupt()方法，中断t线程休眠（这种中断睡眠的方式依靠了java的异常处理机制）
+2. t.interrupt()方法，中断t线程休眠（这种中断睡眠的方式依靠了Java的异常处理机制）
 
 3. t.stop()强行终止线程（已过时），缺点：容易丢失数据；给一个标记，修改标记达到终止线程的目的
 
@@ -588,14 +588,14 @@ java.io.*
        }
    ```
 
-## 线程调度
+### 线程调度
 
 1. 调度模型
 
-   1. 抢占式调度模型（java）：哪个线程优先级高，抢到时间片的概率就高一些
+   1. 抢占式调度模型（Java）：哪个线程优先级高，抢到时间片的概率就高一些
    2. 均分式调度模型：平均分配时间片，每个线程占有时间片的时间长度一样
 
-2. java中与线程调度有关的方法
+2. Java中与线程调度有关的方法
 
    1.  void setPriority(int newPriority)：更改线程的优先级 ；
       int getPriority()  ：返回线程的优先级 
@@ -638,7 +638,7 @@ java.io.*
       }
       ```
 
-## 线程同步
+### 线程同步
 
 1. 注意：自己写的程序会放到多线程的环境下运行，需要关注自己写的代码在多线程环境下数据的安全问题
 
@@ -656,7 +656,7 @@ java.io.*
    1. 异步编程模型：t1和t2各自互不干扰的执行，线程并发，效率高
    2. 同步编程模型：t1和t2排队执行，线程同步，效率较低
 
-5. 同步代码块synchronized ()（排他锁）；小括号中传的数据必须是多线程共享的”数据“，才能达到多线程排队；小括号中写的内容根据需求：你需要哪些线程同步;java中任何对象都有一把锁（标志）；字符串（常量池中）是一个万能锁
+5. 同步代码块synchronized ()（排他锁）；小括号中传的数据必须是多线程共享的”数据“，才能达到多线程排队；小括号中写的内容根据需求：你需要哪些线程同步;Java中任何对象都有一把锁（标志）；字符串（常量池中）是一个万能锁
 
    ```java
        public void quQian(Double qu){//取钱方法
@@ -728,7 +728,7 @@ java.io.*
     2. 如果必须是实例变量，那么可以创建多个对象
     3. 如果上面两条都不可以使用，那么才选择synchroized同步代码块。线程同步机制
 
-## 守护线程
+### 守护线程
 
 1. 线程分类
 
@@ -776,9 +776,9 @@ java.io.*
 
    
 
-## 定时器
+### 定时器
 
-java.util.Timer
+Java.util.Timer
 
 1. 作用：间隔特定时间，执行特定程序
 
@@ -809,7 +809,7 @@ java.util.Timer
 
    
 
-## 实现线程的第三种方式
+### 实现线程的第三种方式
 
 1. JDK8新特性；实现Callable接口；优点：可以获取返回结果；缺点：效率较低
 
@@ -841,9 +841,9 @@ java.util.Timer
    ```
 
 
-## wait与notify方法
+### wait与notify方法
 
-1. wait和notify是Object的方法，每个java对象都有的方法
+1. wait和notify是Object的方法，每个Java对象都有的方法
 
 2. o.wait()表示，让正在o对象上活动的线程进入等待状态，无期限等待，直到调用o.notify()；o.notify()表示，唤醒正在o对象上等待的线程；notifyAll方法唤醒o对象上处于等待的所有线程
 
@@ -920,7 +920,7 @@ java.util.Timer
    }
    ```
 
-## 线程池
+### 线程池
 
 > 为什么使用线程池
 
@@ -932,7 +932,7 @@ java.util.Timer
 2. 提高响应速度：当任务到达时，任务可以不需要等待线程的创建就能立即执行
 3. 提高线程的可管理性：线程时稀有资源，如果无限制的差古剑，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一分配，调优和监控
 
-> java提供的4种线程池
+> Java提供的4种线程池
 
 1. `FixedThreadPool：`该方法返回一个固定数量的线程池。该线程池的数量始终保持不变。当有一个新的任务提交时，线程池中若有空闲，则立即执行。若没有，则新的任务会被暂存在一个任务队列中，待线程空闲时，便处理在任务队列中的任务。
 2. `SingleThreadExector：`方法返回只有一个线程的线程池。若多余的一个任务被提交到线程池，任务会被保存在一个队列中，待线程空闲，按先入先出的顺序执行队列中的任务
@@ -964,7 +964,7 @@ java.util.Timer
    private static ExecutorService executor = new ThreadPoolExecutor(13, 13, 60L, TimeUnit.SECONDS, new ArrayBlockingQueue(13));
    ```
 
-   这种情况下，一旦提交的线程数超过当前可用线程数时，就会抛出java.util.concurrent.RejectedExecutionException，这是因为当前线程池使用的队列是有边界队列，队列已经满了便无法继续处理新的请求。但是异常（Exception）总比发生错误（Error）要好。
+   这种情况下，一旦提交的线程数超过当前可用线程数时，就会抛出Java.util.concurrent.RejectedExecutionException，这是因为当前线程池使用的队列是有边界队列，队列已经满了便无法继续处理新的请求。但是异常（Exception）总比发生错误（Error）要好。
 
 3. 使用开源类库
 
@@ -1020,26 +1020,26 @@ ThreadPoolExecutor构造函数重要参数分析
    3. `threadFactory` :executor 创建新线程的时候会用到
    4. `handler` :饱和策略。关于饱和策略下面单独介绍一下
 
-# 反射机制
+## 反射机制
 
-java.lang.refelct.*
+Java.lang.refelct.*
 
-## 简介
+### 简介
 
-1. 通过java语言中的反射机制可以直接操控字节码文件（有点像是黑客）
+1. 通过Java语言中的反射机制可以直接操控字节码文件（有点像是黑客）
 2. 字节码文件在装载到JVM方法区时，只装载一次
 3. 反射机制相关重要类
-   1. java.lang.Class：代表字节码文件（整个类）
-   2. java.lang.reflect.Method：代表字节码中方法（类中方法）
-   3. java.lang.reflect.Constructor：代表字节码中构造方法（类中构造方法）
-   4. java.lang.reflect.Field：代表字节码中的属性（类中成员变量）
+   1. Java.lang.Class：代表字节码文件（整个类）
+   2. Java.lang.reflect.Method：代表字节码中方法（类中方法）
+   3. Java.lang.reflect.Constructor：代表字节码中构造方法（类中构造方法）
+   4. Java.lang.reflect.Field：代表字节码中的属性（类中成员变量）
 4. 获取某个类字节码(class)的三种方法
-   1. Class.forName()：静态方法；方法参数是一个完整类名（字符串）；完整类名必须包含包名，java.lang也不能省略
-   2. java中任何对象都有getClass()方法，通过这个方法获取字节码文件；Class a=o.getClass()
-   3. java中任何一种数据类型（包括基本数据类型）都有.class属性；Class a=String.class
+   1. Class.forName()：静态方法；方法参数是一个完整类名（字符串）；完整类名必须包含包名，Java.lang也不能省略
+   2. Java中任何对象都有getClass()方法，通过这个方法获取字节码文件；Class a=o.getClass()
+   3. Java中任何一种数据类型（包括基本数据类型）都有.class属性；Class a=String.class
 5. 获取Class后，调用newInstance()：反射机制创建对象（调用无参构造方法），该方法已经过时
 
-## 作用
+### 作用
 
 1. 可以通过properties将数据读入，然后可以修改配置文件灵活的创建类，大部分框架都是使用反射机制实现
 
@@ -1048,7 +1048,7 @@ java.lang.refelct.*
    ```java
        public static void main(String[] args) throws Exception{
            //字符输入流
-           FileReader fr=new FileReader("module01/src/io/leiking/javasestud/test07/class.properties");
+           FileReader fr=new FileReader("module01/src/io/leiking/Javasestud/test07/class.properties");
            Properties pt = new Properties();//属性集合
            pt.load(fr);//从文件读取数据存入该集合
            Class cl=Class.forName(pt.getProperty("className"));//通过反射机制获取类
@@ -1056,11 +1056,11 @@ java.lang.refelct.*
        }
    ```
 
-## Class.forName()
+### Class.forName()
 
 1. 这个方法会将类加载到JVM中，类中static静态代码块（类加载执行，且只执行一次）中的内容，会在这个方法调用时运行
 
-## Field(反射属性)
+### Field(反射属性)
 
 1. Class.getFields() 获取类中的所有public属性名字；Class.getDeclaredFields() 获取类中所有属性名字
 
@@ -1068,7 +1068,7 @@ java.lang.refelct.*
 
 3. Field.getModifirer()，返回值是int，是修饰符的代号；可以使用Modifier.toString(int)，这个方法可以将修饰代号转换为修饰符字符串
 
-4. 通过反射机制获取java对象属性
+4. 通过反射机制获取Java对象属性
 
    1. 给属性赋值set：Field.set(obj,222)，给某个对象的该属性赋值（obj对象，no属性，222值）
    2. 获取属性的值get：Field.get(obj)，获取某个对象的属性的值（obj对象，no属性）
@@ -1079,7 +1079,7 @@ java.lang.refelct.*
    ```java
        public static void main(String[] args) throws Exception {
            Student obj=new Student();
-           Class stu=Class.forName("io.leiking.javasestud.test07.Student");
+           Class stu=Class.forName("io.leiking.Javasestud.test07.Student");
            Field no=stu.getDeclaredField("no"); //获取某一个属性
            no.setAccessible(true);//打破封装，访问类的私有变量
            no.set(obj,100);//通过反射机制设置属性值
@@ -1092,7 +1092,7 @@ java.lang.refelct.*
 
    ```java
        public static void main(String[] args) throws Exception{
-           Class c=Class.forName("io.leiking.javasestud.test07.Student");
+           Class c=Class.forName("io.leiking.Javasestud.test07.Student");
            StringBuffer sb=new StringBuffer();
            sb.append(Modifier.toString(c.getModifiers())+" class "+c.getSimpleName());
            sb.append("{");
@@ -1105,7 +1105,7 @@ java.lang.refelct.*
        }
    ```
 
-## Method（反射方法）
+### Method（反射方法）
 
 1. 获取方法：Class.getDeclaredMethod("login",String.class,String.class)；Class.getDeclaredMethods()，返回一个Method数组，包含所有方法
 
@@ -1116,7 +1116,7 @@ java.lang.refelct.*
 
    ```java
        public static void main(String[] args) throws Exception{
-           Class stuClass=Class.forName("io.leiking.javasestud.test07.Student");
+           Class stuClass=Class.forName("io.leiking.Javasestud.test07.Student");
            Student stu=new Student();
            //获取方法
            Method doMethod=stuClass.getMethod("doSome", String.class, int.class);
@@ -1128,7 +1128,7 @@ java.lang.refelct.*
 
    ```java
        public static void main(String[] args) throws Exception{
-           Class stuClass=Class.forName("io.leiking.javasestud.test07.Student");
+           Class stuClass=Class.forName("io.leiking.Javasestud.test07.Student");
            StringBuffer sb=new StringBuffer();
            sb.append(Modifier.toString(stuClass.getModifiers())+" class "+stuClass.getSimpleName()+" {\n");
            Method[] ms=stuClass.getDeclaredMethods();
@@ -1147,13 +1147,13 @@ java.lang.refelct.*
        }
    ```
 
-##  Constructor
+###  Constructor
 
 1. 代码示例（调用构造方法）
 
    ```java
        public static void main(String[] args) throws Exception{
-           Class stuClass=Class.forName("io.leiking.javasestud.test07.Student");
+           Class stuClass=Class.forName("io.leiking.Javasestud.test07.Student");
            Constructor[] cs=stuClass.getConstructors();//获取所有构造方法
            for (Constructor c:cs){
                System.out.println(c.getParameterTypes().length);//输出构造方法参数列表个数
@@ -1173,7 +1173,7 @@ java.lang.refelct.*
 
    ```java
        public static void main(String[] args) throws Exception{
-           Class stuClass=Class.forName("io.leiking.javasestud.test07.Student");
+           Class stuClass=Class.forName("io.leiking.Javasestud.test07.Student");
            StringBuffer sb=new StringBuffer();
            sb.append(Modifier.toString(stuClass.getModifiers())+" class "+stuClass.getSimpleName()+"{\n");
            Constructor[] constructors=stuClass.getConstructors();
@@ -1194,7 +1194,7 @@ java.lang.refelct.*
        }
    ```
 
-## path问题
+### path问题
 
 1. IDEA的相对路径移植性差；第二种方法，移植性好。注意：需要文件在类路径下（src下都是类路径，src是类的跟路径）；
 
@@ -1219,9 +1219,9 @@ java.lang.refelct.*
        }
    ```
 
-## 资源绑定器
+### 资源绑定器
 
-1. java.util包下提供了一个资源绑定器，便于获取属性配置文件中的内容；使用这种方法时，属性配置文件xx.properties必须放到类路径下，文件扩展名必须为properties
+1. Java.util包下提供了一个资源绑定器，便于获取属性配置文件中的内容；使用这种方法时，属性配置文件xx.properties必须放到类路径下，文件扩展名必须为properties
 
 2. 在获取xxx.properties属性配置文件时，后面必须扩展名省略；属性配置文件必须在类路径下
 
@@ -1236,7 +1236,7 @@ java.lang.refelct.*
        }
    ```
 
-## 类加载器
+### 类加载器
 
 1. 类加载器专门负责加载类的命令/工具；ClassLoader
 2. JDK自带三个类加载器：启动类加载器；扩展类加载器；应用类加载器
@@ -1249,9 +1249,9 @@ java.lang.refelct.*
       注意：”扩展类加载器“专门加载：jdk/jre/lib/ext下的class文件
    3. 如果”扩展类加载器“找不到，会通过”应用类加载器“加载
       注意：应用类加载器专门加载：classpath中的类
-4. java中为了保证类加载的安全，使用了双亲委派机制；优先从”启动类加载器“加载，称为”父“；其次从”扩展类加载器“加载，成为”母“；最后才是应用类加载器
+4. Java中为了保证类加载的安全，使用了双亲委派机制；优先从”启动类加载器“加载，称为”父“；其次从”扩展类加载器“加载，成为”母“；最后才是应用类加载器
 
-## 其他
+### 其他
 
 1. 可变长参数，int... args就是可变长参数，语法是...；可变长参数个数为0~n；可变长参数在参数列表必须在最后面，且只能有一个；可变长参数可以当作一个数组看待
 
@@ -1273,7 +1273,7 @@ java.lang.refelct.*
 
    ```java
        public static void main(String[] args) throws Exception{
-           Class strClass=Class.forName("java.lang.String");
+           Class strClass=Class.forName("Java.lang.String");
            Class c=strClass.getSuperclass();//获取父类
            System.out.println(c.getName());
            Class[] ims=strClass.getInterfaces();//获取所有实现的接口
@@ -1283,7 +1283,7 @@ java.lang.refelct.*
        }
    ```
 
-## 获取Class的三种方式
+### 获取Class的三种方式
 
 1. Class cl=A.class; 
     JVM将使用类A的类装载器, 将类A装入内存(前提是:类A还没有装入内存),不对类A做类的初始化工作.返回类A的Class的对象。
@@ -1298,9 +1298,9 @@ java.lang.refelct.*
 
    Class.forName() 返回的是一个类,.newInstance() 后才创建一个对象，Class.forName()的作用是要求JVM查找并加载指定的类，也就是说JVM会执行该类的
 
-# 动态代理
+## 动态代理
 
-## 代理
+### 代理
 
 1. 代购、中介、商家等 都是生活中的代理
 2. A类，本来调用C类的方法，完成某个功能，但是C类不让A类调用
@@ -1309,14 +1309,14 @@ java.lang.refelct.*
    A类-----访问B类-----访问C类
    此时B就是代理；A、B、C之间的关系就是：代理模式
 
-## 代理模式作用
+### 代理模式作用
 
 1. 功能增强：在原有的功能上增加了新的功能
 2. 控制访问：代理类不让你直接访问目标，例如商家不允许用户访问厂家
 
-## 静态代理
+### 静态代理
 
-1. 代理类是自己手工实现的，自己创建一个java类，表示代理类
+1. 代理类是自己手工实现的，自己创建一个Java类，表示代理类
 2. 同时你所需要代理的目标类是确定的
 3. 代理类一定会调用目标类的方法（因为自己没有）
 4. 静态代理特点
@@ -1374,7 +1374,7 @@ public class ShopMain {
 
 
 
-## 动态代理
+### 动态代理
 
 1. 在静态代理中目标类很多时，可以使用动态代理，避免静态代理的缺点
 2. 在程序的执行过程中，使用jdk的反射机制，创建代理类对象，并动态的指定要代理的目标类（不需要创建代理类，就能直接创建代理对象）
@@ -1385,8 +1385,8 @@ public class ShopMain {
 > 动态代理实现方式
 
 1. JDK代理方式（掌握）
-   1. 使用java反射包中的类和接口实现动态代理功能
-   2. 反射包 java.lang.reflect，里面有三各类：InvocationHandler、Method、Proxy
+   1. 使用Java反射包中的类和接口实现动态代理功能
+   2. 反射包 Java.lang.reflect，里面有三各类：InvocationHandler、Method、Proxy
    3. 必须有接口
 2. CGLIB动态代理（了解）
    1. cglib是第三方的工具类，创建代理对象
@@ -1397,7 +1397,7 @@ public class ShopMain {
 
    1. 反射，Method类，表示方法。类中的方法，通过Method可以执行某个方法；独立的方法对象
 
-   2. 反射包 java.lang.reflect ；里面有三个类：InvocationHandler、Method、Proxy
+   2. 反射包 Java.lang.reflect ；里面有三个类：InvocationHandler、Method、Proxy
 
    3. InvocationHandler接口（调用处理器）：就一个方法invoke()
 
@@ -1510,7 +1510,7 @@ public class ShopMain {
 
 1. 可以在不改变原来目标方法功能的前提下，可以在代理中增强自己的功能代码，在InvocationHandler 实现类的invoke()中书写
 
-## Mybatis的动态代理工具类
+### Mybatis的动态代理工具类
 
 ```java
 public class TransactionInvocationHandler implements InvocationHandler {
@@ -1553,7 +1553,7 @@ public class TransactionInvocationHandler implements InvocationHandler {
 
 ```
 
-## 实例
+### 实例
 
 > dao层
 
@@ -1633,44 +1633,44 @@ public class TransactionInvocationHandler implements InvocationHandler {
 public class Test01 {    public static void main(String[] args) {        StudentService studentService=new StudentServiceImpl();        TransactionInvocationHandler handler=new TransactionInvocationHandler(studentService);        StudentService stud=(StudentService) handler.getProxy();        stud.getById("A0001");    }}
 ```
 
-# 注解
+## 注解
 
-## 简介
+### 简介
 
 1. Annotation注解（注释）是一种引用数据类型，编译后生成的也是class文件
 2. 注解相当于标记，如果元素有这个注解怎么做，没有这个注解怎么做
 3. 语法格式：[修饰符列表] @interface 注解类名{...}
 4. 使用：@注解类名
 5. 默认情况下注解可以出现在类上，属性上，方法上，注解上....等·任意位置
-6. JDK内置注解java.lang下
+6. JDK内置注解Java.lang下
    1. Deprecated用@Deprecated注释程序元素，意思是不推荐使用，危险或有更好的选择，标注的元素代表已过时的意思
    2. Override用@Override注解程序元素，用在方法上且此方法必须是重写的父类方法，给编译器做参考，只是在编译阶段作用，与运行期无关。编译器看到这个注解（标志）会检查方法是否为重写父类方法
 7. Class.isAnnotationPresent(MyAnnotation.class)：判断Class类是否有MyAnnotation注解
 8. 通过反射机制获取属性值；获取类->获取方法->判断该方法是否有注解->获取注解(Method.getAnnotation(MyAnnotation.class))
 
-## 元注解
+### 元注解
 
 1. 元注解用来标注”注解类型“的注解，称为元注解
 2. @Target，这是一个元注解，用来指定被标注的注解可以出现在哪些位置
    @Target(ElementType.METHOD)：表示该注解只能修饰方法
 3. @Retention，这是一个元注解，用来标注注解最终会保存在哪
-   @Retention(RetentionPolicy.SOURCE)：表示该注解只保留在java源文件中
+   @Retention(RetentionPolicy.SOURCE)：表示该注解只保留在Java源文件中
    @Retention(RetentionPolicy.CLASS)：表示该注解被保存在class文件中
    @Retention(RetentionPolicy.RUNTIME)：表示该注解被保存在class文件中，且可以被反射机制所读取
 
-## 注解中属性
+### 注解中属性
 
 1. 通常可以在注解当中定义属性；String name()以上代码代表了注解的name属性；String name() default " "，代表给属性默认值
 2. 如果一个注解中有属性，使用时必须给属性名赋值，@Annotation(属性名=值)；除非该属性有默认值；注解的属性名是value()时，给属性名赋值时可以省略value，直接给值
 3. 注解属性前的类型可以是：基础数据类型及数组，Class，枚举类型
 
-## 代码示例
+### 代码示例
 
 1.
 
 ```java
     public static void main(String[] args) throws Exception{
-        Class c=Class.forName("io.leiking.javasestud.test08.AnnotationTest01");//获取类
+        Class c=Class.forName("io.leiking.Javasestud.test08.AnnotationTest01");//获取类
         Method m=c.getMethod("doSome");//获取方法
         if (m.isAnnotationPresent(MyAnnotation.class)){//判断是否存在注解MyAntation
             MyAnnotation m1=m.getAnnotation(MyAnnotation.class); //获取注解
@@ -1712,7 +1712,7 @@ public @interface MyAnnotation {
     }
     public static void doSome() throws Exception{
         boolean a=false;
-        Class uClass=Class.forName("io.leiking.javasestud.test08.zongjie.User");
+        Class uClass=Class.forName("io.leiking.Javasestud.test08.zongjie.User");
         if (uClass.isAnnotationPresent(MyAnnotation.class)){
             for (Field field:uClass.getDeclaredFields()){
                 if ("id".equals(field.getName())&&"int".equals(field.getType().getSimpleName())){

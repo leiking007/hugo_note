@@ -9,11 +9,11 @@ author: "lei"
 draft: false
 ---
 
+# VBA
 
+## 操作工作表
 
-# 操作工作表
-
-## 新建表
+### 新建表
 
 ```vb
 sub 新建()
@@ -22,7 +22,7 @@ sub 新建()
 end sub
 ```
 
-## 根据模板生成
+### 根据模板生成
 
 ```vb
 Sub 生成()
@@ -39,7 +39,7 @@ Application.DisplayAlerts = True
 End Sub
 ```
 
-## 删除所有工作表
+### 删除所有工作表
 
 ```vb
 Sub 清除()
@@ -51,7 +51,7 @@ Application.DisplayAlerts = True
 End Sub
 ```
 
-## 根据工作表生成目录
+### 根据工作表生成目录
 
 ```vb
 Sub CreateMenu()
@@ -68,9 +68,9 @@ Worksheets("目录").Activate
 End Sub
 ```
 
-# 操作工作簿
+## 操作工作簿
 
-## 所有工作表另存工作簿
+### 所有工作表另存工作簿
 
 ```vb
 Sub 拆分()
@@ -85,9 +85,9 @@ Application.ScreenUpdating = True
 End Sub
 ```
 
-# 操作单元格
+## 操作单元格
 
-## 常见代码
+### 常见代码
 
 ```vb
 [a10]  		'a10单元格，不支持变量'
@@ -106,7 +106,7 @@ range("a10:f10").copy range("a11")		'将a10:f10区域，复制到a11'
 range("a10:f10").Merge	'将a10:f10区域合并'
 ```
 
-## 数据拆分到多表（循环）
+### 数据拆分到多表（循环）
 
 ```vb
 Sub 拆分()
@@ -130,7 +130,7 @@ Sub 清空()
 End Sub
 ```
 
-## 数据拆分到多表（筛选）
+### 数据拆分到多表（筛选）
 
 ```vb
 Sub 拆分()
@@ -150,7 +150,7 @@ Sub 清空()
 End Sub
 ```
 
-## 数据根据某列拆分建表
+### 数据根据某列拆分建表
 
 ```vb
 Sub 根据某列建表并复制数据()
@@ -196,7 +196,7 @@ Sheets(1).Select
 Application.DisplayAlerts = True	
 End Sub
 ```
-## 合并多个工作表
+### 合并多个工作表
 
 ```vb
 Sub 合并多表()
@@ -212,7 +212,7 @@ Next
 End Sub
 ```
 
-## 单元格格式
+### 单元格格式
 
 ```vb
 '字体格式选项卡'
@@ -241,7 +241,7 @@ End With
 End With
 ```
 
-## 工作表事件案例1
+### 工作表事件案例1
 
 ```vb
 '标亮选中行，工作表事件，当选取发生变化自动执行以下代码'
@@ -255,7 +255,7 @@ Private Sub Worksheet_SelectionChange(ByVal Target As Range)	'选区变换执行
 End Sub
 ```
 
-## 工作表事件案例2
+### 工作表事件案例2
 
 ```vb
 '通过单元格内容筛选某列，并自动更新'
@@ -272,7 +272,7 @@ Private Sub Worksheet_Change(ByVal Target As Range)	'工作表内容变化执行
 End Sub
 ```
 
-## 工作簿事件案例1
+### 工作簿事件案例1
 
 ```vb
 '工作簿保存时备份文件'
@@ -284,7 +284,7 @@ Private Sub Workbook_BeforeSave(ByVal SaveAsUI As Boolean, Cancel As Boolean)	'�
 End Sub
 ```
 
-## 工作簿事件案例2
+### 工作簿事件案例2
 
 ```vb
 '制作密码验证表，输入对应的密码显示对应的工作表'
@@ -322,9 +322,9 @@ End If
 End Sub
 ```
 
-# 工作表函数
+## 工作表函数
 
-## 介绍
+### 介绍
 
 ```vbscript
 'Countif  Vlookup这些函数在VBA里调用：Application.WorksheetFunction
@@ -346,7 +346,7 @@ Val()	'文本转化为数值'
 | Information | 信息函数 |
 | Interaction | 交互函数 |
 
-## 根据学号查询信息
+### 根据学号查询信息
 
 ```vb
 Sub chaxun()
@@ -383,7 +383,7 @@ Sheets(1).Range("d28") = w
 End Sub
 ```
 
-## 拆分多表通用型
+### 拆分多表通用型
 
 ```vbscript
 Sub chaifenshuju()
@@ -430,14 +430,14 @@ MsgBox "已处理完毕，牛逼不"
 End Sub
 ```
 
-# 多文件数据合并
+## 多文件数据合并
 
-## Dir
+### Dir
 
 1. Dir(文件路径)：存在文件返回文件名，不存在返回空值
 2. dir后面的参数可以支持通配符，例如：Dir("d:/data/苏州.xls*")
 
-## 查询某文件下所有文件名
+### 查询某文件下所有文件名
 
 ```vbscript
 '遍历文件，并提取文件名，以下代码会将data下所有文件名写入A列'
@@ -453,7 +453,7 @@ Sub test()
 End Sub
 ```
 
-## 文件合并
+### 文件合并
 
 ```vbscript
 Sub 合并多文件数据()
@@ -475,7 +475,7 @@ Application.ScreenUpdating = True
 End Sub
 ```
 
-## find用法（规避错误）
+### find用法（规避错误）
 
 ```vbscript
 Sub chazhao()
@@ -492,7 +492,7 @@ End Sub
 
 
 
-## 拆分工作表通用
+### 拆分工作表通用
 
 ```vbscript
 Sub chaifenshuju()
@@ -545,9 +545,9 @@ MsgBox "已处理完毕，牛逼不"
 End Sub
 ```
 
-# 数组的妙用
+## 数组的妙用
 
-## 统计金额
+### 统计金额
 
 ```vbscript
 Sub 总金额1()
@@ -595,7 +595,7 @@ MsgBox (Format(Timer - ti, "0.000000"))	'当前获取时间-程序开始时间�
 End Sub
 ```
 
-## 查找销冠
+### 查找销冠
 
 ```vbscript
 Sub test()
@@ -619,7 +619,7 @@ MsgBox LBound(arr) '数组下限'
 End Sub
 ```
 
-## 计算回款信息
+### 计算回款信息
 
 ```vbscript
 '问题：有许多汇款账单，但不知道谁是谁，现在知道收到的回款总额(124704)以及订单数(4)，求是哪些账单（每个账单金额唯一）'
@@ -649,7 +649,7 @@ Range("L3") = Timer - t '程序执行时间
 End Sub
 ```
 
-# ADO
+## ADO
 
 ```vb
 Sub adoTest()

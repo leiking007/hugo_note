@@ -8,9 +8,11 @@ categories: ["后端"]
 author: "lei"
 ---
 
-# 基础
+# Dubbo
 
-## rpc介绍
+## 基础
+
+### rpc介绍
 
 - RPC是指远程过程调用,也就是说两台服务器A,B,一个应用部署在A服务器上,想要调用B服务器上应用提供的函数/方法,由于不在一个内存空间,不能直接调用,需要通过网络来表达调用的语义和传达调用的数据。
 
@@ -22,7 +24,7 @@ author: "lei"
 
 - 影响RPC框架速度的原因：序列化与反序列化、通信效应
 
-## 分布式系统
+### 分布式系统
 
 - 分布式系统是若干独立计算机的集合，这些计算机对于用户来说就像是单个系统
 - 分布式系统（distributed system）是建立在网络之上的软件系统
@@ -33,7 +35,7 @@ author: "lei"
   - 分布式服务：多个人做不一样的工作，合起来为一个大的工作；rpc概念
   - 微服务架构：业务需要彻底的组件化和服务化
 
-## dobbo
+### dobbo
 
 - 优点
 
@@ -56,9 +58,9 @@ author: "lei"
   | `Monitor`   | 统计服务的调用次数和调用时间的监控中心 |
   | `Container` | 服务运行容器                           |
 
-# Hello
+## Hello
 
-## Zookeeper 注册中心
+### Zookeeper 注册中心
 
 - dubbo支持多种注册中心，官方推荐使用zookeeper
 - zookeeper是一个放源码的分布式应用程序协调服务
@@ -68,7 +70,7 @@ author: "lei"
 - `./zookeeper status`：查看状态
 - `./zookeeper stop`：停止运行
 
-## 公共接口
+### 公共接口
 
 - 创建公共接口模块以及bean
 
@@ -81,7 +83,7 @@ author: "lei"
 
   
 
-## 服务提供者
+### 服务提供者
 
 1. 创建服务提供者
 
@@ -164,7 +166,7 @@ author: "lei"
    }
    ```
 
-## 服务消费者
+### 服务消费者
 
 1. 创建服务消费者
 
@@ -230,7 +232,7 @@ author: "lei"
    }
    ```
 
-## dubbo-admin安装
+### dubbo-admin安装
 
 > 老版本
 
@@ -253,20 +255,20 @@ chenchuxin/dubbo-admin
 3. 进入dubbo-admin-ui， `npm install`：安装，`npm run dev`：运行
 4. 访问`localhost:8082`，默认用户名密码：root/root
 
-# dubbo特性
+## dubbo特性
 
-## 序列化
+### 序列化
 
 - 两个机器间，对象的传输，序列化与反序列化，通过网络传播
 - pojo类需要实现`Serializable`接口
 
-## 地址缓存
+### 地址缓存
 
 - dubbo服务消费者第一次调用从将服务提供方的地址缓存到本地，以后调用时，不会访问注册中心
 - 当服务提供者地址发生变化时，注册中心会通知服务消费者
 - 问题：当注册中心挂了，服务消费者是否能够访问服务提供者（分情况：已经访问过得可以访问，因为有缓存；未访问过得，不能访问）
 
-## 超时与重试
+### 超时与重试
 
 > 超时
 
@@ -281,7 +283,7 @@ chenchuxin/dubbo-admin
 - 重试：dubbo提供重试机制来解决这个问题；dubbo默认重试两次，加上第一次请求，总共请求三次
 - 重试设置：`retries=2`
 
-## 多版本
+### 多版本
 
 - 灰度发布：当出现新功能时，会让一部分用户先体验新功能，用户反馈没问题是，再将所有用户迁移到新功能
 - dubbo中使用了`version`属性来设置和调用同一个接口的不同版本
@@ -289,7 +291,7 @@ chenchuxin/dubbo-admin
   - 设置服务提供方的`version`，bean配置文件或注解
   - 服务调用方调用时，设置调用的服务提供方版本`version`，bean配置文件或注解
 
-## 负载均衡
+### 负载均衡
 
 > 策略（4种）
 
@@ -301,7 +303,7 @@ chenchuxin/dubbo-admin
 3. LeastActive：最少活跃调用数，相同活跃数随机
 4. ConsistentHash：一致性hash，相同参数的请求总会发送到同一个提供者
 
-## 集群容错
+### 集群容错
 
 ![image-20210615010240902](images.assets/image-20210615010240902.png)
 
@@ -315,15 +317,15 @@ chenchuxin/dubbo-admin
 - Forking Cluster：并行调用多个服务器，只要一个成功即返回
 - Broadcast Cluster：广播调用所有提供者，逐个调用，任意一台报错则报错
 
-## 服务降级
+### 服务降级
 
 `mock=force:return null`：表示消费者对该服务调用直接返回null值，不发起远程调用。用来屏蔽服务不可用时对调用方的影响，在远程注入配置
 
 `mock=fail:return null`：表示消费方对服务调用方法失败时，再返回null值，不抛异常。用来容忍不重要服务不稳定时对调用方的影响
 
-# dubbo集成springboot
+## dubbo集成springboot
 
-## pom.xml
+### pom.xml
 
 ```xml
 <dependencies>
@@ -369,7 +371,7 @@ chenchuxin/dubbo-admin
 </dependencies>
 ```
 
-## springboot配置文件
+### springboot配置文件
 
 > 服务提供者
 
@@ -393,7 +395,7 @@ dubbo.registry.port=2181
 dubbo.scan.base-packages=com.lei.controller
 ```
 
-## 相关注解
+### 相关注解
 
 `@DubboService`：暴露服务
 

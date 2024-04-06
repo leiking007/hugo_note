@@ -8,11 +8,11 @@ categories: ["前端"]
 author: "lei"
 ---
 
+# JavaScript
 
+## 简介
 
-# 简介
-
-1. javascript是运行在浏览器上的脚本语言；简称js
+1. JavaScript是运行在浏览器上的脚本语言；简称js
 
 2. js不需要程序员手动编译，源代码浏览器直接打开运行；js“目标程序”以普通文本形式保存，这种语言叫做“脚本语言”
 
@@ -24,7 +24,7 @@ author: "lei"
 
 6. js一条语句结束，可以使用分号，也可以不用
 
-7. html中嵌入javascript代码
+7. html中嵌入JavaScript代码
 
    1. ```html
       <input type="text" onclick="window.alert('hell')"/>/*onclick是事件句柄，click才是事件*/
@@ -49,16 +49,16 @@ author: "lei"
 
 9. document：文档对象
 
-# 变量
+## 变量
 
-## 简介
+### 简介
 
 1. 声明：var 变量名;
 2. 赋值：变量名=值;
 3. 变量没有手动赋值时，系统默认赋值undefined，undefined是一个值
 4. js是弱类型语言，没有编译阶段，一个变量可以随意赋值，什么类型都可以
 
-## 局部变量
+### 局部变量
 
 1. 函数体类声明
 
@@ -76,13 +76,13 @@ author: "lei"
    alert(myname) //可以访问到函数体中声明变量，因为没有var关键字声明
    ```
 
-## 全局变量
+### 全局变量
 
 1. 函数体之外声明的变量
 2. 生命周期：浏览器打开时声明，浏览器关闭时销毁
 3. 尽量使用局部变量，性能问题
 
-## 函数
+### 函数
 
 1. 函数可以重复利用的代码片段
 2. 定义：
@@ -92,9 +92,9 @@ author: "lei"
 4. 往函数传值，少了会给形参列表前面赋值，后面赋值undefined；多了，会将传入参数多出的省略
 5. js中如果两个函数同名，后面声明的函数会覆盖前面的同名函数（js中只靠函数名分辨函数）
 
-# 数据类型
+## 数据类型
 
-## 简介
+### 简介
 
 1. 虽然js变量声明不需要指定数据类型，但是在赋值时每一个数据还是有类型的
 
@@ -114,7 +114,7 @@ author: "lei"
    var b=typeof a;//b的值时object
    ```
 
-## number类型
+### number类型
 
 1. number类型包括：整数、小数、正数、负数、不是数字(NaN) 、无穷大(Infinty)
 2. NaN:运算结果本来应该是数字，最后算完不是数字时；如：8/"中"、10+"a"(字符串拼接)
@@ -124,14 +124,14 @@ author: "lei"
 6. parseFloat("数字")：可以将字符串转换为数字
 7. Math.ceil(数字)：向上取整，Math是数学类
 
-## boolean类型
+### boolean类型
 
 1. js中布尔类型永远只有两个值：true、false
 2. js中有个函数叫做布尔函数：Boolean()将非布尔类型转换为布尔类型，如if("jack")，if后括号会自动调用布尔函数转换为布尔类型；布尔函数转换规律：有转换为true、没有转换为false
 
 Null类型只有一个值：null；typeof null 判断类型返回object
 
-## string类型
+### string类型
 
 1. 在js中字符串可以使用单引号或者双引号
 2. 创建字符串对象：
@@ -150,7 +150,7 @@ Null类型只有一个值：null；typeof null 判断类型返回object
    7. toUpperCase()：转大写
    8. split()：拆分字符串
 
-## object类型
+### object类型
 
 1. 所有类型的超类，自定义任何类型，默认都继承Object
 
@@ -189,7 +189,7 @@ Null类型只有一个值：null；typeof null 判断类型返回object
    console.log(mc.fun2()) //prototype添加的函数
    ```
 
-## null NAN undefined
+### null NAN undefined
 
 1. type时类型不一致
    1. null：object
@@ -201,7 +201,7 @@ Null类型只有一个值：null；typeof null 判断类型返回object
    3. NAN==undefined：false
 3. ==（等同于运算符，值判断值是否相等）；===（全等运算符，及判断值是否相等，又判断数据类型是否相等）
 
-## 代码示例
+### 代码示例
 
 ```js
 myfun1=function(a,b){
@@ -252,9 +252,9 @@ function test4(){
 
 ```
 
-# 常用事件
+## 常用事件
 
-## 简介
+### 简介
 
 1. blur失去焦点
 2. focus获得焦点
@@ -275,7 +275,7 @@ function test4(){
 
 任何一个事件都会对应一个事件句柄，事件前加on，事件句柄出现在元素属性位置
 
-## 注册事件
+### 注册事件
 
 1. 事件句柄方式，元素属性位置加个on
 
@@ -292,7 +292,7 @@ function test4(){
    }
    ```
 
-## 回调函数
+### 回调函数
 
 1. 回调函数自己书写，但是自己不调用，由其他程序负责调用该函数
 
@@ -306,7 +306,7 @@ function test4(){
    <input type="button" onclick="myfun()">
    ```
 
-## js代码执行顺序
+### js代码执行顺序
 
 ```js
 window.onload=function(){
@@ -324,7 +324,7 @@ window.onload=function(){
 //获取的元素节点，有什么属性，都可以使用.进行修改
 ```
 
-## 获取键值
+### 获取键值
 
 1. 对于键盘事件对象来说，都有keyCode属性获取键值
 
@@ -338,21 +338,21 @@ document.getElementById("btn").onkeydown=
 }
 ```
 
-# js运算符
+## js运算符
 
 +、-、*、/、++、--
 
-## void运算符
+### void运算符
 
 void(表达式)：执行表达式，不返回任何结果
 
 jsvascript: ：告诉浏览器后面跟的 是js代码
 
 ```html
-<a href="javascript:void(0)" onclick="console.log('e')">点击超链接，执行js代码，但页面不跳转</a>
+<a href="JavaScript:void(0)" onclick="console.log('e')">点击超链接，执行js代码，但页面不跳转</a>
 ```
 
-## 正则表达式
+### 正则表达式
 
 1. 什么是正则表达式：正则表达式主要用在字符串格式匹配当中，包括搜索方面
 
@@ -452,11 +452,11 @@ jsvascript: ：告诉浏览器后面跟的 是js代码
    }
    ```
 
-# 代码实例
+## 代码实例
 
-## 表单验证
+### 表单验证
 
-### html代码
+#### html代码
 
 ```html
 		<form id="userForm">
@@ -489,7 +489,7 @@ jsvascript: ：告诉浏览器后面跟的 是js代码
 		</form>
 ```
 
-### js代码
+#### js代码
 
 ```js
 /*
@@ -594,9 +594,9 @@ window.onload = function() {
 }
 ```
 
-## 复选框全选
+### 复选框全选
 
-### html代码
+#### html代码
 
 ```html
 		<input type="checkbox" id="che" /><br />
@@ -605,7 +605,7 @@ window.onload = function() {
 		<input type="checkbox" name="aihao" value="羽毛球" />羽毛球<br />
 ```
 
-### js代码
+#### js代码
 
 ```js
 window.onload = function() {
@@ -639,9 +639,9 @@ window.onload = function() {
 }
 ```
 
-## 获取下拉列表value
+### 获取下拉列表value
 
-### html代码
+#### html代码
 
 ```html
 <select onchange="alert(this.value)">
@@ -653,9 +653,9 @@ window.onload = function() {
 </select>
 ```
 
-## 网页时钟
+### 网页时钟
 
-### html代码
+#### html代码
 
 ```html
 <input type="button" id="btn1" value="显示时钟" onclick="startTime()" />
@@ -663,7 +663,7 @@ window.onload = function() {
 <div id="demo"></div>
 ```
 
-### js代码
+#### js代码
 
 ```js
 window.onload = function() {
@@ -697,9 +697,9 @@ function stopTime() {
 
 ```
 
-## 设置顶级窗口
+### 设置顶级窗口
 
-## 弹出确认框
+### 弹出确认框
 
 ```js
 window.onload=function(){
@@ -720,9 +720,9 @@ window.onload=function(){
 }
 ```
 
-## 设置table的tbody（拼接）
+### 设置table的tbody（拼接）
 
-### html代码
+#### html代码
 
 ```html
 <body>
@@ -748,7 +748,7 @@ window.onload=function(){
 	</body>
 ```
 
-### js代码
+#### js代码
 
 ```js
 var studInfo = {
@@ -787,13 +787,13 @@ window.onload = function() {
 }
 ```
 
-# js包括三块
+## js包括三块
 
-## ECMAScript
+### ECMAScript
 
 1. JS核心语法（ES规范）
 
-## DOM
+### DOM
 
 1. 文档对象模型，DOM树
 
@@ -837,7 +837,7 @@ window.onload = function() {
 
    
 
-## BOM
+### BOM
 
 1. 浏览器对象模型
 
@@ -871,7 +871,7 @@ window.onload = function() {
    ```
 
 
-# JSON
+## JSON
 
 1. 什么是JSON：JavaScript Object Notation（数据交换）；JSON主要作用是：一种标准的数据交换格式
 2. JSON是一种标准的轻量级的数据交换格式，优点：体积小，易解析
@@ -916,7 +916,7 @@ var studJson={
 
 
 
-# 其他
+## 其他
 
 document.querySelector('#id');
 	静态选择元素，相当于返回一个元素快照，可以像使用css选择器一样的选择元素
@@ -952,14 +952,14 @@ Js原型的理解
 		2、通过原型增加的属性或方法的确是存在的.
 		3、函数对象本身的属性或方法的优先级要高于原型的属性或方法.
 
-# Ajax
+## Ajax
 
-## 全局刷新和全局刷新
+### 全局刷新和全局刷新
 
 1. 浏览器发送请求，得到后台返回数据，**只能**展示得到的数据
 2. 浏览器得到后台返回的数据，能**同时**展示后台返回数据和原有数据
 
-## 全局刷新和局部刷新原理
+### 全局刷新和局部刷新原理
 
 1. 全局刷新：**浏览器**发送请求，服务端响应协议包直接推送到浏览器内存；
    覆盖内存中原有数据，浏览器只能展示响应数据
@@ -968,12 +968,12 @@ Js原型的理解
    浏览器可以从js脚本对象拿到服务端的响应协议包，更新到浏览器指定标签上
    浏览器可以展示原有内容和服务端响应内容
 
-## AJAX
+### AJAX
 
 1. 异步请求对象（Asynchronization JavaScript And XML）
 2. ajax帮助开发人员管理浏览器中**异步请求对象**
 
-## AJAX开发步骤
+### AJAX开发步骤
 
 1. 在浏览器内存中，创建一个脚本对象（异步请求对象）
 2. 为**异步请求对象**添加**工作状态监听器**，帮助开发人员确定何时得到从它身上响应数据
@@ -983,12 +983,12 @@ Js原型的理解
    3. 通知异步请求对象，在它工作期间，浏览器是否会等它（同步请求/异步请求）
 4. 通知异步请求对象发送请求
 
-## 同步请求与异步请求区别
+### 同步请求与异步请求区别
 
 1. 同步请求：在当前异步请求对象工作期间，浏览器只能等待，不可再委派异步请求对象发送请求
 2. 异步请求：在当前异步请求对象工作期间，浏览器还可委派其他异步请求对象
 
-## AJAX命令
+### AJAX命令
 
 1. 创建异步请求对象
    var xmlHttp=new XMLHttpRequest();
@@ -1004,7 +1004,7 @@ Js原型的理解
 
    xmlHttp.send()
 
-## 异步请求对象工作状态
+### 异步请求对象工作状态
 
 | xmlHttp.readyStat |                             状态                             |         发生位置         |
 | :---------------: | :----------------------------------------------------------: | :----------------------: |
@@ -1014,7 +1014,7 @@ Js原型的理解
 |         3         | 异步请求对象已经得到了服务端响应包，此时它正在解析响应体中内容 |                          |
 |         4         | 异步请求对象已经解析数据完毕，此时数据符合脚本规范，发开人员可以提取响应数据 |                          |
 
-## 从异步请求对象得到响应数据
+### 从异步请求对象得到响应数据
 
 1. 每当事件处理函数被调用，需要判断异步请求对象当前工作状态是否为4
 
@@ -1033,14 +1033,14 @@ Js原型的理解
    ```
 
 
-# ES6
+## ES6
 
-## 块级作用域
+### 块级作用域
 
 - ES5 存在全局作用域、函数作用域
 - ES6 存在了块级作用域
 
-## let
+### let
 
 - 类似于var，但是所声明的变量仅在当前代码块生效（let变量循环时js引擎会记得上次循环的值，然后赋予本次循环）
 
@@ -1065,7 +1065,7 @@ function f() {
 
 - let实际上为js新增了块级作用域；ES6中规定，函数声明可以在块级作用域中，类似var，会提升到函数作用域，外部不能引用，应当避免在块级作用域中声明函数
 
-## 不存在变量提升
+### 不存在变量提升
 
 在var声明的变量之前引用，不会报错；而在let声明变量之前引用会报错
 
@@ -1079,7 +1079,7 @@ function f() {
 	let bar = 2;
 ```
 
-## 暂时性死区
+### 暂时性死区
 
 - 指的是使用let或const声明变量时，会绑定在当前块级作用域中，在声明之前引用都会报错，无论是否存在同名全局变量；typeof不再是一个安全操作
 
@@ -1105,7 +1105,7 @@ function f() {
 
 - let 不允许在相同作用域中重复声明一个变量
 
-## 严格模式
+### 严格模式
 
 ```js
 if(true) {
@@ -1114,7 +1114,7 @@ if(true) {
 if(true)  console.log(1)  //ES6语法报错,运行不报错
 ```
 
-## const
+### const
 
 const声明一个只读的常量。一旦声明，常量指向的那个内存地址不得改动（基本数据不能改，对象可以更改其中属性）
 
@@ -1130,7 +1130,7 @@ function func(arg) {
 }
 ```
 
-## 解构赋值
+### 解构赋值
 
 - 基本用法：`let [a,b,c]=[1,2,3]`，可以存在不完全解构
 
@@ -1212,13 +1212,13 @@ let [a=1]=[]  //a=1let [a=1]=[undefined]  //a=1let [a=1]=[null]  //a=null
 
 - 作用：交换变量值、从函数返回多个值、解析JSON，函数参数定义。遍历map
 
-## 练习
+### 练习
 
 ```js
 //练习1const obj={	id:123,	age:20,	name:'lei'}let obj1={	id:456,	...obj,	name:'tang'}console.log(obj1.id)   //20console.log(obj1.age)  //123console.log(obj1.name)  //tang//练习2let map=new Map()map.set([1],'ES6')		// 存取 使用的数组 [1] 两个数组内存地址不一样console.log(map.get([1]))	//undefined//练习3let map=new Map()let arr=new Array(1)arr[0]=1map.set(arr,'ES6')		// 存取 使用的数组 [1] 两个数组内存地址不一样console.log(map.get(arr))	//ES6
 ```
 
-## 字符串扩展
+### 字符串扩展
 
 - Unicode：ES6加强了对Unicode的支持，并扩展一下；允许采用\\uxxxx形式表示一个字符，其中xxxx为字符的Unicode码点
 - iterator：字符串扩展 iterator 接口，使得可以通过 for ... of 遍历，通过 for ... of 遍历时，可以取得字符串每个字符的真正字符
@@ -1233,7 +1233,7 @@ let [a=1]=[]  //a=1let [a=1]=[undefined]  //a=1let [a=1]=[null]  //a=null
 let a=`${a}+${b*2}`  //运算，相当于 ${a+b*2}var template = `<ul>  <% for(var i=0; i < data.supplies.length; i++) { %>	<li><%= data.supplies[i] %></li>  <% } %></ul>`
 ```
 
-## 函数扩展
+### 函数扩展
 
 - 可以赋值默认值
 
@@ -1261,7 +1261,7 @@ let a=`${a}+${b*2}`  //运算，相当于 ${a+b*2}var template = `<ul>  <% for(v
 
 - Rest参数，Rest参数放在参数列表最后
 
-## this指向问题
+### this指向问题
 
 - 普通声明函数，非严格模式下，this指向window；严格模式下，this undefined
 - 对象中函数，this指向调用它的对象
@@ -1273,7 +1273,7 @@ let a=`${a}+${b*2}`  //运算，相当于 ${a+b*2}var template = `<ul>  <% for(v
 //函数中this，非严格模式指向window，严格模式下undefined；对象的中函数的this指向指向调用该函数的对象let a=1let b = function(s) {   console.log(this)}b()   //this指向windowb.call(a,8)   //输出的为1，call表示在a对象上调用b方法,相当于改变方法的this指向，此时this指向 alet a={	funa:function() {		console.log(this)	}}a.funa()  //输出a对象，对象中函数的this指向该对象function foo(){   setTimeout(()=>{	   console.log(this)   },100)}foo.call({id:42})  //此时箭头函数中的this指向的是外层函数的this，而外层函数的this通过call方法指向了{id:42}，这个对象function foo(){   setTimeout(function a(){	   console.log(this)   }.call({id:12}),100)}foo.call({id:42})  //此时因为setTimeout参数是非箭头函数，而且使用了call改变了this指向，此时this指向为 {id:12} 这个对象
 ```
 
-## module
+### module
 
 - 暴露：规定	模块对外接口，export
 - 引入：引入其他模块对外暴露的接口，import

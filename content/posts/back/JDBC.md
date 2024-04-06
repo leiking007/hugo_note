@@ -3,29 +3,31 @@ title: "JDBC"
 date: 2020-06-09
 lastmod: 2020-06-09
 draft: false
-tags: ['javaEE','数据库']
+tags: ['JavaEE','数据库']
 categories: ["后端"]
 author: "lei"
 ---
 
-# 简介
+# JDBC
 
-1. JDBC： Java Database Connectivity（java语言连接数据库）
-2. JDBC是sun公司定制的一套接口（java.sql.*）
+## 简介
+
+1. JDBC： Java Database Connectivity（Java语言连接数据库）
+2. JDBC是sun公司定制的一套接口（Java.sql.*）
    接口都有调用者和实现者
    面向接口调用、面向接口写实现类都是面向接口编程
    面向接口：解耦合，降低偶尔度，提高程序扩展力；多态是典型的面向接口编程
-3. 数据库厂家实现接口（驱动），java程序员调用接口
-4. 首先官网下载对应的java驱动包，然后将其配置到环境变量classpath中，使用IDEA不需要配置以上环境变量
+3. 数据库厂家实现接口（驱动），Java程序员调用接口
+4. 首先官网下载对应的Java驱动包，然后将其配置到环境变量classpath中，使用IDEA不需要配置以上环境变量
 5. JDBC变成六步
-   1. 注册驱动：告诉java程序，即将链接哪个品牌数据库
+   1. 注册驱动：告诉Java程序，即将链接哪个品牌数据库
    2. 获取链接：表示JVM进程与数据库进程之间的通道打开了，这属于进程间通信，重量级的，使用完后需要释放
    3. 获取数据库操作对象：专门执行sql语句的对象
    4. 执行sql语句：DQL,DML
    5. 执行查询结果集：只有当第四步执行的是select语句时，才有这一步
-   6. 释放资源：释放资源，java与mysql之间属于进程间通信
+   6. 释放资源：释放资源，Java与mysql之间属于进程间通信
 
-# 编程六步
+## 编程六步
 
 2. 结果集有next()方法（有点像是迭代器），有数据返回true，没有数据返回false；
    getString()方法，不管数据库字段类型是什么，取出都是String类型；
@@ -34,8 +36,8 @@ author: "lei"
    JDBC中下标从1开始
 
 ```java
-import java.sql.*;
-import java.util.*;
+import Java.sql.*;
+import Java.util.*;
 public class  JdbcTest01
 {
 	public static void main (String[] args) throws Exception
@@ -115,7 +117,7 @@ public class  JdbcTest01
 }
 ```
 
-# 资源绑定器
+## 资源绑定器
 
 jdbc.properties
 
@@ -134,7 +136,7 @@ String user=bundle.getString("user");
 String password=bundle.getString("password");
 ```
 
-# sql注入
+## sql注入
 
 1. 原因：用户输入的信息中含有sql语句关键字，并且这些关键字参与sql语句的编译过程，导致sql语句的原意被扭曲
 
@@ -181,11 +183,11 @@ String password=bundle.getString("password");
 ```sql
 package com.leiking.userlogin;
 
-import javax.swing.plaf.nimbus.State;
-import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import Javax.swing.plaf.nimbus.State;
+import Java.sql.*;
+import Java.util.HashMap;
+import Java.util.Map;
+import Java.util.Scanner;
 
 public class LoginMain {
     public static void main(String[] args) {
@@ -267,7 +269,7 @@ public class LoginMain {
 select * from t_user where loginName='fdss' and loginPwd='125' or 1 = '1
 ```
 
-# 单机事务
+## 单机事务
 
 1. JDBC中事务是自动提交的，执行任意一条DML语句，则会提交依次，这是JDBC默认事务行为
 2. conn.setAutoCommit(false)：关闭事务自动提交
@@ -307,7 +309,7 @@ Connection conn=null;
         }finally {//关闭连接}
 ```
 
-# JDBC工具类封装
+## JDBC工具类封装
 
 1. 工具类构造方法一般为私有的，因为工具类一般调用都是静态方法
 
