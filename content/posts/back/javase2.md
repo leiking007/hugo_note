@@ -113,9 +113,7 @@ public class Person {
 4. 抽象方法，表示没有实现的方法，没有方法体，修饰符中有abstract修饰，例如：**public abstract void 名();**  抽象类中可以没有抽象方法，但抽象方法必须在抽象类中
 5. 非抽象类继承抽象类，必须实现（重写）父类的抽象方法（抽象方法必须在抽象类中）
 
-语法：	[修饰符列表]	abstract  class  类名{
-						//类体；
-				}
+语法：[修饰符列表]  abstract  class  类名{    //类体；  }
 
 ### 接口
 
@@ -129,10 +127,9 @@ public class Person {
 6. 一个类可以实现多个接口，弥补了类单继承的缺陷（而且接口引用间转型不需要继承关系）
 7. 可以使用多态
 
-语法：[修饰符列表]  **interface**  接口名{
-            }
+语法：[修饰符列表]  **interface**  接口名{  }
 
-​			class  类名  **implements**  接口名{}
+​           class  类名  **implements**  接口名{}
 
 代码实例
 
@@ -1125,7 +1122,7 @@ Java.util.*
 6. boolean remove(Object o) ；移除集合中某个元素；底层也是调用的equals方法进行对比删除的
 7. boolean isEmpty()  ；判断集合是否为空；空返回（true）
 8. Object[] toArray()  ；将集合转换为数组
-9. Iterator<E> iterator()  ；返回一个Iterator（迭代器）
+9. Iterator\<E\> iterator()  ；返回一个Iterator（迭代器）
    Iterator迭代器中有三个方法：boolean hasNext() 如果仍有元素可以迭代，则返回 true； E next() 返回迭代的下一个元素 ；void remove() 删除迭代器当前指向的元素（会自动更新迭代器中的元素）；集合一旦发生改变，迭代器必须重新获取，否则会出现异常（Java.util.ConcurrentModificationException）；所以在迭代过程中不能改变集合结构
 10. 代码示例
 
@@ -1412,29 +1409,29 @@ Java.util.*
 
 6. JDK8之后引入了自动类型推断机制（又称钻石表达式）
 
-7. 自定义泛型；Java源码中常出现：<E>:element首字母大写
+7. 自定义泛型；Java源码中常出现：\<E\>:element首字母大写
 
-8. 或者<T>:Type首字母大写
+8. 或者\<T\>:Type首字母大写
 
 9. 代码示例
 
    ```java
-           List<Anmial> a=new ArrayList<>(); //使用泛型，创建的集合中只能存储Anmial类型
-           Anmial o1=new Cat();
-           Anmial o2=new Dog();
-           a.add(o1);
-           a.add(o2);
-           Iterator<Anmial> it=a.iterator();
-           while(it.hasNext()){
-               Anmial obj=it.next(); //如果不用泛型，那么这里必定会返回Object类型
-               obj.move();
-               if (obj instanceof Cat){
-                   ((Cat)obj).zhuo();
-               }
-               if (obj instanceof Dog){
-                   ((Dog)obj).chi();
-               }
-           }
+   List<Anmial> a=new ArrayList<>(); //使用泛型，创建的集合中只能存储Anmial类型
+   Anmial o1=new Cat();
+   Anmial o2=new Dog();
+   a.add(o1);
+   a.add(o2);
+   Iterator<Anmial> it=a.iterator();
+   while(it.hasNext()){
+       Anmial obj=it.next(); //如果不用泛型，那么这里必定会返回Object类型
+       obj.move();
+       if (obj instanceof Cat){
+           ((Cat)obj).zhuo();
+       }
+       if (obj instanceof Dog){
+           ((Dog)obj).chi();
+       }
+   }
    ```
 
 ### foreach
@@ -1474,3 +1471,4 @@ Java.util.*
    中序遍历：左根右
    后序遍历：左右根
 3. TreeSet/TreeMap集合采用的是：中序遍历；Iterator迭代器采用的是中序遍历方式
+

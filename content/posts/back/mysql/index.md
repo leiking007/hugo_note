@@ -823,7 +823,7 @@ mysql数据库的数据备份、主从、主主都离不开`binlog`日志，需�
 
 `binlog`日志刷盘流程如下：
 
-![img](../image/images.assets/04.png)
+![img](./images.assets/04.png)
 
 - **上图的 write，是指把日志写入到文件系统的 page cache，并没有把数据持久化到磁盘，所以速度比较快**
 - **上图的 fsync，才是将数据持久化到磁盘的操作**

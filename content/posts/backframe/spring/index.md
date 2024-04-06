@@ -1062,13 +1062,13 @@ try(InputStream in= Resources.getResourceAsStream(resource)){
 
 > 需要注意的点
 
-- mapper映射文件的domain起别名  <typeAliases>  标签中
-  -  <typeAlias type="com.lei.domain.Student" alias="Student"/> 
-  -  <package name="com,lei,domain" /> ；name：表示在该包下，别名就是类名
--  指定mapper映射文件位置，<mappers>  标签中
-  -  <mapper resource="com\lei\dao\StudentDao.xml"/> 
-  -  <mapper class="com.lei.dao.StudentDao"/> ；找到Dao接口的全限定路径，因为dao接口与mapper进行了绑定，也能被识别
-  -  <package name="com.lei.dao" />； name：指向dao层包，表示该包下所有mapper映射文件加载 
+- mapper映射文件的domain起别名  \<typeAliases\>  标签中
+  -  \<typeAlias type="com.lei.domain.Student" alias="Student"/\> 
+  -  \<package name="com,lei,domain" /\> ；name：表示在该包下，别名就是类名
+-  指定mapper映射文件位置，\<mappers\>  标签中
+  -  \<mapper resource="com\lei\dao\StudentDao.xml"/\> 
+  -  \<mapper class="com.lei.dao.StudentDao"/\> ；找到Dao接口的全限定路径，因为dao接口与mapper进行了绑定，也能被识别
+  -  \<package name="com.lei.dao" /\>； name：指向dao层包，表示该包下所有mapper映射文件加载 
 
 - mybatis传参方式
   -  prameterType：写在mapper文件中的一个属性，表示dao接口中方法的参数的数据类型 
@@ -1312,7 +1312,7 @@ public interface TransactionDefinition {
 - 结合AOP实现事务的织入，配置事务通知，需要导入 tx 约束
 
   - advice（建议）的命名：由于每个模块都会有自己的Advice，所以在命名上需要作出规范，初步的构想就是模块名+Advice（只是一种命名规范）
-  -  tx:attribute标签所配置的是作为事务的方法的命名类型。 如<tx:method name="save*" propagation="REQUIRED"/>； 其中\*为通配符，即代表以save为开头的所有方法，即表示符合此命名规则的方法作为一个事务。propagation="REQUIRED"代表支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择
+  -  tx:attribute标签所配置的是作为事务的方法的命名类型。 如\<tx:method name="save*" propagation="REQUIRED"/\>； 其中\*为通配符，即代表以save为开头的所有方法，即表示符合此命名规则的方法作为一个事务。propagation="REQUIRED"代表支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择
   - aop:pointcut标签配置参与事务的类，由于是在Service中进行数据库业务操作，配的应该是包含那些作为事务的方法的Service类。首先应该特别注意的是id的命名，同样由于每个模块都有自己事务切面，所以我觉得初步的命名规则因为 all+模块名+ServiceMethod。而且每个模块之间不同之处还在于以下一句：expression="execution(* com.test.testAda.test.model.service.*.*(..))"其中第一个*代表返回值，第二*代表service下子包，第三个*代表方法名，“（..）”代表方法参数
   -  aop:advisor标签就是把上面我们所配置的事务管理两部分属性整合起来作为整个事务管理
 
