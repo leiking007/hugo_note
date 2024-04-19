@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hans-CN">
+<html lang="zh-Hans-CN" class="scroll-pt-20">
 <head>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,25 +12,27 @@
 
 <body class="font-sans text-base bg-gray-50">
 <div id = "app">
-    <header class="lg:sticky top-0 bg-white bg-opacity-60">
-        {{- partial "header.html" . -}}
-    </header>
-    <div class="container mx-auto my-3">
-        <div class="p-2 lg:p-0 grid grid-rows-1 gap-x-8 grid-cols-12 min-h-screen">
-            <div class="col-span-12 lg:col-span-8 ">
-                {{- block "main" . }}{{-  end -}}
-            </div>
-            <div class="hidden lg:block lg:col-span-4">
-                {{- partial "right.html" . -}}
-                {{- block "right" . }}{{-  end -}}
+    <div class="theme-container">
+        <header class="relative lg:sticky top-0 bg-white bg-opacity-95 shadow-md">
+            {{- partial "header.html" . -}}
+        </header>
+        <div class="container mx-auto my-3">
+            <div class="p-2 lg:p-0 grid grid-rows-1 gap-x-8 grid-cols-12 min-h-screen">
+                <div class="col-span-12 lg:col-span-8 ">
+                    {{- block "main" . }}{{-  end -}}
+                </div>
+                <div class="hidden lg:block lg:col-span-4">
+                    {{- partial "right.html" . -}}
+                    {{- block "right" . }}{{-  end -}}
+                </div>
             </div>
         </div>
-    </div>
-    <div>
-        {{- partialCached "footer.html" . -}}
-    </div>
-    <div id="return-top" class="hidden fixed bottom-12 right-12 hover:text-amber-700">
-        <i class="iconfont icon-top text-3xl"></i>
+        <div>
+            {{- partialCached "footer.html" . -}}
+        </div>
+        <div id="return-top" class="hidden fixed bottom-12 right-12 hover:text-amber-700">
+            <i class="iconfont icon-top text-3xl"></i>
+        </div>
     </div>
 </div>
 </body>

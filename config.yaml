@@ -71,5 +71,6 @@ markup:
         # style: native
         tabWidth: 2
     tableOfContents:
+        ordered: true
         endLevel: 4
         startLevel: 2
