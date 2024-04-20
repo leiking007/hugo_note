@@ -10,7 +10,7 @@ function createTocObserver() {
         }
         timer=setTimeout(()=>{
             // 滚动条到顶部距离
-            let windowScrollY = window.scrollY;
+            let windowScrollY = window.scrollY+80;
 
             // 判断高亮哪一个目录
             let target:HTMLElement
@@ -24,6 +24,7 @@ function createTocObserver() {
                     }
                 }
             })
+            console.log(target)
             headings.forEach(item=>{
                 const id:string= item.getAttribute("id")
                 let tocEle:HTMLElement=document.querySelector(`#postTocOuter li a[href="#${id}"]`)
@@ -35,7 +36,7 @@ function createTocObserver() {
                     }
                 }
             })
-        },500)
+        },200)
     })
 }
 
