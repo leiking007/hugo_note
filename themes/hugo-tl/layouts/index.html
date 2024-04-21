@@ -34,3 +34,12 @@
   </div>
 </main>
 {{ end }}
+
+{{- define "petiteVueScript" -}}
+<script>
+  PetiteVue.createApp({
+    $delimiters: ['[[', ']]'],
+  }).mount()
+</script>
+{{-  end -}}
+

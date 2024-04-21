@@ -1,63 +1,79 @@
 {{ define "main" }}
-  <div id="post-single" class="prose max-w-none prose-h1:my-4 prose-h2:my-3 prose-h3:my-2">
+<div id="post-single" class="prose max-w-none prose-h1:my-4 prose-h2:my-3 prose-h3:my-2">
     <div class="my-3">
-      <h1 class="mb-1" id="title">{{ .Title }}
-        <button class="hidden lg:inline-block text-sm p-1 border-2 border-cyan-100" onclick="window.print()">打印</button>
-        {{ if .Params.tags }}
-          {{ range (.GetTerms "tags") }}
-          <small>
-            <a class="text-sm" href='{{ .RelPermalink }}'>{{- .LinkTitle -}}</a>
-          </small>
-          {{ end }}
-        {{ end }}
-    </h1>
-      <section class="d-flex">
-        <span class="mx-2"><i class="iconfont icon-riqi2 mr-1"></i>{{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) }}</span>
-        <span class="mx-2"><i class="iconfont icon-yongyan mr-1"></i>{{- T "article.wordCount" .WordCount -}}</span>
-        <span class="mx-2"><i class="iconfont icon-time mr-1"></i>{{- T "article.readingTime" .ReadingTime -}}</span>
-      </section>
+        <h1 class="mb-1" id="title">{{ .Title }}
+            <button class="hidden lg:inline-block text-sm p-1 border-2 border-cyan-100" onclick="window.print()">打印
+            </button>
+            {{ if .Params.tags }}
+            {{ range (.GetTerms "tags") }}
+            <small>
+                <a class="text-sm" href='{{ .RelPermalink }}'>{{- .LinkTitle -}}</a>
+            </small>
+            {{ end }}
+            {{ end }}
+        </h1>
+        <section class="d-flex">
+            <span class="mx-2"><i class="iconfont icon-riqi2 mr-1"></i>{{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) }}</span>
+            <span class="mx-2"><i class="iconfont icon-yongyan mr-1"></i>{{- T "article.wordCount" .WordCount -}}</span>
+            <span class="mx-2"><i
+                    class="iconfont icon-time mr-1"></i>{{- T "article.readingTime" .ReadingTime -}}</span>
+        </section>
     </div>
     <div>
-      <div class="lg:hidden">
-        <h4 class="text-2xl">{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
-        <div class="prose prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0">
-          {{ .TableOfContents }}
+        <div class="lg:hidden sticky top-2 z-10 bg-white " @click="changeSmTocShow">
+            <h4 class="text-2xl shadow-md">{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
+            <div v-show="showSmClick" class="prose prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0 max-h-[70vh] overflow-y-auto">
+                {{ .TableOfContents }}
+            </div>
         </div>
-      </div>
-      <article id="content" data-pagefind-body >
-        {{ .Content }}
-      </article>
+        <article id="content" data-pagefind-body>
+            {{ .Content }}
+        </article>
     </div>
     <aside class="hidden lg:block" id="meta">
-      <div class="flex justify-between py-6 my-4">
-        {{ with .PrevInSection }}
-        <div><span class="cursor-default mr-1">{{- T "article.previousArticle" | default "上一篇" -}}: </span><a href="{{.Permalink}}"><i class="bi bi-chevron-double-left"></i> {{.Title}}</a></div>
-        {{ end }}
-        {{ with .NextInSection }}
-        <div><span class="cursor-default mr-1">{{- T "article.nextArticle" | default "下一篇" -}}:</span> <a href="{{.Permalink}}"> {{.Title}}<i class="bi bi-chevron-double-right"></i></a></div>
-        {{ end }}
-      </div>
+        <div class="flex justify-between py-6 my-4">
+            {{ with .PrevInSection }}
+            <div><span class="cursor-default mr-1">{{- T "article.previousArticle" | default "上一篇" -}}: </span><a
+                    href="{{.Permalink}}"><i class="bi bi-chevron-double-left"></i> {{.Title}}</a></div>
+            {{ end }}
+            {{ with .NextInSection }}
+            <div><span class="cursor-default mr-1">{{- T "article.nextArticle" | default "下一篇" -}}:</span> <a
+                    href="{{.Permalink}}"> {{.Title}}<i class="bi bi-chevron-double-right"></i></a></div>
+            {{ end }}
+        </div>
     </aside>
-  </div>
+</div>
 {{ end }}
 
 {{ define "right" }}
-  {{/*  默认启用菜单  */}}
-  {{/*  配置参数，设置为true 或 未设置 ，结果为true   */}}
-  {{- $TOCManuallyEnable := eq (eq $.Site.Params.toc false) false -}}
+{{/*  默认启用菜单  */}}
+{{/*  配置参数，设置为true 或 未设置 ，结果为true   */}}
+{{- $TOCManuallyEnable := eq (eq $.Site.Params.toc false) false -}}
 
-  {{/*  文章配置的toc，设置为true 或 未设置 ，结果为true  */}}
-  {{- $pageTocEnable := eq (eq .Params.toc false) false -}}
+{{/*  文章配置的toc，设置为true 或 未设置 ，结果为true  */}}
+{{- $pageTocEnable := eq (eq .Params.toc false) false -}}
 
-  {{/*  判断目录长度 长度大于50 结果为true  */}}
-  {{- $hasTOC := ge (len .TableOfContents) 100 -}}
+{{/*  判断目录长度 长度大于50 结果为true  */}}
+{{- $hasTOC := ge (len .TableOfContents) 100 -}}
 
-  {{  if and (and $hasTOC $pageTocEnable) $TOCManuallyEnable }}
-  <div id="postTocOuter" class="max-w-full max-h-[72rem] overflow-y-auto overflow-x-clip sticky top-20 bg-white rounded-lg shadow-sm p-6 ">
+{{  if and (and $hasTOC $pageTocEnable) $TOCManuallyEnable }}
+<div id="postTocOuter" class="max-w-full h-auto sticky top-20">
     <h4 class="text-2xl">{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
-    <div class="prose prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0">
-      {{ .TableOfContents }}
+    <div class="toc-left toc">
+        {{ .TableOfContents }}
     </div>
-  </div>
-  {{ end }}
+</div>
 {{ end }}
+{{ end }}
+
+{{- define "petiteVueScript" -}}
+<script>
+    PetiteVue.createApp({
+        $delimiters: ['[[', ']]'],
+        showSmClick: false,
+        changeSmTocShow() {
+            this.showSmClick = !this.showSmClick
+        }
+    }).mount()
+</script>
+{{-  end -}}
