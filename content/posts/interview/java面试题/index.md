@@ -428,7 +428,7 @@ private static final int TERMINATED =  3 << COUNT_BITS;
 
 ```java
 /**
- * \@Contended 注解的作用
+ * @Contended 注解的作用
  * 使用@Contended来保证被标识的字段或者类不与其他字段出现内存争用
  * 为了提高IO效率，CPU每次从内存读取数据并不是只读取我们需要计算的数据，
  * 而是将我们需要的数据周围的64个字节（intel处理器的缓存行是64字节）的数据一次性全部读取到缓存中。这64个字节的数据就称为一个缓存行。

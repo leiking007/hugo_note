@@ -47,23 +47,41 @@ Eureka Server：服务注册中心和服务发现中心
 新建springboot项目，导入springcloud依赖，并申明为父项目，供后续服务springcloud的版本统一
 
 ```xml
-<!--父依赖-->
-<parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.12.RELEASE</version>
-    <relativePath/>
-</parent>
-<!--申明为父项目-->
-<packaging>pom</packaging>
-<!--springcloud依赖-->
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-dependencies</artifactId>
-    <version>Hoxton.SR8</version>
-    <type>pom</type>
-    <scope>import</scope>
-</dependency>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.lei</groupId>
+    <artifactId>spring-cloud-netflix</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>spring-cloud-netflix</name>
+    <description>spring-cloud-netflix</description>
+    <properties>
+        <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>2.7.6</spring-boot.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.9</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
 ```
 
 
@@ -126,7 +144,19 @@ Eureka Client 主要用来简化每个服务和 Eureka Server 的交互。 Eurek
    eureka.server.renewal-percent-threshold=0.5
    ```
 
-3. 访问 127.0.0.1:8761 可以看到如下界面：
+3. 启动类添加注解`@EnableEurekaServer`
+
+   ```java
+   @EnableEurekaServer
+   @SpringBootApplication
+   public class Application {
+       public static void main(String[] args) {
+           SpringApplication.run(Application.class);
+       }
+   }
+   ```
+
+4. 访问 127.0.0.1:8761 可以看到如下界面：
 
    ![image-20211108162337623](images.assets/image-20211108162337623.png)
 
@@ -1943,4 +1973,14 @@ Apollo客户端会把从服务端获取到的配置在本地文件系统缓存�
 - portal：提供Web界面供用户管理配置
 - client：Apollo提供的客户端程序，为应用提供配置获取、实时更新等功能
 
-## 各组件的总结
+## 实战
+
+### 说明
+
+版本号：基于 spring-cloud-netflix 3.1.8 搭建；与前文教程版本有些许不一样
+
+搭建的环境：基于 docker 搭建
+
+### 整体架构
+
+### Eureka 集群搭建

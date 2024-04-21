@@ -160,8 +160,6 @@ docker run -d --hostname rabbit1 --name rabbit1 -p 5672:5672 -p 15672:15672 -e R
    rabbitmqctl list_vhost
    ```
 
-### 
-
 
 
 
