@@ -235,10 +235,10 @@ docker stop 容器id		#停止容器
 docker kill 容器id		#强制停止容器
 
 #查看指定容器ip地址
-docker inspect -f '{{.Name}} - {{.NetworkSettings.Networks.mynet.IPAddress}}' 容器id
+docker inspect --format='{{.Name}}:{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 容器id
 
 # 查看所有容器ip地址
-docker inspect -f '{{.Name}} - {{.NetworkSettings.Networks.mynet.IPAddress}}' $(docker ps -aq)
+docker inspect --format='{{.Name}}:{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
 ```
 
 ### 其他命令
