@@ -24,7 +24,6 @@ function createTocObserver() {
                     }
                 }
             })
-            console.log(target)
             headings.forEach(item=>{
                 const id:string= item.getAttribute("id")
                 let tocEle:HTMLElement=document.querySelector(`#postTocOuter li a[href="#${id}"]`)

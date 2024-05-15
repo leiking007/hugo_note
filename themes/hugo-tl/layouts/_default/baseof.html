@@ -11,7 +11,7 @@
 </head>
 
 <body class="font-sans text-base bg-gray-50">
-<div id = "app">
+<div id="app">
     <div class="theme-container">
         <header class="relative lg:sticky top-0 bg-white bg-opacity-95 shadow-md z-30">
             {{- partial "header.html" . -}}
@@ -19,11 +19,11 @@
         <div class="container mx-auto my-3">
             <div class="p-2 lg:p-0 grid grid-rows-1 gap-x-8 grid-cols-12 min-h-screen">
                 <div class="col-span-12 lg:col-span-8 ">
-                    {{- block "main" . }}{{-  end -}}
+                    {{- block "main" . }}{{- end -}}
                 </div>
                 <div class="hidden lg:block lg:col-span-4">
                     {{- partial "right.html" . -}}
-                    {{- block "right" . }}{{-  end -}}
+                    {{- block "right" . }}{{- end -}}
                 </div>
             </div>
         </div>
@@ -36,5 +36,15 @@
     </div>
 </div>
 </body>
-{{- block "petiteVueScript" . }}{{-  end -}}
+{{- block "petiteVueScript" . }}{{- end -}}
+<script>
+    let obj = {}
+    if (typeof (vueObj) !== 'undefined') {
+        Object.assign(obj,vueObj)
+    }
+    PetiteVue.createApp({
+        $delimiters: ['[[', ']]'],
+        ...obj
+    }).mount()
+</script>
 </html>
