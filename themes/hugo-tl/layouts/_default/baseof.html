@@ -36,12 +36,20 @@
     </div>
 </div>
 </body>
+<script>
+    const vueObj={}
+</script>
 {{- block "petiteVueScript" . }}{{- end -}}
 <script>
-    let obj = {}
-    if (typeof (vueObj) !== 'undefined') {
-        Object.assign(obj,vueObj)
+    let obj={}
+    console.log(`当前页vue参数列表如下`)
+    for (let vueObjKey in vueObj) {
+        obj={
+            ...obj,
+            ...vueObj[vueObjKey]
+        }
     }
+    console.log(obj)
     PetiteVue.createApp({
         $delimiters: ['[[', ']]'],
         ...obj

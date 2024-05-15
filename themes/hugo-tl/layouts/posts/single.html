@@ -18,9 +18,10 @@
         </section>
     </div>
     <div>
-        <div class="lg:hidden sticky top-2 z-10 bg-white bg-opacity-95 shadow-md" @click="changeSmTocShow">
+        <div class="lg:hidden sticky top-2 z-10 bg-white bg-opacity-95 shadow-md" @click="postSingle$showSmClick">
             <h4 class="text-2xl shadow-md">{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
-            <div v-show="showSmClick" class="prose prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0 max-h-[70vh] overflow-y-auto">
+            <div v-show="postSingle$changeSmTocShow"
+                 class="prose prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0 max-h-[70vh] overflow-y-auto">
                 {{ .TableOfContents }}
             </div>
         </div>
@@ -66,10 +67,10 @@
 
 {{- define "petiteVueScript" -}}
 <script>
-    const vueObj={
-        showSmClick: false,
-        changeSmTocShow() {
-            this.showSmClick = !this.showSmClick
+    vueObj["postSingle"]={
+        postSingle$changeSmTocShow : false,
+        postSingle$showSmClick() {
+            this.postSingle$changeSmTocShow = !this.postSingle$changeSmTocShow
         }
     }
 </script>
