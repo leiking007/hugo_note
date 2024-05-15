@@ -534,3 +534,193 @@ Maven父工程遵循以下要求
 </project>
 
 ```
+
+## Maven settings.xml详解
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+
+    <!--  本地仓库地址  -->
+    <localRepository>F:/study/soft/mavenRepository</localRepository>
+
+    <!-- 是否提示输入,false时在需要输入时maven会自动
+    | Default: true
+    -->
+    <interactiveMode>true</interactiveMode>
+
+    <!-- maven在执行生成时是否应尝试连接到网络
+     | Default: false
+     -->
+    <offline>false</offline>
+
+    <!-- pluginGroups
+     | This is a list of additional group identifiers that will be searched when resolving plugins by their prefix, i.e.
+     | when invoking a command line like "mvn prefix:goal". Maven will automatically add the group identifiers
+     | "org.apache.maven.plugins" and "org.codehaus.mojo" if these are not already contained in the list.
+     |-->
+    <pluginGroups>
+        <!-- pluginGroup
+         | Specifies a further group identifier to use for plugin lookup.
+        <pluginGroup>com.your.plugins</pluginGroup>
+        -->
+    </pluginGroups>
+
+    <!-- 代理配置 -->
+    <proxies>
+        <!-- proxy
+         | Specification for one proxy, to be used in connecting to the network.
+         |
+        <proxy>
+          <id>optional</id>
+          <active>true</active>
+          <protocol>http</protocol>
+          <username>proxyuser</username>
+          <password>proxypass</password>
+          <host>proxy.host.net</host>
+          <port>80</port>
+          <nonProxyHosts>local.net|some.host.com</nonProxyHosts>
+        </proxy>
+        -->
+    </proxies>
+
+    <!-- 服务器认证配置 -->
+    <servers>
+        <!-- server
+        <server>
+          <id>deploymentRepo</id>
+          <username>repouser</username>
+          <password>repopwd</password>
+        </server>
+        -->
+
+        <!-- Another sample, using keys to authenticate.
+        <server>
+          <id>siteServer</id>
+          <privateKey>/path/to/private/key</privateKey>
+          <passphrase>optional; leave empty if not used.</passphrase>
+        </server>
+        -->
+    </servers>
+
+    <!-- mirrors 镜像仓库,
+    | mirrorOf 设置为 central 表示去中央仓库下载时通过下面这个地址
+    | profile 默认包含了一个 central 配置
+    | 仓库查找顺序 按照 profile 中配置仓库依次查找,如果都没有就走 central
+    -->
+    <mirrors>
+        <mirror>
+            <id>aliyunmaven</id>
+            <mirrorOf>central</mirrorOf>
+            <name>阿里云公共仓库</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </mirror>
+    </mirrors>
+
+    <profiles>
+        <!-- profile
+         | Specifies a set of introductions to the build process, to be activated using one or more of the
+         | mechanisms described above. For inheritance purposes, and to activate profiles via <activatedProfiles/>
+         | or the command line, profiles have to have an ID that is unique.
+         |
+         | An encouraged best practice for profile identification is to use a consistent naming convention
+         | for profiles, such as 'env-dev', 'env-test', 'env-production', 'user-jdcasey', 'user-brett', etc.
+         | This will make it more intuitive to understand what the set of introduced profiles is attempting
+         | to accomplish, particularly when you only have a list of profile id's for debug.
+         |
+         | This profile example uses the JDK version to trigger activation, and provides a JDK-specific repo.
+        <profile>
+          <id>jdk-1.4</id>
+
+          <activation>
+            <jdk>1.4</jdk>
+          </activation>
+
+          <repositories>
+            <repository>
+              <id>jdk14</id>
+              <name>Repository for JDK 1.4 builds</name>
+              <url>http://www.myhost.com/maven/jdk14</url>
+              <layout>default</layout>
+              <snapshotPolicy>always</snapshotPolicy>
+            </repository>
+          </repositories>
+        </profile>
+        -->
+
+        <profile>
+            <id>tencentyunmaven</id>
+            <repositories>
+                <repository>
+                    <id>nexus-tencentyun</id>
+                    <name>Nexus tencentyun</name>
+                    <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>nexus-tencentyun</id>
+                    <name>Nexus tencentyun</name>
+                    <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+        <profile>
+            <id>aliyunmaven</id>
+            <!--     默认激活该配置,  如果存在其他任意激活配置, 该配置失效    -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>aliyunmaven</id>
+                    <name>阿里云公共仓库</name>
+                    <url>https://maven.aliyun.com/repository/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>aliyunmaven</id>
+                    <name>阿里云公共仓库</name>
+                    <url>https://maven.aliyun.com/repository/public/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <!-- 激活的 Profile -->
+    <activeProfiles>
+        <activeProfile>tencentyunmaven</activeProfile>
+    </activeProfiles>
+
+</settings>
+```
+
