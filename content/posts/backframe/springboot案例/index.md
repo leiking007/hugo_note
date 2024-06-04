@@ -2226,6 +2226,53 @@ public class RequestLogAspect {
 }
 ```
 
+### SpringCache
+
+1. 定义缓存管理器
+
+   ```java
+   // 这里使用简单的本地缓存
+   @Bean("cacheManager")
+   public CacheManager cacheManager() {
+       SimpleCacheManager cacheManager = new SimpleCacheManager();
+       ConcurrentMapCache cache = new ConcurrentMapCache("concurrentMapCache");
+       cacheManager.setCaches(List.of(cache));
+       return cacheManager;
+   }
+   ```
+
+2. 启动添加注解
+
+   ```java
+   @SpringBootApplication
+   @EnableCaching
+   public class Application implements ApplicationRunner {
+       //...............
+   }
+   ```
+
+3. 在需要缓存的方法上使用注解开启缓存
+
+   ```java
+   /*
+   * cacheManager 缓存管理器bean
+   * cacheNames 缓存的名字
+   * key 缓存的key，可自定义，默认是方法参数值 使用spEL 表达式
+   * unless 否定缓存。当 unless 指定的条件为 true ，方法的返回值就不会被缓存 使用spEL 表达式
+   * condition 符合条件的情况下才缓存 使用spEL 表达式
+   */
+   @Cacheable(cacheManager = "cacheManager", cacheNames = {"concurrentMapCache"}, key = "#root.methodName+'['+#paramA+#paramB+']'", unless = "#paramA=='noCache'",,condition = "#result!=null")
+   public Object cacheableTestB(String paramA, String paramB) {
+       return paramA + paramB;
+   }
+   ```
+
+
+
+> SpringCache 中 spEL 表达式常用元数据
+
+![9b44287bd9e642abfc8edcd09a51b87a](./images.assets/9b44287bd9e642abfc8edcd09a51b87a.png)
+
 
 
 ## 综合案例
