@@ -25,7 +25,7 @@ stages:
           - '# 请在此输入您想执行的脚本'
           - cd /root/note_hugo/
           - '# 更新'
-          - echo '-----始更新源文件 start-----'
+          - echo '-----更新源文件 start-----'
           - git pull
           - echo '-----更新源文件 end-----'
           - if [ -d "/root/note_hugo/public/" ];then
