@@ -14,29 +14,26 @@ stages:
     trigger: auto
     executor: []
     steps:
-      - step: deploy@agent
-        name: deploy_agent
-        displayName: 主机部署
+      - step: shell@agent
+        name: execute_shell
+        displayName: Shell 脚本执行
         hostGroupID:
           ID: '1'
           hostID:
             - 11feac5b-03d2-4630-96ae-15821f45b788
-        deployArtifact:
-          - source: artifact
-            name: output
-            target: ~/gitee_go/deploy
-            artifactRepository: default
-            artifactName: output
-            artifactVersion: latest
         script:
-          - '# 功能：部署脚本会在部署主机组的每台机器上执行'
-          - '# 使用场景：先将制品包解压缩到指定目录中，再执行启动脚本deploy.sh，脚本示例地址：https://gitee.com/gitee-go/spring-boot-maven-deploy-case/blob/master/deploy.sh'
-          - '# mkdir -p /home/admin/app'
-          - '# tar zxvf ~/gitee_go/deploy/output.tar.gz -C /home/admin/app'
-          - '# sh /home/admin/app/deploy.sh restart'
-          - '# 如果你是php之类的无需制品包的制品方式，可以使用 git clone 或者 git pull 将源代码更新到服务器，再执行其他命令'
-          - '# git clone ***@***.git'
-          - echo 'Hello Gitee Go!'
+          - '# 请在此输入您想执行的脚本'
+          - cd /root/note_hugo/
+          - '# 更新'
+          - git pull
+          - '# 删除原有文件'
+          - rm -rf /usr/local/nginx/html/*
+          - '# 构建'
+          - npm run build
+          - '# 将新的文件移动到网站根目录'
+          - mv /root/note_hugo/public/* /usr/local/nginx/html/
+          - '#删除构建产物'
+          - rm -rf /root/note_hugo/public/*
         notify: []
         strategy:
           retry: '0'
