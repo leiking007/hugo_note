@@ -25,15 +25,21 @@ stages:
           - '# 请在此输入您想执行的脚本'
           - cd /root/note_hugo/
           - '# 更新'
+          - echo '-----始更新源文件 start-----'
           - git pull
-          - '# 删除原有文件'
-          - rm -rf /usr/local/nginx/html/*
+          - echo '-----更新源文件 end-----'
+          - if [ -d "/root/note_hugo/public/" ];then
+          - "\trm -rf /root/note_hugo/public/"
+          - fi
+          - echo '-----构建 start-----'
           - '# 构建'
           - npm run build
-          - '# 将新的文件移动到网站根目录'
+          - echo '-----构建 end-----'
+          - ''
+          - rm -rf /usr/local/nginx/html/*
           - mv /root/note_hugo/public/* /usr/local/nginx/html/
-          - '#删除构建产物'
-          - rm -rf /root/note_hugo/public/*
+          - ''
+          - echo 'Success!!!'
         notify: []
         strategy:
           retry: '0'
