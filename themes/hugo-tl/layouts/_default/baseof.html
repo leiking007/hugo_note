@@ -42,14 +42,14 @@
 {{- block "petiteVueScript" . }}{{- end -}}
 <script>
     let obj={}
-    console.log(`当前页vue参数列表如下`)
     for (let vueObjKey in vueObj) {
         obj={
             ...obj,
             ...vueObj[vueObjKey]
         }
     }
-    console.log(obj)
+    console.log(`当前页vue参数列表如下：`)
+    console.log(${obj})
     PetiteVue.createApp({
         $delimiters: ['[[', ']]'],
         ...obj
