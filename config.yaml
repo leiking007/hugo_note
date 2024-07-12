@@ -28,11 +28,16 @@ menu:
     pre: icon-shouye
     url: /about/
     weight: -50
+  - identifier: diagrams
+    name: 统计
+    pre: icon-sousuo
+    url: /diagrams/
+    weight: -40
   - identifier: search
     name: 搜索
     pre: icon-sousuo
     url: /search/
-    weight: -40
+    weight: -30
 
 build:
   noJSConfigInAssets: true  
