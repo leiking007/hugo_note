@@ -5,9 +5,6 @@
 
 /* @layer 会删除未使用的样式 */
 @layer components {
-    .theme-container{
-        @apply min-h-[100vh]
-    }
     .card {
         @apply bg-white rounded-lg shadow-sm p-4
     }

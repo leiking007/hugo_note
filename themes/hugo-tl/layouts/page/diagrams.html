@@ -2,10 +2,12 @@
 <script type="text/javascript" src='{{ relURL "lib/echarts.min.js" }}'></script>
 {{ end }}
 {{ define "main" }}
-<div class="max-w-none">
-    {{ .Content }}
-    <div id="chart1" class="m-2 w-full h-[400px]"></div>
-    <div id="chart2" class="m-2 w-full h-[400px]"></div>
+<div class="col-span-12">
+    <div class="max-w-none">
+        {{ .Content }}
+        <div id="chart1" class="m-2 w-full h-[400px]"></div>
+        <div id="chart2" class="m-2 w-full h-[400px]"></div>
+    </div>
 </div>
 <script>
     // 基于准备好的dom，初始化echarts实例

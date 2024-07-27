@@ -1,12 +1,14 @@
 {{ define "main" }}
-<main>
-    <h1>{{ .Title }}</h1>
-    {{ range (.Paginate .Pages 9).Pages }}
-    <div class="m-2">
-        <a href="{{.Permalink}}">{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}} |
-            {{.Title}}</a><br>
+    <div class="col-span-12">
+        <main>
+            <h1>{{ .Title }}</h1>
+            {{ range (.Paginate .Pages 9).Pages }}
+                <div class="m-2">
+                    <a href="{{ .Permalink }}">{{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) }} |
+                        {{ .Title }}</a><br>
+                </div>
+            {{ end }}
+            {{- template "partials/pagination.html" . -}}
+        </main>
     </div>
-    {{ end }}
-    {{- template "partials/pagination.html" . -}}
-</main>
 {{ end }}

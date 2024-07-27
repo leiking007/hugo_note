@@ -1,10 +1,12 @@
 {{ define "main" }}
-<main>
-    {{ range .Pages }}
-    <div class="m-2">
-        <a href="{{.Permalink}}">{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}} |
-            {{.Title}}</a><br>
-    </div>
-    {{ end }}
-</main>
+<div class="col-span-12">
+    <main>
+        {{ range .Pages }}
+        <div class="m-2">
+            <a href="{{.Permalink}}">{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}} |
+                {{.Title}}</a><br>
+        </div>
+        {{ end }}
+    </main>
+</div>
 {{ end }}

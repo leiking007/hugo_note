@@ -13,29 +13,22 @@
 <body class="font-sans text-base bg-gray-50">
 <div id="app">
     <div class="theme-container">
-        <header class="relative lg:sticky top-0 bg-white bg-opacity-95 shadow-md z-30">
-            {{- partial "header.html" . -}}
-        </header>
-        <div class="container mx-auto my-3">
-            <div class="p-2 lg:p-0 grid grid-rows-1 gap-x-8 grid-cols-12 min-h-screen">
-                <div class="col-span-12 lg:col-span-8 ">
-                    {{- block "main" . }}{{- end -}}
-                </div>
-                <div class="hidden lg:block lg:col-span-4">
-                    {{- partial "right.html" . -}}
-                    {{- block "right" . }}{{- end -}}
-                </div>
+        {{- partial "header.html" . -}}
+        <div class="container mx-auto">
+            <div class="py-2 mt-6 lg:p-0 grid grid-rows-1 grid-cols-12 min-h-[90vh]">
+                {{- block "left" . }}{{- end -}}
+                {{- block "main" . }}{{- end -}}
+                {{- block "right" . }}{{- end -}}
             </div>
         </div>
-        <div>
-            {{- partialCached "footer.html" . -}}
-        </div>
+        {{- partialCached "footer.html" . -}}
         <div id="return-top" class="hidden fixed bottom-12 right-12 hover:text-amber-700">
             <i class="iconfont icon-top text-3xl"></i>
         </div>
     </div>
 </div>
 </body>
+{{- block "script" . }}{{- end -}}
 <script>
     const vueObj={}
 </script>
@@ -48,8 +41,6 @@
             ...vueObj[vueObjKey]
         }
     }
-    console.log(`当前页vue参数列表如下：`)
-    console.log(obj)
     PetiteVue.createApp({
         $delimiters: ['[[', ']]'],
         ...obj

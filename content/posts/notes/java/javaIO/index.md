@@ -1,6 +1,6 @@
 ---
 title: "Java IO流"
-date: 2023-5-28 12:12:12
+date: 2023-5-28
 lastmod: 2023-5-28 12:12:12
 draft: false
 tags: ['JavaSE']

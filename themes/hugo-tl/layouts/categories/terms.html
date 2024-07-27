@@ -1,9 +1,11 @@
 {{ define "main" }}
-<main>
-    {{ range .Pages }}
-    <div class="p-2">
-        <a class="text-xl" href="{{.Permalink}}">{{.Title}}</a>
+    <div class="col-span-12">
+        <main>
+            {{ range .Pages }}
+                <div class="p-2">
+                    <a class="text-xl" href="{{ .Permalink }}">{{ .Title }}</a>
+                </div>
+            {{ end }}
+        </main>
     </div>
-    {{ end }}
-</main>
 {{ end }}
