@@ -31,6 +31,10 @@ stages:
           - if [ -d "/root/note_hugo/public/" ];then
           - "\trm -rf /root/note_hugo/public/"
           - fi
+          - echo '-----更新依赖 start-----'
+          - '# 构建'
+          - npm install
+          - echo '-----更新依赖 end-----'
           - echo '-----构建 start-----'
           - '# 构建'
           - npm run build
