@@ -1,0 +1,7 @@
+AuthorName: lei
+subtitle: "每天八杯水"
+dateFormat : 2006-01-02
+enableCat: true
+cdnEnable: false  #是否启用cdn加速  data/external.yaml 中配置
+toc: true
+rssFullContent: true   # rss是否包含正文内容

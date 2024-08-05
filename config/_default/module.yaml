@@ -1,0 +1,21 @@
+# 模版中使用时相当于在 target 目录中
+mounts:
+  - source: node_modules/echarts/dist
+    target: static/lib/echarts
+  - source: node_modules/petite-vue/dist
+    target: static/lib/petite-vue
+  # 以下是默认 mount
+  - source: content
+    target: content
+  - source: static
+    target: static
+  - source: layouts
+    target: layouts
+  - source: data
+    target: data
+  - source: assets
+    target: assets
+  - source: i18n
+    target: i18n
+  - source: archetypes
+    target: archetypes

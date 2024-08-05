@@ -1,0 +1,26 @@
+main:
+  - identifier: categories
+    name: 分类
+    pre: icon-guidang
+    url: /categories/
+    weight: -70
+  - identifier: tags
+    name: 标签
+    pre: icon-24gl-tags2
+    url: /tags/
+    weight: -60
+  - identifier: about
+    name: 关于
+    pre: icon-shouye
+    url: /about/
+    weight: -50
+  - identifier: diagrams
+    name: 统计
+    pre: icon-sousuo
+    url: /diagrams/
+    weight: -40
+  - identifier: search
+    name: 搜索
+    pre: icon-sousuo
+    url: /search/
+    weight: -30
