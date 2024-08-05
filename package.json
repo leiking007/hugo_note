@@ -7,7 +7,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "hugo-extended": "^0.130.0",
     "npm-run-all": "^4.1.5",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.4.7"
   },
   "scripts": {
     "start:css": "npx tailwindcss -i ./themes/hugo-tl/assets/css/main.css -o ./themes/hugo-tl/assets/css/style.css -w",
