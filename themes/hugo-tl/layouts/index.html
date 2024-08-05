@@ -1,11 +1,13 @@
 {{ define "main" }}
 <main class="col-span-12 lg:col-span-8 lg:col-start-3">
-  <header class="my-5  rounded">
-    <h1 class="text-3xl">{{.Title}}</h1>
-    {{ with .Site.Params.subtitle }}
-    <p class="subtitle">{{.}}</p>
-    {{ end }}
-  </header>
+  <div class="p-6 rounded" style='background-image: url("{{ relURL "images/background-2.jpg" }}")'>
+    <header class='my-5  rounded ' >
+      <h1 class="text-3xl">{{.Title}}</h1>
+      {{ with .Site.Params.subtitle }}
+      <p class="subtitle">{{.}}</p>
+      {{ end }}
+    </header>
+  </div>
   {{/*  获取常规页面  */}}
   {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
   {{/*  获取所有页面，并且 hidden != true  */}}
