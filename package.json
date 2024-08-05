@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start:css": "npx tailwindcss -i ./themes/hugo-tl/assets/css/main.css -o ./themes/hugo-tl/assets/css/style.css -w",
-    "start:hugo": "hugo server --disableFastRender --noBuildLock --verbose --debug",
+    "start:hugo": "hugo server --disableFastRender --noBuildLock --logLevel debug",
     "start": "run-p start:*",
     "build:css": "npx tailwindcss -i ./themes/hugo-tl/assets/css/main.css -o ./themes/hugo-tl/assets/css/style.css -m",
     "build:hugo": "hugo --minify",
