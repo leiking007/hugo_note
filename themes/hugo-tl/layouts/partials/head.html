@@ -17,7 +17,7 @@
 {{- $mainjs := resources.Get "ts/main.ts" | js.Build $opts | resources.Fingerprint "sha256" -}}
 <script type="text/javascript" src="{{ $mainjs.RelPermalink }}" integrity="{{ $mainjs.Data.Integrity }}" crossorigin="anonymous" defer></script>
 
-<script type="text/javascript" src='{{ relURL "lib/petite-vue/petite-vue.iife.js" }}'></script>
+<script type="text/javascript" src='{{ relURL "lib/petite-vue/petite-vue.iife.js" }}' defer></script>
 <!-- End -->
 
 
