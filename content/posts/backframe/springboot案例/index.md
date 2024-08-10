@@ -2367,7 +2367,7 @@ public class RequestLogAspect {
 - 重排：将原始数据中的某些字符或字段的顺序打乱。例如，将身份证号码的随机位交错互换。
 - 加噪：在数据中注入一些误差或者噪音，达到对数据脱敏的效果。例如，在敏感数据中添加一些随机生成的字符。
 
-#### 方式1
+#### 方式1(@JsonSerialize)
 
 利用Hutool 提供的 `DesensitizedUtil`脱敏工具类配合 Jackson 通过注解的方式完成数据脱敏
 
@@ -2492,7 +2492,7 @@ public class RequestLogAspect {
 
    ![image-20240810102841864](./images.assets/image-20240810102841864.png)
 
-#### 方式2
+#### 方式2(@JsonComponent)
 
 不是用注解，在配置文件配置需要脱敏的字段和脱敏方式
 
