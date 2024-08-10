@@ -2273,7 +2273,339 @@ public class RequestLogAspect {
 
 ![9b44287bd9e642abfc8edcd09a51b87a](./images.assets/9b44287bd9e642abfc8edcd09a51b87a.png)
 
+### 配置元数据
 
+`spring-configuration-metadata.json`用于配置元数据，主要作用是当在配置文件中尝试编写配置时，IDE 可以根据这个元数据信息进行提示
+
+配置元数据文件位于jars中 `META-INF/spring-configuration-metadata.json` 下。 它们使用JSON格式，项目分类为 “groups” 或 “properties”，附加值提示分类为 "hints"
+
+#### Group 属性
+
+包含在 `groups` 数组中的JSON对象可以包含下表中的属性。
+
+| Name           | 类型   | 目的                                                         |
+| :------------- | :----- | :----------------------------------------------------------- |
+| `name`         | String | 该组的全名。 这个属性是强制性的。                            |
+| `type`         | String | 该组的数据类型的类名。 例如，如果该组是基于一个用 `@ConfigurationProperties` 注解的类，该属性将包含该类的完全限定名称。 如果它是基于一个 `@Bean` 方法，它将是该方法的返回类型。 如果类型不详，该属性可以省略。 |
+| `description`  | String | 对该组的简短描述，可以显示给用户。 如果没有描述，可以省略。 建议描述是简短的段落，第一行提供一个简洁的摘要。 描述中的最后一行应以句号（`.`）结束。 |
+| `sourceType`   | String | 贡献这个组的来源的类名。 例如，如果这个组是基于一个 `@Bean` 方法，用 `@ConfigurationProperties` 注释，这个属性将包含包含该方法的 `@Configuration` 类的完全合格名称。 如果不知道源类型，该属性可以省略。 |
+| `sourceMethod` | String | 贡献这个组的方法的全名（包括括号和参数类型）（例如，一个 `@ConfigurationProperties` 注释的 `@Bean` 方法的名称）。 如果源方法不知道，可以省略。 |
+
+#### Property 属性
+
+`properties` 数组中包含的JSON对象可以包含下表中描述的属性。
+
+| Name           | 类型        | 目的                                                         |
+| :------------- | :---------- | :----------------------------------------------------------- |
+| `name`         | String      | 属性的全名。 名称采用小写的句号分隔形式（例如，`server.address`）。 这个属性是强制性的。 |
+| `type`         | String      | 该属性的数据类型的完整签名（例如，`java.lang.String`），但也有完整的通用类型（例如 `java.util.Map<java.lang.String,com.example.MyEnum>`）。 你可以使用此属性来指导用户可以输入的值的类型。 为了保持一致性，基元的类型是通过使用其包装类型来指定的（例如，`boolean` 变成 `java.lang.Boolean`）。 请注意，这个类可能是一个复杂的类型，当值被绑定时，会从 `String` 转换过来。 如果该类型不知道，可以省略。 |
+| `description`  | String      | 可以显示给用户的该property的简短描述。 如果没有描述，可以省略。 建议描述是简短的段落，第一行提供一个简洁的摘要。 描述中的最后一行应以句号（`.`）结束。 |
+| `sourceType`   | String      | 贡献此属性的来源的类名。 例如，如果该属性来自于一个用 `@ConfigurationProperties` 注解的类，该属性将包含该类的完全限定名称。 如果源类型未知，可以省略。 |
+| `defaultValue` | Object      | 默认值，如果没有指定该属性，则使用该值。 如果该属性的类型是一个数组，它可以是一个数组的值。 如果默认值是未知的，它可以被省略。 |
+| `deprecation`  | Deprecation | 指定该属性是否被废弃。 如果该字段没有被废弃，或者不知道该信息，可以省略。 下表提供了关于 `deprecation` 属性的更多细节。 |
+
+#### 注解处理器（Annotation Processor）生成元数据
+
+该处理器同时拾取带有 `@ConfigurationProperties` 注解的类和方法。
+
+导入依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-configuration-processor</artifactId>
+    <optional>true</optional>
+</dependency>
+```
+
+![image-20240810113259726](./images.assets/image-20240810113259726.png)
+
+#### 实例
+
+```json
+{
+  "groups": [
+    {
+      "name": "lei.security.desensitization",
+      "type": "org.lei.ch01.config.asd.SecurityProperties",
+      "sourceType": "org.lei.ch01.config.asd.SecurityProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "lei.security.desensitization.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用",
+      "sourceType": "org.lei.ch01.config.asd.SecurityProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "lei.security.desensitization.fields",
+      "type": "java.util.Set<org.lei.ch01.config.asd.SecurityProperties$DesensitizationField>",
+      "description": "脱敏字段",
+      "sourceType": "org.lei.ch01.config.asd.SecurityProperties"
+    },
+    {
+      "name": "lei.security.desensitization.no-desensitization-urls",
+      "type": "java.util.Set<java.lang.String>",
+      "description": "不需要脱敏的 urls",
+      "sourceType": "org.lei.ch01.config.asd.SecurityProperties"
+    }
+  ],
+  "hints": []
+}
+```
+
+
+
+### 脱敏
+
+脱敏的规则有很多种，例如：
+
+- 替换(常用)：将敏感数据中的特定字符或字符序列替换为其他字符。例如，将信用卡号中的中间几位数字替换为星号（*）或其他字符。
+- 删除：将敏感数据中的部分内容随机删除。例如，将电话号码的随机 3 位数字进行删除。
+- 重排：将原始数据中的某些字符或字段的顺序打乱。例如，将身份证号码的随机位交错互换。
+- 加噪：在数据中注入一些误差或者噪音，达到对数据脱敏的效果。例如，在敏感数据中添加一些随机生成的字符。
+
+#### 方式1
+
+利用Hutool 提供的 `DesensitizedUtil`脱敏工具类配合 Jackson 通过注解的方式完成数据脱敏
+
+1. 新建自定义序列化类`DesensitizationSerialize`
+
+   ```java
+   
+   /**
+    * 自定义序列化类，用于数据脱敏处理
+    * 支持多种脱敏类型，包括自定义规则。
+    */
+   @AllArgsConstructor
+   @NoArgsConstructor
+   public class DesensitizationSerialize extends JsonSerializer<String> implements ContextualSerializer {
+   
+       private DesensitizationTypeEnum type;
+       private Integer startInclude;
+       private Integer endExclude;
+   
+       @Override
+       public void serialize(String s, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+           jsonGenerator.writeString(type.desensitize(s, startInclude, endExclude));
+       }
+   
+       @Override
+       public JsonSerializer<?> createContextual(SerializerProvider serializerProvider, BeanProperty beanProperty) throws JsonMappingException {
+           if (beanProperty != null) {
+               // 判断数据类型是否为String类型
+               if (Objects.equals(beanProperty.getType().getRawClass(), String.class)) {
+                   // 获取定义的注解
+                   Desensitization desensitization = beanProperty.getAnnotation(Desensitization.class);
+                   // 如果字段上没有注解，则从上下文中获取注解
+                   if (desensitization == null) {
+                       desensitization = beanProperty.getContextAnnotation(Desensitization.class);
+                   }
+                   // 如果找到了注解，创建新的序列化实例
+                   if (desensitization != null) {
+                       return new DesensitizationSerialize(desensitization.type(), desensitization.startInclude(), desensitization.endExclude());
+                   }
+               }
+               // 如果不是String类型，使用默认的序列化处理
+               return serializerProvider.findValueSerializer(beanProperty.getType(), beanProperty);
+           }
+           // 如果beanProperty为null，返回默认的null值序列化处理
+           return serializerProvider.findNullValueSerializer(null);
+       }
+   }
+   ```
+
+2. 新建常用的脱敏类型`DesensitizationTypeEnum`
+
+   ```java
+   public enum DesensitizationTypeEnum {
+       // 自定义
+       MY_RULE {
+           @Override
+           public String desensitize(String str, Integer startInclude, Integer endExclude) {
+               return StrUtil.hide(str, startInclude, endExclude);
+           }
+       },
+       // 用户id
+       USER_ID {
+           @Override
+           public String desensitize(String str, Integer startInclude, Integer endExclude) {
+               return String.valueOf(DesensitizedUtil.userId());
+           }
+       },
+       MOBILE_PHONE {
+           @Override
+           public String desensitize(String str, Integer startInclude, Integer endExclude) {
+               return String.valueOf(DesensitizedUtil.mobilePhone(str));
+           }
+       },
+       EMAIL {
+           @Override
+           public String desensitize(String str, Integer startInclude, Integer endExclude) {
+               return String.valueOf(DesensitizedUtil.email(str));
+           }
+       },
+       ID_CARD {
+           @Override
+           public String desensitize(String str, Integer startInclude, Integer endExclude) {
+               return String.valueOf(DesensitizedUtil.idCardNum(str,4,4));
+           }
+       };
+       // 省略其他枚举字段
+       // ...
+   
+   
+       // 使用 hutool 提供的脱敏工具对数据进行脱敏
+       public abstract String desensitize(String str, Integer startInclude, Integer endExclude);
+   }
+   ```
+
+3. 新建注解，用于标记需要脱敏字段`Desensitization`
+
+   ```java
+   @Target(ElementType.FIELD)
+   @Retention(RetentionPolicy.RUNTIME)
+   @JacksonAnnotationsInside
+   // 指定序列化时使用 DesensitizationSerialize 这个自定义序列化类
+   @JsonSerialize(using = DesensitizationSerialize.class)
+   public @interface Desensitization {
+       /**
+        * 脱敏数据类型，在MY_RULE的时候，startInclude和endExclude生效
+        */
+       DesensitizationTypeEnum type() default DesensitizationTypeEnum.MY_RULE;
+   
+       /**
+        * 脱敏开始位置（包含）
+        */
+       int startInclude() default 0;
+   
+       /**
+        * 脱敏结束位置（不包含）
+        */
+       int endExclude() default 0;
+   }
+   ```
+
+4. 在需要脱敏的实体类字段上使用该注解标注即可
+
+   ![image-20240810102841864](./images.assets/image-20240810102841864.png)
+
+#### 方式2
+
+不是用注解，在配置文件配置需要脱敏的字段和脱敏方式
+
+1. 新增配置信息
+
+   ```yaml
+   lei:
+     security:
+       desensitization:
+         enabled: true
+         fields:
+           - field: email
+             sensitive-strategy: email
+           - field: idCard
+             sensitive-strategy: id_card
+   ```
+
+2. 新建配置读取文件，可以使用`spring-boot-configuration-processor`生成配置元数据，方便尝试编写配置时 IDE 可以提示
+
+   ```java
+   @Data
+   @Component
+   @ConfigurationProperties(prefix = "lei.security.desensitization")
+   public class DesensitizationProperties {
+   
+       /**
+        * 是否启用
+        */
+       private Boolean enabled = false;
+       /**
+        * 不需要脱敏的 urls
+        */
+       private Set<String> noDesensitizationUrls = new HashSet<>();
+       /**
+        * 脱敏字段
+        */
+       private Set<DesensitizationField> fields = new HashSet<>();
+   
+       @Data
+       public static class DesensitizationField{
+           private String field;
+           private SensitiveStrategy sensitiveStrategy;
+       }
+   }
+   ```
+
+3. 自定义 String 类型的`JsonSerializer`
+
+   ```java
+   @JsonComponent
+   public class DesensitizationJsonSerializer extends JsonSerializer<String> {
+   
+       @Resource
+       private DesensitizationProperties desensitizationProperties;
+   
+       public DesensitizationJsonSerializer() {
+       }
+   
+       public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+           JsonStreamContext outputContext = gen.getOutputContext();
+           String currentName = outputContext.getCurrentName();
+           // 判断是否启用脱敏 及 脱敏字段是否为空
+           if (this.desensitizationProperties.getEnabled() && !this.desensitizationProperties.getFields().isEmpty()) {
+               Optional<DesensitizationProperties.DesensitizationField> first = this.desensitizationProperties.getFields().stream()
+                       .filter((desensitizationFieldx) -> desensitizationFieldx.getField().equalsIgnoreCase(currentName))
+                       .findFirst();
+               if (first.isPresent()) {
+                   DesensitizationProperties.DesensitizationField desensitizationField = first.get();
+                   // 通过脱敏枚举类进行脱敏操作
+                   String apply = desensitizationField.getSensitiveStrategy().desensitizer().apply(value);
+                   gen.writeString(apply);
+                   return;
+               }
+           }
+           gen.writeString(value);
+       }
+   }
+   ```
+
+4. 新建脱敏枚举类`SensitiveStrategy`
+
+   ```java
+   public enum SensitiveStrategy {
+       PERSON_NAME((s) -> {
+           return s.replaceAll("(?<=^.{1}).", "*");
+       }),
+       ID_CARD((s) -> {
+           return s.replaceAll("\\d{6}(\\d{8})\\w{4}", "******$1****");
+       }),
+       PHONE((s) -> {
+           return s.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+       }),
+       ADDRESS((s) -> {
+           return s.replaceAll("(\\S{3})\\S{2}(\\S*)\\S{2}", "$1****$2****");
+       }),
+       EMAIL((s) -> {
+           return s.replaceAll("(\\w+)\\w{3}@(\\w+)", "$1***@$2");
+       }),
+       BANK_CARD((s) -> {
+           return s.replaceAll("(\\S{3})\\S*(\\S{3})", "$1******$2");
+       });
+   
+       private final Function<String, String> desensitizer;
+   
+       SensitiveStrategy(Function<String, String> desensitizer) {
+           this.desensitizer = desensitizer;
+       }
+   
+       public Function<String, String> desensitizer() {
+           return this.desensitizer;
+       }
+   }
+   ```
 
 ## 综合案例
 
