@@ -34,7 +34,8 @@
     const vueObj={}
 </script>
 {{- block "petiteVueScript" . }}{{- end -}}
-<script>
+<script type="module">
+    import * as PetiteVue from '{{ relURL "lib/petite-vue/petite-vue.es.js" }}';
     let obj={}
     for (let vueObjKey in vueObj) {
         obj={
