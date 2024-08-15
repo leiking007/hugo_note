@@ -29,15 +29,14 @@
         </div>
         <div>
             {{  if and (and $hasTOC $pageTocEnable) $TOCManuallyEnable }}
-            <div class="lg:hidden sticky top-2 z-10 bg-white bg-opacity-95 shadow-md" @click="postSingle$showSmClick">
-                <h4 class="text-2xl shadow-md">{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
-                <div v-show="postSingle$changeSmTocShow"
-                     class="prose prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0 max-h-[70vh] overflow-y-auto">
+            <div id="smTableOfContentContainer" class="lg:hidden sticky top-2 z-10 bg-white bg-opacity-95 shadow-md">
+                <h4 data-type="tableTitle" class="text-2xl shadow-md">{{- T "article.tableOfContents" | default "tableOfContents" -}}</h4>
+                <div data-type="tableDetail" class="prose prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0 max-h-[70vh] overflow-y-auto" hidden>
                     {{ .TableOfContents }}
                 </div>
             </div>
             {{ end }}
-            <article id="content" data-pagefind-body>
+            <article data-type="content" data-pagefind-body>
                 {{ .Content }}
             </article>
         </div>
@@ -67,14 +66,3 @@
     {{ end }}
 </div>
 {{ end }}
-
-{{- define "petiteVueScript" -}}
-<script>
-    vueObj["postSingle"]={
-        postSingle$changeSmTocShow : false,
-        postSingle$showSmClick() {
-            this.postSingle$changeSmTocShow = !this.postSingle$changeSmTocShow
-        }
-    }
-</script>
-{{-  end -}}

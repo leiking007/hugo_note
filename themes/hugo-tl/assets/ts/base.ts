@@ -1,6 +1,18 @@
-// scorll 返回顶部
 import message from "./components/message";
 
+// 手机端文章页菜单显示或隐藏
+function post_toc_init():void {
+    let container:HTMLElement = document.getElementById("smTableOfContentContainer");
+    if (container){
+        let title:HTMLElement=container.querySelector('[data-type="tableTitle"]')
+        let tableDetail:HTMLElement=container.querySelector('[data-type="tableDetail"]')
+        title.addEventListener("click",()=>{
+            tableDetail.hidden=!tableDetail.hidden
+        })
+    }
+}
+
+// 回到顶部
 function fun_top(): void {
     let a: HTMLElement = document.getElementById("return-top")
     const app = document.body
@@ -21,6 +33,7 @@ function fun_top(): void {
     })
 }
 
+// 代码 copy 按钮
 function fun_copy(): void {
     let copyBtnList: NodeList = document.querySelectorAll("[data-type=\"copy-btn\"]")
     copyBtnList.forEach(copyBtn => {
@@ -71,6 +84,7 @@ function getTargetEle(curEle: Node, className: string): HTMLElement {
     return getTargetEle(parEle, className)
 }
 
+// 代码隐藏按钮
 function fun_collapse_code(): void {
     let collapseBtnList: NodeList = document.querySelectorAll("[data-type=\"collapse-btn-hidde\"]")
     collapseBtnList.forEach(collapseBtn => {
@@ -96,4 +110,4 @@ function fun_collapse_code(): void {
     })
 }
 
-export {fun_top, fun_copy, fun_collapse_code}
+export {fun_top, fun_copy, fun_collapse_code,post_toc_init}

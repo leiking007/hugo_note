@@ -29,23 +29,4 @@
 </div>
 </body>
 {{- block "script" . }}{{- end -}}
-<script>
-    <!--  全局 vueObj对象  -->
-    const vueObj={}
-</script>
-{{- block "petiteVueScript" . }}{{- end -}}
-<script type="module">
-    import * as PetiteVue from '{{ relURL "lib/petite-vue/petite-vue.es.js" }}';
-    let obj={}
-    for (let vueObjKey in vueObj) {
-        obj={
-            ...obj,
-            ...vueObj[vueObjKey]
-        }
-    }
-    PetiteVue.createApp({
-        $delimiters: ['[[', ']]'],
-        ...obj
-    }).mount()
-</script>
 </html>

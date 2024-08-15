@@ -1,4 +1,4 @@
-import {fun_top,fun_copy,fun_collapse_code} from "./base";
+import {fun_collapse_code, fun_copy, fun_top, post_toc_init} from "./base";
 import initToc from "./initToc";
 import {search} from "./search";
 
@@ -10,6 +10,7 @@ const  STACK={
         fun_copy()
         fun_collapse_code()
         search()
+        post_toc_init()
     }
 
 }

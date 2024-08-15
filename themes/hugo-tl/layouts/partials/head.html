@@ -16,8 +16,6 @@
 {{/*   resources.Concat 将多个资源文件内捆绑在一起   resources.Minify 允许压缩任何CSS、JS、JSON、HTML、SVG或XML资源  */}}
 {{- $mainjs := resources.Get "ts/main.ts" | js.Build $opts | resources.Fingerprint "sha256" -}}
 <script type="text/javascript" src="{{ $mainjs.RelPermalink }}" integrity="{{ $mainjs.Data.Integrity }}" crossorigin="anonymous" defer></script>
-
-{{/* <script type="text/javascript" src='{{ relURL "lib/petite-vue/petite-vue.iife.js" }}'></script> */}}
 <!-- End -->
 
 

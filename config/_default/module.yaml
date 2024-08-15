@@ -2,8 +2,6 @@
 mounts:
   - source: node_modules/echarts/dist
     target: static/lib/echarts
-  - source: node_modules/petite-vue/dist
-    target: static/lib/petite-vue
   # 以下是默认 mount
   - source: content
     target: content
