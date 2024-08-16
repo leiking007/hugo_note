@@ -1,7 +1,7 @@
 # 模版中使用时相当于在 target 目录中
 mounts:
-  - source: node_modules/echarts/dist
-    target: static/lib/echarts
+#  - source: node_modules/echarts/dist
+#    target: static/lib/echarts
   # 以下是默认 mount
   - source: content
     target: content
