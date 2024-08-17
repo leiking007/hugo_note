@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./content/**/*.md","./themes/hugo-tl/**/*.{html,js,ts}"],
+  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     fontSize: {
       'sm':['0.8rem',{

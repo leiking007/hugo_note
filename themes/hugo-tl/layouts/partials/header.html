@@ -1,4 +1,4 @@
-<header class="relative lg:sticky top-0 bg-white bg-opacity-95 shadow-md z-30 h-16">
+<header class="theme-header">
     <nav class="hidden lg:flex mx-auto max-w-7xl items-center justify-between p-3 px-8">
         <div class="flex lg:flex-1">
             <a href="{{.Site.BaseURL}}" class="-m-1.5 p-1.5">
@@ -21,7 +21,7 @@
             {{/* 判断当前页面url 和 菜单链接url是否相等，激活菜单 */}}
             {{ $active := eq (.URL | relLangURL) ($currentPage.RelPermalink | relLangURL) }}
             <a href="{{ .URL | relLangURL }}"
-               class="leading-10 text-gray-900 {{ if $active }} font-bold {{ end }} hover:font-semibold">
+               class="leading-10 {{ if $active }} font-bold {{ end }} hover:font-semibold">
                 {{ with .Pre }}
                 <i class="iconfont mr-3 {{.}}"></i>
                 {{ end }}
