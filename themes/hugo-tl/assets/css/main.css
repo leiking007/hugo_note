@@ -67,6 +67,9 @@
     .theme-post-prose{
         @apply prose max-w-none prose-h1:my-4 prose-h2:my-3 prose-h3:my-2 prose-table:block prose-table:overflow-x-auto
     }
+    .theme-sm-post-toc{
+        @apply prose prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0 max-h-[70vh] overflow-y-auto
+    }
     .theme-about{
         @apply prose max-w-none prose-h1:my-4 prose-h2:my-3 prose-h3:my-2
     }
@@ -170,6 +173,9 @@
         }
         .theme-post-prose{
             @apply prose-invert max-w-none prose-h1:my-4 prose-h2:my-3 prose-h3:my-2 prose-table:block prose-table:overflow-x-auto
+        }
+        .theme-sm-post-toc{
+            @apply prose-invert prose-a:no-underline prose-li:list-none prose-ul:my-1 prose-li:my-0 max-h-[70vh] overflow-y-auto
         }
         .theme-about{
             @apply prose-invert max-w-none prose-h1:my-4 prose-h2:my-3 prose-h3:my-2
