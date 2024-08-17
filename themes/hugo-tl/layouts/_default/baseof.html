@@ -1,5 +1,29 @@
 <!DOCTYPE html>
-<html lang="zh" class="scroll-pt-20" data-theme="light">
+<html lang="zh" class="scroll-pt-20" data-theme="dark">
+<script>
+    // 设置缓存/从缓存中获取
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute("data-theme","dark")
+    } else {
+        localStorage.theme = 'light'
+        document.documentElement.removeAttribute("data-theme")
+    }
+
+    // 添加切换按钮
+    window.addEventListener("load",()=>{
+        document.getElementById("themeChangeBtn").addEventListener("click",()=>{
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                localStorage.theme = 'light'
+                document.documentElement.removeAttribute("data-theme")
+            } else {
+                localStorage.theme = 'dark'
+                document.documentElement.setAttribute("data-theme","dark")
+            }
+        })
+    })
+
+
+</script>
 <head>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -11,7 +11,7 @@
         <div class="flex">
             <label for="searchInput" class="self-center mr-3">{{- T "search.title" -}}</label>
             <input type="search" id="searchInput"
-                   class="block w-5/6 rounded-md border-0 py-2 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                   class="block w-5/6 rounded-md border-0 py-2 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-gray-600 dark:text-amber-50 dark:ring-gray-400"
                    placeholder=" {{- T `search.placeholder` -}} "
                    autocomplete="off" {{ with .OutputFormats.Get "json" -}} data-json="{{ .Permalink }}"{{- end }}>
         </div>
