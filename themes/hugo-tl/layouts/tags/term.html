@@ -6,12 +6,12 @@
   <div class="">
     <main>
         {{ range (.Paginate .Pages 9).Pages }}
-        <div class="bg-white rounded-lg shadow-sm px-6 py-3 my-3">
+        <div class="shadow-xl my-4 p-4 card rounded-e-full">
             <a href="{{ .RelPermalink }}">
-                <p class=" leading-6 text-gray-900">{{- .Title }}</p>
+                <p class=" leading-6">{{- .Title }}</p>
                 <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                    <p class="text-sm leading-6 text-gray-900">lei</p>
-                    <p class="mt-1 text-xs leading-5 text-gray-500">日期 <time>{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}}</time></p>
+                    <p class="text-sm leading-6">lei</p>
+                    <p class="mt-1 text-xs leading-5">日期 <time>{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}}</time></p>
                 </div>
             </a>
         </div>
