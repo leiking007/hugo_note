@@ -6,7 +6,7 @@
   <div class="">
     <main>
         {{ range (.Paginate .Pages 9).Pages }}
-        <div class="shadow-xl my-4 p-4 card rounded-e-full">
+        <div class="shadow-xl my-4 p-4 card">
             <a href="{{ .RelPermalink }}">
                 <p class=" leading-6">{{- .Title }}</p>
                 <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
