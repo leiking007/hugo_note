@@ -10,9 +10,9 @@ author: "lei"
 
 # 杂记
 
-## 数据库
+## oracle
 
-### oracle
+### 数据库
 
 锁表
 
@@ -51,5 +51,54 @@ GRANT DBA TO DXPT_TEST;
 
 -- cmd 命令行执行导入
 imp portal_2024_kszx/portal_2024_kszx@10.161.7.14:1521/osapdb file=D:\kszx\portal_2024_kszx.dmp full=y ignore=y
+```
+
+### weblogic打补丁
+
+```cmd
+# weblogic 版本在后台登录页左下角可以看到，命令行需要管理员打开
+
+# 查看 opatch 版本（补丁会有opatch版本要求）
+%ORACLE_HOME%\OPatch\opatch.bat version
+
+# 查看已安装补丁
+%ORACLE_HOME%\OPatch\opatch.bat  lspatches
+
+# 验证什么补丁应用到了 oracle_home
+%ORACLE_HOME%\OPatch\opatch.bat lsinventory
+
+# 解压补丁包
+jar -xvf xxxx_Generic.zip
+
+# 进入解压目录下的 tools\spbat 目录
+
+# windows需要将 spbat.bat 脚本处理下（去掉日期的星期几，不然中文会报错）
+    for /F "tokens=1-3 delims=/:" %%i in ('date /t') do set curdate=%%i-%%j-%%k
+    For /f "tokens=1-4 delims=/:.," %%a in ("%TIME%") do set curtime=%%a-%%b-%%c-%%d
+    set curdate=%curdate: =%
+    set curtime=%curtime: =%
+    改为
+    for /F "tokens=1-3 delims=/: " %%i in ('date /t') do set curdate=%%i-%%j-%%k
+    For /f "tokens=1-4 delims=/:.," %%a in ("%TIME%") do set curtime=%%a-%%b-%%c
+    set curdate=%curdate: =%
+    set curtime=%curtime: =%
+
+# 这个命令 验证补丁包
+spbat.bat -phase precheck -oracle_home D:\Oracle\Middleware\Oracle_Home
+
+# 进行补丁包安装，opatch版本会自动更新 （当opatch版本不符合要求时直接执行）
+spbat.bat -phase apply -oracle_home D:\Oracle\Middleware\Oracle_Home
+
+
+#------------- 其他命令 ----------
+# 安装补丁（单个和多个）
+# 单个需要进补丁解压目录
+%ORACLE_HOME%\OPatch\opatch.bat apply
+# 多个需要指定id
+%ORACLE_HOME%\OPatch\opatch.bat napply -id 29633448, 28298916
+
+#补丁回滚（单个和多个）
+%ORACLE_HOME%\OPatch\opatch.bat rollback -id 26519417
+%ORACLE_HOME%\OPatch\opatch.bat nrollback -id 15941858,15955138
 ```
 
