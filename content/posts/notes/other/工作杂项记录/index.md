@@ -14,7 +14,7 @@ author: "lei"
 
 ### 数据库
 
-锁表
+#### 锁表
 
 ```sql
 -- 锁表
@@ -37,7 +37,24 @@ ALTER system kill SESSION '2844,28686' IMMEDIATE;
 
 ```
 
-导入 dmp 文件
+#### exp/imp
+
+> 保持表空间一致
+
+导出exp
+
+```sql
+-- 导出某个用户的全部数据库：其中，ywxy/ywxy@ORCL 是用户名/密码@数据库名，file=d:/daochu1.dmp 是导出的文件路径，full=y 表示导出整个数据库。
+exp username/passwd@ip:port/db file=d:/daochu1.dmp full=y
+
+-- 导出某个用户的某个库： 在这里，owner=user 指定了要导出的数据库用户。
+exp username/passwd@ip:port/db file=d:/daochu1.dmp owner=user
+
+-- 导出某个用户的某个表： tables=C_ZX_QYJC 是要导出的表名，如果需要导出多个表，则使用(table1,table2)的形式。
+exp username/passwd@ip:port/db file=d:/daochu1.dmp tables=C_ZX_QYJC
+```
+
+导入imp
 
 ```sql
 -- 查看版本号
@@ -50,7 +67,7 @@ grant create session,resource TO DXPT_TEST;
 GRANT DBA TO DXPT_TEST;
 
 -- cmd 命令行执行导入
-imp portal_2024_kszx/portal_2024_kszx@10.161.7.14:1521/osapdb file=D:\kszx\portal_2024_kszx.dmp full=y ignore=y
+imp username/passwd@ip:port/db file=D:\kszx\portal_2024_kszx.dmp full=y ignore=y
 ```
 
 ### weblogic打补丁
