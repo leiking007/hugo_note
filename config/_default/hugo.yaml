@@ -9,7 +9,8 @@ copyright: copyright@
 
 enableEmoji: true
 
-paginate: 9
+pagination:
+  pagerSize: 9
 
 summaryLength: 15  # 摘要长度
 

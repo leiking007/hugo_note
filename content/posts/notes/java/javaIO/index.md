@@ -1,7 +1,7 @@
 ---
 title: "Java IO流"
-date: 2023-5-28
-lastmod: 2023-5-28 12:12:12
+date: 2023-05-28
+lastmod: 2023-05-28
 draft: false
 tags: ['JavaSE']
 categories: ["笔记"]
