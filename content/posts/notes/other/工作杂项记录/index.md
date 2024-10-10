@@ -70,6 +70,21 @@ GRANT DBA TO DXPT_TEST;
 imp username/passwd@ip:port/db file=D:\kszx\portal_2024_kszx.dmp full=y ignore=y
 ```
 
+导出后导入中文乱码处理
+
+```sql
+-- 查询库的字符集 ；SIMPLIFIED CHINESE_CHINA.AL32UTF8;
+select userenv('language') from dual;
+
+-- 设置临时环境变量
+set NLS_LANG=SIMPLIFIED CHINESE_CHINA.AL32UTF8
+
+-- 切换当前cmd使用 utf-8 编码
+chcp 65001
+
+-- 执行导出导入命令
+```
+
 ### weblogic打补丁
 
 ```cmd
