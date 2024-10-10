@@ -1,5 +1,5 @@
 ---
-title: "Nginx"
+title: "nginx"
 date: 2021-05-14
 lastmod: 2021-05-24 12:12:12
 draft: false
@@ -8,7 +8,7 @@ categories: ["其他"]
 author: "lei"
 ---
 
-# Nginx
+# nginx
 
 ## 简介
 
@@ -27,19 +27,29 @@ author: "lei"
 > 安装
 
 ```bash
-tar -zxvf Nginx-1.20.1.tar.gz
-cd Nginx-1.20.1/
-./configure --prefix=/usr/local/Nginx
+tar -zxvf nginx-1.20.1.tar.gz
+cd nginx-1.20.1/
+
+# configure 报错时一般缺少一些库，根据提示安装即可
+# ubuntu ： apt-get install libpcre3 libpcre3-dev zlib1g zlib1g-dev openssl libssl-dev make
+./configure --prefix=/usr/local/nginx --with-http_ssl_module
+
+# 编译，编译后的nginx文件在objs里
 make
+
+# 安装，将编译后的文件安装到系统（创建相关目录等）
 make install
+
+# 重新编译时用得上
+make clean #清除上一次make命令生成的文件
 ```
 
 > 启动
 
 ```bash
-/usr/local/Nginx/sbin/Nginx		#普通启动
- /usr/local/Nginx/sbin/Nginx -c /usr/local/Nginx/conf/Nginx.conf	#通过配置文件启动
-ps -ef | grep Nginx		#查看Nginx进程，master和worker两个进程（主进程/工作进程）
+/usr/local/nginx/sbin/nginx		#普通启动
+ /usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf	#通过配置文件启动
+ps -ef | grep nginx		#查看nginx进程，master和worker两个进程（主进程/工作进程）
 ```
 
 > 关闭
@@ -52,27 +62,27 @@ kill -TERM 进程id	 #快速关闭，直接杀死
 > 重启
 
 ```bash
-/usr/local/Nginx/sbin/Nginx -s reload	#杀死进程，然后重新启动
+/usr/local/nginx/sbin/nginx -s reload	#杀死进程，然后重新启动
 ```
 
 > 其他命令
 
 ```bash
-/usr/local/Nginx/sbin/Nginx -c /usr/local/Nginx/conf/Nginx.conf -t	#-t参数，启动时检查配置文件
-/usr/local/Nginx/sbin/Nginx -V	#查看Nginx版本号、编译器版本、参数配置
+/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf -t	#-t参数，启动时检查配置文件
+/usr/local/nginx/sbin/nginx -V	#查看nginx版本号、编译器版本、参数配置
 ```
 
 > 默认目录
 
-- /etc/Nginx：Nginx配置文件目录, 所有的Nginx配置文件都在这里
-- /etc/Nginx/Nginx.conf：Nginx的主配置文件, 可以修改它来改变Nginx的全局配置.
-- /etc/Nginx/sites-available：这个目录存储每一个网站的"server blocks", Nginx通常不会使用这些配置, 除非它们被链接到sites-enabled目录. 一般所有的server block配置都在这个目录中设置, 然后软链接到别的目录
-- /etc/Nginx/sites-enabled：这个目录存储生效的"server blocks"配置. 通常, 这个配置都是链接到sites-available目录中的配置文件.
-- /etc/Nginx/snippets：这个目录主要可以包含在其它Nginx配置文件中的配置片段, 重复的配置都可以重构为配置片段.
--  /var/log/Nginx/access.log：每一个访问请求都会默认记录在这个文件中, 除非你做了其它设置.
-- /var/log/Nginx/error.log：任何Nginx的错误信息都会记录到这个文件中.
+- /etc/nginx：nginx配置文件目录, 所有的nginx配置文件都在这里
+- /etc/nginx/nginx.conf：nginx的主配置文件, 可以修改它来改变nginx的全局配置.
+- /etc/nginx/sites-available：这个目录存储每一个网站的"server blocks", nginx通常不会使用这些配置, 除非它们被链接到sites-enabled目录. 一般所有的server block配置都在这个目录中设置, 然后软链接到别的目录
+- /etc/nginx/sites-enabled：这个目录存储生效的"server blocks"配置. 通常, 这个配置都是链接到sites-available目录中的配置文件.
+- /etc/nginx/snippets：这个目录主要可以包含在其它nginx配置文件中的配置片段, 重复的配置都可以重构为配置片段.
+-  /var/log/nginx/access.log：每一个访问请求都会默认记录在这个文件中, 除非你做了其它设置.
+- /var/log/nginx/error.log：任何nginx的错误信息都会记录到这个文件中.
 
-## Nginx配置文件
+## nginx配置文件
 
 > 基础配置
 
@@ -87,7 +97,7 @@ worker_processes  1;
 #error_log  logs/error.log  error;
 
 #配置进程PID文件，存放进程
-#pid        logs/Nginx.pid;
+#pid        logs/nginx.pid;
 
 
 ```
@@ -99,7 +109,7 @@ worker_processes  1;
 ```ini
 #配置工作模式和连接数
 events {
-	#一个work进程连接上限，Nginx并发连接上线为worker_processes*worker_connections，上限为65535
+	#一个work进程连接上限，nginx并发连接上线为worker_processes*worker_connections，上限为65535
     worker_connections  1024;
 }
 ```
@@ -111,7 +121,7 @@ events {
 ```ini
 #配置http服务器，利用它的反向代理实现负载均衡
 http {
-	#配置Nginx支持可以支持的多媒体类型，/conf/mine.types下可以看见支持的文件
+	#配置nginx支持可以支持的多媒体类型，/conf/mine.types下可以看见支持的文件
     include       mime.types;
     
     #默认以流形式打开，未识别时
@@ -169,7 +179,7 @@ http {
         }
 
         # deny access to .htaccess files, if Apache's document root
-        # concurs with Nginx's one
+        # concurs with nginx's one
         #
         #location ~ /\.ht {
         #    deny  all;
@@ -185,7 +195,7 @@ http {
 
    ```ini
    location / {
-       root   /usr/share/Nginx/html;
+       root   /usr/share/nginx/html;
        index  index.html index.htm;
    }
    location /myweb {
@@ -196,11 +206,11 @@ http {
 
 2. `root`指定的时 `/` 路径，所以需要在`/home/html`下创建myweb目录
 
-3. 重启Nginx：`Nginx -s reload`
+3. 重启nginx：`nginx -s reload`
 
 ## 负载均衡
 
-原理图`统一入口Nginx`
+原理图`统一入口nginx`
 
 ![image-20210807231614382](index.assets/image-20210807231614382.png ':size=600*300')
 
@@ -288,7 +298,7 @@ server{
 
 ## 静态代理
 
-静态资源由Nginx处理，通过拦截静态资源的请求，进行相应的处理
+静态资源由nginx处理，通过拦截静态资源的请求，进行相应的处理
 
 > 实现方式一，在 location 中配置静态资源的后缀，拦截请求后缀名
 
@@ -314,7 +324,7 @@ location ~.*/(css|js|img|images) {
 
 > 实现
 
-- Nginx负载均衡服务器
+- nginx负载均衡服务器
 
   ```ini
   upstream myweb {
@@ -336,7 +346,7 @@ location ~.*/(css|js|img|images) {
   }
   ```
 
-- 配置存放静态资源的Nginx服务器
+- 配置存放静态资源的nginx服务器
 
   ```ini
   location ~.*/(css|js|img|images) {
