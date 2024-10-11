@@ -169,3 +169,19 @@ swapon --show
 /swap/swapfile swap swap defaults 0 0
 ```
 
+### 修改系统时间
+
+```bash
+# 查看当前时间
+date
+
+# 设置系统时间（临时），重启后会变回硬件时间
+date -s "YYYY-MM-DD hh:mm:ss"
+
+# 将系统时间同步到硬件
+hwclock --systohc
+
+# 将硬件时间同步到系统
+hwclock --hctosys
+```
+
