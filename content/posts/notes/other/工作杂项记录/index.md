@@ -85,7 +85,9 @@ chcp 65001
 -- 执行导出导入命令
 ```
 
-### weblogic打补丁
+### weblogic
+
+#### 打补丁
 
 ```cmd
 # weblogic 版本在后台登录页左下角可以看到，命令行需要管理员打开
@@ -132,5 +134,38 @@ spbat.bat -phase apply -oracle_home D:\Oracle\Middleware\Oracle_Home
 #补丁回滚（单个和多个）
 %ORACLE_HOME%\OPatch\opatch.bat rollback -id 26519417
 %ORACLE_HOME%\OPatch\opatch.bat nrollback -id 15941858,15955138
+```
+
+## Linux
+
+### 扩容swap分区
+
+```bash
+# 查看当前 swap 大小
+free -m
+
+# 创建 swap 文件存储位置，并进入
+mkdir /swap
+
+# 创建分区文件 16g 16348M
+# if=/dev/zero 填充0；of=/swap/swapfile 分区文件位置；bs=1M 块大小；count=16348 分区大小
+dd if=/dev/zero of=/swap/swapfile bs=1M count=16348
+
+# 查看创建文件
+du -h /swap/swapfile
+
+# 创建 swap 分区文件系统
+# 注意：这里会生成 uuid，需要记录，后面设置开机启动时需要用上
+mkswap /swap/swapfile
+
+# 启用交换分区文件
+swapon /swap/swapfile
+
+# 查看 swap 分区
+swapon --show
+
+# 设置开机启动 swap 分区，编辑/etc/fstab，新增一行；
+# 也可以使用创建 swap 分区时返回的 uuid；通过 file 命令也可以查看，file /swap/swapfile
+/swap/swapfile swap swap defaults 0 0
 ```
 
