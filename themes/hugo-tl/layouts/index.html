@@ -23,7 +23,7 @@
     <div>
       {{ range $index, $element := $pag.Pages }}
       <div class="shadow-xl my-4 p-4 card rounded-e-2xl">
-          <a href="{{ .Permalink }}">
+          <a href="{{ .RelPermalink }}">
             <p class="text-2xl">{{ .Title }}
               <small class="text-sm">{{- T "article.lastUpdatedOn"  -}}: {{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) -}}</small>
             </p>

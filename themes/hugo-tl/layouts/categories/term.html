@@ -4,7 +4,7 @@
             <h1>{{ .Title }}</h1>
             {{ range (.Paginate .Pages 9).Pages }}
                 <div class="m-2">
-                    <a href="{{ .Permalink }}">{{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) }} |
+                    <a href="{{ .RelPermalink }}">{{ .Date.Format (default "January 2, 2006" .Site.Params.DateFormat) }} |
                         {{ .Title }}</a><br>
                 </div>
             {{ end }}

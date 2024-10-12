@@ -1,7 +1,7 @@
 {{ define "head" }}
 {{- with .OutputFormats.Get "json" -}}
 {{/*  preload：缓存该资源  */}}
-<link rel="preload" href="{{ .Permalink }}" as="fetch" crossorigin="anonymous">
+<link rel="preload" href="{{ .RelPermalink }}" as="fetch" crossorigin="anonymous">
 {{- end -}}
 {{ end }}
 
@@ -13,7 +13,7 @@
             <input type="search" id="searchInput"
                    class="block w-5/6 rounded-md border-0 py-2 px-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-gray-600 dark:text-amber-50 dark:ring-gray-400"
                    placeholder=" {{- T `search.placeholder` -}} "
-                   autocomplete="off" {{ with .OutputFormats.Get "json" -}} data-json="{{ .Permalink }}"{{- end }}>
+                   autocomplete="off" {{ with .OutputFormats.Get "json" -}} data-json="{{ .RelPermalink }}"{{- end }}>
         </div>
         <div id="search-result" class="mt-3 break-words">
             <h3 id="search-result-title"></h3>

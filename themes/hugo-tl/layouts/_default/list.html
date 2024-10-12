@@ -10,7 +10,7 @@
         <ul>
             {{ range .Pages }}
                 <li>
-                    <a href="{{.Permalink}}">{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}} | {{.Title}}</a>
+                    <a href="{{.RelPermalink}}">{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}} | {{.Title}}</a>
                 </li>
             {{ end }}
         </ul>

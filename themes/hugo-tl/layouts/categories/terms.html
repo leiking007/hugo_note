@@ -3,7 +3,7 @@
         <main>
             {{ range .Pages }}
                 <div class="p-2">
-                    <a class="text-xl" href="{{ .Permalink }}">{{ .Title }}</a>
+                    <a class="text-xl" href="{{ .RelPermalink }}">{{ .Title }}</a>
                 </div>
             {{ end }}
         </main>

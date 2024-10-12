@@ -2,7 +2,7 @@
 {{/* 常规页面合集 */}}
 {{- range where .Site.Pages "Kind" "page" -}}
 {{- if (not .Params.searchHidden) }}
-{{- $.Scratch.Add "index" (dict "title" .Title "date" .Date "content" .Plain "permalink" .Permalink "summary" .Summary) -}}
+{{- $.Scratch.Add "index" (dict "title" .Title "date" .Date "content" .Plain "permalink" .RelPermalink "summary" .Summary) -}}
 {{- end }}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}
