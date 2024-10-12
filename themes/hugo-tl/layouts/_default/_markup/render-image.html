@@ -1,1 +1,3 @@
-<img style="margin: 0 auto;max-height: 24rem;max-width: calc( 100% - 20px)" loading="lazy" src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}" {{ end }} />
+<!--<img style="margin: 0 auto;max-height: 24rem;max-width: calc( 100% - 20px)" loading="lazy" src="{{.Page.RelPermalink}}{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}" {{ end }} />-->
+{{ $imgUrl := printf "%s%s" .Page.RelPermalink .Destination }}
+<img style="margin: 0 auto;max-height: 24rem;max-width: calc( 100% - 20px)" loading="lazy" src="{{ $imgUrl | urls.AbsLangURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}" {{ end }} />
