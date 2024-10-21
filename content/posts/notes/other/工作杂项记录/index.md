@@ -6,6 +6,7 @@ draft: false
 tags: ['杂记']
 categories: ["笔记"]
 author: "lei"
+summary: oracle锁表、oracle导入导出、weblogic打补丁、Linux扩容swap分区、修改系统时间
 ---
 
 # 杂记
