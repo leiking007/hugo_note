@@ -4,18 +4,22 @@
     {{- partial "tags.html" . -}}
     <h1 class="text-2xl">{{ .Title }}</h1>
   <div class="">
-    <main>
-        {{ range (.Paginate .Pages 9).Pages }}
-        <div class="shadow-xl my-4 p-4 card">
-            <a href="{{ .RelPermalink }}">
-                <p class=" leading-6">{{- .Title }}</p>
-                <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                    <p class="text-sm leading-6">lei</p>
-                    <p class="mt-1 text-xs leading-5">日期 <time>{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}}</time></p>
-                </div>
-            </a>
+    <main >
+        <div class="grid grid-rows-1 grid-cols-12 md:gap-x-2">
+            {{/*  分页  */}}
+            {{ $pag := .Paginate (.Pages) (.Site.Params.pagination.tag_paginate | default 9)}}
+            {{ range $index, $element := $pag.Pages }}
+            <div class="shadow-xl my-2 p-4 card col-span-12 md:col-span-6">
+                <a href="{{ .RelPermalink }}">
+                    <p class=" leading-6">{{- .Title }}</p>
+                    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                        <p class="text-sm leading-6">lei</p>
+                        <p class="mt-1 text-xs leading-5">日期 <time>{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}}</time></p>
+                    </div>
+                </a>
+            </div>
+            {{ end }}
         </div>
-        {{ end }}
         {{- template "partials/pagination.html" . -}}
     </main>
   </div>

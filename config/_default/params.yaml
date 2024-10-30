@@ -1,8 +1,9 @@
 AuthorName: lei
-subtitle: "每天八杯水"
+subtitle: "时间如流水，匆匆而逝不复回。"
 dateFormat : 2006-01-02
 enableCat: true
 toc: true
 rssFullContent: false   # rss是否包含正文内容
 pagination:
   index_paginate: 16
+  tag_paginate: 10
