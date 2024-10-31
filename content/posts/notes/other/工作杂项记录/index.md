@@ -88,7 +88,7 @@ chcp 65001
 
 ### weblogic
 
-#### 打补丁
+#### 打补丁(12 c)
 
 ```cmd
 # weblogic 版本在后台登录页左下角可以看到，命令行需要管理员打开
@@ -136,6 +136,23 @@ spbat.bat -phase apply -oracle_home D:\Oracle\Middleware\Oracle_Home
 %ORACLE_HOME%\OPatch\opatch.bat rollback -id 26519417
 %ORACLE_HOME%\OPatch\opatch.bat nrollback -id 15941858,15955138
 ```
+
+#### 重置密码(12 c)
+
+```bash
+# 在 Oracle_Home 目录下
+
+# 执行命令重新生成 DefaultAuthenticatorInit.ldift 文件；账户: weblogic 密码: weblogic2019
+java -classpath wlserver\server\lib\weblogic.jar weblogic.security.utils.AdminAccount weblogic weblogic2019 user_projects\domains\base_domain\security
+
+# 删除 user_projects\domains\base_domain\servers\AdminServer\data\ldap 文件夹
+
+# 修改 user_projects\domains\base_domain\servers\AdminServer\security\boot.properties
+username=weblogic
+password=weblogic2019
+```
+
+
 
 ## Linux
 
