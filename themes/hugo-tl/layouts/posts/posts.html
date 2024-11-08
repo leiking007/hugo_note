@@ -1,12 +1,30 @@
 {{ define "main" }}
-<div class="col-span-12">
-    <main>
-        {{ range .Pages }}
-        <div class="m-2">
-            <a href="{{.RelPermalink}}">{{.Date.Format (default "January 2, 2006" .Site.Params.DateFormat)}} |
-                {{.Title}}</a><br>
+{{- $paginator := .Paginate (where .Data.Pages.ByDate.Reverse "Type" "in" .Site.Params.mainSections) (index .Site.Params.pagination "posts_paginate" | default 20) }}
+<div class="col-span-12" id="archive">
+    <h1 class="text-2xl">
+        {{- $length := len .Data.Pages }}
+        {{ i18n "section.archive" | default "posts" }}{{- T "section.counter_archives" $length -}}
+    </h1>
+
+    {{- range $paginator.Pages.GroupByDate "2006" }}
+    <section class="archive-group">
+        <div class="archive-group-title">
+            <h2 class="archive-year">{{ .Key }}</h2>
         </div>
-        {{ end }}
-    </main>
+        {{- range .Pages }}
+        <div class="archive-post">
+            <time datetime="{{ .Date.Format " 2006-01-02" }}" class="archive-post-time">
+            {{ .Date | time.Format (.Site.Params.dateFormat | default "2006-01-02") }}
+            </time>
+            <span class="archive-post-title">
+        <a href="{{ .RelPermalink }}" class="archive-post-link">
+          {{ .Title }}
+        </a>
+      </span>
+        </div>
+        {{- end }}
+    </section>
+    {{- end }}
+    {{- template "partials/pagination.html" . -}}
 </div>
 {{ end }}

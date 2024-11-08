@@ -1,6 +1,10 @@
 darkMode:
     other: 暗色模式
 
+section:
+    archive: 归档
+    counter_archives: 共计 {{.Count}} 篇文章
+
 article:
     back:
         other: 返回

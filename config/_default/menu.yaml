@@ -1,4 +1,9 @@
 main:
+  - identifier: posts
+    name: 归档
+    pre: icon-guidang
+    url: /posts/
+    weight: -80
   - identifier: categories
     name: 分类
     pre: icon-guidang
