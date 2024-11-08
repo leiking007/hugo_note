@@ -1,70 +1,33 @@
-darkMode:
-    other: Dark Mode
-
-list:
-    page:
-        one: "{{ .Count }} page"
-        other: "{{ .Count }} pages"
-
-    section:
-        other: Section
-
-    subsection:
-        one: Subsection
-        other: Subsections
-
 article:
-    back:
-        other: Back
-
-    tableOfContents:
-        other: Table of contents
-
-    relatedContent:
-        other: Related content
-
-    lastUpdatedOn:
-        other: Last updated on
-
-    readingTime:
-        one: "{{ .Count }} minute read"
-        other: "{{ .Count }} minute read"
+  table_of_contents: 目录
+  last_updated_on: 最后更新于
+  word_count: 约 {{ . }} 字
+  reading_time: 阅读时长{{ . }} 分钟
+  previous_article: 上一篇
+  next_article: 下一篇
 
 notFound:
-    title:
-        other: Not Found
-
-    subtitle:
-        other: This page does not exist
+  title: 404 错误
+  subtitle: 页面不存在
 
 widget:
-    archives:
-        title:
-            other: Archives
-
-        more:
-            other: More
-
-    tagCloud:
-        title:
-            other: Tags
-    categoriesCloud:
-        title:
-            other: Categories
+  archives:
+    title: 归档
+    counter_archives: 共计 {{.}} 篇文章
+  tags:
+    title: 标签
+  categories:
+    title: 分类
+  search:
+    title: 搜索
+  about:
+    title: 关于
 
 search:
-    title:
-        other: Search
-
-    placeholder:
-        other: Type something...
-
-    resultTitle:
-        other: "#PAGES_COUNT pages (#TIME_SECONDS seconds)"
+  title: 搜索
+  placeholder: 输入关键词搜索...
+  resultTitle: "#PAGES_COUNT 个结果 （用时 #TIME_SECONDS 秒）"
 
 footer:
-    builtWith:
-        other: Built with {{ .Generator }}
-
-    designedBy:
-        other: Theme {{ .Theme }} designed by {{ .DesignedBy }}
+  builtWith: Built with {{ .Generator }}
+  designedBy: 主题 {{ .Theme }} 由 {{ .DesignedBy }} 设计

@@ -6,5 +6,5 @@ toc: true
 rssFullContent: false   # rss是否包含正文内容
 pagination:
   index_paginate: 16
-  posts_paginate: 24
+  posts_paginate: 30
   tag_paginate: 9

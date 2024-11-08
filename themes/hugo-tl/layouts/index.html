@@ -25,7 +25,7 @@
       <div class="shadow-xl my-2 p-4 card rounded-e-2xl col-span-12 md:col-span-6">
           <a href="{{ .RelPermalink }}">
             <p class="text-2xl">{{ .Title }}</p>
-            <small class="text-sm">{{- T "article.lastUpdatedOn"  -}}: {{ .Date | time.Format (.Site.Params.dateFormat | default "2006-01-02") }}</small>
+            <small class="text-sm">{{- T "article.last_updated_on"  -}}: {{ .Date | time.Format (.Site.Params.dateFormat | default "2006-01-02") }}</small>
 <!--            <p class="fs-6">{{ .Summary }}</p>-->
           </a>
         </div>
